@@ -1,11 +1,11 @@
 import {} from '../../scripts/aem.js';
-import { searchEngine } from '../../scripts/coveo-search/engine.js';
-import { renderSearchBox } from '../../scripts/coveo-search/components/renderSearchBox.js';
-import { renderSearchResults } from '../../scripts/coveo-search/components/searchResult.js';
-import { renderSourceFacet, renderFiletypeFacet, renderPagetypeFacet} from '../../scripts/coveo-search/components/categoryFacets.js'
-import { renderPagination } from '../../scripts/coveo-search/components/pagination.js'
-import { renderQuerySummary } from '../../scripts/coveo-search/components/querySummary.js'
-import { renderSorting } from '../../scripts/coveo-search/components/sorting.js'
+import { searchEngine } from '../../scripts/searchresult/engine.js';
+import { renderSearchBox } from '../../scripts/searchresult/components/renderSearchBox.js';
+import { renderSearchResults } from '../../scripts/searchresult/components/searchResult.js';
+import { renderSourceFacet, renderFiletypeFacet, renderPagetypeFacet} from '../../scripts/searchresult/components/categoryFacets.js'
+import { renderPagination } from '../../scripts/searchresult/components/pagination.js'
+import { renderQuerySummary } from '../../scripts/searchresult/components/querySummary.js'
+import { renderSorting } from '../../scripts/searchresult/components/sorting.js'
 export default async function decorate(block) {
   block.textContent = '';
   // Create the main container div
