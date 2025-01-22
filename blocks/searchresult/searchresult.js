@@ -51,9 +51,9 @@ export default async function decorate(block) {
       renderSearchResults();
       renderQuerySummary();
       renderPagination();
-      renderSourceFacet();
+      // renderSourceFacet();
       renderFiletypeFacet();
-      renderPagetypeFacet();
+      // renderPagetypeFacet();
     });
 
     await searchEngine.executeFirstSearch().catch((error) => {
