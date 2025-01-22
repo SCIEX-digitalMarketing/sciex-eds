@@ -42,7 +42,7 @@ export const renderSearchBox = () => {
     if (query.length > 0) {
       searchBoxController.updateText(query);
       searchBoxController.showSuggestions();
-      pagetypeFacetController.facetSearch.search(query);
+      searchBoxController.facetSearch.search(query);
       showSuggestions();
     } else {
       suggestionPopup.style.display = 'none';
@@ -50,12 +50,12 @@ export const renderSearchBox = () => {
     }
   });
 
-  queryInput.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-      searchBoxController.submit();
-      showResults();
-    }
-  });
+  // queryInput.addEventListener('keydown', (event) => {
+  //   if (event.key === 'Enter') {
+  //     searchBoxController.submit();
+  //     showResults();
+  //   }
+  // });
 
   searchBtn.addEventListener('click', () => {
     searchBoxController.submit();

@@ -46,7 +46,7 @@ export default async function decorate(block) {
   try {
     renderSearchBox();
     renderSorting();
-    searchEngine.executeFirstSearch();
+    // searchEngine.executeFirstSearch();
     searchEngine.subscribe(() => {
       renderSearchResults();
       renderQuerySummary();
