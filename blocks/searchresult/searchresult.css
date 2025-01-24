@@ -3,7 +3,7 @@
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 10%);
+  box-shadow: 0 2px 5px;
   background-color: #f9f9f9;
   max-width: 900px;
   display: flex;
@@ -45,10 +45,6 @@ input[type="text"], .coveo-search-container button, .search-box, .search-btn {
   cursor: pointer;
   padding: 6px 12px; /* Smaller padding for the button */
   width: 15%; /* Ensures the button takes up the remaining space */
-}
-
-.coveo-search-container button:hover, .search-btn:hover {
-  background-color: #005bb5;
 }
 
 /* Suggestion Popup (match width of the input field) */
@@ -119,22 +115,13 @@ input[type="text"], .coveo-search-container button, .search-box, .search-btn {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 10%);
+  box-shadow: 0 1px 3px;
 }
 
 .result-item h3 {
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 5px;
-}
-
-.result-item h3 a {
-  text-decoration: none;
-  color: #0073e6;
-}
-
-.result-item h3 a:hover {
-  text-decoration: underline;
 }
 
 .result-item p {
@@ -190,15 +177,23 @@ input[type="text"], .coveo-search-container button, .search-box, .search-btn {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Active page number */
-.pagination .active {
+.result-item h3 a {
+  text-decoration: none;
+  color: #0073e6;
+}
+
+.pagination span:hover,
+.pagination a:hover {
   background-color: #007bff;
   color: white;
 }
 
-/* Hover effect for page numbers */
-.pagination span:hover,
-.pagination a:hover {
+.result-item h3 a:hover {
+  text-decoration: underline;
+}
+
+/* Active page number */
+.pagination .active {
   background-color: #007bff;
   color: white;
 }
@@ -209,28 +204,7 @@ input[type="text"], .coveo-search-container button, .search-box, .search-btn {
   cursor: not-allowed;
 }
 
-/* Responsive Layout */
-@media (max-width: 768px) {
-  .search-wrapper {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .facet-section, .result-section {
-    width: 100%;
-  }
-
-  .coveo-search-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .coveo-search-container input[type="text"] {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-
-  .coveo-search-container button {
-    width: 100%;
-  }
+.coveo-search-container button:hover, .search-btn:hover {
+  background-color: #005bb5;
 }
+
