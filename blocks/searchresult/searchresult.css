@@ -1,10 +1,9 @@
-
 .coveo-search-component {
   margin: 20px auto;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 10%);
   background-color: #f9f9f9;
   max-width: 900px;
   display: flex;
@@ -120,7 +119,7 @@ input[type="text"], .coveo-search-container button, .search-box, .search-btn {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 10%);
 }
 
 .result-item h3 {
@@ -147,7 +146,7 @@ input[type="text"], .coveo-search-container button, .search-box, .search-btn {
   background: #e0e9eb;
   padding: .25rem .375rem;
   border-radius: 5px;
-  width:fit-content;
+  width: fit-content;
 }
 
 /* Pagination container */
@@ -211,7 +210,7 @@ input[type="text"], .coveo-search-container button, .search-box, .search-btn {
 }
 
 /* Responsive Layout */
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
   .search-wrapper {
     flex-direction: column;
     gap: 20px;
