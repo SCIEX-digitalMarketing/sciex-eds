@@ -1,6 +1,6 @@
-import { searchBoxController, pagetypeFacetController } from '../controller/controllers.js';
+import { searchBoxController } from '../controller/controllers.js';
 
-export const renderSearchBox = () => {
+const renderSearchBox = () => {
   const searchComponentHTML = `
     <div class="search-container">
       <div class="coveo-search-component">
@@ -18,7 +18,7 @@ export const renderSearchBox = () => {
         <br />
         <div id="filetype-facet"></div>
         <br />
-        <div id="pagetype-facet"></div>
+        <div id="tags-facet"></div>
       </div>
       <div id="coveo-results" class="result-section">
       </div>
@@ -37,7 +37,38 @@ export const renderSearchBox = () => {
   const suggestionPopup = document.getElementById('suggestion-popup');
   const coveoResults = document.getElementById('coveo-results');
 
-  queryInput.addEventListener('input', function (event) {
+  const showSuggestions = () => {
+    const searchBox = document.getElementById('coveo-query');
+    const suggestions = searchBoxController.state.suggestions || [];
+
+    // Debugging suggestions data
+    console.log(suggestions);
+
+    // Dynamically position the suggestion popup
+    const rect = searchBox.getBoundingClientRect();
+    suggestionPopup.style.top = `${rect.bottom + window.scrollY}px`;
+    suggestionPopup.style.left = `${rect.left + window.scrollX}px`;
+
+    if (suggestions.length > 0) {
+      suggestionPopup.innerHTML = suggestions
+        .map((suggestion) => `<div class="suggestion-item" style="padding: 8px; cursor: pointer;" data-raw-value="${suggestion.rawValue}">
+            ${suggestion.highlightedValue}
+          </div>`)
+        .join('');
+      suggestionPopup.style.display = 'block';
+      coveoResults.style.display = 'none';
+    } else {
+      suggestionPopup.style.display = 'none';
+    }
+  };
+
+  const showResults = () => {
+    coveoResults.style.display = 'block';
+    suggestionPopup.style.display = 'none';
+    coveoResults.innerHTML = '<h3>Search Results go here...</h3>';
+  };
+
+  queryInput.addEventListener('input', (event) => {
     const query = event.target.value;
     if (query.length > 0) {
       searchBoxController.updateText(query);
@@ -50,52 +81,10 @@ export const renderSearchBox = () => {
     }
   });
 
-  // queryInput.addEventListener('keydown', (event) => {
-  //   if (event.key === 'Enter') {
-  //     searchBoxController.submit();
-  //     showResults();
-  //   }
-  // });
-
   searchBtn.addEventListener('click', () => {
     searchBoxController.submit();
     showResults();
   });
-
-  const showSuggestions = () => {
-    const suggestionPopup = document.getElementById('suggestion-popup');
-    const coveoResults = document.getElementById('coveo-results');
-    const searchBox = document.getElementById('coveo-query');
-    const suggestions = searchBoxController.state.suggestions || [];
-  
-    // Debugging suggestions data
-    console.log(suggestions);
-  
-    // Dynamically position the suggestion popup
-    const rect = searchBox.getBoundingClientRect();
-    suggestionPopup.style.top = `${rect.bottom + window.scrollY}px`;
-    suggestionPopup.style.left = `${rect.left + window.scrollX}px`;
-  
-    if (suggestions.length > 0) {
-      suggestionPopup.innerHTML = suggestions
-        .map(suggestion => {
-          return `<div class="suggestion-item" style="padding: 8px; cursor: pointer;" data-raw-value="${suggestion.rawValue}">
-            ${suggestion.highlightedValue}
-          </div>`;
-        })
-        .join('');
-      suggestionPopup.style.display = 'block';
-      coveoResults.style.display = 'none';
-    } else {
-      suggestionPopup.style.display = 'none';
-    }
-  };  
-
-  const showResults = () => {
-    coveoResults.style.display = 'block'; 
-    suggestionPopup.style.display = 'none';
-    coveoResults.innerHTML = '<h3>Search Results go here...</h3>';
-  };
 
   document.addEventListener('click', (event) => {
     if (!document.querySelector('.coveo-search-component').contains(event.target)) {
@@ -103,3 +92,4 @@ export const renderSearchBox = () => {
     }
   });
 };
+export default renderSearchBox;

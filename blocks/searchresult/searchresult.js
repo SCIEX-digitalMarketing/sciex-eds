@@ -1,11 +1,12 @@
 import {} from '../../scripts/aem.js';
-import { searchEngine } from '../../scripts/searchresult/engine.js';
-import { renderSearchBox } from '../../scripts/searchresult/components/renderSearchBox.js';
-import { renderSearchResults } from '../../scripts/searchresult/components/searchResult.js';
-import { renderSourceFacet, renderFiletypeFacet, renderPagetypeFacet} from '../../scripts/searchresult/components/categoryFacets.js'
-import { renderPagination } from '../../scripts/searchresult/components/pagination.js'
-import { renderQuerySummary } from '../../scripts/searchresult/components/querySummary.js'
-import { renderSorting } from '../../scripts/searchresult/components/sorting.js'
+import searchEngine from '../../scripts/searchresult/engine.js';
+import renderSearchBox from '../../scripts/searchresult/components/renderSearchBox.js';
+import renderSearchResults from '../../scripts/searchresult/components/searchResult.js';
+import { renderSourceFacet, renderFiletypeFacet, renderTagsFacet } from '../../scripts/searchresult/components/categoryFacets.js';
+import renderPagination from '../../scripts/searchresult/components/pagination.js';
+import renderQuerySummary from '../../scripts/searchresult/components/querySummary.js';
+import renderSorting from '../../scripts/searchresult/components/sorting.js';
+
 export default async function decorate(block) {
   block.textContent = '';
   // Create the main container div
@@ -46,20 +47,19 @@ export default async function decorate(block) {
   try {
     renderSearchBox();
     renderSorting();
-    // searchEngine.executeFirstSearch();
+    searchEngine.executeFirstSearch();
     searchEngine.subscribe(() => {
       renderSearchResults();
       renderQuerySummary();
       renderPagination();
-      // renderSourceFacet();
+      renderSourceFacet();
       renderFiletypeFacet();
-      // renderPagetypeFacet();
+      renderTagsFacet();
     });
 
     await searchEngine.executeFirstSearch().catch((error) => {
       console.error('Error executing the first search:', error);
     });
-
   } catch (error) {
     console.error('Error initializing search engine:', error);
   }
