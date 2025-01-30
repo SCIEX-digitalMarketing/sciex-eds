@@ -4,6 +4,23 @@ import {
   tagsFacetController,
 } from '../controller/controllers.js';
 
+function facetAccordion(values, facetElement, facetItemsContainer) {
+  if (values.length !== 0) {
+    facetElement.appendChild(facetItemsContainer);
+
+    const facetHeader = facetElement.querySelector('.facet-header');
+    facetHeader.setAttribute('aria-expanded', 'false');
+
+    facetHeader.addEventListener('click', () => {
+      const isVisible = facetItemsContainer.style.display === 'block';
+      facetItemsContainer.style.display = isVisible ? 'none' : 'block';
+      facetHeader.setAttribute('aria-expanded', !isVisible);
+    });
+  } else {
+    facetElement.innerHTML = '';
+  }
+}
+
 export const renderSourceFacet = () => {
   const facetElement = document.getElementById('source-facet');
   facetElement.innerHTML = '<h3 class="facet-header">Source</h3>';
@@ -25,13 +42,7 @@ export const renderSourceFacet = () => {
 
     facetItemsContainer.appendChild(facetItem);
   });
-
-  facetElement.appendChild(facetItemsContainer);
-  const facetHeader = facetElement.querySelector('.facet-header');
-  facetHeader.addEventListener('click', () => {
-    const isVisible = facetItemsContainer.style.display === 'block';
-    facetItemsContainer.style.display = isVisible ? 'none' : 'block';
-  });
+  facetAccordion(values, facetElement, facetItemsContainer);
 };
 
 export const renderFiletypeFacet = () => {
@@ -57,16 +68,7 @@ export const renderFiletypeFacet = () => {
     facetItemsContainer.appendChild(facetItem);
   });
 
-  facetElement.appendChild(facetItemsContainer);
-
-  const facetHeader = facetElement.querySelector('.facet-header');
-  facetHeader.setAttribute('aria-expanded', 'false');
-
-  facetHeader.addEventListener('click', () => {
-    const isVisible = facetItemsContainer.style.display === 'block';
-    facetItemsContainer.style.display = isVisible ? 'none' : 'block';
-    facetHeader.setAttribute('aria-expanded', !isVisible);
-  });
+  facetAccordion(values, facetElement, facetItemsContainer);
 };
 
 export const renderTagsFacet = () => {
@@ -92,14 +94,6 @@ export const renderTagsFacet = () => {
 
     facetItemsContainer.appendChild(facetItem);
   });
-  facetElement.appendChild(facetItemsContainer);
 
-  const facetHeader = facetElement.querySelector('.facet-header');
-  facetHeader.setAttribute('aria-expanded', 'false');
-
-  facetHeader.addEventListener('click', () => {
-    const isVisible = facetItemsContainer.style.display === 'block';
-    facetItemsContainer.style.display = isVisible ? 'none' : 'block';
-    facetHeader.setAttribute('aria-expanded', !isVisible);
-  });
+  facetAccordion(values, facetElement, facetItemsContainer);
 };

@@ -1,10 +1,12 @@
-import { headlessResultsList } from '../controller/controllers.js';
+import { headlessResultsList, handleResultClick } from '../controller/controllers.js';
 
 const renderSearchResults = () => {
   const resultsElement = document.getElementById('coveo-results');
 
   resultsElement.innerHTML = '';
+
   const results = headlessResultsList.state.results || [];
+
   if (results.length > 0) {
     results.forEach((result) => {
       const resultItem = document.createElement('div');
@@ -19,12 +21,17 @@ const renderSearchResults = () => {
     : ''}
           </div>
           <a class="view-details-btn" href="${result.printableUri}">View</a>
-
         `;
+
+      resultItem.addEventListener('click', () => {
+        handleResultClick(result);
+      });
+
       resultsElement.appendChild(resultItem);
     });
   } else {
     resultsElement.innerHTML = '<h3>No Results Found</h3>';
   }
 };
+
 export default renderSearchResults;

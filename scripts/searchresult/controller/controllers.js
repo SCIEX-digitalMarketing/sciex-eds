@@ -57,3 +57,15 @@ export const sortController = buildSort(searchEngine, {
     criterion: { by: 'relevancy' },
   },
 });
+
+export function handleResultClick(result) {
+  analytics.dispatch({
+    type: 'analytics/trackClick',
+    payload: {
+      documentId: result.uniqueId,
+      resultPosition: 1,
+      title: result.title,
+      url: result.printableUri,
+    },
+  });
+}
