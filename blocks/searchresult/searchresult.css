@@ -57,7 +57,7 @@
   background-color: white;
   padding: 20px;
   border-radius: 8px;
-  width: 30%;
+  width:25%;
 }
 
 .facet-section h3 {
@@ -88,7 +88,7 @@
 }
 
 .search-result-section {
-  width: 65%;
+  width: 70%;
 }
 
 /* Search Results */
@@ -97,6 +97,10 @@
   background-color: white;
   padding: 20px;
   border-radius: 8px;
+}
+
+.item-details {
+  width: fit-content;
 }
 
 .result-item {
@@ -124,6 +128,7 @@
   display: inline-block;
   text-align: center;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  flex-shrink: 0;
 }
 
 .result-item a:hover {
@@ -180,11 +185,8 @@
   padding: 10px;
   cursor: pointer;
   border-radius: 6px;
-  border: 1px solid #ECECEC;   
-}
-
-.pagination button:hover {
-  background-color: #0056b3;
+  border: 1px solid #ECECEC;  
+  background-color: transparent; 
 }
 
 /* Media Queries for Responsiveness */
