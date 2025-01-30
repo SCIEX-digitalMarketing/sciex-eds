@@ -6,7 +6,7 @@ const renderQuerySummary = () => {
   const resultItem = document.createElement('div');
   const querySummaryState = querySummary.state;
   resultItem.innerHTML = `Results <span> ${querySummaryState.firstResult} -  ${querySummaryState.lastResult} </span>
-                            of <span>${querySummaryState.total}</span> in <span> ${querySummaryState.durationInSeconds}</span> seconds
+                            of <span>${querySummaryState.total}</span>
     `;
   querySummaryElement.appendChild(resultItem);
 };

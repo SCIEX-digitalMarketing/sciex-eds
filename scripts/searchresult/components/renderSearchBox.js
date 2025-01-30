@@ -2,16 +2,7 @@ import { searchBoxController } from '../controller/controllers.js';
 
 const renderSearchBox = () => {
   const searchComponentHTML = `
-    <div class="search-container">
-      <div class="coveo-search-component">
-        <input type="text" id="coveo-query" placeholder="Search..." class="search-box">
-        <button id="coveo-search-btn" class="search-btn">Search</button>
-      </div>
-    </div>
-
-    <!-- Facets and Results Section -->
-    <div id="query-summary" style="text-align: center"></div>
-    <div id="sort" style="border: 1px solid;width: 10%;"></div>
+  <div class="search-result">
     <div class="search-wrapper">
       <div id="facets" class="facet-section">
         <div id="source-facet"></div>
@@ -20,19 +11,26 @@ const renderSearchBox = () => {
         <br />
         <div id="tags-facet"></div>
       </div>
-      <div id="coveo-results" class="result-section">
+      <div class="search-result-section">
+        <div class="search-container">
+          <div class="coveo-search-component">
+            <input type="text" id="coveo-query" placeholder="Search..." class="search-box">
+          </div>
+        </div>
+        <div class="query-sort-section"> 
+          <div id="query-summary"></div>
+          <div id="sort"></div>
+        </div>
+        <div id="coveo-results" class="result-section"></div>
+        <div id="pagination" class="pagination"></div>
       </div>
-      </div>
-      <div id="pagination" class="pagination"></div>
-
-    <!-- Suggestion Popup -->
-    <div id="suggestion-popup" style="position: absolute; top: 100%; left: 0; width: 738px; background: #fff; border: 1px solid #ddd; max-height: 200px; overflow-y: auto; z-index: 10; display: none; padding: 5px; box-sizing: border-box; margin-top: 5px;"></div>
-
+    </div>
+  </div>
+  <div id="suggestion-popup" style="position: absolute; top: 100%; left: 0; width: 738px; background: #fff; border: 1px solid #ddd; max-height: 200px; overflow-y: auto; z-index: 10; display: none; padding: 5px; box-sizing: border-box; margin-top: 5px;"></div>
   `;
 
   document.body.innerHTML += searchComponentHTML;
 
-  const searchBtn = document.getElementById('coveo-search-btn');
   const queryInput = document.getElementById('coveo-query');
   const suggestionPopup = document.getElementById('suggestion-popup');
   const coveoResults = document.getElementById('coveo-results');
@@ -41,10 +39,6 @@ const renderSearchBox = () => {
     const searchBox = document.getElementById('coveo-query');
     const suggestions = searchBoxController.state.suggestions || [];
 
-    // Debugging suggestions data
-    console.log(suggestions);
-
-    // Dynamically position the suggestion popup
     const rect = searchBox.getBoundingClientRect();
     suggestionPopup.style.top = `${rect.bottom + window.scrollY}px`;
     suggestionPopup.style.left = `${rect.left + window.scrollX}px`;
@@ -69,6 +63,7 @@ const renderSearchBox = () => {
   };
 
   queryInput.addEventListener('input', (event) => {
+    console.log('queryInput', event);
     const query = event.target.value;
     if (query.length > 0) {
       searchBoxController.updateText(query);
@@ -77,13 +72,14 @@ const renderSearchBox = () => {
       showSuggestions();
     } else {
       suggestionPopup.style.display = 'none';
-      coveoResults.style.display = 'none';
     }
   });
 
-  searchBtn.addEventListener('click', () => {
-    searchBoxController.submit();
-    showResults();
+  queryInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      searchBoxController.submit();
+      showResults();
+    }
   });
 
   document.addEventListener('click', (event) => {

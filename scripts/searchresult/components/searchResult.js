@@ -10,16 +10,16 @@ const renderSearchResults = () => {
       const resultItem = document.createElement('div');
       resultItem.className = 'result-item';
       resultItem.innerHTML = `
-          <a href="${result.printableUri}">
+          <div class="item-details"> 
             <h3>${result.title || 'No Title Available'}</h3>
-          </a>
-          <p class="source-type">${result.raw.sourcetype}</p>
-          <h3>Source name</h3>
-          <p>${result.raw.source || 'No Source name available.'}</p>
-          <h3>Description</h3>
-          <p>${result.Excerpt || 'No description available.'}</p>
-          <h3>Indexed</h3>
-          <p>${new Date(result.raw.indexeddate).toLocaleDateString()}</p>
+            <p>${result.Excerpt || 'No description available.'}</p>
+            <p class="source-type">${result.raw.sourcetype}</p>
+            ${result.raw.ogimage ? 
+              `<img src="${result.raw.ogimage}" alt="ogimage" width="200" height="200">` 
+              : ''}
+          </div>
+          <a class="view-details-btn" href="${result.printableUri}">View</a>
+
         `;
       resultsElement.appendChild(resultItem);
     });

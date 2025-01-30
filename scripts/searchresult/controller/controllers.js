@@ -27,7 +27,7 @@ export const searchBoxController = buildSearchBox(searchEngine, {
 
 export const headlessResultsList = buildResultList(searchEngine, {
   options: {
-    fieldsToInclude: ['indexeddate'],
+    fieldsToInclude: ['ogimage'],
   },
 });
 
