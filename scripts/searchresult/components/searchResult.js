@@ -14,9 +14,9 @@ const renderSearchResults = () => {
             <h3>${result.title || 'No Title Available'}</h3>
             <p>${result.Excerpt || 'No description available.'}</p>
             <p class="source-type">${result.raw.sourcetype}</p>
-            ${result.raw.ogimage ? 
-              `<img src="${result.raw.ogimage}" alt="ogimage" width="200" height="200">` 
-              : ''}
+            ${result.raw.ogimage
+    ? `<img src="${result.raw.ogimage}" alt="ogimage" width="200" height="200">`
+    : ''}
           </div>
           <a class="view-details-btn" href="${result.printableUri}">View</a>
 
