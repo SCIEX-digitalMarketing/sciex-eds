@@ -47,7 +47,8 @@
         "fragment",
         "hello",
         "sciex-footer",
-        "header"
+        "header",
+        "footer-topBanner"
       ]
     }
   ]
