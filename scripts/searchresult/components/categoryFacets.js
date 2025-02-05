@@ -23,16 +23,16 @@ function facetAccordion(values, facetElement, facetItemsContainer) {
 
 export const renderSourceFacet = () => {
   const facetElement = document.getElementById('source-facet');
-  facetElement.innerHTML = '<h3 class="facet-header">Source</h3>';
+  facetElement.innerHTML = '<h3 class="facet-header tw-text-gray-800 tw-text-lg tw-mb-2 tw-border-b tw-pb-1">Source</h3>';
 
   const { values } = sourceFacetController.state;
   const facetItemsContainer = document.createElement('div');
   facetItemsContainer.className = 'facet-items-container';
   values.forEach((value) => {
     const facetItem = document.createElement('div');
-    facetItem.className = 'facet-item';
+    facetItem.className = 'facet-item tw-flex tw-items-center tw-gap-2 tw-py-1';
     facetItem.innerHTML = `
-      <input type="checkbox" id="${value.value}" ${value.state === 'selected' ? 'checked' : ''}>
+      <input type="checkbox" id="${value.value}" ${value.state === 'selected' ? 'checked' : ''} class="tw-accent-blue-500 tw-w-4 tw-h-4">
       <label for="${value.value}">${value.value} (${value.numberOfResults})</label>
     `;
 
@@ -47,7 +47,7 @@ export const renderSourceFacet = () => {
 
 export const renderFiletypeFacet = () => {
   const facetElement = document.getElementById('filetype-facet');
-  facetElement.innerHTML = '<h3 class="facet-header">Filetype</h3>';
+  facetElement.innerHTML = '<h3 class="facet-header tw-text-gray-800 tw-text-lg tw-mb-2 tw-border-b tw-pb-1">Filetype</h3>';
 
   const { values } = filetypeFacetController.state;
   const facetItemsContainer = document.createElement('div');
@@ -55,9 +55,9 @@ export const renderFiletypeFacet = () => {
 
   values.forEach((value) => {
     const facetItem = document.createElement('div');
-    facetItem.className = 'facet-item';
+    facetItem.className = 'facet-item tw-flex tw-items-center tw-gap-2 tw-py-1"';
     facetItem.innerHTML = `
-      <input type="checkbox" id="${value.value}" ${value.state === 'selected' ? 'checked' : ''}>
+      <input type="checkbox" id="${value.value}" ${value.state === 'selected' ? 'checked' : ''} class="tw-accent-blue-500 tw-w-4 tw-h-4">
       <label for="${value.value}">${value.value} (${value.numberOfResults})</label>
     `;
 
@@ -73,7 +73,7 @@ export const renderFiletypeFacet = () => {
 
 export const renderTagsFacet = () => {
   const facetElement = document.getElementById('tags-facet');
-  facetElement.innerHTML = '<h3 class="facet-header">Tags</h3>';
+  facetElement.innerHTML = '<h3 class="facet-header tw-text-gray-800 tw-text-lg tw-mb-2 tw-border-b tw-pb-1">Tags</h3>';
 
   const { values } = tagsFacetController.state;
 
@@ -82,9 +82,9 @@ export const renderTagsFacet = () => {
 
   values.forEach((value) => {
     const facetItem = document.createElement('div');
-    facetItem.className = 'facet-item';
+    facetItem.className = 'facet-item tw-flex tw-items-center tw-gap-2 tw-py-1';
     facetItem.innerHTML = `
-      <input type="checkbox" id="${value.value}" ${value.state === 'selected' ? 'checked' : ''}>
+      <input type="checkbox" id="${value.value}" ${value.state === 'selected' ? 'checked' : ''} class="tw-accent-blue-500 tw-w-4 tw-h-4">
       <label for="${value.value}">${value.value.split('/').pop()} (${value.numberOfResults})</label>
     `;
 

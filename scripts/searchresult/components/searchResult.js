@@ -23,7 +23,8 @@ const renderSearchResults = () => {
           <a class="view-details-btn" href="${result.printableUri}">View</a>
         `;
 
-      resultItem.addEventListener('click', () => {
+      const viewDetailsBtn = resultItem.querySelector('.view-details-btn');
+      viewDetailsBtn.addEventListener('click', () => {
         handleResultClick(result);
       });
 

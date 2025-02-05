@@ -17,6 +17,7 @@ const renderPagination = () => {
 
   currentPages.forEach((page) => {
     const pageButton = document.createElement('button');
+    pageButton.className = 'tw-w-10 tw-h-10 tw-bg-transparent tw-border tw-border-gray-300 tw-rounded-lg tw-text-black tw-p-2';
     pageButton.innerText = page.toString();
     pageButton.disabled = page === paginationController.state.currentPage;
     pageButton.onclick = () => {

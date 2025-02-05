@@ -6,8 +6,10 @@ import {
   buildPager,
   buildQuerySummary,
   buildSort,
+  buildInteractiveResult,
+  buildBreadcrumbManager
 } from 'https://static.cloud.coveo.com/headless/v3/headless.esm.js';
-import searchEngine from '../engine.js';
+import { searchEngine, analyticsEngine }  from '../engine.js';
 
 export const searchBoxController = buildSearchBox(searchEngine, {
   options: {
@@ -51,21 +53,17 @@ export const paginationController = buildPager(searchEngine);
 export const querySummary = buildQuerySummary(searchEngine);
 
 // sorting controller
-
 export const sortController = buildSort(searchEngine, {
   initialState: {
     criterion: { by: 'relevancy' },
   },
 });
 
-export function handleResultClick(result) {
-  analytics.dispatch({
-    type: 'analytics/trackClick',
-    payload: {
-      documentId: result.uniqueId,
-      resultPosition: 1,
-      title: result.title,
-      url: result.printableUri,
-    },
-  });
+export const facetBreadcrumb = buildBreadcrumbManager(searchEngine)
+
+export  function handleResultClick(results) {
+  const interactiveResult = buildInteractiveResult(analyticsEngine, {
+    options: {result : results}
+  })
+  interactiveResult.select();
 }

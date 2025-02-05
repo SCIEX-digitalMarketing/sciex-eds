@@ -1,11 +1,12 @@
 import {} from '../../scripts/aem.js';
-import searchEngine from '../../scripts/searchresult/engine.js';
+import { searchEngine } from '../../scripts/searchresult/engine.js';
 import renderSearchBox from '../../scripts/searchresult/components/renderSearchBox.js';
 import renderSearchResults from '../../scripts/searchresult/components/searchResult.js';
 import { renderSourceFacet, renderFiletypeFacet, renderTagsFacet } from '../../scripts/searchresult/components/categoryFacets.js';
 import renderPagination from '../../scripts/searchresult/components/pagination.js';
 import renderQuerySummary from '../../scripts/searchresult/components/querySummary.js';
 import renderSorting from '../../scripts/searchresult/components/sorting.js';
+import renderFacetBreadcurm from '../../scripts/searchresult/components/facetBreadcrumb.js';
 
 export default async function decorate(block) {
   block.textContent = '';
@@ -55,6 +56,7 @@ export default async function decorate(block) {
       renderSourceFacet();
       renderFiletypeFacet();
       renderTagsFacet();
+      renderFacetBreadcurm();
     });
 
     await searchEngine.executeFirstSearch().catch((error) => {

@@ -2,27 +2,28 @@ import { searchBoxController } from '../controller/controllers.js';
 
 const renderSearchBox = () => {
   const searchComponentHTML = `
-  <div class="search-result">
-    <div class="search-wrapper">
-      <div id="facets" class="facet-section">
+  <div class="tw search-result tw-bg-white">
+    <div class="search-wrapper tw-flex tw-gap-5 tw-flex-wrap tw-mx-auto">
+      <div id="facets" class="facet-section tw-bg-white tw-p-5 tw-rounded-lg tw-w-1/4">
         <div id="source-facet"></div>
         <br />
         <div id="filetype-facet"></div>
         <br />
         <div id="tags-facet"></div>
       </div>
-      <div class="search-result-section">
-        <div class="search-container">
-          <div class="coveo-search-component">
-            <input type="text" id="coveo-query" placeholder="Search..." class="search-box">
+      <div class="search-result-section tw-flex-1">
+        <div class="search-container tw-p-5 tw-bg-white tw-rounded-lg">
+          <div class="coveo-search-component tw-flex tw-gap-2">
+            <input type="text" id="coveo-query" placeholder="Search..." class="search-box tw-w-full tw-py-3 tw-px-4 tw-border tw-border-gray-300 tw-rounded-md">
           </div>
         </div>
-        <div class="query-sort-section"> 
-          <div id="query-summary"></div>
-          <div id="sort"></div>
+        <div class="query-sort-section tw-flex tw-justify-between tw-items-center tw-py-3 tw-px-5"> 
+          <div id="query-summary" class="tw-text-sm"></div>
+          <div id="sort" class="tw-flex tw-justify-center"></div>
         </div>
+        <div id="facet-readcrumb"> </div>
         <div id="coveo-results" class="result-section"></div>
-        <div id="pagination" class="pagination"></div>
+        <div id="pagination" class="pagination tw-flex tw-justify-center tw-gap-1 tw-mt-6"></div>
       </div>
     </div>
   </div>
@@ -50,7 +51,6 @@ const renderSearchBox = () => {
           </div>`)
         .join('');
       suggestionPopup.style.display = 'block';
-      coveoResults.style.display = 'none';
     } else {
       suggestionPopup.style.display = 'none';
     }
@@ -63,12 +63,10 @@ const renderSearchBox = () => {
   };
 
   queryInput.addEventListener('input', (event) => {
-    console.log('queryInput', event);
     const query = event.target.value;
     if (query.length > 0) {
       searchBoxController.updateText(query);
       searchBoxController.showSuggestions();
-      searchBoxController.facetSearch.search(query);
       showSuggestions();
     } else {
       suggestionPopup.style.display = 'none';
