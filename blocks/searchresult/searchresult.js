@@ -47,6 +47,11 @@ export default async function decorate(block) {
   // Create tags facet div
   const tagsFacetDiv = document.createElement('div');
   tagsFacetDiv.id = 'tags-facet';
+  // Create suggestion box
+  const tagSuggestionBox = document.createElement('div');
+  tagSuggestionBox.id = 'tag-suggestion-box';
+  tagSuggestionBox.classList.add('tw-hidden', 'tw-mt-2', 'tw-border', 'tw-border-gray-300', 'tw-rounded-md', 'tw-bg-white');
+  tagSuggestionBox.style.position = 'absolute';
 
   // Create tags input box
   const tagsInput = document.createElement('input');
@@ -59,6 +64,7 @@ export default async function decorate(block) {
   facetsDiv.appendChild(sourceFacetDiv);
   facetsDiv.appendChild(sourceInput);
   facetsDiv.appendChild(sourceSuggestionBox);
+  facetsDiv.appendChild(tagSuggestionBox);
   facetsDiv.appendChild(document.createElement('br')); // Add <br />
   facetsDiv.appendChild(filetypeFacetDiv);
   facetsDiv.appendChild(document.createElement('br')); // Add <br />
