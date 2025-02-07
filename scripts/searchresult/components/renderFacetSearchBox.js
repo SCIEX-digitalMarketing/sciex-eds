@@ -16,7 +16,7 @@ const handleFacetSearchInput = (inputElement, facetController, suggestionBox) =>
 
 // Function to create and append suggestion items
 const renderSuggestionItems = (facetController, suggestionBox) => {
-  const values = facetController.state.facetSearch.values;
+  const { values } = facetController.state.facetSearch;
   suggestionBox.innerHTML = ''; // Clear previous suggestions
 
   if (values.length > 0) {
