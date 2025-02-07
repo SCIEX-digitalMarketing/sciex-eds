@@ -7,7 +7,7 @@ import {
   buildQuerySummary,
   buildSort,
   buildInteractiveResult,
-  buildBreadcrumbManager
+  buildBreadcrumbManager,
 } from 'https://static.cloud.coveo.com/headless/v3/headless.esm.js';
 import { searchEngine, analyticsEngine }  from '../engine.js';
 
@@ -35,15 +35,24 @@ export const headlessResultsList = buildResultList(searchEngine, {
 
 // category facets controller
 export const tagsFacetController = buildFacet(searchEngine, {
-  options: { field: 'tags' },
+  options: { 
+    numberOfValues: 5,
+    field: 'coursecatalog'
+  },
 });
 
 export const sourceFacetController = buildFacet(searchEngine, {
-  options: { field: 'source' },
+  options: { 
+    numberOfValues: 5,
+    field: 'productcategories' 
+  },
 });
 
 export const filetypeFacetController = buildFacet(searchEngine, {
-  options: { field: 'filetype' },
+  options: { 
+    numberOfValues: 5,
+    field: 'filetype' 
+  },
 });
 
 // pagination controller

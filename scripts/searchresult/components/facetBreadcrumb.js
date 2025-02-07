@@ -6,7 +6,6 @@ const renderFacetBreadcurm = () => {
 
   const breadcrumbContainer = document.createElement('div');
   breadcrumbContainer.classList.add('facet-breadcrumb-container');
-  console.log('facetBreadcrumb', facetBreadcrumb);
 
   facetBreadcrumb.state.facetBreadcrumbs.forEach((value) => {
     value.values.forEach((item) => {
@@ -41,10 +40,12 @@ const renderFacetBreadcurm = () => {
   });
 
   if (facetBreadcrumb.state.hasBreadcrumbs) {
+    facetBreadcrumbElement.style.display = 'block';
     breadcrumbContainer.appendChild(button);
   } else {
-    facetBreadcrumbElement.style('display', 'none');
+    facetBreadcrumbElement.style.display = 'none';
   }
+
   facetBreadcrumbElement.appendChild(breadcrumbContainer);
 };
 
