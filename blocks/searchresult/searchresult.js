@@ -331,10 +331,8 @@ export default async function decorate(block) {
       renderFacetBreadcurm();
     });
 
-    await searchEngine.executeFirstSearch().catch((error) => {
-      console.error('Error executing the first search:', error);
-    });
+    await searchEngine.executeFirstSearch();
   } catch (error) {
-    console.error('Error initializing search engine:', error);
+    searchEngine.executeFirstSearch();
   }
 }

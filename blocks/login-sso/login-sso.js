@@ -15,7 +15,6 @@ export default async function decorate(block) {
 
       return await response.json();
     } catch (error) {
-      console.error('Error fetching user details:', error);
       return null;
     }
   }
@@ -32,7 +31,6 @@ export default async function decorate(block) {
 
   // Conditionally append the login/logout links
   if (userData && userData.loggedIn) {
-    console.log('User Logged In:', userData);
     markup = `
       <ul class="user-menu">
         <li>
@@ -46,7 +44,6 @@ export default async function decorate(block) {
       </ul>
     `;
   } else {
-    console.log('User Not Logged In');
     markup = `
       <ul class="user-menu">
         <li>
