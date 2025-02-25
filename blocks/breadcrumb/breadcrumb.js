@@ -1,4 +1,5 @@
 import { createElement } from '../../scripts/scripts.js';
+import { decorateIcons } from '../../scripts/aem.js';
 
 const getPageTitle = async (url) => {
   const resp = await fetch(url);
@@ -22,8 +23,6 @@ const getAllPathsExceptCurrent = async (paths) => {
     prevPath = `${prevPath}/${pathPart}`;
     const path = `${prevPath}.html`;
     const url = `${window.location.origin}${path}`;
-
-    // Push the promise to the array
     fetchPromises.push(getPageTitle(url).then((name) => {
       if (name) {
         result.push({ path, name, url });
@@ -39,7 +38,14 @@ const getAllPathsExceptCurrent = async (paths) => {
 const createLink = (path) => {
   const pathLink = document.createElement('a');
   pathLink.href = path.url;
-  pathLink.innerText = path.name;
+  // Append the icon if available
+  if (path.icon) {
+    const iconSpan = document.createElement('span');
+    iconSpan.classList.add('icon', path.icon);
+    pathLink.appendChild(iconSpan);
+  }
+  const nameSpan = document.createElement('span');
+  pathLink.appendChild(nameSpan);
   pathLink.classList.add('breadcrumb-link');
   return pathLink;
 };
@@ -50,7 +56,12 @@ export default async function decorate(block) {
   });
   block.innerHTML = '';
 
-  const HomeLink = createLink({ path: '', name: 'Home', url: window.location.origin });
+  // Define the HomeLink with an icon
+  const HomeLink = createLink({
+    path: '',
+    url: window.location.origin,
+    icon: 'icon-home', // Add the icon class here
+  });
   const breadcrumbLinks = [HomeLink.outerHTML];
 
   window.setTimeout(async () => {
@@ -61,13 +72,13 @@ export default async function decorate(block) {
 
     const currentPath = document.createElement('span');
     currentPath.innerText = document.querySelector('title').innerText;
-    currentPath.style.fontWeight = 'bold';
     currentPath.style.color = 'black';
     breadcrumbLinks.push(currentPath.outerHTML);
 
-    const separator = '<span class="breadcrumb-separator">></span>';
+    const separator = '<span class="icon icon-chevron-right"></span>';
 
     breadcrumb.innerHTML = breadcrumbLinks.join(separator);
+    decorateIcons(breadcrumb);
     block.append(breadcrumb);
   }, 1000);
 }

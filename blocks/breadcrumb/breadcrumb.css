@@ -4,8 +4,8 @@ main > .breadcrumb-container {
 }
 
 main > .section > div {
-    padding: 15px 32px;
-    }
+  padding: 75px 32px;
+}
 
 @media (min-width: 900px) {
   main .breadcrumb-container {
@@ -14,19 +14,25 @@ main > .section > div {
   }
 }
 
-.breadcrumb > nav a {
-  text-decoration: none;
-  color: black;
-  transition: color 0.3s, text-decoration 0.3s; /* Smooth transition for color and underline */
-}
-
-.breadcrumb > nav a:hover {
-  color: #d8862a;
-  text-decoration: underline;
+.breadcrumb > nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-weight: normal; 
+  line-height: 1.5;
 }
 
 .breadcrumb .breadcrumb-separator {
-  margin-inline: 1.5ch;
+  margin-left: 0px;
+  margin-right: 10px;
   color: black;
 }
 
+.breadcrumb > nav a .icon {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.breadcrumb .icon img {
+  width: 65%;
+}
