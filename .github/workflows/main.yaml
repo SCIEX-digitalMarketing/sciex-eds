@@ -12,3 +12,14 @@ jobs:
         node-version: 20
     - run: npm ci
     - run: npm run lint
+     - name: Set up environment variables from secrets
+        run: |
+          echo "ENV_URL=${{ secrets.STAGESECRET }}" >> $GITHUB_ENV
+
+      - name: Replace placeholders in fstab.xml with secrets
+        run: |
+          sed -i "s|\${ENV_URL}|${{ secrets.STAGESECRET }}|g" fstab.xml
+      - name: Deploy fstab.xml 
+        run: |
+          # Command to deploy fstab.xml or save it to a desired location
+          cat fstab.xml # For demonstration

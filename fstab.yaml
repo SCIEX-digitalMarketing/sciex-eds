@@ -1,5 +1,5 @@
 mountpoints:
   /:
-    url: "https://author-p93412-e851377.adobeaemcloud.com/bin/franklin.delivery/SCIEX-digitalMarketing/sciex-eds/main"
+    url: ${ENV_URL}
     type: "markup"
     suffix: ".html"
