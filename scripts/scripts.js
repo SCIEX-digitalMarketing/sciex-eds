@@ -10,6 +10,7 @@ import {
   loadSection,
   loadSections,
   loadCSS,
+  toClassName,
   getMetadata,
 } from './aem.js';
 
@@ -98,7 +99,7 @@ export function decorateMain(main) {
   decorateBlocks(main);
 }
 const TEMPLATE_LIST = [
-  'course-catalog-template'
+  'course-catalog-template',
 ];
 
 async function decorateTemplates(main) {
