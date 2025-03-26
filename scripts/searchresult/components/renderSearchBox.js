@@ -65,7 +65,6 @@ const renderSearchBox = () => {
     }
   });
 
-  /* Start Search survey script */
   function setSearchSurveyCookie() {
     const searchcookieValue = getCookie('searchSurvey');
     if (searchcookieValue !== 'visited') {
@@ -98,7 +97,6 @@ const renderSearchBox = () => {
       try { (new g(100, 'r', 'QSI_S_ZN_b4z8pJnZ6X9z32B', 'https://znb4z8pjnz6x9z32b-sciex.siteintercept.qualtrics.com/SIE/?Q_ZID=ZN_b4z8pJnZ6X9z32B')).start(); } catch (i) {}
     }());
   }
-  /* End Search survey script */
 
   queryInput.addEventListener('keydown', (event) => {
     searchTermValue.innerHTML = '';
