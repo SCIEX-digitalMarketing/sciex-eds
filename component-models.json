@@ -141,9 +141,9 @@
           {
             "component": "text",
             "valueType": "string",
-            "name": "siteInterceptScript",
-            "label": "Site Intercept Script",
-            "value": "default Site Intercept Script"
+            "name": "enableSiteInterceptScript",
+            "label": "Enable Site Intercept Script",
+            "value": "false"
           }
         ]
       }
