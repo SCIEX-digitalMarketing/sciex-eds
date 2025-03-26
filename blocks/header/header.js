@@ -964,7 +964,7 @@ function createMegaMenuThirdLevel(child) {
               listdiv.append(picDiv);
             }
             thirdPartdiv.append(listdiv);
-            if(section.nextElementSibling && section.nextElementSibling.querySelector('picture')) {
+            if (section.nextElementSibling && section.nextElementSibling.querySelector('picture')) {
               thirdPartdiv.append(document.createElement('br'));
             }
           }
@@ -1053,7 +1053,7 @@ function createMegaMenuThirdLevel(child) {
               listdiv.append(picDiv);
             }
             thirdPartdiv.append(listdiv);
-            if(section.nextElementSibling && section.nextElementSibling.querySelector('picture')) {
+            if (section.nextElementSibling && section.nextElementSibling.querySelector('picture')) {
               thirdPartdiv.append(document.createElement('br'));
             }
           }
@@ -1272,6 +1272,13 @@ export default async function decorate(block) {
 
   // Conditionally shwoing the login/logout links
   const userData = await getUserDetails();
+  const eloquaData = {
+    status: userData.loggedIn,
+    email: userData.email,
+    key: userData.userKey,
+  };
+  sessionStorage.setItem('loggedin-status', userData.loggedIn);
+  sessionStorage.setItem('eloquaData', JSON.stringify(eloquaData));
   if (userData && userData.loggedIn) {
     document.getElementById('view-profile').style.display = '';
     document.getElementById('logout').style.display = '';
