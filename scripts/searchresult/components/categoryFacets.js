@@ -1,5 +1,5 @@
 /* eslint-disable */
-import {contentTypeFacetController, allFacetController } from "../controller/controllers.js";
+import {contentTypeFacetController, allFacetController, facetBreadcrumb } from "../controller/controllers.js";
 
 function facetAccordion(values, facetElement, facetItemsContainer) {
   if (values.length !== 0) {
@@ -91,106 +91,106 @@ function createToggleButtons(facetItemsContainer, facetController) {
 }
 
 function renderFacet(facetElementId, facetController, headerText) {
-
   const facetId = facetController.state.facetId;
-
   const facetElement = document.getElementById(facetElementId);
+  const shouldHaveInput = ['massspectrometerscategories', 'softwarecategories', 'language', 'instrumentfamily'].includes(facetId);
 
+  let previousInputValue = '';
+  let previousCaret = 0;
+  let wasFocused = false;
+
+  // Check if input exists and was focused before render
+  const previousInput = document.getElementById(facetId + '-input');
+  if (previousInput) {
+    previousInputValue = previousInput.value;
+    previousCaret = previousInput.selectionStart || previousInput.value.length;
+    wasFocused = document.activeElement === previousInput;
+  }
+
+  // Clear everything inside facet element
+  facetElement.innerHTML = '';
+
+  // Build and add header
+  const header = document.createElement('h3');
+  header.className = 'facet-header tw-text-gray-800 tw-text-lg tw-mb-2 tw-pb-1';
+  header.innerHTML = `${headerText}
+    <span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+        <path d="M2 11L8 5L14 11" stroke="#0068FA" />
+      </svg>
+    </span>`;
+  facetElement.appendChild(header);
+
+  // Create and add input (for certain facetIds)
   let facetInputElement = null;
-  if(facetId == 'massspectrometerscategories' || facetId == 'softwarecategories' ||  facetId =='language' || facetId =='instrumentfamily'){
-    let element= document.getElementById(facetId+'-input');
-    facetInputElement = element;
-  }
+  if (shouldHaveInput) {
+    facetInputElement = document.createElement('input');
+    facetInputElement.type = 'text';
+    facetInputElement.id = facetId + '-input';
+    facetInputElement.classList.add('tw-border', 'tw-p-2', 'tw-rounded-lg', 'tw-mt-2', 'facet-search-box');
+    facetInputElement.placeholder = 'Search...';
+    facetInputElement.value = previousInputValue;
 
-  facetElement.innerHTML = `<h3 class="facet-header tw-text-gray-800 tw-text-lg tw-mb-2 tw-pb-1">${headerText}
-  <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-  <path d="M2 11L8 5L14 11" stroke="#0068FA"/>
-</svg></span>
-  </h3>`;
-  let { values } = facetController.state;
-  let facetItemsContainer =facetElement.querySelector('.facet-items-container');
-  if(facetItemsContainer  != null) {
-    facetItemsContainer.remove();
-  }
-  facetItemsContainer = document.createElement("div");
-  facetItemsContainer.className = "facet-items-container";
-  if(values.length){
-    facetElement.style.borderBottom = '1px solid #ececec'
-  }
-  let isSearch = false;
-  if(facetId == 'massspectrometerscategories' || facetId == 'softwarecategories' ||  facetId =='language' || facetId =='instrumentfamily'){
-    clearFacetFilter(facetElement,facetController)
-    const facetInput = document.createElement('input');
-    facetInput.type = 'text';
-    facetInput.id = facetId+'-input';
-    facetInput.classList.add(
-      'tw-border',
-      'tw-p-2',
-      'tw-rounded-lg',
-      'tw-mt-2',
-      'facet-search-box',
-    );
-    facetInput.placeholder = 'Search....';
-
-    facetInput.addEventListener('input', (event) => {
+    facetInputElement.addEventListener('input', function (event) {
       const query = event.target.value.toLowerCase();
+      sessionStorage.setItem('focusedElement', facetInputElement.id);
+      const scrollY = window.scrollY;
+      const caret = facetInputElement.selectionStart;
+
       if (query.length > 0) {
-        sessionStorage.setItem('focusedElement', facetId+'-input');
         facetController.facetSearch.updateText(query);
         facetController.facetSearch.search();
-      }else{
-        isSearch=false;
+      } else {
         sessionStorage.removeItem('focusedElement');
-        let  searchresult =facetController.state.values;
-        let itemContainer =facetElement.querySelector('.facet-items-container');
-        itemContainer.innerHTML='';
-        isSearch =renderSearchFacets(facetController, itemContainer,facetElement,searchresult);
+        const defaultValues = facetController.state.values;
+        facetItemsContainer.innerHTML = '';
+        renderSearchFacets(facetController, facetItemsContainer, facetElement, defaultValues);
       }
+
+      // Restore caret + scroll after async update
+      requestAnimationFrame(() => {
+        const newInput = document.getElementById(facetId + '-input');
+        if (newInput) {
+          newInput.focus();
+          newInput.setSelectionRange(caret, caret);
+          window.scrollTo(0, scrollY);
+        }
+      });
     });
 
-    if(facetInputElement == null){
-      facetElement.appendChild(facetInput);
-    }else {
-      facetElement.appendChild(facetInputElement);
-      const focusedElementId = sessionStorage.getItem('focusedElement');
-      const focusElement = document.getElementById(focusedElementId);
-      if (focusedElementId) {
-        setTimeout(() => {
-          const currentScrollPosition = window.scrollY;
-        focusElement.focus();
-          window.scrollTo(0, currentScrollPosition);
-        }, 0);
-      }
-      let  searchresult =facetController.state.facetSearch.values;
-        if (facetInputElement.value.trim() === "") {
-            searchresult  = facetController.state.values
-        }
-        facetItemsContainer.innerHTML='';
-        isSearch =renderSearchFacets(facetController, facetItemsContainer,facetElement,searchresult);
-    }
+    facetElement.appendChild(facetInputElement);
   }
-if(!isSearch){
-    values.forEach((value) => {
-      if(facetId === 'applications' && value.value === 'Application'){
-        return;
-      }
-      const facetItem = document.createElement("div");
-      facetItem.className = "facet-item tw-flex tw-items-center tw-gap-2 tw-py-1";
-      facetItem.innerHTML = `
-        <input type="checkbox" id="${value.value}" ${
-        value.state === "selected" ? "checked" : ""
-      } class="tw-accent-blue-500 tw-w-4 tw-h-4">
-        <label for="${value.value}">${value.value} (${
-        value.numberOfResults
-      })</label>
+
+  // Create and add container for facet items
+  const facetItemsContainer = document.createElement('div');
+  facetItemsContainer.className = 'facet-items-container';
+  facetElement.appendChild(facetItemsContainer);
+
+  const values = facetController.state.values;
+  const searchValues = facetController.state.facetSearch?.values || [];
+
+  let isSearch = false;
+
+  if (shouldHaveInput && facetInputElement && facetInputElement.value.trim() !== '') {
+    renderSearchFacets(facetController, facetItemsContainer, facetElement, searchValues.length ? searchValues : values);
+    isSearch = true;
+  }
+
+  if (!isSearch) {
+    values.forEach(value => {
+      if (facetId === 'applications' && value.value === 'Application') return;
+
+      const facetItem = document.createElement('div');
+      facetItem.className = 'facet-item tw-flex tw-items-center tw-gap-2 tw-py-1';
+      facetItem.innerHTML = `        
+        <input type="checkbox" id="${value.value}" ${value.state === "selected" ? "checked" : ""} class="tw-accent-blue-500 tw-w-4 tw-h-4">
+        <label for="${value.value}">${value.value} (${value.numberOfResults})</label>
       `;
 
       facetItem.querySelector("input").addEventListener("change", () => {
-        const focusedElementId = sessionStorage.getItem('focusedElement');
-        if(focusedElementId){
-          const focusElement = document.getElementById(focusedElementId);
-          focusElement.value = '';
-          sessionStorage.removeItem('focusedElement');
+        sessionStorage.removeItem('focusedElement');
+        if (facetInputElement) {
+          facetInputElement.value = '';
         }
         facetController.toggleSelect(value);
       });
@@ -198,20 +198,36 @@ if(!isSearch){
       facetItemsContainer.appendChild(facetItem);
     });
 
-    if(facetId == 'contenttype'){
-      const productAndServices = facetController.state.values
-      productAndServices.forEach(item => {
-        if (item.state === "selected") {
-            orderFacetBasedOnSelection(item.value)
+    if (facetId === 'contenttype') {
+      const isOrderingExecuted = localStorage.getItem('isOrderingExecuted') === 'true';
+      if(!facetBreadcrumb.state.facetBreadcrumbs.length){
+        localStorage.setItem('isOrderingExecuted', 'false');
+      }
+      if (!isOrderingExecuted) {
+        const selectedValues = facetController.state.values.filter(value => value.state === "selected");
+        if (selectedValues.length > 0) {
+          const selectedValue = selectedValues[0].value;
+          orderFacetBasedOnSelection(selectedValue);
+          localStorage.setItem('isOrderingExecuted', 'true');
         }
-      });
+      }
     }
-    clearFacetFilter(facetElement,facetController);
+    
+    clearFacetFilter(facetElement, facetController);
     orderContentTypeFacets(facetId, facetItemsContainer);
     facetAccordion(values, facetElement, facetItemsContainer);
     createToggleButtons(facetItemsContainer, facetController);
   }
+
+  // Restore focus if it was active before re-render
+  if (shouldHaveInput && wasFocused && facetInputElement) {
+    requestAnimationFrame(() => {
+      facetInputElement.focus();
+      facetInputElement.setSelectionRange(previousCaret, previousCaret);
+    });
+  }
 }
+
 
 function clearFacetFilter(facetElement,facetController){
   const hasClearBtn = facetElement.querySelector('.clear-filter-btn');
@@ -237,7 +253,7 @@ function clearFacetFilter(facetElement,facetController){
         const focusedElementId = sessionStorage.getItem('focusedElement');
         if(focusedElementId){
           const focusElement = document.getElementById(focusedElementId);
-          focusElement.value = '';
+          focusElement ? focusElement.value = '' : '';
           sessionStorage.removeItem('focusedElement');
         }
         facetController.deselectAll();
@@ -276,29 +292,52 @@ function renderSearchFacets(facetController, facetItemsContainer,facetElement,se
     return isSearch
   }
   
-function orderFacetChildren(facetElementId, desiredOrder) {
-  const facetElement = document.getElementById(facetElementId);
-  const facetChildren = Array.from(facetElement.children);
-
-  facetChildren.sort((a, b) => {
-    const indexA = desiredOrder.indexOf(a.id);
-    const indexB = desiredOrder.indexOf(b.id);
-    return indexA - indexB;
-  });
-
-  facetChildren.forEach(child => {
-    facetElement.appendChild(child);
-  });
-}
+  function orderFacetChildren(facetElementId, desiredOrder) {
+    const facetElement = document.getElementById(facetElementId);
+    if (!facetElement) {
+      console.error("Facet element not found for ID:", facetElementId);
+      return;
+    }
+  
+    requestAnimationFrame(() => {
+      const facetChildren = Array.from(facetElement.children);
+      console.log("facetChildren after rendering:", facetChildren);
+  
+      if (facetChildren.length === 0) {
+        console.warn("No facet children found after render. Check if facets are rendered correctly.");
+        return;
+      }
+  
+      facetChildren.sort((a, b) => {
+        const indexA = desiredOrder.indexOf(a.id);
+        const indexB = desiredOrder.indexOf(b.id);
+  
+        // If the ID is not found in the desiredOrder, move it to the end of the list
+        if (indexA === -1) return 1;
+        if (indexB === -1) return -1;
+  
+        return indexA - indexB;
+      });
+  
+      console.log("facetChildren after sorting:", facetChildren);
+  
+      facetChildren.forEach(child => {
+        facetElement.appendChild(child);
+      });
+    });
+  }
+  
+  
 
 function orderFacetBasedOnSelection(selectedValue) {
   let desiredOrder = [];
 
   if (selectedValue === 'Products and services') {
     desiredOrder = [
+      'contenttype-facet',
       'massspectrometerscategories-facet',
       'capillaryelectrophoresiscategories-facet',
-      'scategories-facet',
+      'hplcandceproductscategories-facet',
       'integratedsolutionscategories-facet',
       'softwarecategories-facet',
       'standardsandreagentscategories-facet',
@@ -306,6 +345,7 @@ function orderFacetBasedOnSelection(selectedValue) {
     orderFacetChildren('facets', desiredOrder);
   } else if (selectedValue === 'Regulatory documents') {
     desiredOrder = [
+      'contenttype-facet',
       'technicaldocuments-facet',
       'instrumentfamily-facet',
       'languagecountry-facet',
@@ -314,11 +354,12 @@ function orderFacetBasedOnSelection(selectedValue) {
     orderFacetChildren('facets', desiredOrder);
   } else if (selectedValue === 'Resource library') {
     desiredOrder = [
+      'contenttype-facet',
       'assettypes-facet',
       'applications-facet',
       'massspectrometerscategories-facet',
       'capillaryelectrophoresiscategories-facet',
-      'scategories-facet',
+      'hplcandceproductscategories-facet',
       'integratedsolutionscategories-facet',
       'softwarecategories-facet',
       'standardsandreagentscategories-facet',
@@ -327,6 +368,7 @@ function orderFacetBasedOnSelection(selectedValue) {
     orderFacetChildren('facets', desiredOrder);
   } else if (selectedValue === 'Training') {
     desiredOrder = [
+      'contenttype-facet',
       'location-facet',
       'coursetypecategories-facet',
       'trainingtopiccategories-facet',
@@ -337,7 +379,7 @@ function orderFacetBasedOnSelection(selectedValue) {
       'language-facet',
       'massspectrometerscategories-facet',
       'capillaryelectrophoresiscategories-facet',
-      'scategories-facet',
+      'hplcandceproductscategories-facet',
       'integratedsolutionscategories-facet',
       'softwarecategories-facet',
       'standardsandreagentscategories-facet',
@@ -345,12 +387,13 @@ function orderFacetBasedOnSelection(selectedValue) {
     orderFacetChildren('facets', desiredOrder);
   } else if (selectedValue === 'Customer documents') {
     desiredOrder = [
+      'contenttype-facet',
       'assettypes-facet',
       'year-facet',
       'language-facet',
       'massspectrometerscategories-facet',
       'capillaryelectrophoresiscategories-facet',
-      'scategories-facet',
+      'hplcandceproductscategories-facet',
       'integratedsolutionscategories-facet',
       'softwarecategories-facet',
       'standardsandreagentscategories-facet',
@@ -406,14 +449,6 @@ function createFacetRender(facetController, facetElementId, headerText) {
   if(values.length > 0) {
     isValues = true;
   }
-  if(facetElementId.indexOf('product')!=-1) {
-    let startIndex = facetElementId.indexOf("product") + "product".length;
-    facetElementId  = facetElementId.substring(startIndex,facetElementId.length)
-  }
-  if(facetElementId.indexOf('course')!=-1) {
-    let startIndex = facetElementId.indexOf("course") + "course".length;
-    facetElementId  = facetElementId.substring(startIndex,facetElementId.length);
-  }
   const id= facetElementId+"-facet";
   const ele= document.getElementById( id);
   if(ele !== null && !isValues) {
@@ -461,11 +496,16 @@ export function callCreateFacet(){
 
   for (let item in facetsId) {
     const val = facetController.get(item);
-    if(val){
+    if (val.state.values.length === 0) {
+      const elementToRemove = document.querySelector(`#${val.state.facetId}-facet`);
+      if (elementToRemove) {
+        elementToRemove.remove();
+      }
+    }
+    if(val.state.values.length){
       createFacetRender(val,item,facetsId[item]);
     }
   };
-
 }
 
 export const handleMobileFilters = () => {

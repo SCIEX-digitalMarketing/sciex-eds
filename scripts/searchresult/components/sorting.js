@@ -1,27 +1,13 @@
-import { sortController, headlessResultsList } from '../controller/controllers.js';
-import renderSearchResults from './renderSearchResult.js';
+import { sortController } from '../controller/controllers.js';
 
-export function sortByTitle(data) {
-  return [...data].sort((a, b) => a.title.localeCompare(b.title));
-}
-export function sortByDateDescending(data) {
-  return [...data].sort((a, b) => {
-    const dateA = new Date(a.indexeddate);
-    const dateB = new Date(b.indexeddate);
-    return dateB - dateA;
-  });
-}
 export const sortCondition = {
   sortBy: (criterion) => {
-    const values = headlessResultsList.state.results;
-    if (criterion.by === 'field' && criterion.field === 'title') {
-      // Sorting by Title
-      return sortByTitle(values);
-    } if (criterion.by === 'indexeddate') {
-      // Sorting by Date Ascending
-      return sortByDateDescending(values);
-    } if (criterion.by === 'relevancy') {
-      return sortController.sortBy(criterion);
+    if (criterion.by === 'field') {
+      sortController.sortBy(criterion);
+    } else if (criterion.by === 'date') {
+      sortController.sortBy(criterion);
+    } else if (criterion.by === 'relevancy') {
+      sortController.sortBy(criterion);
     }
     return '';
   },
@@ -31,9 +17,12 @@ const renderSorting = () => {
   sortElement.innerHTML = '';
   const sortOptions = [
     { label: 'Relevancy', criterion: { by: 'relevancy' } },
-    { label: 'Title', criterion: { by: 'field', field: 'title' } },
-    { label: 'Date', criterion: { by: 'indexeddate', field: 'indexeddate' } },
+    { label: 'Title', criterion: { by: 'field', field: 'title', order: 'ascending' } },
+    { label: 'Date', criterion: { by: 'date', order: 'ascending' } },
   ];
+  const sortLabel = document.createElement('div');
+  sortLabel.innerHTML = 'Sort By:';
+  sortLabel.className = 'sort-by-label';
   const selectElement = document.createElement('select');
   selectElement.id = 'sort-element';
   selectElement.className = 'tw-py-2 tw-px-3 tw-border tw-border-gray-300 tw-bg-white tw-text-sm';
@@ -44,11 +33,11 @@ const renderSorting = () => {
     selectElement.appendChild(optionElement);
   });
 
-  selectElement.addEventListener('change', () => {
-    // const selectedCriterion = JSON.parse(event.target.value);
-    // const sortedData = sortCondition.sortBy(selectedCriterion);
-    renderSearchResults();
+  selectElement.addEventListener('change', (event) => {
+    const selectedCriterion = JSON.parse(event.target.value);
+    sortCondition.sortBy(selectedCriterion);
   });
+  sortElement.appendChild(sortLabel);
   sortElement.appendChild(selectElement);
 };
 export default renderSorting;
