@@ -11,7 +11,7 @@ import {
   buildFacetConditionsManager,
   buildContext
 } from 'https://static.cloud.coveo.com/headless/v3/headless.esm.js';
-import { searchEngine, analyticsEngine }  from '../engine.js';
+import { searchEngine }  from '../engine.js';
 
 export const searchBoxController = buildSearchBox(searchEngine, {
   options: {
@@ -71,7 +71,7 @@ context.add('host', window.location.origin);
 export const facetBreadcrumb = buildBreadcrumbManager(searchEngine)
 
 export  function handleResultClick(results) {
-  const interactiveResult = buildInteractiveResult(analyticsEngine, {
+  const interactiveResult = buildInteractiveResult(searchEngine, {
     options: {result : results}
   })
   interactiveResult.select();

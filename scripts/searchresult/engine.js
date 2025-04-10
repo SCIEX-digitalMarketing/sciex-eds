@@ -22,16 +22,6 @@ export const searchEngine = buildSearchEngine({
     search: {
       searchHub: 'SCIEXMainSearch',
     },
-  },
-});
-
-export const analyticsEngine = buildSearchEngine({
-  configuration: {
-    organizationId: organizationId,
-    accessToken: accessToken,
-    search: {
-      searchHub: 'SCIEXMainSearch',
-    },
     analytics: {
       analyticsMode: 'next',
       trackingId: 'sciex_us'
@@ -39,6 +29,6 @@ export const analyticsEngine = buildSearchEngine({
   },
 });
 
-export default { searchEngine, analyticsEngine };
+export default { searchEngine };
 
 

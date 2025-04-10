@@ -16,6 +16,10 @@
     background-color: #fff;
 }
 
+.standalone-search-container {
+    display: none !important;
+}
+
 .search-wrapper {
     display: flex;
     gap: 40px;
@@ -25,7 +29,30 @@
 
 .search-container {
     justify-content: center;
-    padding: 24px 0px;
+    padding: 24px 0px 0px;
+}
+
+.search-term-validation {
+    color: var(--Grey-500, #707070);
+    font-family: "Geogrotesque Sharp VF";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 330;
+    line-height: 20px; /* 142.857% */
+    letter-spacing: 0.07px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-validation-error {
+    display: none;
+    color: var(--Validation-Error-900, #B12A28);
+    font-family: "Geogrotesque Sharp VF";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 330;
+    line-height: 20px; /* 142.857% */
+    letter-spacing: 0.07px;
 }
 
 .search-box {
@@ -48,7 +75,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 0px;
+    padding: 20px 0px;
 }
 
 #sort {
@@ -506,7 +533,7 @@
     position: relative;
 }
 
-.clear-search {
+#clear-search {
     position: absolute;
     top: 50%;
     right: 10px;
@@ -529,14 +556,16 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 10px;
+}
+.suggestion-item svg {
+    margin-right: 10px;
 }
 
 #suggestion-popup {
     position: absolute;
     top: 296px;
     left: 488px;
-    width: 63%;
+    width: 61%;
     max-height: 200px;
     overflow-y: auto;
     z-index: 10;
@@ -549,6 +578,18 @@
     box-shadow: 0px 8px 16px 0px rgba(19, 19, 19, 0.05);
 }
 
+.sort-by-label {
+    display: block;
+    align-content: center;
+    padding-right: 20px;
+    color: var(--Grey-700, #434343);
+    font-family: "Geogrotesque Sharp VF";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 530;
+    line-height: 24px; /* 150% */
+    letter-spacing: 0.08px;
+}
 /* Media Queries for Responsiveness */
 @media (max-width: 1024px) { 
     #facet-readcrumb {
@@ -606,7 +647,7 @@
         width: 100%;
     }
     .search-result-section .search-container {
-        padding: 20px 0 !important;
+        padding: 20px 0 0 !important;
     }
     .query-sort-section #sort {
         grid-column: span 2;
@@ -769,6 +810,10 @@
         font-weight: 330;
         line-height: 23px; /* 153.333% */
         letter-spacing: 0.075px;
+    }
+
+    .sort-by-label {
+        display: none;
     }
 }
 

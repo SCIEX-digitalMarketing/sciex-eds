@@ -1,4 +1,6 @@
 import {} from '../../scripts/aem.js';
+// eslint-disable-next-line
+import { loadQueryActions, loadFacetSetActions } from 'https://static.cloud.coveo.com/headless/v3/headless.esm.js';
 import { searchEngine } from '../../scripts/searchresult/engine.js';
 import renderSearchBox from '../../scripts/searchresult/components/renderSearchBox.js';
 import renderSearchResults from '../../scripts/searchresult/components/renderSearchResult.js';
@@ -10,6 +12,7 @@ import renderPagination from '../../scripts/searchresult/components/pagination.j
 import renderQuerySummary from '../../scripts/searchresult/components/querySummary.js';
 import renderSorting from '../../scripts/searchresult/components/sorting.js';
 import { renderFacetBreadcurm, handleClearMobileFilters } from '../../scripts/searchresult/components/facetBreadcrumb.js';
+import { contentTypeFacetController } from '../../scripts/searchresult/controller/controllers.js';
 
 export default async function decorate(block) {
   // Create main container div
@@ -183,11 +186,33 @@ export default async function decorate(block) {
   searchTermDiv.appendChild(searchTermLabel);
   searchTermDiv.appendChild(searchTermValue);
 
+  // Function to create an element with specific classes and text content
+  function createElement(tag, className, id, textContent = '') {
+    const element = document.createElement(tag);
+    element.className = className;
+    element.id = id;
+    if (textContent) {
+      element.textContent = textContent;
+    }
+    return element;
+  }
+
+  const searchTermValidation = createElement('div', 'search-term-validation', 'searchTermValidation');
+
+  const validationText = createElement('div', 'search-validation-text', 'validationText', 'Search within max 20 characters');
+  const validationCount = createElement('div', 'search-validation-count', 'validationCount');
+  const validationError = createElement('div', 'search-validation-error', 'validationError', 'Input exceeds the limit. Please search within 20 characters');
+
+  searchTermValidation.appendChild(validationText);
+  searchTermValidation.appendChild(validationError);
+  searchTermValidation.appendChild(validationCount);
+
   // Create search input
   const searchInput = document.createElement('input');
   searchInput.type = 'text';
   searchInput.id = 'coveo-query';
   searchInput.placeholder = 'Search...';
+  searchInput.maxLength = 20;
   searchInput.classList.add(
     'search-box',
     'tw-w-full',
@@ -331,6 +356,7 @@ export default async function decorate(block) {
   // Append all sections to the search result section div
   searchResultSectionDiv.appendChild(searchContainerDiv);
   searchResultSectionDiv.appendChild(searchTermDiv);
+  searchResultSectionDiv.appendChild(searchTermValidation);
   searchResultSectionDiv.appendChild(querySortSectionDiv);
   searchResultSectionDiv.appendChild(facetBreadcrumbDiv);
   searchResultSectionDiv.appendChild(coveoResultsLoading);
@@ -350,14 +376,35 @@ export default async function decorate(block) {
   // Append the main search result div to the body or any specific container
   block.append(searchResultDiv);
 
-  // Create suggestion popup div
+  // Create suggestion popup divgit
+
   const suggestionPopupDiv = document.createElement('div');
   suggestionPopupDiv.id = 'suggestion-popup';
 
   document.body.appendChild(suggestionPopupDiv);
 
+  const pageUrl = new URL(window.location.href);
+  let query;
+
   try {
-    renderSearchBox();
+    if (pageUrl.search) {
+      const params = new URLSearchParams(pageUrl.search);
+      query = params.get('term');
+      const contentType = params.get('contentType');
+      const { updateQuery } = loadQueryActions(searchEngine);
+      const { toggleSelectFacetValue } = loadFacetSetActions(searchEngine);
+      searchEngine.dispatch(updateQuery({
+        q: query,
+      }));
+      if (contentType !== 'All') {
+        searchEngine.dispatch(toggleSelectFacetValue({
+          facetId: 'contenttype',
+          selection: { value: contentType, state: 'selected' },
+        }));
+        contentTypeFacetController.showMoreValues();
+      }
+    }
+    renderSearchBox(query);
     renderSorting();
     searchEngine.executeFirstSearch();
     searchEngine.subscribe(() => {
