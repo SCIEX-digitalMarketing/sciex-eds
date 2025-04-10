@@ -16,6 +16,10 @@
     background-color: #fff;
 }
 
+.standalone-search-container {
+    display: none !important;
+}
+
 .search-wrapper {
     display: flex;
     gap: 40px;
