@@ -169,8 +169,10 @@ function handleMiddleSections(child, block, iteration) {
 function handleBlockSection(child, block, iteration) {
   const wrapperDiv = document.createElement('div');
   wrapperDiv.classList.add(`wrapper-${iteration}`, 'black-section');
-  const uniqueId = getMetadata('pageorder');
-
+  const uniqueId = getMetadata('pagetrackingid');
+  const uniqueIdSpan = document.createElement('span');
+  uniqueIdSpan.classList.add('page-tracking-id');
+  uniqueIdSpan.textContent = uniqueId;
   const listItems = child.querySelectorAll('ul li');
 
   listItems.forEach((li) => {
@@ -186,7 +188,7 @@ function handleBlockSection(child, block, iteration) {
   });
 
   wrapperDiv.append(child);
-  wrapperDiv.append(uniqueId);
+  wrapperDiv.append(uniqueIdSpan);
   block.append(wrapperDiv);
 }
 
