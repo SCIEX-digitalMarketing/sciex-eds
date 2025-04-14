@@ -4,7 +4,7 @@ import { buildSearchEngine } from 'https://static.cloud.coveo.com/headless/v3/he
 export const searchEngine = buildSearchEngine({
   configuration: {
     organizationId: 'danahernonproduction1892f3fhz',
-    accessToken: 'xxca9398dc-2af2-4d92-aaa6-62b8f55efc57',
+    accessToken: 'xx2136ae2c-554b-41a7-8afd-1ad8c7ffcb07',
     search: {
       searchHub: 'SCIEXMainSearch',
     },
