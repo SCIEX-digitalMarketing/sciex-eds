@@ -2,6 +2,7 @@ import {
   div, span, ul, li, a, p,
 } from '../../scripts/dom-builder.js';
 import { decorateIcons } from '../../scripts/aem.js';
+import { standaloneSearchBoxController } from '../../scripts/header-search/headerSearchController.js';
 
 const menuLinks = {};
 function createMainHeader(section) {
@@ -425,11 +426,174 @@ function hideAllActiveDivs() {
   document.getElementById('menu-overlay').style.display = 'none';
 }
 
+const showSuggestions = (selectedContentType) => {
+  const suggestionPopup = document.getElementById('global-suggestion-popup');
+  const searchBox = document.getElementById('standalone-search-box');
+  const suggestions = standaloneSearchBoxController.state.suggestions || [];
+
+  const rect = searchBox.getBoundingClientRect();
+  suggestionPopup.style.top = `${rect.bottom + window.scrollY}px`;
+  suggestionPopup.style.left = `${rect.left + window.scrollX}px`;
+
+  if (suggestions.length > 0) {
+    suggestionPopup.innerHTML = suggestions
+      .map((suggestion) => `<div class="suggestion-item" style="padding: 8px; cursor: pointer;" data-raw-value="${suggestion.rawValue}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0065 7.33324C12.0065 9.7264 10.0664 11.6665 7.67318 11.6665C5.27993 11.6665 3.33984 9.7264 3.33984 7.33324C3.33984 4.94007 5.27993 3 7.67318 3C10.0664 3 12.0065 4.94007 12.0065 7.33324ZM11.0743 11.4414C10.1512 12.2066 8.96589 12.6665 7.67318 12.6665C4.72766 12.6665 2.33984 10.2787 2.33984 7.33324C2.33984 4.38777 4.72766 2 7.67318 2C10.6187 2 13.0065 4.38777 13.0065 7.33324C13.0065 8.62593 12.5466 9.81119 11.7815 10.7343L14.0267 12.9796L14.3803 13.3331L13.6732 14.0402L13.3196 13.6867L11.0743 11.4414Z" fill="#707070"/>
+          </svg>
+          ${suggestion.highlightedValue}
+        </div>`)
+      .join('');
+    suggestionPopup.style.display = 'block';
+
+    suggestions.forEach((suggestion, index) => {
+      const suggestionItem = suggestionPopup.querySelectorAll('.suggestion-item')[index];
+      suggestionItem.addEventListener('click', () => {
+        const { rawValue } = suggestion;
+        standaloneSearchBoxController.updateRedirectUrl(`/search-results?term=${rawValue}&contentType=${selectedContentType}`);
+        standaloneSearchBoxController.selectSuggestion(rawValue);
+        suggestionPopup.style.display = 'none';
+      });
+    });
+  } else {
+    suggestionPopup.style.display = 'none';
+  }
+};
+
+function createGlobalSearch() {
+  const suggestionPopup = document.getElementById('global-suggestion-popup');
+  const searchContainer = document.createElement('div');
+  searchContainer.className = 'tw-ml-auto standalone-search-container';
+
+  const searchBox = document.createElement('input');
+  searchBox.type = 'text';
+  searchBox.placeholder = 'Search within max 20 characters';
+  searchBox.className = 'standalone-search-box';
+  searchBox.id = 'standalone-search-box';
+  searchBox.maxLength = 20;
+
+  const tooltip = document.createElement('div');
+  tooltip.id = 'char-limit-tooltip';
+  tooltip.className = 'char-limit-tooltip';
+  tooltip.textContent = 'Input exceeds the limit. Please search within 20 characters';
+  tooltip.style.display = 'none';
+
+  const dropdown = document.createElement('div');
+  dropdown.className = 'dropdown';
+
+  const dropbtn = document.createElement('button');
+  dropbtn.className = 'dropbtn';
+  const downArrow = `<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+  <path d="M14.7344 5L8.73437 11L2.73438 5" stroke="#141414"/>
+  </svg>`;
+  dropbtn.innerHTML = `All ${downArrow}`;
+
+  const dropdownContent = document.createElement('div');
+  dropdownContent.className = 'dropdown-content';
+  dropdownContent.style.display = 'none';
+
+  const menuItems = [
+    'All',
+    'Products and services',
+    'Applications',
+    'Regulatory Docs',
+    'Customer Docs',
+    'Resource library',
+    'Training',
+  ];
+
+  let selectedContentType = 'All';
+  menuItems.forEach((item) => {
+    const anchorElement = document.createElement('a');
+    anchorElement.href = '#';
+    anchorElement.textContent = item;
+    anchorElement.addEventListener('click', (event) => {
+      event.preventDefault();
+      dropbtn.innerHTML = item + downArrow;
+      dropdownContent.style.display = 'none';
+      selectedContentType = item;
+    });
+    dropdownContent.appendChild(anchorElement);
+  });
+
+  dropdown.appendChild(dropbtn);
+  dropdown.appendChild(dropdownContent);
+  searchContainer.appendChild(searchBox);
+  searchContainer.appendChild(tooltip);
+  searchContainer.appendChild(dropdown);
+
+  const searchBtn = document.createElement('button');
+  searchBtn.className = 'global-search-btn';
+  const searchIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5677 9.16655C15.5677 12.2961 13.0307 14.8331 9.90104 14.8331C6.77141 14.8331 4.23438 12.2961 4.23438 9.16655C4.23438 6.03702 6.77141 3.5 9.90104 3.5C13.0307 3.5 15.5677 6.03702 15.5677 9.16655ZM14.2483 14.2209C13.0811 15.2257 11.562 15.8331 9.90104 15.8331C6.21914 15.8331 3.23438 12.8484 3.23438 9.16655C3.23438 5.48471 6.21914 2.5 9.90104 2.5C13.5829 2.5 16.5677 5.48471 16.5677 9.16655C16.5677 10.8275 15.9603 12.3466 14.9554 13.5138L17.7546 16.3129L18.1081 16.6664L17.401 17.3735L17.0475 17.02L14.2483 14.2209Z" fill="white"/>
+  </svg>`;
+  searchBtn.innerHTML = searchIcon;
+  searchContainer.appendChild(searchBtn);
+
+  searchBtn.addEventListener('click', (event) => {
+    if (searchBox.value.trim() !== '') {
+      standaloneSearchBoxController.updateRedirectUrl(`/search-results?term=${searchBox.value}&contentType=${selectedContentType}`);
+      standaloneSearchBoxController.submit();
+    } else {
+      standaloneSearchBoxController.submit();
+    }
+    event.stopPropagation();
+  });
+
+  dropbtn.addEventListener('click', (event) => {
+    dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+    event.stopPropagation();
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!dropdown.contains(event.target)) {
+      dropdownContent.style.display = 'none';
+    }
+  });
+
+  searchBox.addEventListener('input', (event) => {
+    const query = event.target.value;
+    if (query.length > 0) {
+      standaloneSearchBoxController.updateText(query);
+      standaloneSearchBoxController.showSuggestions();
+      showSuggestions(selectedContentType);
+    } else {
+      standaloneSearchBoxController.updateText('');
+      suggestionPopup.style.display = 'none';
+    }
+  });
+
+  searchBox.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' && event.target.value.trim() !== '') {
+      standaloneSearchBoxController.updateRedirectUrl(`/search-results?term=${event.target.value}&contentType=${selectedContentType}`);
+      standaloneSearchBoxController.submit();
+    }
+  });
+
+  searchBox.addEventListener('input', () => {
+    if (searchBox.value.length >= 20) {
+      tooltip.style.display = 'block';
+      searchContainer.classList.add('char-limit-reached');
+    } else {
+      tooltip.style.display = 'none';
+      searchContainer.classList.remove('char-limit-reached');
+    }
+  });
+
+  searchBox.addEventListener('blur', () => {
+    tooltip.style.display = 'none';
+  });
+
+  return searchContainer;
+}
+
 function createMegaMenuTopNav(section) {
   const parentDiv = document.createElement('div');
   parentDiv.className = 'tw-hidden megamenu-wrapper lg:tw-flex tw-w-full tw-bg-white tw-relative tw-z-[100]';
   const container = document.createElement('div');
   container.className = 'tw-container ';
+
+  const searchContainer = createGlobalSearch();
 
   const border = document.createElement('div');
   border.className = 'tw-border-b  tw-flex tw-items-center desktop-links ';
@@ -612,6 +776,7 @@ function createMegaMenuTopNav(section) {
   });
 
   border.append(ulTag);
+  border.append(searchContainer);
   container.append(border);
   parentDiv.append(container);
   return parentDiv;
@@ -1233,6 +1398,17 @@ function processHtml(block, main) {
 export default async function decorate(block) {
   // load nav as fragment
   const resp = await fetch('/nav.plain.html');
+
+  const suggestionPopupDiv = document.createElement('div');
+  suggestionPopupDiv.id = 'global-suggestion-popup';
+
+  standaloneSearchBoxController.subscribe(() => {
+    if (standaloneSearchBoxController.state.redirectTo) {
+      window.location.href = standaloneSearchBoxController.state.redirectTo;
+    }
+  });
+
+  document.body.appendChild(suggestionPopupDiv);
 
   if (resp.ok) {
     const html = await resp.text();
