@@ -44,6 +44,20 @@ footer .footer > div {
     }
 }
 
+.paragraph-container {
+    padding-top: 10px;
+    display: flex;
+}
+
+.paragraph-container .tracking-id-paragraph {
+    width: 90%;
+}
+.paragraph-container img {
+    width: 60%;
+    height: auto;
+    margin-left: 65%;
+}
+
 .footer-list .selected-language {
     display: flex;
     text-align: left;
@@ -545,13 +559,14 @@ footer .footer > div {
 }
 
 .wrapper-4.black-section-logo {
-    padding-top: 4pc;
+    padding-top: 4px;
 }
 .wrapper-3.black-section p {
     color: #8a8a8a;
     font-size: 14px;
     transition: color 0.3s;
     line-height: 18px;
+    word-spacing: 1px;
 }
 
 .footer-list ul li a:hover,
@@ -1134,3 +1149,16 @@ flex-direction: column;
         flex: 1;
         }
 }
+
+@media (max-width: 768px)  {
+    .paragraph-container {
+        display: block;
+    }
+
+    .paragraph-container img {
+        width: 15%;
+        margin-left: 5%;
+        padding-top: 25px;
+    }
+}
+

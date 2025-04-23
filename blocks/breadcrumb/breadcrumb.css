@@ -1,4 +1,3 @@
-
 main > .breadcrumb-container {
   grid-row: 1;
   grid-column: 1;
@@ -10,31 +9,40 @@ main > .section > div {
 
 @media (min-width: 900px) {
   main .breadcrumb-container {
-      grid-row: 1;
-      grid-column: 1 / span 2;
+    grid-row: 1;
+    grid-column: 1 / span 2;
   }
 }
 
 .breadcrumb-wrapper nav {
   display: flex;
   align-items: center;
+  flex-wrap: wrap; /* Allow wrapping */
+  row-gap: 0.5rem; /* Optional: spacing between wrapped lines */
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
+
 .breadcrumb-wrapper nav a,
 .breadcrumb-wrapper nav span {
   color: var(--Grey-500, #707070) !important;
 
-  /* Desktop/text-sm/regular */
+  /* Typography */
   font-family: "Geogrotesque";
   font-size: 14px !important;
   font-style: normal !important;
   font-weight: 330 !important;
-  line-height: 20px !important; /* 142.857% */
+  line-height: 20px !important;
   letter-spacing: 0.07px !important;
+
+  word-break: break-word;
+  white-space: normal; /* Allow wrapping within items */
 }
+
 .breadcrumb > nav a {
   text-decoration: none;
   color: black;
-  transition: color 0.3s, text-decoration 0.3s; /* Smooth transition for color and underline */
+  transition: color 0.3s, text-decoration 0.3s;
 }
 
 .breadcrumb > nav a:hover {
@@ -47,56 +55,72 @@ main > .section > div {
   color: black;
 }
 
+/* Wrapping behavior for smaller screens */
+@media (max-width: 767px) {
+  .breadcrumb-wrapper {
+    padding: 16px 15px;
+  }
+
+  .breadcrumb-wrapper nav {
+    justify-content: flex-start;
+  }
+
+  .breadcrumb-wrapper nav a {
+    white-space: normal;
+  }
+}
+
 @media (min-width: 375px) {
   .breadcrumb-wrapper {
-      padding: 16px 15px;
-      max-width: 40pc !important;
+    padding: 16px 15px;
+    max-width: 40pc !important;
   }
 }
 
 @media (min-width: 640px) {
   .breadcrumb-wrapper {
-      max-width: 40pc !important;
+    max-width: 40pc !important;
   }
 }
 
 @media (min-width: 768px) {
   .breadcrumb-wrapper {
-      max-width: 8in !important;
+    max-width: 8in !important;
   }
 }
 
 @media (min-width: 1024px) {
   .breadcrumb-wrapper {
-      max-width: 63pc !important;
-      padding-left: 55px !important;
-      padding-right: 55px !important;
+    max-width: 63pc !important;
+    padding-left: 55px !important;
+    padding-right: 55px !important;
   }
 }
 
 @media (min-width: 1280px) {
   .breadcrumb-wrapper {
-      max-width: 79pc !important;
-      padding-left: 55px !important;
-      padding-right: 55px !important;
+    max-width: 79pc !important;
+    padding-left: 55px !important;
+    padding-right: 55px !important;
   }
 }
+
 @media (min-width: 1366px) {
   .breadcrumb-wrapper {
-      max-width: 84pc !important;
-      padding-left: 55px !important;
-      padding-right: 55px !important;
+    max-width: 84pc !important;
+    padding-left: 55px !important;
+    padding-right: 55px !important;
   }
 }
 
 @media (min-width: 1440px) {
   .breadcrumb-wrapper {
-      max-width: 89pc !important;
+    max-width: 89pc !important;
   }
 }
 
 @media (min-width: 1536px) {
   .breadcrumb-wrapper {
-      max-width: 95pc !important;
+    max-width: 95pc !important;
   }
 }

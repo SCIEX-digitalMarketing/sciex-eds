@@ -10,6 +10,7 @@ import {
   loadSection,
   loadSections,
   loadCSS,
+  toClassName,
   getMetadata,
 } from './aem.js';
 
@@ -97,7 +98,27 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
 }
+const TEMPLATE_LIST = [
+  'course-catalog-template',
+  'tech-notes-template',
+];
 
+async function decorateTemplates(main) {
+  try {
+    const template = toClassName(getMetadata('template'));
+    if (TEMPLATE_LIST.includes(template)) {
+      const templateName = template;
+      const mod = await import(`../templates/${templateName}/${templateName}.js`);
+      loadCSS(`${window.hlx.codeBasePath}/templates/${templateName}/${templateName}.css`);
+      if (mod.default) {
+        await mod.default(main);
+      }
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Auto Blocking failed', error);
+  }
+}
 /**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
@@ -107,6 +128,7 @@ async function loadEager(doc) {
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
+    decorateTemplates(main);
     decorateMain(main);
     document.body.classList.add('appear');
     await loadSection(main.querySelector('.section'), waitForFirstImage);

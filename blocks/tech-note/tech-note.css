@@ -1,0 +1,60 @@
+/*.technotes {
+  display: flex;  
+  gap: 20px;      
+}*/
+.technotes picture {
+  height:100%;
+}
+.technotes img {
+  max-width: 100%;  
+  width:100%;    
+  height:100%;
+}
+.technotes .image-top{
+  max-width: 100%;
+  margin: auto;
+  padding: 20px;
+  gap: 20px;                
+}
+.image-left {
+  display: flex;     
+  flex-direction: row;  
+  gap: 20px;         
+  width: 100%;       
+}
+
+.image-right {
+  margin: auto;
+  padding: 20px;
+  display: flex;    
+  justify-content: flex-start;                
+  flex-direction:row-reverse;
+  gap: 20px;  
+}
+
+.image-top {
+  flex-direction: column;   
+  gap: 20px;                
+}
+
+.image-bottom {
+  max-width: 100%;
+  margin: auto;
+  padding: 20px;
+  display: flex;               
+  flex-direction:column-reverse;
+  gap: 20px;   
+}
+
+.image-left > div, .image-right > div {
+  flex: 1 1 50%; 
+}
+
+.image-top > div, .image-bottom > div {
+  width: 100%; 
+}
+
+.image-left img, .image-right img {
+  width: 100%;  
+  height: auto;  
+}

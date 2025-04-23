@@ -147,6 +147,13 @@
           },
           {
             "component": "text",
+            "valueType": "string",
+            "name": "enableSurveyScript",
+            "label": "Enable Survey Script",
+            "value": "false"
+          },
+          {
+            "component": "text",
             "valueType": "number",
             "name": "pageTrackingID",
             "label": "Page Tracking ID",
@@ -269,6 +276,79 @@
     ]
   },
   {
+    "id": "button-text",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "buttonId",
+        "label": "Button Id",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "linkText",
+        "label": "Primary Text"
+      },
+      {
+        "component": "text",
+        "name": "buttonText",
+        "label": "Primary Button Text",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "buttonUrl",
+        "label": "primary Button Url",
+        "value": ""
+      },
+      {
+        "component": "radio-group",
+        "label": "option To Select primary button url",
+        "name": "OpentionToSelectPrimary",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Open In Same Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open In New Tab",
+            "value": "_blank"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "buttonTextSecondary",
+        "label": "Secondary Button Text",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "secondaryButtonUrl",
+        "label": "Secondary Button Url"
+      },
+      {
+        "component": "radio-group",
+        "label": "option To Select Secondary button url",
+        "name": "OpentionToSelectSecondary",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Open In Same Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open In New Tab",
+            "value": "_blank"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
@@ -367,6 +447,24 @@
         "component": "aem-content",
         "name": "buttonUrl",
         "label": "Button URL"
+      }
+    ]
+  },
+  {
+    "id": "featured-products",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "productsId",
+        "label": "Products Id"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "promotion Image",
+        "multi": false
       }
     ]
   },
@@ -547,6 +645,84 @@
     ]
   },
   {
+    "id": "sciex-related-resource",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading",
+        "value": "Related Resources"
+      }
+    ]
+  },
+  {
+    "id": "resource-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "subheading",
+        "label": "SubHeading",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "linkText",
+        "label": "Link Text"
+      },
+      {
+        "component": "aem-content",
+        "name": "linkUrl",
+        "label": "Link URL"
+      },
+      {
+        "component": "radio-group",
+        "label": "Select below options to open link in new tab?",
+        "name": "selectbelowoption",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Open In Same Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open In New Tab",
+            "value": "_blank"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sciex-text",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text"
+      }
+    ]
+  },
+  {
+    "id": "sciex-title",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "titleId",
+        "label": "Title Id"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "Title",
+        "label": "Title"
+      }
+    ]
+  },
+  {
     "id": "searchresult",
     "fields": [
       {
@@ -590,6 +766,131 @@
         "value": "",
         "label": "Coveo Search Engine Access Token",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "survey-script",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "id",
+        "label": "Id",
+        "value": "abstract"
+      }
+    ]
+  },
+  {
+    "id": "tabs-container",
+    "fields": [
+      {
+        "component": "text",
+        "name": "containerId",
+        "value": "",
+        "label": "Container Id",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "tab",
+    "fields": [
+      {
+        "component": "text",
+        "name": "tabName",
+        "value": "",
+        "label": "Tab Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "tabId",
+        "value": "",
+        "label": "Id",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "tech-note",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "technoteCaption",
+        "label": "Tech Notes Caption"
+      },
+      {
+        "component": "select",
+        "name": "backgroundColour",
+        "label": "Background Colour",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "No Color",
+            "value": "######"
+          },
+          {
+            "name": "White",
+            "value": "#ffffff"
+          },
+          {
+            "name": "Silver",
+            "value": "#C0C0C0"
+          },
+          {
+            "name": "White Smoke",
+            "value": "#efefef"
+          },
+          {
+            "name": "Pattens Blue",
+            "value": "#e5ecee"
+          },
+          {
+            "name": "Sherpa Blue",
+            "value": "#003E52"
+          },
+          {
+            "name": "Cerulean",
+            "value": "#007DA4"
+          },
+          {
+            "name": "Approx Pattens Blue",
+            "value": "#e4f1f5"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "imageJustification",
+        "label": "Image Justification",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Image-right",
+            "value": "image-right"
+          },
+          {
+            "name": "Image-left",
+            "value": "image-left"
+          },
+          {
+            "name": "Image-top",
+            "value": "image-top"
+          },
+          {
+            "name": "Image-bottom",
+            "value": "image-bottom"
+          }
+        ]
       }
     ]
   }

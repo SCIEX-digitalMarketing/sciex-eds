@@ -1,0 +1,90 @@
+{
+    "definitions": [
+      {
+        "title": "Sciex Related Resources",
+        "id": "sciex-related-resource",
+        "plugins": {
+          "xwalk": {
+            "page": {
+              "resourceType": "core/franklin/components/block/v1/block",
+              "template": {
+                "name": "Sciex Related Resource",
+                "model": "sciex-related-resource",
+                "filter": "sciex-related-resource"
+              }
+            }
+          }
+        }
+      },
+      {
+        "title": "Sciex Related Resources item",
+        "id": "resource-item",
+        "plugins": {
+          "xwalk": {
+            "page": {
+              "resourceType": "core/franklin/components/block/v1/block/item",
+              "template": {
+                "name": "Sciex Related Resources item",
+                "model": "resource-item"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "models": [
+      {
+        "id": "sciex-related-resource",
+        "fields": [
+            {
+                "component": "text",
+                "valueType": "string",
+                "name": "heading",
+                "label": "Heading",
+                "value": "Related Resources"
+            }
+        ]
+      },
+      {
+        "id": "resource-item",
+        "fields": [
+           {
+            "component": "text",
+            "valueType": "string",
+            "name": "subheading",
+            "label": "SubHeading",
+            "value": ""
+            },
+            {
+                "component": "text",
+                "name": "linkText",
+                "label": "Link Text"
+            },
+            {
+                "component": "aem-content",
+                "name": "linkUrl",
+                "label": "Link URL"
+            },
+            {
+                "component": "radio-group",
+                "label": "Select below options to open link in new tab?",
+                "name": "selectbelowoption",
+                "valueType": "string",
+                "options": [
+                  { "name": "Open In Same Tab", "value": "_self" },
+                  { "name": "Open In New Tab", "value": "_blank" }
+                ]
+              }
+        ]
+      }
+    ],
+    "filters": [
+      {
+        "id": "sciex-related-resource",
+        "components": [
+          "resource-item"
+        ]
+      }
+    ]
+  }
+  
