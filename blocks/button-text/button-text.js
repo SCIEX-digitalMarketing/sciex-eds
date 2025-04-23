@@ -13,7 +13,7 @@ export default async function decorate(block) {
   const targetValue = targetValueP?.textContent.trim() || '_blank';
   const targetValueSecondary = targetValueS?.textContent.trim() || '_blank';
 
-  const anchors = [...block.querySelectorAll('.button-container a')];
+  const anchors = [...block.querySelectorAll('a')];
   block.textContent = '';
 
   // Helper to build buttons wrapped in anchors
