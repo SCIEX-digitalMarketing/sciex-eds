@@ -1,32 +1,20 @@
 import {} from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
-function easeInOutQuad(time, begin, change, duration) {
-  const t = time / (duration / 2);
-  if (t < 1) return (change / 2) * t * t + begin;
-
-  const adjustedTime = t - 1;
-  return (-change / 2) * (adjustedTime * (adjustedTime - 2) - 1) + begin;
-}
-
-function smoothScrollTo(element, initialOffset = 80, duration = 800) {
+function smoothScrollTo(element, initialOffset = 80) {
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
-  const offset = isMobile ? 800 : initialOffset;
-  const targetPosition = element.offsetTop - offset;
-  const startPosition = window.pageYOffset;
-  const distance = targetPosition - startPosition;
-  let startTime = null;
-  function animation(currentTime) {
-    if (startTime === null) startTime = currentTime;
-    const timeElapsed = currentTime - startTime;
-    const ease = easeInOutQuad(timeElapsed, startPosition, distance, duration);
-    window.scrollTo(0, ease);
-    if (timeElapsed < duration) {
-      requestAnimationFrame(animation);
-    }
+  let offset = isMobile ? 800 : initialOffset;
+  if (!isMobile) {
+    offset -= 50;
   }
-  requestAnimationFrame(animation);
+  const targetPosition = element.getBoundingClientRect().top + window.pageYOffset - offset;
+
+  window.scrollTo({
+    top: targetPosition,
+    behavior: 'smooth',
+  });
 }
+
 function showTabContent(tabId) {
   const section = document.getElementById(`${tabId}-content`);
   if (section) {
