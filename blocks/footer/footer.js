@@ -193,6 +193,9 @@ function handleBlockSection(child, block, iteration) {
     // Append pContainer in place of the original two <p> elements
     child.append(pContainer);
   }
+
+  wrapperDiv.append(child);
+  block.append(wrapperDiv);
 }
 
 function handleLogoSection(child, block, iteration) {
