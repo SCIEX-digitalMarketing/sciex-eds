@@ -23,7 +23,16 @@
       "searchresult",
       "login-sso",
       "breadcrumb",
-      "coursecatalog"
+      "featured-products",
+      "coursecatalog",
+      "button-text",
+      "sciex-title",
+      "tech-note",
+      "survey-script",
+      "sciex-related-resource",
+      "tabs-nav",
+      "tabs-container",
+      "sciex-text"
     ]
   },
   {
@@ -61,6 +70,25 @@
       "image",
       "icon",
       "links"
+    ]
+  },
+  {
+    "id": "sciex-related-resource",
+    "components": [
+      "resource-item"
+    ]
+  },
+  {
+    "id": "tabs-container",
+    "components": [
+      "sciex-text",
+      "tech-note"
+    ]
+  },
+  {
+    "id": "tabs-nav",
+    "components": [
+      "tab"
     ]
   }
 ]

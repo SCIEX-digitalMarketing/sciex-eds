@@ -52,3 +52,49 @@
   font-weight: 530;
   font-display: swap;
 }
+
+@font-face {
+  font-family: "Geogrotesque Sharp VF";
+  src: 
+    url(../fonts/Geogrotesque_Sharp_VF.woff2) format("woff2"),
+    url(../fonts/Geogrotesque-Lt.woff) format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geogrotesque Sharp VF";
+  src: url(../fonts/Geogrotesque_Sharp_VF.woff2) format("woff2"),
+    url(../fonts/Geogrotesque_Sharp_VF.woff) format("woff");
+  font-weight: 450;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geogrotesque Sharp VF";
+  src: url(../fonts/Geogrotesque_Sharp_VF.woff2) format("woff2"),
+    url(../fonts/Geogrotesque_Sharp_VF.woff) format("woff");
+  font-weight: 330;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geogrotesque Sharp VF";
+  src: url(../fonts/Geogrotesque_Sharp_VF.woff2) format("woff2"),
+    url(../fonts/Geogrotesque_Sharp_VF.woff) format("woff");
+  font-weight: 270;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geogrotesque Sharp VF";
+  src: url(../fonts/Geogrotesque_Sharp_VF.woff2) format("woff2"),
+    url(../fonts/Geogrotesque_Sharp_VF.woff) format("woff");
+  font-weight: 530;
+  font-style: normal;
+  font-display: swap;
+}

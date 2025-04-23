@@ -277,3 +277,25 @@ main .section.highlight {
   margin: 0;
   padding: 40px 0;
 }
+@media (min-width: 1440px) {
+  .sciex-title-wrapper,
+  .button-text-wrapper,
+  .tabs-nav-wrapper,
+  .tabs-container-wrapper,
+  .sciex-related-resource-wrapper,
+  .featured-products-wrapper {
+    max-width: 90pc !important;
+    padding: 0 55px !important;
+  }
+}
+
+@media (min-width: 1600px) {
+  .sciex-title-wrapper,
+  .button-text-wrapper,
+  .tabs-nav-wrapper,
+  .tabs-container-wrapper,
+  .sciex-related-resource-wrapper,
+  .featured-products-wrapper {
+    padding: 0 20px !important;
+  }
+}

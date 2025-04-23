@@ -169,27 +169,30 @@ function handleMiddleSections(child, block, iteration) {
 function handleBlockSection(child, block, iteration) {
   const wrapperDiv = document.createElement('div');
   wrapperDiv.classList.add(`wrapper-${iteration}`, 'black-section');
+
   const uniqueId = getMetadata('pagetrackingid');
-  const uniqueIdSpan = document.createElement('span');
-  uniqueIdSpan.classList.add('page-tracking-id');
-  uniqueIdSpan.textContent = uniqueId;
-  const listItems = child.querySelectorAll('ul li');
+  const paragraphs = child.querySelectorAll('p');
 
-  listItems.forEach((li) => {
-    const anchor = li.querySelector('a');
-    if (anchor) {
-      const match = anchor.textContent.trim().match(/#([\w-]+)/);
-      if (match) {
-        const className = match[1];
-        anchor.classList.add(className);
-        anchor.textContent = anchor.textContent.replace(match[0], '').trim();
-      }
-    }
-  });
+  if (paragraphs.length >= 2) {
+    const secondLastParagraph = paragraphs[paragraphs.length - 2];
+    const lastParagraph = paragraphs[paragraphs.length - 1];
 
-  wrapperDiv.append(child);
-  wrapperDiv.append(uniqueIdSpan);
-  block.append(wrapperDiv);
+    secondLastParagraph.classList.add('tracking-id-paragraph');
+    lastParagraph.classList.add('logo-paragraph');
+
+    // Append uniqueId to the second-last paragraph
+    secondLastParagraph.append(` ${uniqueId}`);
+
+    // Create a new container for the two paragraphs
+    const pContainer = document.createElement('div');
+    pContainer.classList.add('paragraph-container'); // Optional: for styling
+
+    pContainer.append(secondLastParagraph);
+    pContainer.append(lastParagraph);
+
+    // Append pContainer in place of the original two <p> elements
+    child.append(pContainer);
+  }
 }
 
 function handleLogoSection(child, block, iteration) {

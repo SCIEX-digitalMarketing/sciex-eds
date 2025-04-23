@@ -1,0 +1,30 @@
+.hero-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 20px;
+    flex: 1 0 0;
+}
+
+.hero-heading {
+    align-self: stretch;
+    color: var(--Grey-900, #141414);
+    /* Desktop/text-alfa */
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 270;
+    line-height: 75px; /* 125% */
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        padding-top: 0px;
+    }
+    .hero-heading {
+        font-size: 34px;
+        font-weight: 330;
+        line-height: 42px;
+    }
+}
+

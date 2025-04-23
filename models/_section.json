@@ -52,7 +52,16 @@
         "searchresult",
         "login-sso",
         "breadcrumb",
-        "coursecatalog"
+        "featured-products",
+        "coursecatalog",
+        "button-text",
+        "sciex-title",
+        "tech-note",
+        "survey-script",
+        "sciex-related-resource",
+        "tabs-nav",
+        "tabs-container",
+        "sciex-text"
       ]
     }
   ]

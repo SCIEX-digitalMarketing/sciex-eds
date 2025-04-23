@@ -1,0 +1,59 @@
+.related-resources {
+    background-color: white;
+    padding-top: 20px;
+  }
+
+  .related-resources a {
+    color: rgba(0, 104, 250, 0.9);
+    text-decoration: underline;
+    transition: all 0.2s ease;
+}
+
+.related-resources a:hover {
+    text-decoration: none;
+    font-weight: 600; 
+    transform: scale(0.95); 
+}
+
+.title-Element {
+color: rgba(20, 20, 20, 0.7);
+font-family: "Geogrotesque Sharp VF";
+font-size: 14px;
+font-style: normal;
+font-weight: 530;
+line-height: 20px;
+letter-spacing: 0.07px;
+}
+
+.link-Element{
+font-family: "Geogrotesque Sharp VF";
+font-size: 14px;
+font-style: normal;
+font-weight: 530;
+line-height: 20px;
+letter-spacing: 0.07px;
+}
+
+.heading {
+    color: rgba(20, 20, 20, 0.9);
+font-size: 40px;
+font-style: normal;
+font-weight: 330;
+line-height: 52px; 
+padding-bottom: 20px;
+}
+
+.link-Element{
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.links-container {
+    padding-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+    .heading {
+        font-size: 35px;
+    }
+}
