@@ -779,30 +779,6 @@ footer .footer > div {
     margin-right: 10px;
 }
 
-.wrapper-3 {
-    position: relative;
-}
-
-.footer .page-tracking-id {
-    position: absolute;
-    top: calc(100% - 32px);
-    left: 48.4%;
-    white-space: nowrap;
-    /* font-weight: bold; */
-    color: #8a8a8a;
-    font-size: 14px;
-    transition: color 0.3s;
-    line-height: 18px;
-  }
-  
-  @media (max-width: 600px) {
-    .footer .page-tracking-id {
-      top: calc(100% - 55px);
-      left: 6%;
-      line-height: 0px;
-    }
-  }
-
 /* Logo section container using Grid */
 .logo-container {
     display: grid;
