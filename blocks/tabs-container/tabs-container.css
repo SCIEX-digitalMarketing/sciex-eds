@@ -152,10 +152,10 @@
 .tech-note {
   display: flex;
   padding: 30px;
-  flex-direction: column;
   align-items: flex-start;
   gap: 0px;
   align-self: stretch;
+  margin-top:20px;
 }
 
 .tabs-container .technotes-main .other-content {
