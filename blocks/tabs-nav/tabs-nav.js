@@ -3,10 +3,14 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 
 function smoothScrollTo(element, initialOffset = 80) {
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  const isTablet = window.matchMedia('(max-width: 1162px)').matches;
   let offset = isMobile ? 800 : initialOffset;
-  if (!isMobile) {
+  if (isTablet) {
+    offset += 10;
+  } else {
     offset -= 50;
   }
+
   const targetPosition = element.getBoundingClientRect().top + window.pageYOffset - offset;
 
   window.scrollTo({
@@ -63,6 +67,24 @@ function handleMobileTabs() {
     tabsNavWrapper.classList.add('mobile-tabs-section');
     tabsNav.classList.remove('tw-hidden');
     mobileIcon.innerHTML = '<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 13.5L3.0001 3.5001" stroke="#141414"/><path d="M13 3.5L3.0001 13.4999" stroke="#141414"/></svg>';
+  }
+}
+
+function hideIfEmpty(selector, buttonSelector) {
+  const container = document.querySelector(selector);
+  if (!container) return;
+
+  const hasText = container.textContent.trim() !== '';
+  const hasVisibleContent = container.querySelector('img, video, iframe, input, button');
+
+  const hasDataAttribute = Array.from(container.querySelectorAll('*')).some((el) => Array.from(el.attributes).some((attr) => attr.name.startsWith('data-')));
+
+  if (!hasText && !hasVisibleContent && !hasDataAttribute) {
+    container.style.display = 'none';
+    const button = document.querySelector(buttonSelector);
+    if (button) {
+      button.style.display = 'none';
+    }
   }
 }
 
@@ -145,4 +167,7 @@ export default async function decorate(block) {
 
   window.addEventListener('resize', toggleVisibility);
   onload();
+
+  hideIfEmpty('.featured-products', '.feature-products-button');
+  hideIfEmpty('.sciex-related-resource', '.related-resource-button');
 }

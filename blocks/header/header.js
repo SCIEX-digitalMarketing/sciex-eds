@@ -13,7 +13,7 @@ function createMainHeader(section) {
   const containerDiv = div({ class: 'tw-flex tw-container' });
   const parentdiv = div({
     class:
-      'topbar-menu tw-hidden lg:tw-block lg:tw-absolute lg:tw-top-0 lg:tw-right-0 tw-h-64',
+      'topbar-menu tw-border-t tw-hidden lg:tw-block lg:tw-absolute lg:tw-top-0 lg:tw-right-0 tw-h-64',
   });
   const ulTag = ul({
     class: 'tw-list-none tw-flex tw-items-stretch tw-text-sm tw-h-full',
@@ -596,7 +596,7 @@ function createMegaMenuTopNav(section) {
   const searchContainer = createGlobalSearch();
 
   const border = document.createElement('div');
-  border.className = 'tw-border-b  tw-flex tw-items-center desktop-links ';
+  border.className = 'tw-flex tw-items-center desktop-links ';
 
   const ulTag = document.createElement('ul');
   ulTag.className = 'mainmenu-ul tw-list-none tw-inline-flex stretch-text tw-text-grey-900';

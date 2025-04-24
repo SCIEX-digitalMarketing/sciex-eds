@@ -26,7 +26,7 @@ html {
   width: 100%;
   justify-content: space-between;
   align-items: flex-start;
-  padding-top: 6px;
+  padding-top: 10px;
   align-items: flex-start;
   gap: 24px;
   flex: 1 0 0;
@@ -48,9 +48,8 @@ html {
   position: sticky;
   top: 0;
   z-index: 1000;
- /* padding: 0 !important;*/
   max-width: 90pc !important;
-  
+  padding-top: 0 !important;
 }
 
 
@@ -110,8 +109,13 @@ color: var(--Grey-900, #141414);
   display: flex;
   gap: 10px;
   cursor: pointer;
+}
 
-
+@media (max-width: 1162px) {
+  .tabs-right {
+    margin-right: auto;
+    margin-left: initial;
+  }
 }
 
 @media (max-width: 768px) {
@@ -185,6 +189,10 @@ color: var(--Grey-900, #141414);
 
   border-bottom: 0px;
  
+}
+
+.tabs-nav-wrapper {
+  padding: 0 24px !important;
 }
 }
 
