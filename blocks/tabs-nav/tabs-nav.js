@@ -147,7 +147,7 @@ export default async function decorate(block) {
     'tw-bg-white',
   );
   const mobileTabsNavText = document.createElement('span');
-  mobileTabsNavText.textContent = 'Jump In';
+  mobileTabsNavText.textContent = 'Jump To';
   const mobileTabsNavIcon = document.createElement('span');
   mobileTabsNavIcon.id = 'display-icon';
   mobileTabsNavIcon.innerHTML = '<svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6L8 10L12 6" stroke="#141414" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
