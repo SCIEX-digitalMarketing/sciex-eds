@@ -73,8 +73,7 @@ function handleMobileTabs() {
 function hideIfEmpty(selector, buttonSelector) {
   const container = document.querySelector(selector);
   const button = document.querySelector(buttonSelector);
-  if (!container) {
-    container.style.display = 'none';
+  if (null == container) {
     if (button) {
       button.style.display = 'none';
     }
