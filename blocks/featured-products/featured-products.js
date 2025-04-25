@@ -19,7 +19,7 @@ export default async function decorate(block) {
     block.classList.add('featured-products');
     const dynamicElement = document.createElement('div');
     const title = document.createElement('h2');
-    title.textContent = 'Featured Products';
+    title.textContent = 'Featured products';
     dynamicElement.appendChild(title);
 
     const listContainer = document.createElement('ul');
