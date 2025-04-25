@@ -72,19 +72,15 @@ function handleMobileTabs() {
 
 function hideIfEmpty(selector, buttonSelector) {
   const container = document.querySelector(selector);
-  if (!container) return;
-
-  const hasText = container.textContent.trim() !== '';
-  const hasVisibleContent = container.querySelector('img, video, iframe, input, button');
-
-  const hasDataAttribute = Array.from(container.querySelectorAll('*')).some((el) => Array.from(el.attributes).some((attr) => attr.name.startsWith('data-')));
-
-  if (!hasText && !hasVisibleContent && !hasDataAttribute) {
+  const button = document.querySelector(buttonSelector);
+  if (!container) {
     container.style.display = 'none';
-    const button = document.querySelector(buttonSelector);
     if (button) {
       button.style.display = 'none';
     }
+  } else {
+    container.style.display = '';
+    button.style.display = '';
   }
 }
 
