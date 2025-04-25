@@ -35,7 +35,7 @@
 /* Mobile Responsive Styles */
 @media (max-width: 768px) {
     .featured-products {
-        margin-top: 50px;
+        margin-top: 5px;
         gap: 0; 
         display: block; 
     }
