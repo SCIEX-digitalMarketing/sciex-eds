@@ -186,7 +186,7 @@ function loadGTM() {
     document.head.appendChild(script);
   } else {
     // Fallback GTM initialization with default GTM ID
-    (function(w,d,s,l,i){
+    (function initGTM(w,d,s,l,i){
       w[l]=w[l]||[];
       w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
       const f = d.getElementsByTagName(s)[0],
