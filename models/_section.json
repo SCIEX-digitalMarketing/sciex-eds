@@ -61,7 +61,8 @@
         "sciex-related-resource",
         "tabs-nav",
         "tabs-container",
-        "sciex-text"
+        "sciex-text",
+        "customer-document"
       ]
     }
   ]
