@@ -128,20 +128,6 @@
             {
               "component": "text",
               "valueType": "string",
-              "name": "gtmTrackingScript",
-              "label": "GTM: Tracking Script",
-              "value": "default Tracking Script"
-            },
-            {
-              "component": "text",
-              "valueType": "string",
-              "name": "fathomScript",
-              "label": "Fathom Script",
-              "value": "default Fathom Script"
-            },
-            {
-              "component": "text",
-              "valueType": "string",
               "name": "enableSiteInterceptScript",
               "label": "Enable Site Intercept Script",
               "value": "false"
