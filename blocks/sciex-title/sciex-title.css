@@ -1,3 +1,4 @@
+
 .hero-title {
     display: flex;
     flex-direction: column;
@@ -15,6 +16,10 @@
     font-style: normal;
     font-weight: 270;
     line-height: 75px; /* 125% */
+    min-height: 75px; /* Reserved height for the text */
+    /* Ensure the element has a minimum height so layout doesn't shift */
+    font-family: "Geogrotesque Sharp VF";
+    min-height: 100px;
 }
 
 @media (max-width: 768px) {
@@ -25,6 +30,6 @@
         font-size: 34px;
         font-weight: 330;
         line-height: 42px;
+        min-height: 42px; /* Adjust height for mobile */
     }
 }
-
