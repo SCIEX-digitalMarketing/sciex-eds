@@ -492,26 +492,28 @@ function createGlobalSearch() {
   dropdownContent.className = 'dropdown-content';
   dropdownContent.style.display = 'none';
 
-  const menuItems = [
-    'All',
-    'Products and services',
-    'Applications',
-    'Regulatory Docs',
-    'Customer Docs',
-    'Resource library',
-    'Training',
-  ];
+  const menuItems = {
+    All: 'All',
+    'Products & services': 'Products and services',
+    Applications: 'Applications',
+    'Regulatory Doc': 'Regulatory documents',
+    'Customer Doc': 'Customer documents',
+    'Resource library': 'Resource library',
+    Training: 'Training',
+  };
 
   let selectedContentType = 'All';
-  menuItems.forEach((item) => {
+
+  Object.keys(menuItems).forEach((key) => {
+    const value = menuItems[key];
     const anchorElement = document.createElement('a');
     anchorElement.href = '#';
-    anchorElement.textContent = item;
+    anchorElement.textContent = key;
     anchorElement.addEventListener('click', (event) => {
       event.preventDefault();
-      dropbtn.innerHTML = item + downArrow;
+      dropbtn.innerHTML = key + downArrow;
       dropdownContent.style.display = 'none';
-      selectedContentType = item;
+      selectedContentType = value;
     });
     dropdownContent.appendChild(anchorElement);
   });
