@@ -393,11 +393,11 @@ export function renderCourseCatalogFacet() {
   }
   const desiredOrder = [
     'language-facet',
+    'trainingtypecategories-facet',
+    'typecategories-facet',
     'region-facet',
     'trainingtopiccategories-facet',
     'techniquescategories-facet',
-    'trainingtypecategories-facet',
-    'typecategories-facet',
     'levelcategories-facet',
     'certificatetypecategories-facet',
     'massspectrometerscategories-facet',
