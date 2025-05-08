@@ -30,7 +30,7 @@ export const courseCatalogSearchBoxController = buildSearchBox(courseCatalogSear
 
 export const courseCatalogResultsList = buildResultList(courseCatalogSearchEngine, {
   options: {
-    fieldsToInclude: ['description', 'duration', 'levelcategories', 'coursetypecategories', 'isnewcourse'],
+    fieldsToInclude: ['description', 'duration', 'levelcategories', 'coursetypecategories', 'isnewcourse', 'rating'],
   },
 });
 
