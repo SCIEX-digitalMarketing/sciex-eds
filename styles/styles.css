@@ -88,10 +88,12 @@ body {
   font-size: var(--body-font-size-m);
   font-variation-settings: "wdth" 550;
   line-height: 24px;
+  min-height: 100vh;
 }
 
 body.appear {
   display: block;
+  min-height: 100vh;
 }
 
 header {
