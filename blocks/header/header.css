@@ -331,9 +331,6 @@ header nav ul li picture:hover {
     .megamenu-wrapper .topbar-menu ul li:last-child a {
         max-width: 40pc !important;
     }
-    .header-wrapper{
-        min-height:66px !important;
-    }
 }
 
 @media (min-width: 768px) {
