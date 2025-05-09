@@ -410,5 +410,5 @@ header nav ul li picture:hover {
     }
 }
 .header-wrapper{
-    min-height:132.5px !important;
+    min-height:132.5px;
 }
