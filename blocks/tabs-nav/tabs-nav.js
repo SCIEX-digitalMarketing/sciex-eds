@@ -4,10 +4,12 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 function smoothScrollTo(element, initialOffset = 80) {
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
   const isTablet = window.matchMedia('(max-width: 1162px)').matches;
+  const tabsNav = document.querySelector('.tabs-nav.tab-buttons');
   let offset = isMobile ? 800 : initialOffset;
+
   if (isTablet) {
     offset += 10;
-  } else {
+  } else if (tabsNav.children.length <= 11) {
     offset -= 50;
   }
 
