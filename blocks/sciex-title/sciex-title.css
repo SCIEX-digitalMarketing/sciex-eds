@@ -17,7 +17,7 @@
     font-weight: 270;
     line-height: 75px; /* 125% */
     /* Ensure the element has a minimum height so layout doesn't shift */
-    font-family: "Geogrotesque Sharp VF", sans-serif;
+    /* font-family: "Geogrotesque Sharp VF", sans-serif; */
     min-height: 100px;
 }
 
