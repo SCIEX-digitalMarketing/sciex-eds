@@ -1,17 +1,12 @@
 import {} from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
-function smoothScrollTo(element, initialOffset = 80) {
+function smoothScrollTo(element) {
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
-  const isTablet = window.matchMedia('(max-width: 1162px)').matches;
-  const tabsNav = document.querySelector('.tabs-nav.tab-buttons');
-  let offset = isMobile ? 800 : initialOffset;
-
-  if (isTablet) {
-    offset += 10;
-  } else if (tabsNav.children.length <= 11) {
-    offset -= 50;
-  }
+  const header = document.querySelector('.tabs-nav.tab-buttons');
+  const headerHeight = header ? header.offsetHeight : 0;
+  const additionalOffset = isMobile ? 200 : 0;
+  const offset = headerHeight + additionalOffset;
 
   const targetPosition = element.getBoundingClientRect().top + window.pageYOffset - offset;
 
