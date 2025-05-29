@@ -1,4 +1,6 @@
-
+.sciex-title-wrapper{
+    min-height: 200px;
+}
 .hero-title {
     display: flex;
     flex-direction: column;
@@ -22,6 +24,9 @@
 }
 
 @media (max-width: 768px) {
+    .sciex-title-wrapper{
+        min-height: 100px;
+    }
     .hero-title {
         padding-top: 0px;
     }
