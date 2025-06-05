@@ -2,6 +2,10 @@ import {
   headlessResultsList,
   handleResultClick,
 } from '../controller/controllers.js';
+import { i18n } from '../../translation.js';
+
+const lang = document.documentElement.lang || 'en';
+const strings = i18n[lang] || i18n.en;
 
 const renderSearchResults = () => {
   const resultsElement = document.getElementById('coveo-results');
@@ -60,7 +64,7 @@ const renderSearchResults = () => {
     : ''
 }
           </div>
-          <a class="view-details-btn" target="_blank" href="${result.printableUri}">View</a>
+          <a class="view-details-btn" target="_blank" href="${result.printableUri}">${strings.view}</a>
         `;
 
       const viewDetailsBtn = resultItem.querySelector('.view-details-btn');

@@ -1,11 +1,14 @@
 // renderCourseCatalogSorting.js
-
 import { renderSortingDropdown } from './sortiingUtils.js';
+import { i18n } from '../translation.js';
+
+const lang = document.documentElement.lang || 'en';
+const strings = i18n[lang] || i18n.en;
 
 const sortOptions = [
-  { label: 'Relevancy', criterion: { by: 'relevancy' } },
+  { label: strings.relevancy, criterion: { by: 'relevancy' } },
   {
-    label: 'Title',
+    label: strings.title,
     criterion: { by: 'field', field: 'title', order: 'ascending' },
   },
 ];
