@@ -59,6 +59,8 @@ export const customerDocFacetBreadcrumb = buildBreadcrumbManager(customerDocSear
 // Context variable controller
 const context = buildContext(customerDocSearchEngine)
 context.add('host', window.location.origin);
+let lang = document.documentElement.lang
+context.add('locale', lang || 'en');
 
 export const allFacetController = createFacetController();
 
