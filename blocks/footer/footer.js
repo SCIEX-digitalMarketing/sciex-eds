@@ -525,10 +525,19 @@ function processFragment(block, fragment) {
 }
 
 export default async function decorate(block) {
+  const lang = document.documentElement.lang;
+  let path = '/footer';
+  if(lang=== 'en'){
+   path = '/footer';
+  }else if(lang === 'ja'){
+    path = '/ja-jp/footer';
+  }else if(lang === 'zh-cn'){
+    path = '/zh-cn/footer';
+  }
   const footerMeta = getMetadata('footer');
   const footerPath = footerMeta
     ? new URL(footerMeta, window.location).pathname
-    : '/footer';
+    : path;
   const fragment = await loadFragment(footerPath);
   block.textContent = '';
   processFragment(block, fragment);
