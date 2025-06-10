@@ -491,7 +491,8 @@ export function callCreateFacet(){
     'location': strings.trainingLocation,
     'applications': strings.applications,
     'technicaldocuments': strings.technicalDocuments,
-    'instrumentfamily': strings.instrumentFamily
+    'instrumentfamily': strings.instrumentFamily,
+    'productcategories': strings.products
   };
 
   for (let item in facetsId) {

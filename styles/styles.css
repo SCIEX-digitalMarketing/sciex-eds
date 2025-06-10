@@ -944,6 +944,70 @@ main .section.highlight {
   letter-spacing: 0.08px;
 }
 
+.course-info {
+  color: var(--Grey-400, #8A8A8A);
+  font-family: "Geogrotesque Sharp VF";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 530;
+  line-height: 20px;
+  letter-spacing: 0.07px;
+  padding-bottom: 5px;
+}
+
+.regulatory-info {
+  color: var(--Grey-400, #8A8A8A);
+  font-family: "Geogrotesque Sharp VF";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 530;
+  line-height: 20px;
+  letter-spacing: 0.07px;
+  padding-bottom: 5px;
+}
+
+.rating {
+  display: inline-block;
+  font-size: 16px;
+}
+.star {
+  color: #C6C6C6;
+  cursor: pointer;
+}
+.star.filled {
+  color: #F9C646;
+}
+
+.tag-container {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.tag {
+  padding: 0px 4px;
+  color: var(--White-0, #FFF);
+  text-align: center;
+  font-family: "Geogrotesque Sharp VF";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 450;
+  line-height: 20px;
+  letter-spacing: 0.07px;
+  border-radius: 4px;
+}
+
+.new {
+  background-color: #30855D;
+}
+
+.course {
+  background-color: #141414;
+}
+
+.premium {
+  background-color: #E98614;
+}
+
 /* Media Queries for Responsiveness */
 @media (max-width: 1024px) { 
   #facet-readcrumb {
@@ -1251,7 +1315,7 @@ main .section.highlight {
   .sciex-related-resource-wrapper,
   .featured-products-wrapper {
     max-width: 90pc !important;
-    padding: 0 55px !important;
+    /* padding: 0 55px !important; */
   }
 }
 
@@ -1262,42 +1326,6 @@ main .section.highlight {
   .tabs-container-wrapper,
   .sciex-related-resource-wrapper,
   .featured-products-wrapper {
-    padding: 0 20px !important;
+    /* padding: 0 20px !important; */
   }
 }
-
-
-.hero-title {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 20px;
-  flex: 1 0 0;
-}
-
-.hero-heading {
-  align-self: stretch;
-  color: var(--Grey-900, #141414);
-  /* Desktop/text-alfa */
-  font-size: 60px;
-  font-style: normal;
-  font-weight: 270;
-  line-height: 75px; /* 125% */
-  /* Ensure the element has a minimum height so layout doesn't shift */
-  /* font-family: "Geogrotesque Sharp VF", sans-serif; */
-  min-height: 100px;
-}
-
-@media (max-width: 768px) {
-  .hero-title {
-      padding-top: 0px;
-  }
-  .hero-heading {
-      font-size: 34px;
-      font-weight: 330;
-      line-height: 42px;
-      min-height: 42px; /* Adjust height for mobile */
-  }
-}
-
