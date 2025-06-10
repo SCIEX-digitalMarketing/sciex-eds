@@ -1,3 +1,8 @@
+import { i18n } from '../translation.js';
+
+const lang = document.documentElement.lang || 'en';
+const strings = i18n[lang] || i18n.en;
+
 function canMobileActions() {
   const screenWidth = window.innerWidth;
   if (screenWidth > 767) {
@@ -88,33 +93,33 @@ const renderCommonFacetBreadcurm = (facetBreadcrumbsController) => {
   facetBreadcrumbElement.appendChild(filterCountShowLessButton);
 
   const facetsId = {
-    coursetypecategories: 'Course Type',
-    certificatetypecategories: 'Certificate Type',
-    capillaryelectrophoresiscategories: 'Capillary Electrophoresis',
-    hplcandceproductscategories: 'Liquid Chromatography',
-    integratedsolutionscategories: 'Integrated Solutions',
-    levelcategories: 'Course level',
-    massspectrometerscategories: 'Mass Spectrometers',
-    softwarecategories: 'Software',
-    standardsandreagentscategories: 'Standards and Reagents',
-    techniquescategories: 'Techniques',
-    trainingtopiccategories: 'Training Topic',
-    trainingtypecategories: 'Training Type',
-    assettypes: 'Asset Type',
-    instrumentfamily: 'Instrument family',
-    languagecountry: 'Language-country',
-    language: 'Language',
-    year: 'Year',
-    location: 'Training Location',
-    applications: 'Applications',
-    technicaldocuments: 'Technical Documents',
+    coursetypecategories: strings.courseType,
+    certificatetypecategories: strings.certificateType,
+    capillaryelectrophoresiscategories: strings.capillaryElectrophoresis,
+    hplcandceproductscategories: strings.liquidChromoatography,
+    integratedsolutionscategories: strings.integratedSolutions,
+    levelcategories: strings.courseLevel,
+    massspectrometerscategories: strings.massSpectrometry,
+    softwarecategories: strings.software,
+    standardsandreagentscategories: strings.standardsAndReagentKits,
+    techniquescategories: strings.techniques,
+    trainingtopiccategories: strings.trainingTopic,
+    trainingtypecategories: strings.trainingType,
+    assettypes: strings.assetType,
+    instrumentfamily: strings.instrumentFamily,
+    languagecountry: strings.languageCountry,
+    language: strings.language,
+    year: strings.year,
+    location: strings.trainingLocation,
+    applications: strings.applications,
+    technicaldocuments: strings.technicalDocuments,
   };
 
   facetBreadcrumbsController.state.facetBreadcrumbs.forEach((value) => {
     value.values.forEach((item) => {
       let fieldName;
       if (value.field === 'contenttype') {
-        fieldName = 'Content type';
+        fieldName = strings.contentType;
       } else {
         fieldName = facetsId[value.field];
       }

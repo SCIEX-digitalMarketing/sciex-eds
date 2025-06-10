@@ -1,4 +1,8 @@
 import { facetBreadcrumb } from '../controller/controllers.js';
+import { i18n } from '../../translation.js';
+
+const lang = document.documentElement.lang || 'en';
+const strings = i18n[lang] || i18n.en;
 
 function canMobileActions() {
   const screenWidth = window.innerWidth;
@@ -26,7 +30,7 @@ export const renderFacetBreadcurm = () => {
   filterCountShowLessButton.classList.add('tw-hidden', 'tw-flex');
   filterCountShowLessButton.id = 'filter-count-show-less';
   const showLessSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M0 6L12 6" stroke="#0068FA"/></svg>';
-  filterCountShowLessButton.innerHTML = `${showLessSvg} Show Less`;
+  filterCountShowLessButton.innerHTML = `${showLessSvg} ${strings.showLess}`;
 
   // add click event to show filters list and show less
   filterCountWrapper.addEventListener('click', function showfilters() {
@@ -89,33 +93,33 @@ export const renderFacetBreadcurm = () => {
   facetBreadcrumbElement.appendChild(filterCountShowLessButton);
 
   const facetsId = {
-    coursetypecategories: 'Course Type',
-    certificatetypecategories: 'Certificate Type',
-    capillaryelectrophoresiscategories: 'Capillary Electrophoresis',
-    hplcandceproductscategories: 'Liquid Chromatography',
-    integratedsolutionscategories: 'Integrated Solutions',
-    levelcategories: 'Course level',
-    massspectrometerscategories: 'Mass Spectrometers',
-    softwarecategories: 'Software',
-    standardsandreagentscategories: 'Standards and Reagents',
-    techniquescategories: 'Techniques',
-    trainingtopiccategories: 'Training Topic',
-    trainingtypecategories: 'Training Type',
-    assettypes: 'Asset Type',
-    instrumentfamily: 'Instrument family',
-    languagecountry: 'Language-country',
-    language: 'Language',
-    year: 'Year',
-    location: 'Training Location',
-    applications: 'Applications',
-    technicaldocuments: 'Technical Documents',
+    coursetypecategories: strings.courseType,
+    certificatetypecategories: strings.certificateType,
+    capillaryelectrophoresiscategories: strings.capillaryElectrophoresis,
+    hplcandceproductscategories: strings.liquidChromoatography,
+    integratedsolutionscategories: strings.integratedSolutions,
+    levelcategories: strings.level,
+    massspectrometerscategories: strings.massSpectrometry,
+    softwarecategories: strings.software,
+    standardsandreagentscategories: strings.standardsAndReagentKits,
+    techniquescategories: strings.techniques,
+    trainingtopiccategories: strings.trainingTopic,
+    trainingtypecategories: strings.trainingType,
+    assettypes: strings.assetType,
+    instrumentfamily: strings.instrumentFamily,
+    languagecountry: strings.languageCountry,
+    language: strings.language,
+    year: strings.year,
+    location: strings.trainingLocation,
+    applications: strings.applications,
+    technicaldocuments: strings.technicalDocuments,
   };
 
   facetBreadcrumb.state.facetBreadcrumbs.forEach((value) => {
     value.values.forEach((item) => {
       let fieldName;
       if (value.field === 'contenttype') {
-        fieldName = 'Content type';
+        fieldName = strings.contentType;
       } else {
         fieldName = facetsId[value.field];
       }
@@ -172,7 +176,7 @@ export const renderFacetBreadcurm = () => {
   const button = document.createElement('button');
   button.style.marginRight = '0';
   button.style.marginLeft = 'auto';
-  button.textContent = 'Clear All';
+  button.textContent = strings.clearAll;
   button.style.color = 'var(--Blue-700, #0068FA)';
   // button.style.fontFamily = '"Geogrotesque"';
   button.style.fontSize = '16px';

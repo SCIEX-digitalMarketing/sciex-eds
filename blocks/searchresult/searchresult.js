@@ -13,8 +13,12 @@ import renderQuerySummary from '../../scripts/searchresult/components/querySumma
 import renderSorting from '../../scripts/searchresult/components/sorting.js';
 import { renderFacetBreadcurm, handleClearMobileFilters } from '../../scripts/searchresult/components/facetBreadcrumb.js';
 import { contentTypeFacetController } from '../../scripts/searchresult/controller/controllers.js';
+import { i18n } from '../../scripts/translation.js';
 
 export default async function decorate(block) {
+  const lang = document.documentElement.lang || 'en';
+  const strings = i18n[lang] || i18n.en;
+
   // Create main container div
   const searchResultDiv = document.createElement('div');
   searchResultDiv.classList.add('tw', 'search-result', 'tw-bg-white');
@@ -80,7 +84,7 @@ export default async function decorate(block) {
   );
   // mobile filter clear Button
   const mobileFilterFooterClearButton = document.createElement('button');
-  mobileFilterFooterClearButton.textContent = 'Clear All';
+  mobileFilterFooterClearButton.textContent = strings.clearAll;
   mobileFilterFooterClearButton.id = 'mobile-filter-footer-clear-all';
   mobileFilterFooterClearButton.addEventListener('click', handleClearMobileFilters);
 
@@ -199,9 +203,9 @@ export default async function decorate(block) {
 
   const searchTermValidation = createElement('div', 'search-term-validation', 'searchTermValidation');
 
-  const validationText = createElement('div', 'search-validation-text', 'validationText', 'Search within max 20 characters');
+  const validationText = createElement('div', 'search-validation-text', 'validationText', strings.limitText);
   const validationCount = createElement('div', 'search-validation-count', 'validationCount');
-  const validationError = createElement('div', 'search-validation-error', 'validationError', 'Input exceeds the limit. Please search within 20 characters');
+  const validationError = createElement('div', 'search-validation-error', 'validationError', strings.validationText);
 
   searchTermValidation.appendChild(validationText);
   searchTermValidation.appendChild(validationError);
@@ -211,7 +215,7 @@ export default async function decorate(block) {
   const searchInput = document.createElement('input');
   searchInput.type = 'text';
   searchInput.id = 'coveo-query';
-  searchInput.placeholder = 'Search...';
+  searchInput.placeholder = strings.search;
   searchInput.maxLength = 20;
   searchInput.classList.add(
     'search-box',
@@ -298,7 +302,7 @@ export default async function decorate(block) {
   const coveoResultsLoading = document.createElement('div');
   coveoResultsLoading.id = 'coveo-results-loading';
   coveoResultsLoading.className = 'result-loading-section tw-text-center tw-text-2xl';
-  coveoResultsLoading.textContent = 'Loading Results...';
+  coveoResultsLoading.textContent = strings.loading;
 
   // Create results section div
   const coveoNoResultsDiv = document.createElement('div');
