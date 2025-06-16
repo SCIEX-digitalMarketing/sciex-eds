@@ -1,4 +1,4 @@
-const renderCourseCatalogSearchBox = (searchBoxController) => {
+const renderCommonSearchBox = (searchBoxController) => {
   const queryInput = document.getElementById('coveo-query');
   const suggestionPopup = document.getElementById('suggestion-popup');
   const coveoResults = document.getElementById('coveo-results');
@@ -114,4 +114,4 @@ const renderCourseCatalogSearchBox = (searchBoxController) => {
     }
   });
 };
-export default renderCourseCatalogSearchBox;
+export default renderCommonSearchBox;
