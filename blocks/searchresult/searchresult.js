@@ -1,4 +1,4 @@
-import {} from '../../scripts/aem.js';
+import { getMetadata } from '../../scripts/aem.js';
 // eslint-disable-next-line
 import { loadQueryActions, loadFacetSetActions } from 'https://static.cloud.coveo.com/headless/v3/headless.esm.js';
 import { searchEngine } from '../../scripts/searchresult/engine.js';
@@ -13,6 +13,7 @@ import renderQuerySummary from '../../scripts/searchresult/components/querySumma
 import renderSorting from '../../scripts/searchresult/components/sorting.js';
 import { renderFacetBreadcurm, handleClearMobileFilters } from '../../scripts/searchresult/components/facetBreadcrumb.js';
 import { contentTypeFacetController } from '../../scripts/searchresult/controller/controllers.js';
+import { setSearchSurveyCookie, qualtricsFeedback } from '../../scripts/scripts.js';
 
 export default async function decorate(block) {
   // Create main container div
@@ -402,6 +403,11 @@ export default async function decorate(block) {
           selection: { value: contentType, state: 'selected' },
         }));
         contentTypeFacetController.showMoreValues();
+      }
+      const enableSiteInterceptScript = getMetadata('enablesiteinterceptscript');
+      if (enableSiteInterceptScript && enableSiteInterceptScript === 'true') {
+        setSearchSurveyCookie();
+        qualtricsFeedback();
       }
     }
     renderSearchBox(query);
