@@ -491,7 +491,8 @@ export function callCreateFacet(){
     'location': 'Training location',
     'applications': 'Applications',
     'technicaldocuments': 'Technical documents',
-    'instrumentfamily': 'Instrument family'
+    'instrumentfamily': 'Instrument family',
+    'productcategories': 'Products'
   };
 
   for (let item in facetsId) {
@@ -548,4 +549,3 @@ export const handleMobileFilters = () => {
     }
   }
 };
-      
