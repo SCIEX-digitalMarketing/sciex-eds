@@ -1,5 +1,5 @@
 /* eslint-disable */
-import {contentTypeFacetController, allFacetController, facetBreadcrumb } from "../controller/controllers.js";
+import {contentTypeFacetController, allFacetController, facetBreadcrumb, languageFacetController } from "../controller/controllers.js";
 
 function facetAccordion(values, facetElement, facetItemsContainer) {
   if (values.length !== 0) {
@@ -468,8 +468,14 @@ function createFacetDiv(id) {
   } 
 }
 
-export function callCreateFacet(){
+export function callCreateFacet() {
   createFacetRender(contentTypeFacetController, "contenttype", "Content type");
+
+  let lang = document.documentElement.lang;
+
+  if (lang === 'ja' || lang === 'zh-cn') {
+    createFacetRender(languageFacetController, "language", "Language");
+  }
   const facetController = allFacetController;
   const facetsId = {
     'coursetypecategories':'Course type',
@@ -486,13 +492,16 @@ export function callCreateFacet(){
     'trainingtypecategories':'Training type',
     'assettypes': 'Asset type',
     'languagecountry': 'Language country',
-    'language' : 'Language',
     'year': 'Year',
     'location': 'Training location',
     'applications': 'Applications',
     'technicaldocuments': 'Technical documents',
     'instrumentfamily': 'Instrument family'
   };
+
+  if (lang !== 'ja' && lang !== 'zh-cn') {
+    facetsId['language'] = strings.language;
+  }
 
   for (let item in facetsId) {
     const val = facetController.get(item);
@@ -502,10 +511,10 @@ export function callCreateFacet(){
         elementToRemove.remove();
       }
     }
-    if(val.state.values.length){
-      createFacetRender(val,item,facetsId[item]);
+    if (val.state.values.length) {
+      createFacetRender(val, item, facetsId[item]);
     }
-  };
+  }
 }
 
 export const handleMobileFilters = () => {
@@ -548,4 +557,3 @@ export const handleMobileFilters = () => {
     }
   }
 };
-      
