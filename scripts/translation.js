@@ -124,7 +124,7 @@ export const i18n = {
     sortBy: '並べ替え',
     relevancy: '関連性',
     title: 'タイトル',
-    date: '日付',
+    date: '更新日',
     clearAll: '全てをクリア',
     view: '閲覧する',
     massSpectrometry: '質量分析計',
