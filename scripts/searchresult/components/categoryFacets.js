@@ -500,7 +500,7 @@ export function callCreateFacet() {
   };
 
   if (lang !== 'ja' && lang !== 'zh-cn') {
-    facetsId['language'] = strings.language;
+    facetsId['language'] = 'Language';
   }
 
   for (let item in facetsId) {
