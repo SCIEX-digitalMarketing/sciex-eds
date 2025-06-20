@@ -31,7 +31,7 @@ export const searchBoxController = buildSearchBox(searchEngine, {
 
 export const headlessResultsList = buildResultList(searchEngine, {
   options: {
-    fieldsToInclude: ['ogimage', 'description'],
+    fieldsToInclude: ['ogimage', 'description', 'productpartnumber', 'lotnumber', 'kitpartnumber', 'duration', 'levelcategories', 'coursetypecategories', 'isnewcourse', 'rating'],
   },
 });
 
@@ -76,6 +76,9 @@ export const updateSorting = (criterion) => {
 // Context variable controller
 const context = buildContext(searchEngine)
 context.add('host', window.location.origin);
+let lang = document.documentElement.lang
+context.add('locale', lang || 'en');
+
 
 export const facetBreadcrumb = buildBreadcrumbManager(searchEngine)
 
@@ -108,7 +111,8 @@ function createFacetController() {
     'year',
     'location',
     'applications',
-    'technicaldocuments'
+    'technicaldocuments',
+    'productcategories'
   ];
 
   if (lang !== 'ja' && lang !== 'zh-cn') {
@@ -161,7 +165,8 @@ function initDependentFacet(dependentFacet, parentFacets) {
     'applications': ['Applications', 'Resource library'],
     'technicaldocuments': ['Regulatory documents'],
     'certificatetypecategories': ['Training'],
-    'coursetypecategories': ['Training']
+    'coursetypecategories': ['Training'],
+    'productcategories': ['eCommerce']
   };
 
   const facetId = dependentFacet.state.facetId;

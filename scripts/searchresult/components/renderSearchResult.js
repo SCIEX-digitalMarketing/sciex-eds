@@ -44,10 +44,49 @@ const renderSearchResults = () => {
       querySortSection.removeAttribute('style');
     }
     sortedResults.forEach((result) => {
+      const regulatoryInfo = document.createElement('div');
+      regulatoryInfo.className = 'regulatory-info';
+      const partNumber = result.raw.productpartnumber ? `Part Number : ${result.raw.productpartnumber} | ` : '';
+      const lotNumber = result.raw.lotnumber ? `Lot Number : ${result.raw.lotnumber} | ` : '';
+      const componentLotNumber = result.raw.kitpartnumber ? `Kit Number : ${result.raw.kitpartnumber} ` : '';
+
+      regulatoryInfo.innerHTML = `${partNumber}  ${lotNumber}  ${componentLotNumber}`;
+
+      const courseInfo = document.createElement('div');
+      courseInfo.className = 'course-info';
+      const duration = result.raw.duration ? `Duration : ${result.raw.duration} | ` : '';
+      const language = result.raw.language ? `Language : ${result.raw.language} | ` : '';
+      const courseType = result.raw.coursetypecategories ? `Type : ${result.raw.coursetypecategories} | ` : '';
+      const courseLevel = result.raw.levelcategories ? `Course Level : ${result.raw.levelcategories} | ` : '';
+      courseInfo.innerHTML = `${duration}  ${language}  ${courseType}  ${courseLevel}  Rating : `;
+
+      const ratingContainer = document.createElement('span');
+      ratingContainer.className = 'rating';
+
+      [1, 2, 3, 4, 5].forEach((i) => {
+        const star = document.createElement('span');
+        star.className = 'star';
+        star.innerHTML = '&#9733;';
+        star.setAttribute('data-value', i);
+        ratingContainer.appendChild(star);
+      });
+
+      courseInfo.appendChild(ratingContainer);
+      const stars = ratingContainer.querySelectorAll('.star');
+
+      const rating = result?.raw?.rating ?? 0;
+      Array.from(stars).slice(0, rating).forEach((star) => star.classList.add('filled'));
+
       const resultItem = document.createElement('div');
       resultItem.className = 'result-item';
       resultItem.innerHTML = `
           <div class="item-details"> 
+            ${result.raw.isnewcourse || result.raw.coursetypecategories
+    ? `<div class="tag-container">
+                ${result.raw.coursetypecategories.toString() === 'Premium online' ? '<span class="tag premium">Premium</span>' : ''}
+                ${result.raw.isnewcourse ? '<span class="tag new">New</span>' : ''}
+              </div> ` : ''
+}
             <h3>${result.title || 'No Title Available'}</h3>
             ${
   result.raw.description
@@ -67,6 +106,16 @@ const renderSearchResults = () => {
       viewDetailsBtn.addEventListener('click', () => {
         handleResultClick(result);
       });
+
+      const heading = resultItem.querySelector('h3');
+
+      if (duration || courseType || courseLevel) {
+        heading.insertAdjacentElement('afterend', courseInfo);
+      }
+
+      if (partNumber || lotNumber || componentLotNumber) {
+        heading.insertAdjacentElement('afterend', regulatoryInfo);
+      }
 
       resultsElement.appendChild(resultItem);
     });
