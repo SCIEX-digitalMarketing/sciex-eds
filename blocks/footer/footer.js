@@ -73,6 +73,7 @@ function handleMiddleSections(child, block, iteration) {
         const a = document.createElement('a');
         a.classList.add('footer-link');
         a.href = link.href;
+        a.title = link.textContent;
         a.textContent = link.textContent;
 
         li.appendChild(a);
@@ -87,6 +88,7 @@ function handleMiddleSections(child, block, iteration) {
       if (paragraphWithImage) {
         const anchor = document.createElement('a');
         anchor.href = 'https://lifesciences.danaher.com';
+        anchor.title = 'https://lifesciences.danaher.com';
         anchor.target = '_blank';
         anchor.appendChild(paragraphWithImage.cloneNode(true));
         newContainer.appendChild(anchor);
@@ -273,6 +275,7 @@ function createSocialLinks() {
     const li = document.createElement('li');
     const a = document.createElement('a');
     a.href = platform.url;
+    a.title = platform.name;
     a.setAttribute('aria-label', platform.name);
     a.innerHTML = platform.svg;
     li.appendChild(a);
