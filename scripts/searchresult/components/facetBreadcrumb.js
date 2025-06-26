@@ -109,6 +109,7 @@ export const renderFacetBreadcurm = () => {
     location: 'Training Location',
     applications: 'Applications',
     technicaldocuments: 'Technical Documents',
+    productcategories: 'Products',
   };
 
   facetBreadcrumb.state.facetBreadcrumbs.forEach((value) => {
@@ -116,10 +117,15 @@ export const renderFacetBreadcurm = () => {
       let fieldName;
       if (value.field === 'contenttype') {
         fieldName = 'Content type';
-      } else if (value.field === 'binarydata') {
-        fieldName = 'eCommerce';
       } else {
         fieldName = facetsId[value.field];
+      }
+
+      let displayText;
+      if (item.value.value === 'binarydata') {
+        displayText = 'eCommerce';
+      } else {
+        displayText = item.value.value;
       }
       const gridContainer = document.createElement('div');
       gridContainer.classList.add('facet-breadcrumb');
@@ -128,7 +134,7 @@ export const renderFacetBreadcurm = () => {
       const gridItem1 = document.createElement('div');
       gridItem1.classList.add('grid-item');
       const box1 = document.createElement('div');
-      box1.textContent = `${fieldName} : ${item.value.value}`;
+      box1.textContent = `${fieldName} : ${displayText}`;
       gridItem1.appendChild(box1);
 
       const gridItem2 = document.createElement('div');
