@@ -116,6 +116,8 @@ export const renderFacetBreadcurm = () => {
       let fieldName;
       if (value.field === 'contenttype') {
         fieldName = 'Content type';
+      } else if (value.field === 'binarydata') {
+        fieldName = 'eCommerce';
       } else {
         fieldName = facetsId[value.field];
       }
