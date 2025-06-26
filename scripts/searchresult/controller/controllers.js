@@ -166,7 +166,7 @@ function initDependentFacet(dependentFacet, parentFacets) {
     'technicaldocuments': ['Regulatory documents'],
     'certificatetypecategories': ['Training'],
     'coursetypecategories': ['Training'],
-    'productcategories': ['eCommerce']
+    'productcategories': ['binarydata', 'eCommerce']
   };
 
   const facetId = dependentFacet.state.facetId;
