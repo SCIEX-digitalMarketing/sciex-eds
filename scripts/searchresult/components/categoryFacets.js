@@ -180,11 +180,15 @@ function renderFacet(facetElementId, facetController, headerText) {
     values.forEach(value => {
       if (facetId === 'applications' && value.value === 'Application') return;
 
+      let displayText = value.value
+      if(value.value === 'binarydata'){
+        displayText = "eCommerce"
+      }
       const facetItem = document.createElement('div');
       facetItem.className = 'facet-item tw-flex tw-items-center tw-gap-2 tw-py-1';
       facetItem.innerHTML = `        
         <input type="checkbox" id="${value.value}" ${value.state === "selected" ? "checked" : ""} class="tw-accent-blue-500 tw-w-4 tw-h-4">
-        <label for="${value.value}">${value.value} (${value.numberOfResults})</label>
+        <label for="${value.value}">${displayText} (${value.numberOfResults})</label>
       `;
 
       facetItem.querySelector("input").addEventListener("change", () => {
@@ -319,7 +323,6 @@ function renderSearchFacets(facetController, facetItemsContainer,facetElement,se
         return indexA - indexB;
       });
   
-      console.log("facetChildren after sorting:", facetChildren);
   
       facetChildren.forEach(child => {
         facetElement.appendChild(child);
@@ -410,7 +413,8 @@ function orderContentTypeFacets(facetId,facetItemsContainer){
         "Regulatory documents",
         "Customer documents",
         "Resource library",
-        "Training"
+        "Training",
+        "binarydata"
     ];
 
     const facetContainer = facetItemsContainer;
