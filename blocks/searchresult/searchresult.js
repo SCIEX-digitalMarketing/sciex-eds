@@ -200,9 +200,9 @@ export default async function decorate(block) {
 
   const searchTermValidation = createElement('div', 'search-term-validation', 'searchTermValidation');
 
-  const validationText = createElement('div', 'search-validation-text', 'validationText', 'Search within max 20 characters');
+  const validationText = createElement('div', 'search-validation-text', 'validationText', 'Search within max 200 characters');
   const validationCount = createElement('div', 'search-validation-count', 'validationCount');
-  const validationError = createElement('div', 'search-validation-error', 'validationError', 'Input exceeds the limit. Please search within 20 characters');
+  const validationError = createElement('div', 'search-validation-error', 'validationError', 'Input exceeds the limit. Please search within 200 characters');
 
   searchTermValidation.appendChild(validationText);
   searchTermValidation.appendChild(validationError);
@@ -212,8 +212,8 @@ export default async function decorate(block) {
   const searchInput = document.createElement('input');
   searchInput.type = 'text';
   searchInput.id = 'coveo-query';
-  searchInput.placeholder = 'Search...';
-  searchInput.maxLength = 20;
+  searchInput.placeholder = 'Search';
+  searchInput.maxLength = 200;
   searchInput.classList.add(
     'search-box',
     'tw-w-full',
@@ -325,16 +325,23 @@ export default async function decorate(block) {
         lifeSciencesDiv.appendChild(section.querySelector('div'));
         block.append(lifeSciencesDiv);
       } else if (iteration === 2) {
-        if (main.querySelector('picture')) {
-          coveoNoResultsDiv.appendChild(main.querySelector('picture'));
+        if (section.querySelector('picture')) {
+          coveoNoResultsDiv.appendChild(section.querySelector('picture'));
         }
       } else if (iteration === 3) {
+        if (section.querySelector('div')) {
+          const altText = section.querySelector('div').textContent.trim();
+          if (coveoNoResultsDiv.querySelector('img')) {
+            coveoNoResultsDiv.querySelector('img').setAttribute('alt', altText);
+          }
+        }
+      } else if (iteration === 4) {
         const noResultsText1 = section.querySelector('div');
         noResultsText1.id = 'noresults-text1';
         noResultsText1.setAttribute('data-text1', noResultsText1.textContent);
         noResultsText.appendChild(noResultsText1);
         coveoNoResultsDiv.appendChild(noResultsText);
-      } else if (iteration === 4) {
+      } else if (iteration === 5) {
         const noResultsText2 = section.querySelector('div');
         noResultsText2.classList = 'noresults-text2';
         noResultsText.appendChild(noResultsText2);

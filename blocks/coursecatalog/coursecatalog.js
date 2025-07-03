@@ -76,15 +76,15 @@ export default async function decorate(block) {
     type: 'text',
     id: 'coveo-query',
     placeholder: 'Search...',
-    maxLength: 20,
+    maxLength: 200,
     classList: ['search-box', 'tw-w-full', 'tw-py-3', 'tw-px-4', 'tw-border', 'tw-border-gray-300', 'tw-rounded-md'],
   });
 
   // Search validation
   const searchTermValidation = createElement('div', { classList: ['search-term-validation'], id: 'searchTermValidation' });
-  const validationText = createElement('div', { classList: ['search-validation-text'], id: 'validationText', text: 'Search within max 20 characters' });
+  const validationText = createElement('div', { classList: ['search-validation-text'], id: 'validationText', text: 'Search within max 200 characters' });
   const validationCount = createElement('div', { classList: ['search-validation-count'], id: 'validationCount' });
-  const validationError = createElement('div', { classList: ['search-validation-error'], id: 'validationError', text: 'Input exceeds the limit. Please search within 20 characters' });
+  const validationError = createElement('div', { classList: ['search-validation-error'], id: 'validationError', text: 'Input exceeds the limit. Please search within 200 characters' });
 
   searchTermValidation.appendChild(validationText);
   searchTermValidation.appendChild(validationError);

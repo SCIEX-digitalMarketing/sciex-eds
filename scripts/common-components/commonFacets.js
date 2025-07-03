@@ -122,7 +122,7 @@ function renderFacet(facetElementId, facetController, headerText) {
     const facetInput = document.createElement('input');
     facetInput.type = 'text';
     facetInput.id = `${facetId}-input`;
-    facetInput.maxLength = 20;
+    facetInput.maxLength = 200;
     facetInput.classList.add(
       'tw-border',
       'tw-p-2',
@@ -130,7 +130,7 @@ function renderFacet(facetElementId, facetController, headerText) {
       'tw-mt-2',
       'facet-search-box',
     );
-    facetInput.placeholder = 'Search....';
+    facetInput.placeholder = 'Search';
 
     facetInput.addEventListener('input', (event) => {
       const query = event.target.value.toLowerCase();
