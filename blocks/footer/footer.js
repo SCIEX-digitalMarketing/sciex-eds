@@ -289,6 +289,7 @@ function createSocialLinks() {
 // function to  add country flag before name
 function addCountryFlag(countryCode) {
   const countryIcon = document.createElement('img');
+  countryIcon.alt = countryCode;
   countryIcon.src = `/icons/${countryCode}.svg`;
   return countryIcon;
 }
