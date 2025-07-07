@@ -56,6 +56,21 @@
   line-height: 24px; /* 150% */
   letter-spacing: 0.08px;
 }
+.tabs-container .image-bottom p {
+  padding-bottom: 20px;
+}
+
+.tabs-container .image-top p {
+  padding-top: 20px;
+}
+
+.tabs-container .image-left p {
+  padding-left: 20px;
+}
+
+.tabs-container .image-right p {
+  padding-right: 20px;
+}
 
 .tabs-container p {
   color: var(--Neutrals-500, #707070);
@@ -65,7 +80,6 @@
   font-weight: 330;
   line-height: 26px; /* 144.444% */
   letter-spacing: 0.045px;
-  padding-top: 20px;
 }
 
 .tabs-container .tech-note p {
