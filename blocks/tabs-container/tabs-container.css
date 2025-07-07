@@ -80,6 +80,7 @@
   font-weight: 330;
   line-height: 26px; /* 144.444% */
   letter-spacing: 0.045px;
+  padding-top: 20px;
 }
 
 .tabs-container .tech-note p {

@@ -1047,7 +1047,9 @@ function createSubMenuItems(section, containerDiv, firstpartdiv) {
         });
       });
       firstpartdiv.append(ulTag);
-      firstpartdiv.append(anchorTag);
+      if(anchorTag && anchorTag.href !== '') {
+        firstpartdiv.append(anchorTag);
+      }
     }
   }
 }
@@ -1232,6 +1234,9 @@ function createMegaMenuThirdLevel(child) {
                   'icon icon-chevron-right tw-ml-8 tw-duration-500 group-hover:tw-pl-2',
               });
               spanTag.append(chevronRight);
+              if(thirdPartdiv.querySelector('img')) {
+                thirdPartdiv.querySelector('img').alt = anchTag.text;
+              }
               anchTag.text = '';
               anchTag.append(spanTag);
               const pTag = section.nextElementSibling;
@@ -1402,7 +1407,9 @@ function createMegaMenuThirdLevel(child) {
     });
   }
   secondPartdiv.append(wrapdiv);
-  secondPartdiv.appendChild(viewAllTag);
+  if(viewAllTag && viewAllTag.href !== '') {
+    secondPartdiv.appendChild(viewAllTag);
+  }
   if (isSubItems) {
     containerDiv.appendChild(firstpartdiv);
   }
@@ -1556,3 +1563,4 @@ export default async function decorate(block) {
     document.getElementById('login').style.display = '';
   }
 }
+
