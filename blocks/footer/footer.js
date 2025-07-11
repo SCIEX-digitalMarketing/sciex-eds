@@ -175,6 +175,13 @@ function handleBlockSection(child, block, iteration) {
   const uniqueId = getMetadata('pagetrackingid');
   const paragraphs = child.querySelectorAll('p');
 
+  // ✅ Add ot-sdk-show-settings to "Cookies Settings" link
+  const cookieLink = child.querySelector('a[title="Cookies Settings"]');
+  if (cookieLink) {
+    cookieLink.classList.add('ot-sdk-show-settings');
+    cookieLink.id = 'ot-sdk-show-settings';
+  }
+
   if (paragraphs.length >= 2) {
     const secondLastParagraph = paragraphs[paragraphs.length - 2];
     const lastParagraph = paragraphs[paragraphs.length - 1];
