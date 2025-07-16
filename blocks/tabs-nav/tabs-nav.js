@@ -107,7 +107,7 @@ export default async function decorate(block) {
 
   const featurebutton = document.createElement('div');
   featurebutton.classList.add('feature-products-button');
-  featurebutton.textContent = 'Featured Products';
+  featurebutton.textContent = 'Featured products';
   buttons.append(featurebutton);
   featurebutton.addEventListener('click', () => {
     const section = document.getElementsByClassName('featured-products-wrapper');
@@ -121,7 +121,7 @@ export default async function decorate(block) {
 
   const relatedresources = document.createElement('div');
   relatedresources.classList.add('related-resource-button');
-  relatedresources.textContent = 'Related Resources';
+  relatedresources.textContent = 'Related resources';
   buttons.append(relatedresources);
   relatedresources.addEventListener('click', () => {
     const section = document.getElementsByClassName('sciex-related-resource-wrapper');
