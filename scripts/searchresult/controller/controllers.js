@@ -19,11 +19,11 @@ export const searchBoxController = buildSearchBox(searchEngine, {
     highlightOptions: {
       notMatchDelimiters: {
         open: '<strong>',
-        close: '</strong>',
+        close: '</strong> &nbsp;',
       },
       correctionDelimiters: {
         open: '<i>',
-        close: '</i>',
+        close: '</i> &nbsp;',
       },
     },
   },
@@ -77,7 +77,7 @@ export const updateSorting = (criterion) => {
 const context = buildContext(searchEngine)
 context.add('host', window.location.origin);
 let lang = document.documentElement.lang
-context.add('locale', lang || 'en');
+context.add('locale', lang || 'en-US');
 
 
 export const facetBreadcrumb = buildBreadcrumbManager(searchEngine)
