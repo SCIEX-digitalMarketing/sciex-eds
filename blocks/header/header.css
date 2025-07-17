@@ -145,8 +145,7 @@ header nav ul li picture:hover {
     position: absolute;
     top: 296px;
     left: 488px;
-    width: -webkit-fill-available;
-    max-height: 200px;
+    width: 32%;
     overflow-y: auto;
     z-index: 10;
     display: block;
@@ -159,15 +158,26 @@ header nav ul li picture:hover {
     display: none;
 }
 
-.suggestion-item {
+.global-suggestion-item {
     padding: 8px;
     cursor: pointer;
     display: flex;
     align-items: center;
 }
 
-.suggestion-item svg {
+.global-suggestion-item svg {
     margin-right: 10px;
+}
+
+.global-history-item {
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.global-history-item svg {
+  margin-right: 10px;
 }
 
 .desktop-links {
@@ -331,6 +341,9 @@ header nav ul li picture:hover {
     .megamenu-wrapper .topbar-menu ul li:last-child a {
         max-width: 40pc !important;
     }
+    .header-wrapper{
+        min-height:66px !important;
+    }
 }
 
 @media (min-width: 768px) {
@@ -405,7 +418,4 @@ header nav ul li picture:hover {
     .header-wrapper{
         min-height:66px !important;
     }
-}
-.header-wrapper{
-    min-height:132.5px;
 }

@@ -18,11 +18,11 @@ export const regulatoryDocSearchBoxController = buildSearchBox(regulatoryDocSear
     highlightOptions: {
       notMatchDelimiters: {
         open: '<strong>',
-        close: '</strong>',
+        close: '</strong>&nbsp;',
       },
       correctionDelimiters: {
         open: '<i>',
-        close: '</i>',
+        close: '</i>&nbsp;',
       },
     },
   },
@@ -59,6 +59,8 @@ export const regulatoryDocFacetBreadcrumb = buildBreadcrumbManager(regulatoryDoc
 // Context variable controller
 const context = buildContext(regulatoryDocSearchEngine)
 context.add('host', window.location.origin);
+let lang = document.documentElement.lang
+context.add('locale', lang || 'en-US');
 
 export const allFacetController = createFacetController();
 
