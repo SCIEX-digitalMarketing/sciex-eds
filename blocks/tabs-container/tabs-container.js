@@ -1,11 +1,10 @@
 import {} from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
-import decorateSciexText from '../sciex-text/sciex-text.js';
-
+ 
 export default async function decorate(block) {
   const blockDiv = document.createElement('div');
   blockDiv.classList.add('technotes-main');
-
+ 
   [...block.children].forEach((row, rowIndex) => {
     if (rowIndex === 0) {
       block.id = `${row.textContent.trim().replace(/\s+/g, '-')}-content`;
@@ -34,10 +33,10 @@ export default async function decorate(block) {
           blockDiv.append(div);
         });
       } else {
-        decorateSciexText(row);
         const contentDiv = document.createElement('div');
         contentDiv.classList.add('other-content');
-        contentDiv.append(row);
+        contentDiv.innerHTML = row.innerHTML;
+        moveInstrumentation(row, contentDiv);
         blockDiv.append(contentDiv);
       }
     }
