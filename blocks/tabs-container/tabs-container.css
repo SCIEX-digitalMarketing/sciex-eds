@@ -1,11 +1,11 @@
-@import url('../sciex-text/sciex-text.css');
+
 .image-left {
   display: flex;     
   flex-direction: row;  
   gap: 20px;         
   width: 100%;       
 }
-
+ 
 .image-right {
   margin: auto;
   padding: 20px;
@@ -14,12 +14,12 @@
   flex-direction:row-reverse;
   gap: 20px;  
 }
-
+ 
 .image-top {
   flex-direction: column;   
   gap: 20px;                
 }
-
+ 
 .image-bottom {
   max-width: 100%;
   margin: auto;
@@ -28,15 +28,15 @@
   flex-direction:column-reverse;
   gap: 20px;   
 }
-
+ 
 .image-left > div, .image-right > div {
-  flex: 1 1 50%; 
+  flex: 1 1 50%;
 }
-
+ 
 .image-top > div, .image-bottom > div {
-  width: 100%; 
+  width: 100%;
 }
-
+ 
 .image-left img, .image-right img {
   width: 100%;  
   height: auto;  
@@ -44,84 +44,100 @@
 .tabs-container-wrapper .block {
   background: var(--White-0, #FFF);
 }
-
+ 
 .tabs-container-main {
   cursor: pointer;
   padding-bottom: 14px;
   color: var(--Grey-900, #141414);
-  font-family: "Geogrotesque Sharp VF", sans-serif;
+  font-family: "Geogrotesque Sharp VF";
   font-size: 16px;
   font-style: normal;
   font-weight: 530;
   line-height: 24px; /* 150% */
   letter-spacing: 0.08px;
 }
-
+.tabs-container .image-bottom p {
+  padding-bottom: 20px;
+}
+ 
+.tabs-container .image-top p {
+  padding-top: 20px;
+}
+ 
+.tabs-container .image-left p {
+  padding-left: 20px;
+}
+ 
+.tabs-container .image-right p {
+  padding-right: 20px;
+}
+ 
 .tabs-container p {
   color: var(--Neutrals-500, #707070);
-  font-family: "Geogrotesque Sharp VF", sans-serif !important;
-  font-size: 16px;
+  font-family: "Geogrotesque Sharp VF" !important;
+  font-size: 18px;
   font-style: normal;
   font-weight: 330;
   line-height: 26px; /* 144.444% */
   letter-spacing: 0.045px;
   padding-top: 20px;
 }
-
+ 
 .tabs-container .tech-note p {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px; /* 142.857% */
   letter-spacing: 0.07px;
 }
-
-.tabs-container h4 {
+ 
+.tabs-container h3 {
   color: var(--Neutrals-900, #141414);
-  font-family: "Geogrotesque Sharp VF", sans-serif !important;
+  font-family: "Geogrotesque Sharp VF" !important;
   font-size: 24px;
   font-style: normal;
   font-weight: 330;
   line-height: 32px; /* 133.333% */
   padding-top: 20px;
 }
-
+ 
 .tabs-container strong {
   font-weight: 530;
 }
-
+ 
 .tabs-container ul {
   list-style-type: inherit;
   padding-left: 30px;
   padding-top: 20px;
 }
-
+ 
 .tabs-container ul li::marker {
   font-size: 0.6em; /* Smaller dot */
 }
-
+ 
 .tabs-container ol {
   list-style-type: decimal;
   padding-left: 30px;
   padding-top: 20px;
 }
-
+ 
 .tabs-container ul li,
 .tabs-container ul li a,
 .tabs-container ol li,
 .tabs-container ol li a {
   color: var(--Neutrals-500, #707070);
-  font-family: "Geogrotesque Sharp VF", sans-serif;
+  font-family: "Geogrotesque Sharp VF";
   font-style: normal;
   font-weight: 330;
 }
-
+ 
 .tabs-container ul li {
-  font-size: 16px;
+  padding-top: 15px;
+  font-size: 18px;
   line-height: 26px; /* 144.444% */
   letter-spacing: 0.045px;
 }
-
+ 
 .tabs-container ul li a {
-  font-size: 16px;
+  font-size: 18px;
   line-height: 26px;
   letter-spacing: 0.045px;
   text-decoration: underline;
@@ -130,13 +146,14 @@
   text-underline-offset: auto;
   text-underline-position: from-font;
 }
-
+ 
 .tabs-container ol li {
+  padding-top: 15px;
   font-size: 16px;
   line-height: 24px; /* 150% */
   letter-spacing: 0.08px;
 }
-
+ 
 .tabs-container ol li a {
   font-size: 16px;
   line-height: 24px;
@@ -147,18 +164,17 @@
   text-underline-offset: auto;
   text-underline-position: from-font;
 }
-
+ 
 /* Image border css*/
 .tech-note {
   display: flex;
-  margin-block: 1.5rem;
   padding: 30px;
-  flex-direction: column;
   align-items: flex-start;
   gap: 0px;
   align-self: stretch;
+  margin-top:20px;
 }
-
+ 
 .tabs-container .technotes-main .other-content {
   padding-block-end: 20px;
 }
