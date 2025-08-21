@@ -151,6 +151,7 @@
 /* Image border css*/
 .tech-note {
   display: flex;
+  margin-block: 1.5rem;
   padding: 30px;
   flex-direction: column;
   align-items: flex-start;
