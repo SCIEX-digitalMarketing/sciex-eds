@@ -1,5 +1,6 @@
 import {} from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import decorateSciexText from '../sciex-text/sciex-text.js';
 
 export default async function decorate(block) {
   const blockDiv = document.createElement('div');
@@ -33,10 +34,10 @@ export default async function decorate(block) {
           blockDiv.append(div);
         });
       } else {
+        decorateSciexText(row);
         const contentDiv = document.createElement('div');
         contentDiv.classList.add('other-content');
-        contentDiv.innerHTML = row.innerHTML;
-        moveInstrumentation(row, contentDiv);
+        contentDiv.append(row);
         blockDiv.append(contentDiv);
       }
     }

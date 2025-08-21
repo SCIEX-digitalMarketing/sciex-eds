@@ -1,4 +1,4 @@
-
+@import url('../sciex-text/sciex-text.css');
 .image-left {
   display: flex;     
   flex-direction: row;  
@@ -49,33 +49,18 @@
   cursor: pointer;
   padding-bottom: 14px;
   color: var(--Grey-900, #141414);
-  font-family: "Geogrotesque Sharp VF";
+  font-family: "Geogrotesque Sharp VF", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 530;
   line-height: 24px; /* 150% */
   letter-spacing: 0.08px;
 }
-.tabs-container .image-bottom p {
-  padding-bottom: 20px;
-}
-
-.tabs-container .image-top p {
-  padding-top: 20px;
-}
-
-.tabs-container .image-left p {
-  padding-left: 20px;
-}
-
-.tabs-container .image-right p {
-  padding-right: 20px;
-}
 
 .tabs-container p {
   color: var(--Neutrals-500, #707070);
-  font-family: "Geogrotesque Sharp VF" !important;
-  font-size: 18px;
+  font-family: "Geogrotesque Sharp VF", sans-serif !important;
+  font-size: 16px;
   font-style: normal;
   font-weight: 330;
   line-height: 26px; /* 144.444% */
@@ -84,14 +69,14 @@
 }
 
 .tabs-container .tech-note p {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 20px; /* 142.857% */
   letter-spacing: 0.07px;
 }
 
-.tabs-container h3 {
+.tabs-container h4 {
   color: var(--Neutrals-900, #141414);
-  font-family: "Geogrotesque Sharp VF" !important;
+  font-family: "Geogrotesque Sharp VF", sans-serif !important;
   font-size: 24px;
   font-style: normal;
   font-weight: 330;
@@ -124,20 +109,19 @@
 .tabs-container ol li,
 .tabs-container ol li a {
   color: var(--Neutrals-500, #707070);
-  font-family: "Geogrotesque Sharp VF";
+  font-family: "Geogrotesque Sharp VF", sans-serif;
   font-style: normal;
   font-weight: 330;
 }
 
 .tabs-container ul li {
-  padding-top: 15px;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 26px; /* 144.444% */
   letter-spacing: 0.045px;
 }
 
 .tabs-container ul li a {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 26px;
   letter-spacing: 0.045px;
   text-decoration: underline;
@@ -148,7 +132,6 @@
 }
 
 .tabs-container ol li {
-  padding-top: 15px;
   font-size: 16px;
   line-height: 24px; /* 150% */
   letter-spacing: 0.08px;
@@ -169,10 +152,10 @@
 .tech-note {
   display: flex;
   padding: 30px;
+  flex-direction: column;
   align-items: flex-start;
   gap: 0px;
   align-self: stretch;
-  margin-top:20px;
 }
 
 .tabs-container .technotes-main .other-content {
