@@ -1,0 +1,85 @@
+
+.session-timeline-text {
+    color: var(--Grey-900, #141414);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 530;
+    line-height: 24px;
+    letter-spacing: 0.12px;
+    margin: 53px 0 30px;
+}
+
+#clock {
+    content: url("/icons/clock.svg");
+    filter: invert(1);
+}
+
+.event-organizer {
+    color: var(--Grey-600, #5B5B5B);
+    font-family: "Geogrotesque Sharp VF";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 330;
+    line-height: 24px;
+    letter-spacing: 0.08px;
+
+}
+
+.session-title {
+    color: var(--Grey-600, #5B5B5B);
+    font-family: "Geogrotesque Sharp VF";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 330;
+    line-height: 26px;
+    letter-spacing: 0.045px;
+    margin-left: 26px;
+}
+
+
+.session-timeline ul li {
+    padding: 7px 0px;
+}
+
+  .time-row #clock,
+  .time-row strong,
+  .time-row .event-organizer {
+    display: inline-block;
+  }
+  .time-main {
+    display: flex;
+    gap: 8px;
+  }
+  /* Mobile view (adjust max-width as needed) */
+  @media (max-width: 768px) {
+    .time-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    #clock {
+        margin-top: 0px;
+    }
+    .time-row #clock,
+    .time-row strong {
+      order: 1;
+    }
+    strong {
+        font-size: 15px;
+    }
+    .time-row .event-organizer {
+      order: 2;
+      font-size: 15px;
+      white-space: normal;
+      overflow-wrap: break-word;
+      margin-left:25px;
+    }
+    .session-title {
+        font-size: 15px;
+        margin-left: 0px;
+        white-space: normal;
+        overflow-wrap: break-word;
+        margin-left:25px;
+    }
+    
+  }

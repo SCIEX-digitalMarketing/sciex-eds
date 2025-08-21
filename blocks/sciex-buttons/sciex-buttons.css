@@ -1,0 +1,77 @@
+.button-block {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+/* Alignment */
+.button-block.align-left {
+    justify-content: flex-start;
+}
+.button-block.align-center {
+    justify-content: center;
+}
+.button-block.align-right {
+    justify-content: flex-end;
+}
+
+/* Base button */
+.button-block  .button {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 20px !important;
+    text-decoration: none;
+    border-radius: 4px !important;
+    font-family: "Geogrotesque Sharp VF" !important;
+    font-size: 16px !important;
+    font-weight: 530 !important;
+    line-height: 24px;
+    letter-spacing: 0.08px;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    box-sizing: border-box;
+    margin: 0 !important;
+}
+
+.button-block  .inline-icon {
+    display: flex;
+}
+
+/* Primary */
+.button-block  .button.primary {
+    background-color: #0068fa !important;
+    color: #fff !important;
+    border: 1px solid transparent !important;
+}
+.button-block  .button.primary:hover {
+    background-color: #0058d0;
+}
+
+/* Secondary */
+.button-block  .button.secondary {
+    background-color: transparent !important;
+    color: #141414 !important;
+    border: 1px solid #0068fa !important;
+}
+.button-block  .button.secondary:hover {
+    background-color: #f0f8ff;
+}
+.button-block  .button.secondary svg path {
+    stroke: #141414;
+}
+
+/* Links */
+.button-block  .button.link {
+    background-color: transparent !important;
+    color: #0068FA !important;
+    text-decoration: underline !important;
+    text-underline-offset: 10px;
+    text-decoration-thickness: 1px !important;
+    gap: 8px;
+}
+
+.button-block  .button.link:hover {
+    background-color: transparent !important;
+}

@@ -32,6 +32,16 @@
       "sciex-related-resource",
       "tabs-nav",
       "tabs-container",
+      "events",
+      "hero-banner",
+      "events-container",
+      "session-timeline",
+      "events-details",
+      "speakers",
+      "events-register-form",
+      "sciex-buttons",
+      "split-video-text",
+      "survey-script",
       "sciex-text",
       "customer-document",
       "regulatory-document"
@@ -40,7 +50,8 @@
   {
     "id": "cards",
     "components": [
-      "card"
+      "image-video",
+      "youtube-item"
     ]
   },
   {
@@ -59,9 +70,24 @@
     ]
   },
   {
+    "id": "events-container",
+    "components": [
+      "sciex-text",
+      "session-timeline",
+      "events-details",
+      "events-register-form"
+    ]
+  },
+  {
     "id": "header",
     "components": [
       "headerItem"
+    ]
+  },
+  {
+    "id": "sciex-buttons",
+    "components": [
+      "sciex-button"
     ]
   },
   {
@@ -78,6 +104,19 @@
     "id": "sciex-related-resource",
     "components": [
       "resource-item"
+    ]
+  },
+  {
+    "id": "speakers",
+    "components": [
+      "speaker"
+    ]
+  },
+  {
+    "id": "split-video-text",
+    "components": [
+      "video-text",
+      "youtube-video-text"
     ]
   },
   {

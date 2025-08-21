@@ -121,6 +121,7 @@
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
                   "name": "Cards",
+                  "model": "cards",
                   "filter": "cards"
                 }
               }
@@ -128,15 +129,30 @@
           }
         },
         {
-          "title": "Card",
-          "id": "card",
+          "title": "Image/Video",
+          "id": "image-video",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "Card",
-                  "model": "card"
+                  "name": "Image/Video",
+                  "model": "image-video"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Youtube",
+          "id": "youtube-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Youtube",
+                  "model": "youtube-item"
                 }
               }
             }
@@ -182,6 +198,67 @@
                 "template": {
                   "name": "customer-document",
                   "model": "customer-document"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Events Container",
+          "id": "events-container",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Events Container",
+                  "model": "events-container",
+                  "filter": "events-container"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Events Details",
+          "id": "events-details",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Events Details",
+                  "model": "events-details"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Events Register Form",
+          "id": "events-register-form",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Events Register Form",
+                  "model": "events-register-form"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Events",
+          "id": "events",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "events",
+                  "model": "events"
                 }
               }
             }
@@ -248,6 +325,21 @@
           }
         },
         {
+          "title": "Hero Banner",
+          "id": "hero-banner",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Hero Banner",
+                  "model": "hero-banner"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Login SSO",
           "id": "login-sso",
           "plugins": {
@@ -272,6 +364,37 @@
                 "template": {
                   "name": "regulatory-document",
                   "model": "regulatory-document"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Sciex Buttons",
+          "id": "sciex-buttons",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Sciex Buttons",
+                  "model": "sciex-buttons",
+                  "filter": "sciex-buttons"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Sciex Button",
+          "id": "sciex-button",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Sciex Button",
+                  "model": "sciex-button"
                 }
               }
             }
@@ -453,6 +576,98 @@
                 "template": {
                   "name": "searchresult",
                   "model": "searchresult"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Session Timeline",
+          "id": "session-timeline",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Session Timeline",
+                  "model": "session-timeline"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Speakers",
+          "id": "speakers",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Speakers",
+                  "model": "speakers",
+                  "filter": "speakers"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Speaker",
+          "id": "speaker",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Speaker",
+                  "model": "speaker"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Split Video Text",
+          "id": "split-video-text",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "split-video-text",
+                  "model": "split-video-text",
+                  "filter": "split-video-text"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Video and Text",
+          "id": "video-text",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "video-text",
+                  "model": "video-text"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Youtube Video and Text",
+          "id": "youtube-video-text",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "youtube-video-text",
+                  "model": "youtube-video-text"
                 }
               }
             }

@@ -9,6 +9,7 @@
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
               "name": "Cards",
+              "model": "cards",
               "filter": "cards"
             }
           }
@@ -16,15 +17,30 @@
       }
     },
     {
-      "title": "Card",
-      "id": "card",
+      "title": "Image/Video",
+      "id": "image-video",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "Card",
-              "model": "card"
+              "name": "Image/Video",
+              "model": "image-video"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Youtube",
+      "id": "youtube-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Youtube",
+              "model": "youtube-item"
             }
           }
         }
@@ -33,13 +49,68 @@
   ],
   "models": [
     {
-      "id": "card",
+      "id": "cards",
+      "fields": [
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "cardsId",
+            "label": "Cards Id",
+            "value": ""
+          },
+          {
+              "component": "text",
+              "valueType": "string",
+              "name": "heading",
+              "label": "Heading",
+              "value": ""
+          },
+          {
+            "component": "radio-group",
+            "label": "option To Select anchor url",
+            "name": "OpentionToSelectPrimary",
+            "valueType": "string",
+            "options": [
+              { "name": "Open In Same Tab", "value": "_self" },
+              { "name": "Open In New Tab", "value": "_blank" }
+            ]
+          },
+          {
+            "component": "select",
+            "name": "grid",
+            "label": "Select how many cards in a row",
+            "value": "",
+            "valueType": "string",
+            "options": [
+              
+              {
+                "name": "Default",
+                "value": "4"
+              },
+              {
+                "name": "3-columns",
+                "value": "3"
+              },
+              {
+                "name": "2-columns",
+                "value": "2"
+              },
+              {
+                "name": "1-columns",
+                "value": "1"
+              }
+            ]
+          }
+      ]
+    },
+    {
+      "id": "image-video",
       "fields": [
         {
           "component": "reference",
           "valueType": "string",
           "name": "image",
-          "label": "Image",
+          "label": "Image/Video",
           "multi": false
         },
         {
@@ -48,7 +119,40 @@
           "value": "",
           "label": "Text",
           "valueType": "string"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "videoThumbnail",
+          "label": "Video Thumbnail Picker",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "imageAltText",
+          "label": "Alt text",
+          "value": ""
         }
+      ]
+    },
+    {
+      "id": "youtube-item",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "youtube-link",
+          "label": "Youtube Link",
+          "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
       ]
     }
   ],
@@ -56,7 +160,8 @@
     {
       "id": "cards",
       "components": [
-        "card"
+        "image-video",
+        "youtube-item"
       ]
     }
   ]

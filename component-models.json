@@ -335,14 +335,107 @@
     ]
   },
   {
-    "id": "card",
+    "id": "cards",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cardsId",
+        "label": "Cards Id",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading",
+        "value": ""
+      },
+      {
+        "component": "radio-group",
+        "label": "option To Select anchor url",
+        "name": "OpentionToSelectPrimary",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Open In Same Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open In New Tab",
+            "value": "_blank"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "grid",
+        "label": "Select how many cards in a row",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": "4"
+          },
+          {
+            "name": "3-columns",
+            "value": "3"
+          },
+          {
+            "name": "2-columns",
+            "value": "2"
+          },
+          {
+            "name": "1-columns",
+            "value": "1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "image-video",
     "fields": [
       {
         "component": "reference",
         "valueType": "string",
         "name": "image",
-        "label": "Image",
+        "label": "Image/Video",
         "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "videoThumbnail",
+        "label": "Video Thumbnail Picker",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAltText",
+        "label": "Alt text",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "youtube-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "youtube-link",
+        "label": "Youtube Link",
+        "value": ""
       },
       {
         "component": "richtext",
@@ -501,6 +594,207 @@
     ]
   },
   {
+    "id": "events-container",
+    "fields": [
+      {
+        "component": "text",
+        "name": "containerId",
+        "id": "event-container-id",
+        "value": "",
+        "label": "Container Id",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "view",
+        "label": "View",
+        "value": "vertical",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Horizontal",
+            "value": "horizontal"
+          },
+          {
+            "name": "Vertical",
+            "value": "vertical"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "events-details",
+    "fields": [
+      {
+        "component": "text",
+        "name": "eventId",
+        "value": "",
+        "label": "Event Id(details)",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "date-time",
+        "valueType": "date-time",
+        "name": "eventDate",
+        "label": "Eent Date",
+        "placeholder": "YYYY-MM-DD",
+        "displayFormat": null,
+        "valueFormat": null,
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "location",
+        "label": "Location",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "primarytext",
+        "label": "Primary Button Text"
+      },
+      {
+        "component": "aem-content",
+        "name": "primaryUrl",
+        "label": "Primary Button URL"
+      },
+      {
+        "component": "radio-group",
+        "label": "Select below options to open a link",
+        "name": "OpentionToSelectPrimary",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Open In Same Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open In New Tab",
+            "value": "_blank"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "secondarytext",
+        "label": "Secondary Button Text"
+      },
+      {
+        "component": "aem-content",
+        "name": "secondaryUrl",
+        "label": "Secondary Button URL"
+      },
+      {
+        "component": "radio-group",
+        "label": "Select below options to open a link",
+        "name": "OpentionToSelectSecondary",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Open In Same Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open In New Tab",
+            "value": "_blank"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "events-register-form",
+    "fields": [
+      {
+        "component": "text",
+        "name": "registerId",
+        "value": "",
+        "label": "Register ID(registerform)",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "subtitle",
+        "value": "",
+        "label": "Sub Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "formUrl",
+        "value": "",
+        "label": "Form URL",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "alignment",
+        "label": "Form Alignment",
+        "value": "one-column",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "One Column",
+            "value": "one-column"
+          },
+          {
+            "name": "Two Column",
+            "value": "two-column"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "width",
+        "value": "",
+        "label": "Enter the height of form in pixcel",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "events",
+    "fields": [
+      {
+        "component": "text",
+        "name": "eventsId",
+        "value": "",
+        "label": "Events Id",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "coveoSearchEngineOrganizationId",
+        "value": "",
+        "label": "Coveo Search Engine OrganizationId",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "coveoSearchEngineAccessToken",
+        "value": "",
+        "label": "Coveo Search Engine Access Token",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "featured-products",
     "fields": [
       {
@@ -550,6 +844,71 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "hero-banner",
+    "fields": [
+      {
+        "component": "text",
+        "name": "heroId",
+        "value": "",
+        "label": "Hero Banner Id",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Alt",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "eyebrow",
+        "value": "",
+        "label": "Eyebrow",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text(Heading H5 and Description in paragraph)",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "varientColour",
+        "label": "Varient Colour",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Black",
+            "value": "#000"
+          },
+          {
+            "name": "Grey",
+            "value": "#C6C6C6"
+          }
+        ]
+      },
+      {
+        "component": "date-time",
+        "valueType": "date-time",
+        "name": "publishDate",
+        "label": "Publish Date",
+        "placeholder": "YYYY-MM-DD",
+        "displayFormat": null,
+        "valueFormat": null
       }
     ]
   },
@@ -626,6 +985,97 @@
         "component": "aem-content",
         "name": "buttonUrl",
         "label": "Button URL"
+      }
+    ]
+  },
+  {
+    "id": "sciex-buttons",
+    "fields": [
+      {
+        "component": "select",
+        "name": "alignment",
+        "label": "Button Alignment",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Left",
+            "value": "left"
+          },
+          {
+            "name": "Center",
+            "value": "center"
+          },
+          {
+            "name": "Right",
+            "value": "right"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sciex-button",
+    "fields": [
+      {
+        "component": "select",
+        "name": "type",
+        "label": "Button Type",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Primary",
+            "value": "primary"
+          },
+          {
+            "name": "Secondary",
+            "value": "secondary"
+          },
+          {
+            "name": "Link",
+            "value": "link"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "text",
+        "label": "Button Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "link",
+        "label": "Button Link",
+        "valueType": "string"
+      },
+      {
+        "component": "boolean",
+        "name": "showSvg",
+        "label": "Hide/Show Icon",
+        "valueType": "boolean"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "icon",
+        "label": "Button Icon",
+        "multi": false
+      },
+      {
+        "component": "radio-group",
+        "name": "target",
+        "label": "Link Target",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Same Tab",
+            "value": "_self"
+          },
+          {
+            "name": "New Tab",
+            "value": "_blank"
+          }
+        ]
       }
     ]
   },
@@ -818,6 +1268,33 @@
     "id": "sciex-text",
     "fields": [
       {
+        "component": "text",
+        "valueType": "string",
+        "value": "",
+        "name": "id",
+        "label": "Id(sciextext)"
+      },
+      {
+        "component": "select",
+        "name": "textAlignment",
+        "label": "Text alignment",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Left",
+            "value": "text-left"
+          },
+          {
+            "name": "Right",
+            "value": "text-right"
+          },
+          {
+            "name": "Center",
+            "value": "text-center"
+          }
+        ]
+      },
+      {
         "component": "richtext",
         "valueType": "string",
         "name": "text",
@@ -886,6 +1363,178 @@
         "value": "",
         "label": "Coveo Search Engine Access Token",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "session-timeline",
+    "fields": [
+      {
+        "component": "text",
+        "name": "sessionTimeLineId",
+        "value": "",
+        "label": "Session Timeline Id(sessiontimeline)",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Details"
+      }
+    ]
+  },
+  {
+    "id": "speakers",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "id",
+        "label": "Id"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "speaker",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Alt",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "split-video-text",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "id",
+        "label": "Id",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading",
+        "value": ""
+      },
+      {
+        "component": "radio-group",
+        "label": "Text alignment",
+        "name": "textAlignment",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Right",
+            "value": "text-right"
+          },
+          {
+            "name": "left",
+            "value": "text-left"
+          }
+        ]
+      },
+      {
+        "component": "radio-group",
+        "label": "Button Link Target",
+        "name": "buttonLinkTarget",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Open In Same Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open In New Tab",
+            "value": "_blank"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "video-text",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "video",
+        "label": "Video",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "videoThumbnail",
+        "label": "Video Thumbnail Picker",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "videoAltText",
+        "label": "Video Alt Text",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "youtube-video-text",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "youtube-link",
+        "label": "Youtube Link",
+        "value": ""
       }
     ]
   },
