@@ -7,7 +7,6 @@ export default async function decorate(block) {
   blockDiv.classList.add('technotes-main');
 
   [...block.children].forEach((row, rowIndex) => {
-    console.log("row>>>"+row.outerHTML);
     if (rowIndex === 0) {
       block.id = `${row.textContent.trim().replace(/\s+/g, '-')}-content`;
     } else {
