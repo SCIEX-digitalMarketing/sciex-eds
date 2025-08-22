@@ -1,10 +1,10 @@
 import {} from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
- 
+
 export default async function decorate(block) {
   const blockDiv = document.createElement('div');
   blockDiv.classList.add('technotes-main');
- 
+
   [...block.children].forEach((row, rowIndex) => {
     if (rowIndex === 0) {
       block.id = `${row.textContent.trim().replace(/\s+/g, '-')}-content`;
