@@ -57,12 +57,16 @@
         "button-text",
         "sciex-title",
         "tech-note",
+        "customer-document",
         "survey-script",
         "sciex-related-resource",
         "tabs-nav",
         "tabs-container",
         "sciex-text",
-        "customer-document",
+        "hero-banner",
+        "session-timeline",
+        "events-details",
+        "speakers",
         "regulatory-document"
       ]
     }
