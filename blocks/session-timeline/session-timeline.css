@@ -41,15 +41,25 @@
     padding: 7px 0px;
 }
 
+  
   .time-row #clock,
   .time-row strong,
   .time-row .event-organizer {
     display: inline-block;
   }
+
+  .time-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
   .time-main {
     display: flex;
     gap: 8px;
   }
+  
   /* Mobile view (adjust max-width as needed) */
   @media (max-width: 768px) {
     .time-row {
