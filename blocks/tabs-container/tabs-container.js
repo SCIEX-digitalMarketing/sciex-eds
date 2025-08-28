@@ -1,5 +1,6 @@
 import {} from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import decorateSciexText from '../sciex-text/sciex-text.js';
 
 export default async function decorate(block) {
   const blockDiv = document.createElement('div');
@@ -11,8 +12,9 @@ export default async function decorate(block) {
     } else {
       const pic = row.querySelector('picture');
       const div = document.createElement('div');
-      div.classList.add('tech-note');
-      if (pic) {
+      const button = row.querySelector('.button-container');
+
+      if (pic || button) {
         [...row.children].forEach((col, colIndex) => {
           const inputDiv = document.createElement('div');
           if (colIndex === 0 || colIndex === 1) {
@@ -29,14 +31,15 @@ export default async function decorate(block) {
               div.classList.add(imagePos);
             }
           }
+          div.classList.add('tech-note');
           moveInstrumentation(row, div);
           blockDiv.append(div);
         });
       } else {
+        decorateSciexText(row);
         const contentDiv = document.createElement('div');
         contentDiv.classList.add('other-content');
-        contentDiv.innerHTML = row.innerHTML;
-        moveInstrumentation(row, contentDiv);
+        contentDiv.append(row);
         blockDiv.append(contentDiv);
       }
     }

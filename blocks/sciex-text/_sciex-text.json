@@ -21,6 +21,33 @@
       "id": "sciex-text",
       "fields": [
         {
+          "component": "text",
+          "valueType": "string",
+          "value": "",
+          "name": "id",
+          "label": "Id(sciextext)"
+        },
+        {
+          "component": "select",
+          "name": "textAlignment",
+          "label": "Text alignment",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Left",
+              "value": "text-left"
+            },
+            {
+              "name": "Right",
+              "value": "text-right"
+            },
+            {
+              "name": "Center",
+              "value": "text-center"
+            }
+          ]
+        },
+        {
           "component": "richtext",
           "valueType": "string",
           "name": "text",
