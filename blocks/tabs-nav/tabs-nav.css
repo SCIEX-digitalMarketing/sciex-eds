@@ -36,7 +36,7 @@ html {
   cursor: pointer;
   padding-bottom: 14px;
   color: var(--Grey-900, #141414);
-  font-family: "Geogrotesque Sharp VF";
+  font-family: "Geogrotesque Sharp VF", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 530;
@@ -49,7 +49,8 @@ html {
   top: 0;
   z-index: 1000;
   max-width: 90pc !important;
-  padding-top: 0 !important;
+  padding: 0 64px!important;
+  margin: auto;
 }
 
 
@@ -62,7 +63,7 @@ html {
   font-weight: bold;
   border-bottom: 2px solid #007bff;
   color: var(--Blue-700, #0068FA);
-  font-family: "Geogrotesque Sharp VF";
+  font-family: "Geogrotesque Sharp VF", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 530;
@@ -71,12 +72,10 @@ html {
 }
 
 
-/*.tabs-container-wrapper {
-  max-height: 500px; 
-  overflow-y: auto; 
-  padding: 20px;
-  max-width: 90pc !important;
-}*/
+.tabs-container-wrapper {
+  min-height: 200px; 
+}
+
 .feature-products-button .related-resource-button{
   border-bottom: 1px solid var(--Grey-100, #ECECEC);
   background: var(--White-0, #FFF);
@@ -88,7 +87,7 @@ html {
   /* Desktop/text-base/bolder */
   padding:5px;
   margin-top: -15px;
-  font-family: "Geogrotesque Sharp VF";
+  font-family: "Geogrotesque Sharp VF", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 530;
@@ -134,7 +133,7 @@ color: var(--Grey-900, #141414);
       color: var(--Grey-900, #141414);
 
       /* Desktop/text-base/bolder */
-      font-family: "Geogrotesque Sharp VF";
+      font-family: "Geogrotesque Sharp VF", sans-serif, sans-serif;
       font-size: 16px;
       font-style: normal;
       font-weight: 530;
@@ -195,5 +194,3 @@ color: var(--Grey-900, #141414);
   padding: 0 24px !important;
 }
 }
-
-
