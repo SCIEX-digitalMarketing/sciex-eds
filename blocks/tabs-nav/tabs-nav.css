@@ -71,9 +71,9 @@ html {
 }
 
 
-.tabs-container-wrapper {
+/* .tabs-container-wrapper {
   min-height: 200px; 
-}
+} */
 
 .feature-products-button .related-resource-button{
   border-bottom: 1px solid var(--Grey-100, #ECECEC);
