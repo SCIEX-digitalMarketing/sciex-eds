@@ -110,4 +110,7 @@
     .speakers-wrapper {
         padding: 0 24px !important;
     }
+    .speaker-content {
+        text-align: center;
+    }
 }
