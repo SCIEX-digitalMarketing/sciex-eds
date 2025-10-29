@@ -10,7 +10,7 @@ export default function decorate(block) {
     if (index === 0) {
       const idText = row.querySelector('p')?.textContent?.trim();
       if (idText) {
-        div.id = idText;
+         div.id = idText+'-content';
       }
     } else if (index === 1) {
       const title = document.createElement('div');
