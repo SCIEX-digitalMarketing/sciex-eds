@@ -70,5 +70,6 @@ export default function decorate(block) {
 
   block.classList.add('session-timeline');
   block.textContent = '';
+  block.parentElement.classList.add('tabs-container-wrapper');
   block.append(div);
 }
