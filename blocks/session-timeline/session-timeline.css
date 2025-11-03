@@ -59,6 +59,11 @@
     display: flex;
     gap: 8px;
   }
+  .session-timeline {
+    font-family: "Geogrotesque Sharp VF";
+    font-style: normal;
+    padding-top: 5px !important;
+  }
   
   /* Mobile view (adjust max-width as needed) */
   @media (max-width: 768px) {

@@ -10,7 +10,7 @@ export default function decorate(block) {
     if (index === 0) {
       const idText = row.querySelector('p')?.textContent?.trim();
       if (idText) {
-         div.id = idText+'-content';
+        div.id = `${idText}-content`;
       }
     } else if (index === 1) {
       const title = document.createElement('div');
@@ -68,8 +68,7 @@ export default function decorate(block) {
     }
   });
 
-  block.classList.add('session-timeline');
+  block.classList.add('session-timeline', 'tabs-container-wrapper');
   block.textContent = '';
-  block.parentElement.classList.add('tabs-container-wrapper');
   block.append(div);
 }
