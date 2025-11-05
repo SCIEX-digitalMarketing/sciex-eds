@@ -37,4 +37,14 @@ export default function decorate(block) {
   block.append(headingDiv);
   block.append(subHeadingDiv);
   block.append(iframeDiv);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const loc = window.location.toString();
+    const params = loc.split('?')[1];
+    const iframeElement = document.getElementById('events-register-form');
+
+    if (iframeElement && params) {
+      iframeElement.src += (iframeElement.src.includes('?') ? '&' : '?') + params;
+    }
+  });
 }
