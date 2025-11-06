@@ -69,15 +69,13 @@ function handleMobileTabs() {
 
 function hideIfEmpty(selector, buttonSelector) {
   const container = document.querySelector(selector);
-  const button = document.querySelector(buttonSelector);
-  if (container == null) {
-    if (button) {
-      button.style.display = 'none';
-    }
-  } else {
-    container.style.display = '';
-    button.style.display = '';
-  }
+  const buttons = document.querySelectorAll(buttonSelector);
+
+  const shouldShow = !!container; // true if container exists, false if not
+
+  buttons.forEach((btn) => {
+    btn.style.display = shouldShow ? '' : 'none';
+  });
 }
 
 export default async function decorate(block) {
