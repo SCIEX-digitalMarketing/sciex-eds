@@ -1449,26 +1449,14 @@
     ]
   },
   {
-    "id": "speakers",
+    "id": "speaker-details",
     "fields": [
       {
         "component": "text",
         "valueType": "string",
         "name": "id",
-        "label": "Id"
+        "label": "Id(speakers)"
       },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "heading",
-        "label": "Heading",
-        "value": ""
-      }
-    ]
-  },
-  {
-    "id": "speaker",
-    "fields": [
       {
         "component": "reference",
         "valueType": "string",
@@ -1489,6 +1477,24 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "speakers",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "id",
+        "label": "Id(speakers)"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading",
+        "value": ""
       }
     ]
   },

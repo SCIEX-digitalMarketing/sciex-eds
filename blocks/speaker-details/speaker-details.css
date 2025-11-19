@@ -1,0 +1,116 @@
+.speakers-wrapper {
+    max-width: 90pc !important;
+    padding: 40px 64px !important;
+    margin: auto;
+}
+
+.speakers .heading {
+    color: var(--Neutrals-900, #141414);
+    font-family: "Geogrotesque Sharp VF";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 330;
+    line-height: 40px;
+    padding-top: 15px;
+}
+
+.speaker-container .speaker-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    align-self: stretch;
+    padding-top: 30px;
+}
+
+.speaker-container .speaker-image {
+    height: auto;
+}
+
+.speaker-image img {
+    width: 252px !important;
+    height: 189px !important;
+    object-fit: contain !important;
+    max-width: none !important;
+}
+
+.speaker-content h4 {
+    color: var(--Grey-900, #141414);
+    font-family: "Geogrotesque Sharp VF";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 530;
+    line-height: 26px;
+    letter-spacing: 0.045px;
+}
+.speaker-content p {
+    color: var(--Grey-600, #5B5B5B);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 330;
+    line-height: 26px;
+    letter-spacing: 0.045px;
+    padding-top: 5px;
+}
+
+.speaker-content ul {
+    list-style-type: inherit;
+    padding-left: 30px;
+    padding-top: 10px;
+}
+.speaker-content ul li {
+    color: var(--Grey-600, #5B5B5B);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 330;
+    line-height: 24px;
+    letter-spacing: 0.08px;
+}
+
+.content-hidden {
+    display: none;
+}
+
+.content-block {
+    display: block
+}
+
+.speaker-content .show-more,
+.speaker-content .show-less {
+    padding-top: 10px;
+    color: var(--Blue-700, #0068FA);
+    font-family: "Geogrotesque Sharp VF";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 530;
+    line-height: 24px;
+    letter-spacing: 0.08px;
+}
+
+.speaker-content {
+    text-align: justify;
+}
+
+@media (max-width: 768px) {
+    .speaker-container {
+        padding-top: 30px;
+    }
+    .speaker-container .speaker-card {
+        padding-bottom: 30px;
+        border-top-width: 1px;
+        display: block;
+    }
+    .speaker-container .speaker-image {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        align-self: stretch;
+    }
+    .speakers-wrapper {
+        padding: 0 24px !important;
+    }
+    .speaker-content {
+        text-align: center;
+    }
+}
