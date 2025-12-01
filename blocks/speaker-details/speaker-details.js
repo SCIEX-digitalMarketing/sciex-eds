@@ -45,24 +45,24 @@ export default async function decorate(block) {
 
   for (let index = 0; index < rows.length; index += 1) {
     const row = rows[index];
-
+  
     moveInstrumentation(row, speakerDiv);
     if (index === 0) {
       block.id = `${row.textContent.trim()}-content`;
       if (block.parentElement) {
         block.parentElement.classList.add('tabs-container-wrapper');
       }
-      continue;
-    }
-    const clonedRow = row.cloneNode(true);
-    setImgsEager(clonedRow);
-    waitForImagesToDecode(clonedRow);
-
-    while (clonedRow.firstElementChild) {
-      speakerDiv.append(clonedRow.firstElementChild);
+    } else {
+      const clonedRow = row.cloneNode(true);
+      setImgsEager(clonedRow);
+      waitForImagesToDecode(clonedRow);
+  
+      while (clonedRow.firstElementChild) {
+        speakerDiv.append(clonedRow.firstElementChild);
+      }
     }
   }
-
+  
   const children = Array.from(speakerDiv.children);
   const contentWrapper = document.createElement('div');
   contentWrapper.className = 'speaker-content';
@@ -81,13 +81,11 @@ export default async function decorate(block) {
 
   const showMoreButton = document.createElement('div');
   showMoreButton.className = 'show-more';
-  showMoreButton.innerHTML =
-    '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M0 6L12 6" stroke="#0068FA"/></svg> Show More';
+  showMoreButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M0 6L12 6" stroke="#0068FA"/></svg> Show More';
 
   const showLessButton = document.createElement('div');
   showLessButton.className = 'show-less content-hidden';
-  showLessButton.innerHTML =
-    '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M0 6L12 6" stroke="#0068FA"/></svg> Show Less';
+  showLessButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M0 6L12 6" stroke="#0068FA"/></svg> Show Less';
 
   if (canMobileActions()) {
     const target = contentWrapper.querySelector('ul');
