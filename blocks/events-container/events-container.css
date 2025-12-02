@@ -462,9 +462,6 @@ main>.section>div {
     letter-spacing: 0.08px;
 }
 
-.speaker-content {
-    text-align: justify;
-}
 
 @media (max-width: 768px) {
     .speaker-container {
@@ -486,7 +483,5 @@ main>.section>div {
     .speakers-wrapper {
         padding: 0 24px !important;
     }
-    .speaker-content {
-        text-align: center;
-    }
+    
 }
