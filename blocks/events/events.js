@@ -53,9 +53,9 @@ export default async function decorate(block) {
       tab.classList.add('active');
       const tabName = tab.dataset.tab;
       if (tabName === 'upcoming') {
-        tabController('@eventdate>=today', 'Upcoming');
+        tabController('NOT@eventType==On-demand', 'Upcoming');
       } else {
-        tabController('@eventtype=="On-demand content"', 'OnDemand');
+        tabController('@eventtype==On-demand', 'OnDemand');
       }
       const target = eventsDiv.querySelector(`#${tabName}`);
       if (target) target.classList.add('active');
@@ -69,7 +69,7 @@ export default async function decorate(block) {
 
   try {
     eventSearchEngine.executeFirstSearch();
-    tabController('@eventdate>=today', 'Upcoming');
+    tabController('NOT@eventType==On-demand', 'Upcoming');
     eventSearchEngine.subscribe(() => {
       const newUpcoming = renderEvents();
 
