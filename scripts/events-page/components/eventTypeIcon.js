@@ -1,6 +1,6 @@
 export default function getEventIcon(eventType) {
   const svgIcons = {
-    'Generic event': `
+    Generic: `
         <svg xmlns="http://www.w3.org/2000/svg" width="145" height="109" viewBox="0 0 145 109" fill="none">
           <path d="M53.7613 44.6833C58.1141 44.6833 61.6428 41.1546 61.6428 36.8018C61.6428 32.449 58.1141 28.9203 53.7613 28.9203C49.4085 28.9203 45.8799 32.449 45.8799 36.8018C45.8799 41.1546 49.4085 44.6833 53.7613 44.6833Z" stroke="#1A181B" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round"/>
           <path d="M97.8399 44.6833C102.193 44.6833 105.721 41.1546 105.721 36.8018C105.721 32.449 102.193 28.9203 97.8399 28.9203C93.4871 28.9203 89.9585 32.449 89.9585 36.8018C89.9585 41.1546 93.4871 44.6833 97.8399 44.6833Z" stroke="#1A181B" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round"/>
@@ -18,7 +18,7 @@ export default function getEventIcon(eventType) {
           <path d="M78.2417 52.5998C82.2877 50.7405 86.7137 49.6823 91.2391 49.6823C104.564 49.6823 117.041 58.8383 121.338 70.678" stroke="#1A181B" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round"/>
         </svg>
       `,
-    'Live webinar event': `
+    'Live webinar': `
         <svg xmlns="http://www.w3.org/2000/svg" width="145" height="109" viewBox="0 0 145 109" fill="none">
           <path d="M39.8456 39.3393C36.6883 39.3393 34.104 36.8837 33.8994 33.779C33.8877 33.6504 33.8877 33.5159 33.8877 33.3814C33.8877 30.0897 36.5538 27.4236 39.8456 27.4236H48.3702C51.6619 27.4236 54.328 30.0897 54.328 33.3814C54.328 33.5159 54.328 33.6504 54.3163 33.779C54.1117 36.8895 51.5274 39.3393 48.3702 39.3393" stroke="#1A181B" stroke-width="3" stroke-miterlimit="10"/>
           <path d="M48.6508 27.4177H48.3701" stroke="#1A181B" stroke-width="3" stroke-miterlimit="10"/>
@@ -34,7 +34,7 @@ export default function getEventIcon(eventType) {
           <path d="M42.4009 99.4674C46.6924 87.6277 59.1753 78.4717 72.5001 78.4717C85.8249 78.4717 98.3019 87.6277 102.599 99.4674" stroke="#1A181B" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round"/>
         </svg>
       `,
-    'On-demand content': `
+    'On-demand': `
         <svg xmlns="http://www.w3.org/2000/svg" width="145" height="109" viewBox="0 0 145 109" fill="none">
           <path d="M60.3389 70.1927C60.3389 70.2921 60.4441 70.3564 60.5377 70.3155L89.3389 55.9149C89.4383 55.8622 89.4383 55.7278 89.3389 55.6751L60.5377 41.2745C60.45 41.2278 60.3389 41.2921 60.3389 41.3973V70.1985V70.1927Z" stroke="#1A181B" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round"/>
           <path d="M118.614 19.2908H26.3867C24.882 19.2908 23.6621 20.5106 23.6621 22.0154V86.9847C23.6621 88.4895 24.882 89.7093 26.3867 89.7093H118.614C120.118 89.7093 121.338 88.4895 121.338 86.9847V22.0154C121.338 20.5106 120.118 19.2908 118.614 19.2908Z" stroke="#1A181B" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round"/>

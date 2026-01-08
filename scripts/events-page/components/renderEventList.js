@@ -15,9 +15,15 @@ function createIcon(eventType) {
   iconContainer.appendChild(icon);
   return iconContainer;
 }
+function createDate(month = '', date = '') {
+  const safeMonth = month ?? '';
+  const safeDate = Number.isFinite(date) ? date : '';
 
-function createDate(month, date) {
-  return createElement('div', 'event-date', `<span>${month}</span><strong>${date}</strong>`);
+  return createElement(
+    'div',
+    'event-date',
+    `<span>${safeMonth}</span><strong>${safeDate}</strong>`,
+  );
 }
 
 function createInfo(eventType, description) {
@@ -62,6 +68,8 @@ function createEventCard(event) {
     infoAction.append(info, action);
 
     eventCard.append(iconDate, infoAction);
+  } else if (eventType === 'On-demand') {
+    eventCard.append(icon, info, action);
   } else {
     eventCard.append(icon, dateEl, info, action);
   }
@@ -80,8 +88,17 @@ function groupEventsByMonth(events) {
   }, {});
 }
 
-function createMonthHeading(monthKey) {
-  return createElement('div', 'month-heading', monthKey);
+function createMonthHeading(monthKey = '') {
+  const safeMonthKey = String(monthKey)
+    .replace(/\bundefined\b/gi, '')
+    .replace(/\bNaN\b/gi, '')
+    .trim();
+
+  return createElement(
+    'div',
+    'month-heading',
+    safeMonthKey,
+  );
 }
 
 function renderGroupedEvents(groupedEvents, container) {
