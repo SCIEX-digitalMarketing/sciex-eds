@@ -246,8 +246,30 @@ export default function renderEventFacets() {
   const dropdownsConfig = Object.entries(CONTROLLERS).map(([label, controller]) => ({
     label,
     items: controller.state.values,
-    onSelect: (val) => controller.toggleSelect(val),
-  }));
+    onSelect: (val) => {
+      const latest = controller.state.values.find(
+        v => v.value === val.value
+      );
+      if (!latest) return;
+
+      // If the clicked item is already selected, toggle it back to idle
+      if (latest.state === 'selected') {
+        controller.toggleSelect(latest);
+        return;
+      }
+
+      // Make the previous selected item idle
+      controller.state.values.forEach(v => {
+        if (v.state === 'selected') {
+          controller.toggleSelect(v);
+        }
+      });
+
+      // make the newly clicked item to selected
+      controller.toggleSelect(latest);
+    },
+  })
+  );
 
   const filterSection = createFilterSection(dropdownsConfig);
 
