@@ -112,7 +112,7 @@ function createDropdown(label, items, onSelect) {
 function createClearAllButton(updateVisibilityCallback) {
   const button = document.createElement('button');
   button.className = 'clear-all-button';
-  button.innerHTML = `Clear All <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+  button.innerHTML = `Clear all <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
     <path d="M13 13.5L3.0001 3.5001" stroke="#3C8DFF"/>
     <path d="M13 3.5L3.0001 13.4999" stroke="#3C8DFF"/>
   </svg>`;
@@ -213,7 +213,7 @@ function createEventModal() {
 
   const clearBtn = document.createElement('button');
   clearBtn.id = 'clear-event-filters';
-  clearBtn.textContent = 'Clear All';
+  clearBtn.textContent = 'Clear all';
   clearBtn.addEventListener('click', () => Object.values(CONTROLLERS).forEach((ctrl) => ctrl.deselectAll()));
 
   const resultsBtn = document.createElement('button');
