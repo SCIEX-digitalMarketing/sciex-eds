@@ -7,6 +7,11 @@ function createElement(tag, className, innerHTML = '') {
   return el;
 }
 
+export function formatMonth(data) {
+  if (!data) return '';
+  return data.charAt(0).toUpperCase() + data.slice(1).toLowerCase();
+}
+
 function createIcon(eventType) {
   const iconContainer = createElement('div', 'event-icon');
   const icon = createElement('span');
@@ -16,7 +21,7 @@ function createIcon(eventType) {
   return iconContainer;
 }
 function createDate(month = '', date = '') {
-  const safeMonth = month ?? '';
+  const safeMonth = formatMonth(month ?? '');
   const safeDate = Number.isFinite(date) ? date : '';
 
   return createElement(
@@ -46,7 +51,7 @@ function createAction(event) {
 
 function createEventCard(event) {
   const eventType = event.raw.eventtype[0];
-  const description = event.Excerpt ? event.title : event.Excerpt ;
+  const description = event.Excerpt ? event.title : event.Excerpt;
   const month = event.raw.eventmonth;
 
   const newDate = new Date(event.raw.eventdate);
@@ -93,11 +98,11 @@ function createMonthHeading(monthKey = '') {
     .replace(/\bundefined\b/gi, '')
     .replace(/\bNaN\b/gi, '')
     .trim();
-
+  const formattedMonth = formatMonth(safeMonthKey);
   return createElement(
     'div',
     'month-heading',
-    safeMonthKey,
+    formattedMonth,
   );
 }
 
