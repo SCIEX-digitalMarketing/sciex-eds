@@ -7,6 +7,11 @@ function createElement(tag, className, innerHTML = '') {
   return el;
 }
 
+export function formatMonth(data) {
+  if (!data) return '';
+  return data.charAt(0).toUpperCase() + data.slice(1).toLowerCase();
+}
+
 function createIcon(eventType) {
   const iconContainer = createElement('div', 'event-icon');
   const icon = createElement('span');
@@ -46,7 +51,7 @@ function createAction(event) {
 
 function createEventCard(event) {
   const eventType = event.raw.eventtype[0];
-  const description = event.Excerpt ? event.title : event.Excerpt ;
+  const description = event.Excerpt ? event.title : event.Excerpt;
   const month = event.raw.eventmonth;
 
   const newDate = new Date(event.raw.eventdate);
@@ -101,7 +106,6 @@ function createMonthHeading(monthKey = '') {
   );
 }
 
-
 function renderGroupedEvents(groupedEvents, container) {
   Object.entries(groupedEvents)
     .sort(([a], [b]) => new Date(`1 ${a}`) - new Date(`1 ${b}`)) // Sort by date
@@ -127,9 +131,3 @@ export default function renderEventList(eventResultsListController) {
   renderGroupedEvents(groupedEvents, eventList);
   return eventList;
 }
-
-export function formatMonth(data) {
-  if (!data) return '';
-  return data.charAt(0).toUpperCase() + data.slice(1).toLowerCase();
-}
-
