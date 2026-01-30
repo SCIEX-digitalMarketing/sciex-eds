@@ -16,7 +16,7 @@ function createIcon(eventType) {
   return iconContainer;
 }
 function createDate(month = '', date = '') {
-  const safeMonth = month ?? '';
+  const safeMonth = formatMonth(month ?? '');
   const safeDate = Number.isFinite(date) ? date : '';
 
   return createElement(
@@ -93,13 +93,14 @@ function createMonthHeading(monthKey = '') {
     .replace(/\bundefined\b/gi, '')
     .replace(/\bNaN\b/gi, '')
     .trim();
-
+  const formattedMonth = formatMonth(safeMonthKey);
   return createElement(
     'div',
     'month-heading',
-    safeMonthKey,
+    formattedMonth,
   );
 }
+
 
 function renderGroupedEvents(groupedEvents, container) {
   Object.entries(groupedEvents)
@@ -126,3 +127,9 @@ export default function renderEventList(eventResultsListController) {
   renderGroupedEvents(groupedEvents, eventList);
   return eventList;
 }
+
+export function formatMonth(data) {
+  if (!data) return '';
+  return data.charAt(0).toUpperCase() + data.slice(1).toLowerCase();
+}
+

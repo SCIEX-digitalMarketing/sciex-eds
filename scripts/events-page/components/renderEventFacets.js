@@ -4,6 +4,7 @@ import {
   eventeventyearController,
   eventeventmonthController,
 } from '../controller/event-page-controllers.js';
+import { formatMonth } from './renderEventList.js';
 
 // Global list to track all dropdown menus
 const allDropdownMenus = [];
@@ -80,7 +81,8 @@ function createDropdown(label, items, onSelect) {
   items.forEach((item) => {
     const itemDiv = document.createElement('div');
     itemDiv.className = 'dropdown-item';
-    itemDiv.textContent = item.value;
+    const formattedValue = formatMonth(item.value);
+    itemDiv.textContent = formattedValue;
 
     if (item.state === 'selected') toggleText.textContent = item.value;
 
