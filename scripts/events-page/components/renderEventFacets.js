@@ -84,10 +84,10 @@ function createDropdown(label, items, onSelect) {
     const formattedValue = formatMonth(item.value);
     itemDiv.textContent = formattedValue;
 
-    if (item.state === 'selected') toggleText.textContent = item.value;
+    if (item.state === 'selected') toggleText.textContent = formatMonth(item.value);
 
     itemDiv.addEventListener('click', () => {
-      toggleText.textContent = item.value;
+      toggleText.textContent = formatMonth(item.value);
       dropdownMenu.classList.remove('active');
       onSelect?.(item);
     });
