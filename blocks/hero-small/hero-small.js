@@ -5,6 +5,15 @@ function extractBlockData(block) {
   const cells = [...block.querySelectorAll(':scope > div')];
   const clonedCells = cells.map((cell) => cell.cloneNode(true));
 
+  const mediaDivChildren =
+    clonedCells[14]?.querySelectorAll(':scope > div') || [];
+
+  const isContactHero =
+    mediaDivChildren[1]
+      ?.querySelector('p')
+      ?.textContent
+      ?.trim() === 'true';
+
   const data = {
     heading: clonedCells[1]?.innerText.trim(),
     description: clonedCells[2]?.innerText.trim(),
@@ -12,8 +21,9 @@ function extractBlockData(block) {
     badgePicture: clonedCells[13]?.querySelector('picture'),
     mainPicture: clonedCells[14]?.querySelector('picture'),
     videoAnchor: clonedCells[14]?.querySelector('.button-container a'),
-    mediaDivChildren: clonedCells[14]?.querySelectorAll(':scope > div') || [],
+    mediaDivChildren,
     buttonDataList: [],
+    isContactHero,
   };
 
   // Extract button data
@@ -25,7 +35,7 @@ function extractBlockData(block) {
   }
 
   // Detect colourPic (3 div children pattern)
-  if (data.mediaDivChildren.length === 3) {
+  if (mediaDivChildren.length === 3) {
     data.colourPicture = clonedCells[14]?.querySelector('picture');
     data.colourPictureBg = clonedCells[14]?.querySelector('.button-container a');
   }
@@ -44,23 +54,26 @@ function preserveOriginalAuthoring(block) {
 }
 
 function buildHeroContent(data) {
-  const content = document.createElement('div');
-  content.className = 'hero-content';
+  const applyClass = (baseClass) =>
+    data.isContactHero ? `contact-${baseClass}` : baseClass;
 
-  // Tagline + badge
+  const content = document.createElement('div');
+  content.className = applyClass('hero-content');
+
+  // Tagline + Badge
   if (data.tagline) {
     const taglineWrap = document.createElement('div');
-    taglineWrap.className = 'hero-tagline-wrap';
+    taglineWrap.className = applyClass('hero-tagline-wrap');
 
     if (data.badgePicture) {
       const badgeWrap = document.createElement('div');
-      badgeWrap.className = 'hero-badge';
+      badgeWrap.className = applyClass('hero-badge');
       badgeWrap.append(data.badgePicture);
       taglineWrap.append(badgeWrap);
     }
 
     const tagline = document.createElement('p');
-    tagline.className = 'hero-tagline';
+    tagline.className = applyClass('hero-tagline');
     tagline.textContent = data.tagline;
     taglineWrap.append(tagline);
     content.append(taglineWrap);
@@ -69,7 +82,7 @@ function buildHeroContent(data) {
   // Heading
   if (data.heading) {
     const heading = document.createElement('h2');
-    heading.className = 'hero-heading-hero';
+    heading.className = applyClass('hero-heading-hero');
     heading.textContent = data.heading;
     content.append(heading);
   }
@@ -77,7 +90,7 @@ function buildHeroContent(data) {
   // Description
   if (data.description) {
     const desc = document.createElement('p');
-    desc.className = 'hero-description';
+    desc.className = applyClass('hero-description');
     desc.textContent = data.description;
     content.append(desc);
   }
@@ -85,7 +98,7 @@ function buildHeroContent(data) {
   // Buttons
   if (data.buttonDataList.length) {
     const buttons = document.createElement('div');
-    buttons.className = 'hero-buttons';
+    buttons.className = applyClass('hero-buttons');
 
     const buttonClasses = ['button primary', 'button secondary', 'button link'];
 
@@ -98,7 +111,11 @@ function buildHeroContent(data) {
       const labelSpan = document.createElement('span');
       labelSpan.textContent = btn.label;
       buttonEl.append(labelSpan);
-      buttonEl.append(span({ class: 'icon icon-arrow' }));
+      if (data.isContactHero && index === 1) {
+        buttonEl.append(span({ class: 'icon icon-arrow-blue' }));
+      } else {
+        buttonEl.append(span({ class: 'icon icon-arrow' }));
+      }
 
       buttons.append(buttonEl);
     });
@@ -150,8 +167,16 @@ function applyLayoutAndBackground(data, heroContainer, heroWrapper, heroContent)
   } else if (data.mainPicture) {
     const imgSrc = data.mainPicture.querySelector('img')?.src;
     if (imgSrc) {
-      heroContainer.style.backgroundImage = `url('${imgSrc}')`;
-      heroContainer.classList.add('hero-has-bg');
+      if (data.isContactHero) {
+        const img = document.createElement('img');
+        img.src = imgSrc;
+        img.alt ='Contact hero image';
+        img.classList.add('contact-hero-img');
+        heroContainer.appendChild(img);
+      } else {
+        heroContainer.style.backgroundImage = `url('${imgSrc}')`;
+        heroContainer.classList.add('hero-has-bg');
+      }
     }
     heroWrapper.append(heroContent);
   } else {
@@ -165,10 +190,10 @@ export default function decorate(block) {
 
   const fragment = document.createDocumentFragment();
   const heroContainer = document.createElement('div');
-  heroContainer.classList.add('herosmallclass');
 
   const heroWrapper = document.createElement('div');
-  heroWrapper.className = 'hero-wrapper';
+  heroWrapper.className = data.isContactHero ? 'contact-hero-wrapper' : 'hero-wrapper';
+  heroContainer.classList.add(data.isContactHero ? 'contact-hero-container' : 'herosmallclass');
 
   const heroContent = buildHeroContent(data);
   applyLayoutAndBackground(data, heroContainer, heroWrapper, heroContent);
