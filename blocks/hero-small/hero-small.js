@@ -169,7 +169,6 @@ function applyLayoutAndBackground(data, heroContainer, heroWrapper, heroContent)
     const imgSrc = data.mainPicture.querySelector('img')?.src;
     if (imgSrc) {
       if (data.isContactHero) {
-        heroContainer.classList.add('contact-hero-img-bg');
         const img = document.createElement('img');
         img.src = imgSrc;
         img.alt ='Contact hero image';

@@ -4,21 +4,35 @@
   padding: 0px !important;
 }
 .contact-hero-heading-hero {
-  margin-bottom: 20px;
   color: var(--Grey-900, #141414);
-font-family: "Geogrotesque Sharp VF TRIAL";
-font-size: 52px;
-font-style: normal;
-font-weight: 270;
-line-height: 64px; /* 123.077% */
+  font-family: "Geogrotesque Sharp VF TRIAL";
+  font-size: 52px;
+  font-style: normal;
+  font-weight: 270;
+  line-height: 64px;
 }
-.contact-hero-tagline-wrap{
+.contact-hero-description{
+  color: var(--Grey-900, #141414);
+/* font-family: "Geogrotesque Sharp VF TRIAL"; */
+font-size: 16px;
+font-style: normal;
+font-weight: 330;
+line-height: 24px; /* 150% */
+letter-spacing: 0.08px;
+}
+.contact-hero-buttons a.button:any-link{
+  margin: 0;
+  padding: 12px 20px;
+}
+.contact-hero-tagline-wrap {
   display: none;
 }
+
 .contact-hero-buttons .link {
   display: none !important;
 }
-.contact-hero-img-bg {
+
+.contact-hero-container {
   position: relative;
   width: 100%;
   overflow: hidden;
@@ -26,14 +40,14 @@ line-height: 64px; /* 123.077% */
 
 .contact-hero-img {
   width: 100%;
-  height: 480px;
-  object-fit: cover;
+  height: 512px;
+  /* object-fit: cover; */
   display: block;
 }
 
 .contact-hero-content {
   position: absolute;
-  top: 40%;
+  top: 24%;
   left: 0;
   bottom: 0;
   width: 75%;
@@ -41,7 +55,8 @@ line-height: 64px; /* 123.077% */
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 60px;
+  gap: 20px;
+  padding: 64px;
 }
 
 .contact-hero-buttons {
@@ -49,18 +64,14 @@ line-height: 64px; /* 123.077% */
   gap: 16px;
   flex-wrap: wrap;
 }
-/* ==========================================
-   Contact Hero Button Overrides
-   ========================================== */
 
-/* Base button styles same as normal */
 .contact-hero-buttons .button {
   padding: 10px 20px;
   border-radius: 4px;
   font-weight: 500;
   text-decoration: none;
   display: flex;
-  gap: 15px;
+  gap: 16px;
 }
 
 /* Primary → white text */
@@ -71,7 +82,6 @@ line-height: 64px; /* 123.077% */
 
 /* Secondary → black text */
 .contact-hero-buttons .secondary {
-  background: white !important;
   border: 1px solid #0072ce !important;
   color: #000000 !important;
 }
@@ -87,9 +97,98 @@ line-height: 64px; /* 123.077% */
   background-color: #f8fafb;
   color: #000000 !important;
 }
-.contact-hero-buttons a{
-display: flex !important;
+
+.contact-hero-buttons a {
+  display: flex !important;
 }
+
+/* contact hero css */
+@media (max-width: 768px) {
+
+  .contact-hero-buttons {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .contact-hero-content {
+    padding: 20px;
+    top: 22%;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .contact-hero-heading-hero {
+    font-size: 32px;
+    line-height: normal;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -378,6 +477,7 @@ display: flex !important;
   .hero-small-wrapper .hero-buttons {
     justify-content: flex-start;
   }
+
 }
 
 .hero-small-wrapper .hero-content-wrapper {
