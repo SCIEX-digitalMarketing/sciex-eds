@@ -1759,6 +1759,10 @@
           {
             "name": "imageType",
             "value": "image-type"
+          },
+          {
+            "name": "contactUsCardType",
+            "value": "contact-type"
           }
         ]
       }
