@@ -139,12 +139,12 @@
 }
 
 .icon-card-title {
-  color: var(--Grey-900, #141414);
-  font-family: "Geogrotesque Sharp VF";
-  font-size: 18px;
+  color: #1A1A1A;
+  font-family: "Geogrotesque Sharp VF TRIAL";
+  font-size: 24px;
   font-style: normal;
-  font-weight: 530;
-  line-height: 26px;
+  font-weight: 370;
+  line-height: normal;
   letter-spacing: 0.045px;
   font-size: 1.1rem;
   font-weight: 600;
@@ -152,12 +152,12 @@
 }
 
 .icon-card-text {
-  color: var(--Grey-500, #707070);
-  font-family: "Geogrotesque Sharp VF";
+  color: #666;
+  font-family: "Geogrotesque Sharp VF TRIAL";
   font-size: 16px;
   font-style: normal;
-  font-weight: 330;
-  line-height: 24px;
+  font-weight: 370;
+  line-height: normal;
   letter-spacing: 0.08px;
   color: #555;
   line-height: 1.4;
@@ -171,6 +171,20 @@
   display: inline-block;
   vertical-align: middle;
   margin-left: 6px;
+}
+
+.contact-type .icon-card-sub-container {
+  border: 1px solid #eee;
+  padding-top: 0px;
+}
+
+.contact-type .icon-card-content {
+  margin: 20px 35px;
+  gap: 15px;
+}
+
+.contact-type .icon-card-link {
+  padding-bottom: 45px;
 }
 
 .icon-card-link {
@@ -188,6 +202,62 @@
 
 .icon-card-link:hover {
   text-decoration: none !important;
+}
+
+/* CONTACT TYPE BUTTON */
+.contact-type .icon-card-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 12px 24px;
+  border-radius: 4px;
+  border: none;
+
+  background-color: #0068FA;
+  color: #ffffff;
+
+  font-family: "Geogrotesque Sharp VF";
+  font-size: 16px;
+  font-weight: 530;
+  line-height: 24px;
+
+  cursor: pointer;
+  align-self: flex-start;
+
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.contact-type .button-text {
+    color: var(--White-0, #FFF);
+    font-family: "Geogrotesque Sharp VF TRIAL";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 530;
+    line-height: 24px;
+    letter-spacing: 0.08px;
+}
+
+/* Hover */
+.contact-type .icon-card-button:hover {
+  background-color: #0052C2;
+}
+
+/* Active click feedback */
+.contact-type .icon-card-button:active {
+  transform: translateY(1px);
+}
+
+/* Icon inside button */
+.contact-type .icon-card-button .icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.contact-type .icon-card-button .icon img {
+  height: 12px !important;
+  width: auto !important;
 }
 
 /* ✅ Responsive adjustments */

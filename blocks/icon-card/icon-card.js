@@ -60,7 +60,7 @@ export default function decorate(block) {
 
     if (typeOfCard) iconCardContainer.classList.add(typeOfCard);
 
-    if (iconHTML) {
+    if (iconHTML && typeOfCard !== 'contact-type') {
       const iconWrap = document.createElement('div');
       iconWrap.className = 'icon-card-image';
       iconWrap.innerHTML = iconHTML;
@@ -84,19 +84,48 @@ export default function decorate(block) {
       contentWrap.append(p);
     }
 
-    // 3) Link (only if href present)
     if (linkHref && linkLabel) {
-      const link = document.createElement('a');
-      link.className = 'icon-card-link';
-      link.href = linkHref;
-      link.target = linkTarget;
-      link.textContent = linkLabel;
-
-      // Append arrow icon span
-      const iconSpan = span({ class: 'icon icon-arrow-blue' });
-      link.append(iconSpan);
-
-      contentWrap.append(link);
+      // CONTACT TYPE → Render Button
+      if (typeOfCard === 'contact-type') {
+        const button = document.createElement('button');
+        button.className = 'icon-card-button';
+        button.type = 'button';
+      
+        const textSpan = document.createElement('span');
+        textSpan.className = 'button-text';
+        textSpan.textContent = linkLabel;
+      
+        const iconSpan = span({ class: 'icon icon-arrow' });
+      
+        button.append(textSpan);
+        button.append(iconSpan);
+      
+        button.addEventListener('click', () => {
+          if (linkTarget === '_blank') {
+            window.open(linkHref, '_blank', 'noopener,noreferrer');
+          } else {
+            window.location.href = linkHref;
+          }
+        });
+      
+        contentWrap.append(button);
+      } else {
+        // DEFAULT → Anchor Link
+        const link = document.createElement('a');
+        link.className = 'icon-card-link';
+        link.href = linkHref;
+        link.target = linkTarget;
+        link.textContent = linkLabel;
+    
+        if (linkTarget === '_blank') {
+          link.rel = 'noopener noreferrer';
+        }
+    
+        const iconSpan = span({ class: 'icon icon-arrow-blue' });
+        link.append(iconSpan);
+    
+        contentWrap.append(link);
+      }
     }
 
     // Append content only if it has children (prevents empty wrapper)
@@ -113,6 +142,6 @@ export default function decorate(block) {
   block.innerHTML = '';
   block.append(iconCardContainer);
 
-  block.id = `${id.textContent.trim()}-content`;
+  block.id = `${id}-content`;
   block.parentElement?.classList.add('tabs-container-wrapper');
 }

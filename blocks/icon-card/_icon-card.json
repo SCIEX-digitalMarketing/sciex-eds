@@ -90,7 +90,6 @@
           "value": "",
           "valueType": "string",
           "options": [
-            
             {
               "name": "iconType",
               "value": "icon-type"
@@ -98,6 +97,10 @@
             {
               "name": "imageType",
               "value": "image-type"
+            },
+            {
+              "name": "contactUsCardType",
+              "value": "contact-type"
             }
           ]
         }
