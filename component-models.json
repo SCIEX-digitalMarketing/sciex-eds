@@ -788,6 +788,17 @@
     ]
   },
   {
+    "id": "contact-information",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "coursecatalog",
     "fields": [
       {
