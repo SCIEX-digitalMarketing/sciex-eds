@@ -903,6 +903,59 @@
         ]
       },
       {
+        "component": "boolean",
+        "label": "It's contact page block?",
+        "name": "contact-us",
+        "valueType": "boolean"
+      },
+      {
+        "component": "multiselect",
+        "name": "property",
+        "label": "Style for contact Us",
+        "valueType": "string",
+        "maxSize": 2,
+        "condition": {
+          "===": [
+            {
+              "var": "contact-us"
+            },
+            true
+          ]
+        },
+        "options": [
+          {
+            "name": "Theme",
+            "children": [
+              {
+                "name": "Light",
+                "value": "light"
+              },
+              {
+                "name": "Dark",
+                "value": "dark"
+              }
+            ]
+          },
+          {
+            "name": "Text-lignment",
+            "children": [
+              {
+                "name": "left",
+                "value": "contact-left"
+              },
+              {
+                "name": "middle",
+                "value": "contact-middle"
+              },
+              {
+                "name": "right",
+                "value": "contact-right"
+              }
+            ]
+          }
+        ]
+      },
+      {
         "component": "text",
         "name": "text",
         "label": "Primary Button Text",

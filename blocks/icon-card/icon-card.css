@@ -140,7 +140,7 @@
 
 .icon-card-title {
   color: #1A1A1A;
-  font-family: "Geogrotesque Sharp VF TRIAL";
+  font-family: "Geogrotesque Sharp VF";
   font-size: 24px;
   font-style: normal;
   font-weight: 370;
@@ -153,7 +153,7 @@
 
 .icon-card-text {
   color: #666;
-  font-family: "Geogrotesque Sharp VF TRIAL";
+  font-family: "Geogrotesque Sharp VF";
   font-size: 16px;
   font-style: normal;
   font-weight: 370;
@@ -231,7 +231,7 @@
 
 .contact-type .button-text {
     color: var(--White-0, #FFF);
-    font-family: "Geogrotesque Sharp VF TRIAL";
+    font-family: "Geogrotesque Sharp VF";
     font-size: 16px;
     font-style: normal;
     font-weight: 530;
