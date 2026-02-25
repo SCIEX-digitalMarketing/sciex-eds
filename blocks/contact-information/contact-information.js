@@ -1,5 +1,5 @@
 export default function decorate(block) {
-   
+
 
     const data = [
 
@@ -12,8 +12,9 @@ export default function decorate(block) {
                         {
                             name: "SCIEX",
                             legalEntity: "AB Sciex LP",
-                            address:
-                                "71 Four Valley Drive, Concord, Ontario, L4K 4V8, Canada",
+                            address: `71 Four Valley Drive
+                                      Concord, Ontario, L4K 4V8
+                                      Canada`,
                             productLine:
                                 "Mass Spectrometry & Capillary Electrophoresis",
                             email: "sciexnow@sciex.com",
@@ -28,8 +29,7 @@ export default function decorate(block) {
                         {
                             name: "SCIEX",
                             productLine: "Sales and Service",
-                            address:
-                                "1201 Radio Road, Redwood City, CA 94065, U.S.A.",
+                            address: "7231 Four Valley Drive\nConcord, Ontario, L4K 4V8\nCanada",
                             fax: "+1 800 343 1346",
                             productLine:
                                 "Mass Spectrometry & Capillary Electrophoresis",
@@ -169,8 +169,7 @@ export default function decorate(block) {
                     card.innerHTML = `
             <h3>${company.name}</h3>
             ${company.productLine ? `<p>${company.productLine}</p>` : ""}
-            <p>${company.address}</p>
-           
+            <p class="address">${company.address}</p>           
           `;
 
                     cardsContainer.appendChild(card);
