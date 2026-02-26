@@ -1,8 +1,10 @@
 import { getPartnersData } from "../../scripts/blocks-controllers/partner-controller.js";
 
 export default async function decorate(block) {
-const hiii=await getPartnersData()
-console.log('hiiiaaa', hiii);
+    const rows = [...block.children];
+    const heading = rows[0];
+    const headingText = heading.querySelector('p')?.textContent;
+    // const data=await getPartnersData()
     const data = [
 
         {
@@ -112,14 +114,12 @@ console.log('hiiiaaa', hiii);
 
 
     ]
-
     /* -----------------------------
         BUILD UI
     ----------------------------- */
-
     block.innerHTML = `
     <div class="contact-wrapper">
-      <h2>Select your region to find contact information for your area</h2>
+      <h2 class="contact-title">${headingText}</h2>
 
       <input type="text" placeholder="Search by country" class="search-input"/>
 
