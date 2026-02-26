@@ -57,7 +57,7 @@
         {
           "component": "multiselect",
           "name": "property",
-          "label": "Style for contact Us",
+          "label": "Styles",
           "valueType": "string",
           "maxSize": 2,
           "options": [
@@ -69,7 +69,7 @@
               ]
             },
             {
-              "name": "Text-lignment",
+              "name": "Container-text-lignment",
               "children": [
                 { "name": "left", "value": "contact-left" },
                 { "name": "middle", "value": "contact-middle" },

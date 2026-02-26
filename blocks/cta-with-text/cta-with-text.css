@@ -205,6 +205,11 @@ letter-spacing: 0.08px;
   align-self: flex-end;
 }
 
+.support-cta--dark .support-cta-button--secondary {
+  border: 1px solid  #FFF;
+  color:  #FFF;;
+}
+
 /* ================= MOBILE FIX ================= */
 @media (max-width: 768px) {
 
