@@ -1,4 +1,5 @@
-import { getPartnersData } from "../../blocks-controllers/controller.js";
+import { getPartnersData } from "../../scripts/blocks-controllers/controller";
+
 export default async function decorate(block) {
 const hiii=await getPartnersData()
 console.log('hiiiaaa', hiii);
