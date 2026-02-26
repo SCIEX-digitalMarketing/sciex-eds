@@ -1,6 +1,6 @@
 export const getPartnersData = async () => {
   try {
-    const endpoint = `${location.origin}/bin/sciex/partners`;
+    const endpoint = `/bin/sciex/partners`;
     console.log('Fetching partners data from:', endpoint);
     const response = await fetch(endpoint);
 
