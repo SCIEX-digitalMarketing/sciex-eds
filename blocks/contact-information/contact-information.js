@@ -1,6 +1,7 @@
-export default function decorate(block) {
-
-
+import { getPartnersData } from "../../blocks-controllers/controller.js";
+export default async function decorate(block) {
+const hiii=await getPartnersData()
+console.log('hiiiaaa', hiii);
     const data = [
 
         {
