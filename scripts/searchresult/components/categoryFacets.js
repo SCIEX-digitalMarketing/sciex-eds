@@ -221,7 +221,7 @@ function renderFacet(facetElementId, facetController, headerText) {
     }
     
     clearFacetFilter(facetElement, facetController);
-    orderContentTypeFacets(facetId, facetItemsContainer);
+    //orderContentTypeFacets(facetId, facetItemsContainer);
     facetAccordion(values, facetElement, facetItemsContainer);
     createToggleButtons(facetItemsContainer, facetController);
   }
@@ -273,6 +273,7 @@ function renderSearchFacets(facetController, facetItemsContainer,facetElement,se
   let isSearch=false;
     if (Array.isArray(searchresult) && searchresult.length > 0) {
       searchresult.forEach((value) => {
+        console.log('Rendering search facet value:', value);
         const displayText = value.displayValue || value.value;
         const displaycount = value.count || value.numberOfResults;
         const item = document.createElement("div");
@@ -423,6 +424,7 @@ function orderContentTypeFacets(facetId,facetItemsContainer){
     const facetItems = facetContainer.querySelectorAll('.facet-item');
 
     const facetItemsArray = Array.from(facetItems).map(item => {
+        console.log('Ordering facet item:', item);
         const label = item.querySelector('label').innerText.replace(/\s\(\d+\)$/, '');
         return { label, item };
     });
