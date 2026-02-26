@@ -1,4 +1,4 @@
-export const getPartnersData = async () => {
+export default async function getPartnersData() {
   try {
     const endpoint = `/bin/sciex/partners`;
     console.log('Fetching partners data from:', endpoint);

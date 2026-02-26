@@ -1,10 +1,11 @@
-// import { getPartnersData } from "../../scripts/blocks-controllers/partner-controller.js";
+import getPartnersData  from "../../scripts/blocks-controllers/partner-controller.js";
 
 export default async function decorate(block) {
     const rows = [...block.children];
     const heading = rows[0];
     const headingText = heading.querySelector('p')?.textContent;
-    // const data=await getPartnersData()
+    const data1=await getPartnersData()
+    console.log('dataaa', data1);
     const data = [
 
         {
