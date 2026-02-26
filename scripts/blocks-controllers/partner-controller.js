@@ -1,7 +1,6 @@
 export const getPartnersData = async () => {
   try {
-    // const endpoint = `${location.origin}/bin/sciex/partners`;
-    const endpoint = `https://author-p93412-e854706.adobeaemcloud.com/bin/sciex/partners`;
+    const endpoint = `${location.origin}/bin/sciex/partners`;
     console.log('Fetching partners data from:', endpoint);
     const response = await fetch(endpoint);
 
