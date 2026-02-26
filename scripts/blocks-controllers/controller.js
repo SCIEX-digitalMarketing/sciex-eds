@@ -1,8 +1,7 @@
 export const getPartnersData = async () => {
   try {
-    const response = await fetch(
-      '/bin/sciex/partners',
-    );
+    const endpoint = `${location.origin}/bin/sciex/partners`;
+    const response = await fetch(endpoint);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
