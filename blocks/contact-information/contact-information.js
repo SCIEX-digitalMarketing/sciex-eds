@@ -12,9 +12,7 @@ export default function decorate(block) {
                         {
                             name: "SCIEX",
                             legalEntity: "AB Sciex LP",
-                            address: `71 Four Valley Drive
-                                      Concord, Ontario, L4K 4V8
-                                      Canada`,
+                            address: "7231 Four Valley Drive\nConcord, Ontario, L4K 4V8\nCanada",
                             productLine:
                                 "Mass Spectrometry & Capillary Electrophoresis",
                             email: "sciexnow@sciex.com",
