@@ -124,17 +124,6 @@ letter-spacing: 0.08px;
   gap: 16px;
 }
 
-/* =========*
-
-/* ========== Action Row Layout ========== */
-
-.support-cta-action {
-  display: flex;
-  align-items: center;
-  gap: 16px;              /* space between primary, secondary, link */
-  flex-wrap: wrap;      /* allows wrap on small screens */
-}
-
 /* Optional: keep link visually aligned with buttons */
 .support-cta-link {
   font-family: "Geogrotesque Sharp VF";
@@ -202,7 +191,7 @@ letter-spacing: 0.08px;
 }
 
 .support-cta--contact-right{
-  align-self: flex-end;
+  align-items: flex-end;
 }
 
 .support-cta--dark .support-cta-button--secondary {
