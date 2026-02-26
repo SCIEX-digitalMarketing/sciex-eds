@@ -1,4 +1,4 @@
-import { getPartnersData } from "../../scripts/blocks-controllers/partner-controller.js";
+// import { getPartnersData } from "../../scripts/blocks-controllers/partner-controller.js";
 
 export default async function decorate(block) {
     const rows = [...block.children];
@@ -8,112 +8,97 @@ export default async function decorate(block) {
     const data = [
 
         {
-            region: "North America",
+            region: 'North America',
             countries: [
                 {
-                    country: "Canada",
+                    country: 'Canada',
                     companies: [
                         {
-                            name: "SCIEX",
-                            legalEntity: "AB Sciex LP",
-                            address: "7231 Four Valley Drive\nConcord, Ontario, L4K 4V8\nCanada",
+                            name: 'SCIEX',
+                            legalEntity: 'AB Sciex LP',
+                            address: '7231 Four Valley Drive\nConcord, Ontario, L4K 4V8\nCanada',
                             productLine:
-                                "Mass Spectrometry & Capillary Electrophoresis",
-                            email: "sciexnow@sciex.com",
-                            phone: "+1 877 740 2129",
-                            website: "https://sciex.com/request-support",
+                                'Mass Spectrometry & Capillary Electrophoresis',
+                            email: 'sciexnow@sciex.com',
+                            phone: '+1 877 740 2129',
+                            website: 'https://sciex.com/request-support',
                         },
                     ],
                 },
                 {
-                    country: "United States",
+                    country: 'United States',
                     companies: [
                         {
-                            name: "SCIEX",
-                            productLine: "Sales and Service",
-                            address: "7231 Four Valley Drive\nConcord, Ontario, L4K 4V8\nCanada",
-                            fax: "+1 800 343 1346",
-                            productLine:
-                                "Mass Spectrometry & Capillary Electrophoresis",
-                            email: "sciexnow@sciex.com",
-                            phone: "+1 877 740 2129",
-                            website: "https://sciex.com/request-support",
+                            name: 'SCIEX',
+                            productLine: 'Sales and Service',
+                            address: '7231 Four Valley Drive\nConcord, Ontario, L4K 4V8\nCanada',
+                            fax: '+1 800 343 1346',
+                            email: 'sciexnow@sciex.com',
+                            phone: '+1 877 740 2129',
+                            website: 'https://sciex.com/request-support',
                         },
                         {
-                            name: "SCIEX",
-                            productLine: "Headquarters",
-                            legalEntity: "AB Sciex LLC",
-                            address:
-                                "250 Forest Street, Marlborough, MA 01752, U.S.A.",
-                            fax: "+1 800 343 1346",
-                            productLine:
-                                "Mass Spectrometry & Capillary Electrophoresis",
-                            email: "sciexnow@sciex.com",
-                            phone: "+1 877 740 2129",
-                            website: "https://sciex.com/request-support",
+                            name: 'SCIEX',
+                            productLine: 'Headquarters',
+                            legalEntity: 'AB Sciex LLC',
+                            address: '250 Forest Street, Marlborough, MA 01752, U.S.A.',
+                            fax: '+1 800 343 1346',
+                            email: 'sciexnow@sciex.com',
+                            phone: '+1 877 740 2129',
+                            website: 'https://sciex.com/request-support',
                         },
                     ],
                 },
             ],
         },
         {
-            region: "EMEAI",
+            region: 'EMEAI',
             countries: [
                 {
-                    country: "Albania",
+                    country: 'Albania',
                     companies: [
                         {
-                            name: "SCIEX",
-                            productLine: "Headquarters",
-                            legalEntity: "AB Sciex LLC",
-                            address:
-                                "250 Forest Street, Marlborough, MA 01752, U.S.A.",
-                            fax: "+1 800 343 1346",
-                            productLine:
-                                "Mass Spectrometry & Capillary Electrophoresis",
-                            email: "sciexnow@sciex.com",
-                            phone: "+1 877 740 2129",
-                            website: "https://sciex.com/request-support",
+                            name: 'SCIEX',
+                            productLine: 'Headquarters',
+                            legalEntity: 'AB Sciex LLC',
+                            address: '250 Forest Street, Marlborough, MA 01752, U.S.A.',
+                            fax: '+1 800 343 1346',
+                            email: 'sciexnow@sciex.com',
+                            phone: '+1 877 740 2129',
+                            website: 'https://sciex.com/request-support',
                         },
                         {
-                            name: "SCIEX",
-                            productLine: "Headquarters",
-                            legalEntity: "AB Sciex LLC",
-                            address:
-                                "250 Forest Street, Marlborough, MA 01752, U.S.A.",
-                            fax: "+1 800 343 1346",
-                            productLine:
-                                "Mass Spectrometry & Capillary Electrophoresis",
-                            email: "sciexnow@sciex.com",
-                            phone: "+1 877 740 2129",
-                            website: "https://sciex.com/request-support",
-                        }
+                            name: 'SCIEX',
+                            productLine: 'Headquarters',
+                            legalEntity: 'AB Sciex LLC',
+                            address: '250 Forest Street, Marlborough, MA 01752, U.S.A.',
+                            fax: '+1 800 343 1346',
+                            email: 'sciexnow@sciex.com',
+                            phone: '+1 877 740 2129',
+                            website: 'https://sciex.com/request-support',
+                        },
                     ],
                 },
                 {
-                    country: "Angola",
+                    country: 'Angola',
                     companies: [
                         {
-                            name: "SCIEX",
-                            productLine: "Headquarters",
-                            legalEntity: "AB Sciex LLC",
-                            address:
-                                "250 Forest Street, Marlborough, MA 01752, U.S.A.",
-                            fax: "+1 800 343 1346",
-                            productLine:
-                                "Mass Spectrometry & Capillary Electrophoresis",
-                            email: "sciexnow@sciex.com",
-                            phone: "+1 877 740 2129",
-                            website: "https://sciex.com/request-support",
-                        }
+                            name: 'SCIEX',
+                            productLine: 'Headquarters',
+                            legalEntity: 'AB Sciex LLC',
+                            address: '250 Forest Street, Marlborough, MA 01752, U.S.A.',
+                            fax: '+1 800 343 1346',
+                            email: 'sciexnow@sciex.com',
+                            phone: '+1 877 740 2129',
+                            website: 'https://sciex.com/request-support',
+                        },
 
                     ],
                 },
             ],
         },
 
-
-    ]
+    ];
     /* -----------------------------
         BUILD UI
     ----------------------------- */
