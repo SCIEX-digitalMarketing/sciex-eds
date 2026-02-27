@@ -25,11 +25,7 @@ width: 60%;
 .search-input::placeholder {
 color: var(--Grey-900, #141414);
 }
-.search-input {
-  width: 100%;
-  max-width: 500px;
-  padding: 12px 16px;
-  border-radius: 8px;
+.search-input {  
   background: var(--Grey-50, #F5F5F5);
   font-size: 15px;
   color: var(--Grey-900, #141414);
@@ -37,8 +33,16 @@ color: var(--Grey-900, #141414);
   font-weight: 370;
   line-height: normal;
   outline: none;
+  max-width: 600px;
 }
-
+.search-wrapper{
+  width: 100%;
+  max-width: 864px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: var(--Grey-50, #F5F5F5);
+  
+}
 /* ===============================
    FILTER DROPDOWNS
 ================================= */
@@ -179,6 +183,17 @@ font-style: normal;
 font-weight: 370;
 line-height: normal;
 }
+.search-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  margin: 0;
+  gap: 7px;
+}
+
+
+
 
 /* ===============================
    RESPONSIVE
@@ -207,7 +222,7 @@ line-height: normal;
   
 
   .custom-select,
-  .search-input,
+  .search-wrapper,
   .contact-title {
     width: 100%;
     max-width: 100%;

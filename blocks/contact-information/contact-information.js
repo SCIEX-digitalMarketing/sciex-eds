@@ -1637,8 +1637,18 @@ export default async function decorate(block) {
     <div class="contact-wrapper">
       <h2 class="contact-title">${headingText}</h2>
 
-      <input type="text" placeholder="Search by country" class="search-input" id="search-input"/>
-
+      
+      <div class="search-wrapper">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M11 3.06348C15.4181 3.06348 18.9997 6.72141 19 11.2334C19 13.3075 18.241 15.1997 16.9941 16.6406L20.3574 20.0752L20.707 20.4326L19.9922 21.1318L19.6426 20.7744L16.2949 17.3555C14.884 18.6295 13.0313 19.4043 11 19.4043L10.5879 19.3936C6.36114 19.1745 3 15.6045 3 11.2334C3.00034 6.72141 6.58193 3.06348 11 3.06348ZM11 4.06348C7.15396 4.06348 4.00034 7.25375 4 11.2334C4 15.2133 7.15375 18.4043 11 18.4043C14.8463 18.4043 18 15.2133 18 11.2334C17.9997 7.25375 14.846 4.06348 11 4.06348Z" fill="#141414"/>
+        </svg>
+        <input
+            type="text"
+            placeholder="Search by country"
+            class="search-input"
+            id="search-input"
+        />
+      </div>
       <div class="filters">
         <div class="custom-select region-select">
           <div class="select-trigger">Select Region <span class="arrow"></span></div>
