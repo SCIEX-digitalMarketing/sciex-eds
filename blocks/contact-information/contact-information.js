@@ -1688,7 +1688,7 @@ function setupCustomSelect(wrapper, items, onSelect) {
   // Reset options
   optionsContainer.innerHTML = "";
 
-  items.forEach((item, index) => {
+  items.forEach((item) => {
 
     const option = document.createElement("div");
     option.className = "option";
@@ -1728,31 +1728,7 @@ document.addEventListener("click", (e) => {
   });
 });
 
-  /* ==========================================================
-     4️⃣ FILTERING LOGIC (Optimized)
-  ========================================================== */
-
-  function filterData() {
-    const searchValue = searchInput.value.toLowerCase();
-
-    const filtered = data
-      .filter((region) =>
-        !selectedRegion || region.region === selectedRegion
-      )
-      .map((region) => ({
-        ...region,
-        countries: region.countries.filter((country) =>
-          (!selectedCountry || country.country === selectedCountry) &&
-          (!searchValue ||
-            country.country.toLowerCase().includes(searchValue))
-        ),
-      }))
-      .filter((region) => region.countries.length > 0);
-
-    renderCards(filtered);
-  }
-
-  /* ==========================================================
+ /* ==========================================================
      5️⃣ RENDER CARDS
   ========================================================== */
 
@@ -1776,6 +1752,33 @@ document.addEventListener("click", (e) => {
       });
     });
   }
+
+  /* ==========================================================
+     4️⃣ FILTERING LOGIC (Optimized)
+  ========================================================== */
+
+  function filterData() {
+    const searchValue = searchInput.value.toLowerCase();
+
+    const filtered = data
+      .filter((region) =>
+        !selectedRegion || region.region === selectedRegion
+      )
+      .map((region) => ({
+        ...region,
+        countries: region.countries
+        .filter((country) =>
+        (!selectedCountry || country.country === selectedCountry) &&
+        (!searchValue ||
+        country.country.toLowerCase().includes(searchValue))
+        ),
+      }))
+      .filter((region) => region.countries.length > 0);
+
+    renderCards(filtered);
+  }
+
+ 
 
   /* ==========================================================
      6️⃣ REGION DROPDOWN INITIALIZATION
