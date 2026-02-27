@@ -1,246 +1,272 @@
-import getPartnersData  from "../../scripts/blocks-controllers/partner-controller.js";
+import getPartnersData from "../../scripts/blocks-controllers/partner-controller.js";
 
 export default async function decorate(block) {
-    const rows = [...block.children];
-    const heading = rows[0];
-    const headingText = heading.querySelector('p')?.textContent;
-    const data1=await getPartnersData()
-    console.log('dataaa', data1);
-    const data = [
+  /* ==========================================================
+     1️⃣ INITIAL SETUP
+  ========================================================== */
 
+  const headingText = block.querySelector("p")?.textContent || "";
+
+  // If you later want API data, replace static `data` with this
+  await getPartnersData();
+
+  // Static data (can be replaced by API response)
+  const data = [
+    {
+      region: "North America",
+      countries: [
         {
-            region: 'North America',
-            countries: [
-                {
-                    country: 'Canada',
-                    companies: [
-                        {
-                            name: 'SCIEX',
-                            legalEntity: 'AB Sciex LP',
-                            address: '7231 Four Valley Drive\nConcord, Ontario, L4K 4V8\nCanada',
-                            productLine:
-                                'Mass Spectrometry & Capillary Electrophoresis',
-                            email: 'sciexnow@sciex.com',
-                            phone: '+1 877 740 2129',
-                            website: 'https://sciex.com/request-support',
-                        },
-                    ],
-                },
-                {
-                    country: 'United States',
-                    companies: [
-                        {
-                            name: 'SCIEX',
-                            productLine: 'Sales and Service',
-                            address: '7231 Four Valley Drive\nConcord, Ontario, L4K 4V8\nCanada',
-                            fax: '+1 800 343 1346',
-                            email: 'sciexnow@sciex.com',
-                            phone: '+1 877 740 2129',
-                            website: 'https://sciex.com/request-support',
-                        },
-                        {
-                            name: 'SCIEX',
-                            productLine: 'Headquarters',
-                            legalEntity: 'AB Sciex LLC',
-                            address: '250 Forest Street, Marlborough, MA 01752, U.S.A.',
-                            fax: '+1 800 343 1346',
-                            email: 'sciexnow@sciex.com',
-                            phone: '+1 877 740 2129',
-                            website: 'https://sciex.com/request-support',
-                        },
-                    ],
-                },
-            ],
+          country: "Canada",
+          companies: [
+            {
+              name: "SCIEX",
+              address:
+                "7231 Four Valley Drive\nConcord, Ontario, L4K 4V8\nCanada",
+              productLine:
+                "Mass Spectrometry & Capillary Electrophoresis",
+            },
+          ],
         },
         {
-            region: 'EMEAI',
-            countries: [
-                {
-                    country: 'Albania',
-                    companies: [
-                        {
-                            name: 'SCIEX',
-                            productLine: 'Headquarters',
-                            legalEntity: 'AB Sciex LLC',
-                            address: '250 Forest Street, Marlborough, MA 01752, U.S.A.',
-                            fax: '+1 800 343 1346',
-                            email: 'sciexnow@sciex.com',
-                            phone: '+1 877 740 2129',
-                            website: 'https://sciex.com/request-support',
-                        },
-                        {
-                            name: 'SCIEX',
-                            productLine: 'Headquarters',
-                            legalEntity: 'AB Sciex LLC',
-                            address: '250 Forest Street, Marlborough, MA 01752, U.S.A.',
-                            fax: '+1 800 343 1346',
-                            email: 'sciexnow@sciex.com',
-                            phone: '+1 877 740 2129',
-                            website: 'https://sciex.com/request-support',
-                        },
-                    ],
-                },
-                {
-                    country: 'Angola',
-                    companies: [
-                        {
-                            name: 'SCIEX',
-                            productLine: 'Headquarters',
-                            legalEntity: 'AB Sciex LLC',
-                            address: '250 Forest Street, Marlborough, MA 01752, U.S.A.',
-                            fax: '+1 800 343 1346',
-                            email: 'sciexnow@sciex.com',
-                            phone: '+1 877 740 2129',
-                            website: 'https://sciex.com/request-support',
-                        },
-
-                    ],
-                },
-            ],
+          country: "United States",
+          companies: [
+            {
+              name: "SCIEX",
+              address:
+                "7231 Four Valley Drive\nConcord, Ontario, L4K 4V8\nCanada",
+              productLine: "Sales and Service",
+            },
+          ],
         },
+      ],
+    },
+    {
+      region: "EMEAI",
+      countries: [
+        {
+          country: "Albania",
+          companies: [
+            {
+              name: "SCIEX",
+              address:
+                "250 Forest Street, Marlborough, MA 01752, U.S.A.",
+            },
+          ],
+        },
+      ],
+    },
+  ];
 
-    ];
-    /* -----------------------------
-        BUILD UI
-    ----------------------------- */
-    block.innerHTML = `
+  /* ==========================================================
+     2️⃣ BUILD UI
+  ========================================================== */
+
+  block.innerHTML = `
     <div class="contact-wrapper">
-      <h2 class="contact-title">${headingText}</h2>
+      <h2>${headingText}</h2>
 
       <input type="text" placeholder="Search by country" class="search-input"/>
 
       <div class="filters">
-        <select class="region-select">
-          <option value="">Select Region</option>
-        </select>
+        <div class="custom-select region-select">
+          <div class="select-trigger">Select Region <span class="arrow"></span></div>
+          <div class="options"></div>
+        </div>
 
-        <select class="country-select">
-          <option value="">Select Country</option>
-        </select>
+        <div class="custom-select country-select">
+          <div class="select-trigger">Select Country <span class="arrow"></span></div>
+          <div class="options"></div>
+        </div>
       </div>
 
       <div class="cards"></div>
     </div>
   `;
 
-    const regionSelect = block.querySelector(".region-select");
-    const countrySelect = block.querySelector(".country-select");
-    const cardsContainer = block.querySelector(".cards");
-    const searchInput = block.querySelector(".search-input");
+  const regionWrapper = block.querySelector(".region-select");
+  const countryWrapper = block.querySelector(".country-select");
+  const cardsContainer = block.querySelector(".cards");
+  const searchInput = block.querySelector(".search-input");
 
-    /* -----------------------------
-        Populate Region Dropdown
-    ----------------------------- */
+  // Selected state (single source of truth)
+  let selectedRegion = "";
+  let selectedCountry = "";
 
-    data.forEach((r) => {
-        const option = document.createElement("option");
-        option.value = r.region;
-        option.textContent = r.region;
-        regionSelect.appendChild(option);
+  /* ==========================================================
+     3️⃣ CUSTOM SELECT (Reusable Dropdown Builder)
+  ========================================================== */
+
+function setupCustomSelect(wrapper, items, onSelect) {
+  console.group("🔽 setupCustomSelect Init");
+  console.log("Wrapper:", wrapper);
+  console.log("Items:", items);
+  console.groupEnd();
+
+  const trigger = wrapper.querySelector(".select-trigger");
+  const optionsContainer = wrapper.querySelector(".options");
+
+  console.group("⚙ Elements Found");
+  console.log("Trigger:", trigger);
+  console.log("Options Container:", optionsContainer);
+  console.groupEnd();
+
+  // Reset options
+  optionsContainer.innerHTML = "";
+  console.log("🧹 Options container cleared");
+
+  items.forEach((item, index) => {
+    console.group(`📦 Creating Option ${index}`);
+    console.log("Item:", item);
+
+    const option = document.createElement("div");
+    option.className = "option";
+    option.textContent = item;
+
+    option.addEventListener("click", () => {
+      console.group("✅ Option Clicked");
+      console.log("Selected Item:", item);
+
+      trigger.firstChild.textContent = item;
+      console.log("Trigger updated");
+
+      wrapper.classList.remove("open");
+      console.log("Dropdown closed");
+
+      console.log("Calling onSelect callback");
+      onSelect(item);
+      console.groupEnd();
     });
 
-    /* -----------------------------
-        Render Cards
-    ----------------------------- */
+    optionsContainer.appendChild(option);
+    console.log("Option appended");
+    console.groupEnd();
+  });
 
-    function renderCards(filteredData) {
-        cardsContainer.innerHTML = "";
+  // Toggle dropdown open/close
+  trigger.onclick = () => {
+    console.group("🖱 Trigger Clicked");
 
-        filteredData.forEach((region) => {
-            region.countries.forEach((country) => {
-                country.companies.forEach((company) => {
-                    const card = document.createElement("div");
-                    card.className = "contact-card";
+    document.querySelectorAll(".custom-select").forEach((el) => {
+      if (el !== wrapper) {
+        el.classList.remove("open");
+        console.log("Closed other dropdown");
+      }
+    });
 
-                    card.innerHTML = `
+    wrapper.classList.toggle("open");
+    console.log("Is Open:", wrapper.classList.contains("open"));
+    console.groupEnd();
+  };
+}
+
+// Close dropdown if clicked outside
+document.addEventListener("click", (e) => {
+  document.querySelectorAll(".custom-select").forEach((dropdown) => {
+    if (!dropdown.contains(e.target)) {
+      dropdown.classList.remove("open");
+      console.log("🚪 Closed (Outside Click)");
+    }
+  });
+});
+
+  /* ==========================================================
+     4️⃣ FILTERING LOGIC (Optimized)
+  ========================================================== */
+
+  function filterData() {
+    const searchValue = searchInput.value.toLowerCase();
+
+    const filtered = data
+      .filter((region) =>
+        !selectedRegion || region.region === selectedRegion
+      )
+      .map((region) => ({
+        ...region,
+        countries: region.countries.filter((country) =>
+          (!selectedCountry || country.country === selectedCountry) &&
+          (!searchValue ||
+            country.country.toLowerCase().includes(searchValue))
+        ),
+      }))
+      .filter((region) => region.countries.length > 0);
+
+    renderCards(filtered);
+  }
+
+  /* ==========================================================
+     5️⃣ RENDER CARDS
+  ========================================================== */
+
+  function renderCards(filteredData) {
+    cardsContainer.innerHTML = "";
+
+    filteredData.forEach((region) => {
+      region.countries.forEach((country) => {
+        country.companies.forEach((company) => {
+          const card = document.createElement("div");
+          card.className = "contact-card";
+
+          card.innerHTML = `
             <h3>${company.name}</h3>
             ${company.productLine ? `<p>${company.productLine}</p>` : ""}
-            <p class="address">${company.address}</p>           
+            <p>${company.address.replace(/\n/g, "<br>")}</p>
           `;
 
-                    cardsContainer.appendChild(card);
-                });
-            });
+          cardsContainer.appendChild(card);
         });
-    }
-
-    /* -----------------------------
-        FILTER LOGIC
-    ----------------------------- */
-
-    function filterData() {
-        const selectedRegion = regionSelect.value;
-        const selectedCountry = countrySelect.value;
-        const searchValue = searchInput.value.toLowerCase();
-
-        let filtered = data;
-
-        if (selectedRegion) {
-            filtered = data.filter((r) => r.region === selectedRegion);
-        }
-
-        if (selectedCountry) {
-            filtered = filtered.map((r) => ({
-                ...r,
-                countries: r.countries.filter(
-                    (c) => c.country === selectedCountry
-                ),
-            }));
-        }
-
-        if (searchValue) {
-            filtered = filtered.map((r) => ({
-                ...r,
-                countries: r.countries.filter((c) =>
-                    c.country.toLowerCase().includes(searchValue)
-                ),
-            }));
-        }
-
-        renderCards(filtered);
-    }
-
-    /* -----------------------------
-        Region Change
-    ----------------------------- */
-
-    regionSelect.addEventListener("change", () => {
-        const selectedRegion = regionSelect.value;
-
-        countrySelect.innerHTML =
-            `<option value="">Select Country</option>`;
-
-        if (selectedRegion) {
-            const regionObj = data.find(
-                (r) => r.region === selectedRegion
-            );
-
-            regionObj.countries.forEach((c) => {
-                const option = document.createElement("option");
-                option.value = c.country;
-                option.textContent = c.country;
-                countrySelect.appendChild(option);
-            });
-        }
-
-        filterData();
+      });
     });
+  }
 
-    /* -----------------------------
-        Country Change
-    ----------------------------- */
+  /* ==========================================================
+     6️⃣ REGION DROPDOWN INITIALIZATION
+  ========================================================== */
 
-    countrySelect.addEventListener("change", filterData);
+  setupCustomSelect(
+    regionWrapper,
+    ["Select Region", ...data.map((r) => r.region)],
+    (value) => {
+      // Update selected region
+      selectedRegion = value === "Select Region" ? "" : value;
 
-    /* -----------------------------
-        Search
-    ----------------------------- */
+      // Whenever region changes → reset country
+      selectedCountry = "";
 
-    searchInput.addEventListener("input", filterData);
+      // Reset country dropdown UI label
+      countryWrapper.querySelector(".select-trigger")
+        .firstChild.textContent = "Select Country ";
 
-    /* -----------------------------
-        Initial Render (Show ALL)
-    ----------------------------- */
+      // Get selected region object
+      const regionObj = data.find(
+        (r) => r.region === selectedRegion
+      );
 
-    renderCards(data);
+      // Populate country dropdown
+      setupCustomSelect(
+        countryWrapper,
+        selectedRegion
+          ? ["Select Country", ...regionObj.countries.map((c) => c.country)]
+          : ["Select Country"],
+        (countryVal) => {
+          selectedCountry =
+            countryVal === "Select Country" ? "" : countryVal;
+          filterData();
+        }
+      );
+
+      filterData();
+    }
+  );
+
+  /* ==========================================================
+     7️⃣ SEARCH LISTENER
+  ========================================================== */
+
+  searchInput.addEventListener("input", filterData);
+
+  /* ==========================================================
+     8️⃣ INITIAL RENDER
+  ========================================================== */
+
+  renderCards(data);
 }
