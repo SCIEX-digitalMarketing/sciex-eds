@@ -208,7 +208,9 @@ select {
   line-height: 24px; /* 100% */
   letter-spacing: 0.12px;
   margin-bottom: 32px;
-  border-bottom: 1px solid var(--Grey-100, #ECECEC);
+  border-bottom: 2px solid var(--Grey-100, #ECECEC);
+  border-top: 2px solid var(--Grey-100, #ECECEC);
+  margin-top: 50px;
 }
 
 .event-card.last-in-group {
