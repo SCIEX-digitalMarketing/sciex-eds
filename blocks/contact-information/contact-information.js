@@ -1,15 +1,16 @@
 import getPartnersData from "../../scripts/blocks-controllers/partner-controller.js";
 
 export default async function decorate(block) {
-
   /* ==========================================================
      1️⃣ INITIAL SETUP
   ========================================================== */
 
   const headingText = block.querySelector("p")?.textContent || "";
 
-  await getPartnersData(); // Replace static data later if needed
+  // If you later want API data, replace static `data` with this
+  await getPartnersData();
 
+  // Static data (can be replaced by API response)
   const data = [
     {
       region: "North America",
@@ -87,95 +88,98 @@ export default async function decorate(block) {
   const cardsContainer = block.querySelector(".cards");
   const searchInput = block.querySelector(".search-input");
 
+  // Selected state (single source of truth)
   let selectedRegion = "";
   let selectedCountry = "";
 
   /* ==========================================================
-     3️⃣ PREPARE ALL COUNTRIES LIST (FLATTENED)
+     3️⃣ CUSTOM SELECT (Reusable Dropdown Builder)
   ========================================================== */
 
-  const allCountries = data.flatMap(region =>
-    region.countries.map(country => ({
-      name: country.country,
-      region: region.region
-    }))
-  );
+function setupCustomSelect(wrapper, items, onSelect) {
 
-  /* ==========================================================
-     4️⃣ CUSTOM SELECT DROPDOWN
-  ========================================================== */
+  const trigger = wrapper.querySelector(".select-trigger");
+  const optionsContainer = wrapper.querySelector(".options");
 
-  function setupCustomSelect(wrapper, items, onSelect) {
-    const trigger = wrapper.querySelector(".select-trigger");
-    const optionsContainer = wrapper.querySelector(".options");
+ 
 
-    optionsContainer.innerHTML = "";
+  // Reset options
+  optionsContainer.innerHTML = "";
 
-    items.forEach(item => {
-      const option = document.createElement("div");
-      option.className = "option";
-      option.textContent = item;
+  items.forEach((item, index) => {
 
-      option.addEventListener("click", () => {
-        trigger.firstChild.textContent = item + " ";
-        wrapper.classList.remove("open");
-        onSelect(item);
-      });
+    const option = document.createElement("div");
+    option.className = "option";
+    option.textContent = item;
 
-      optionsContainer.appendChild(option);
+    option.addEventListener("click", () => {
+
+      trigger.firstChild.textContent = item;
+
+      wrapper.classList.remove("open");
+
+      onSelect(item);
     });
 
-    trigger.onclick = () => {
-      block.querySelectorAll(".custom-select").forEach(el => {
-        if (el !== wrapper) el.classList.remove("open");
-      });
-      wrapper.classList.toggle("open");
-    };
-  }
-
-  // Close dropdown when clicking outside ANY dropdown
-  document.addEventListener("click", (e) => {
-    block.querySelectorAll(".custom-select").forEach(dropdown => {
-      if (!dropdown.contains(e.target)) {
-        dropdown.classList.remove("open");
-      }
-    });
+    optionsContainer.appendChild(option);
   });
 
+  // Toggle dropdown open/close
+  trigger.onclick = () => {
+
+    document.querySelectorAll(".custom-select").forEach((el) => {
+      if (el !== wrapper) {
+        el.classList.remove("open");
+      }
+    });
+
+    wrapper.classList.toggle("open");
+  };
+}
+
+// Close dropdown if clicked outside
+document.addEventListener("click", (e) => {
+  document.querySelectorAll(".custom-select").forEach((dropdown) => {
+    if (!dropdown.contains(e.target)) {
+      dropdown.classList.remove("open");
+    }
+  });
+});
+
   /* ==========================================================
-     5️⃣ FILTERING LOGIC
+     4️⃣ FILTERING LOGIC (Optimized)
   ========================================================== */
 
   function filterData() {
     const searchValue = searchInput.value.toLowerCase();
 
     const filtered = data
-      .filter(region =>
-        (!selectedRegion || region.region === selectedRegion)
+      .filter((region) =>
+        !selectedRegion || region.region === selectedRegion
       )
-      .map(region => ({
+      .map((region) => ({
         ...region,
-        countries: region.countries.filter(country =>
+        countries: region.countries.filter((country) =>
           (!selectedCountry || country.country === selectedCountry) &&
           (!searchValue ||
             country.country.toLowerCase().includes(searchValue))
-        )
+        ),
       }))
-      .filter(region => region.countries.length > 0);
+      .filter((region) => region.countries.length > 0);
 
     renderCards(filtered);
   }
 
   /* ==========================================================
-     6️⃣ RENDER CARDS
+     5️⃣ RENDER CARDS
   ========================================================== */
 
   function renderCards(filteredData) {
     cardsContainer.innerHTML = "";
 
-    filteredData.forEach(region => {
-      region.countries.forEach(country => {
-        country.companies.forEach(company => {
+    filteredData.forEach((region) => {
+      region.countries.forEach((country) => {
+        country.companies.forEach((company) => {
           const card = document.createElement("div");
           card.className = "contact-card";
 
@@ -192,68 +196,53 @@ export default async function decorate(block) {
   }
 
   /* ==========================================================
-     7️⃣ REGION DROPDOWN
+     6️⃣ REGION DROPDOWN INITIALIZATION
   ========================================================== */
 
   setupCustomSelect(
     regionWrapper,
-    ["Select Region", ...data.map(r => r.region)],
+    ["Select Region", ...data.map((r) => r.region)],
     (value) => {
-
+      // Update selected region
       selectedRegion = value === "Select Region" ? "" : value;
 
-      // Reset country when region manually changed
+      // Whenever region changes → reset country
       selectedCountry = "";
+
+      // Reset country dropdown UI label
       countryWrapper.querySelector(".select-trigger")
         .firstChild.textContent = "Select Country ";
 
-      filterData();
-    }
-  );
+      // Get selected region object
+      const regionObj = data.find(
+        (r) => r.region === selectedRegion
+      );
 
-  /* ==========================================================
-     8️⃣ COUNTRY DROPDOWN (ALL COUNTRIES BY DEFAULT)
-  ========================================================== */
-
-  setupCustomSelect(
-    countryWrapper,
-    ["Select Country", ...allCountries.map(c => c.name)],
-    (countryVal) => {
-
-      selectedCountry =
-        countryVal === "Select Country" ? "" : countryVal;
-
-      if (selectedCountry) {
-        // Auto-detect region from selected country
-        const match = allCountries.find(
-          c => c.name === selectedCountry
-        );
-
-        selectedRegion = match?.region || "";
-
-        // Update region dropdown UI
-        regionWrapper.querySelector(".select-trigger")
-          .firstChild.textContent =
-          selectedRegion + " ";
-      } else {
-        selectedRegion = "";
-        regionWrapper.querySelector(".select-trigger")
-          .firstChild.textContent =
-          "Select Region ";
-      }
+      // Populate country dropdown
+      setupCustomSelect(
+        countryWrapper,
+        selectedRegion
+          ? ["Select Country", ...regionObj.countries.map((c) => c.country)]
+          : ["Select Country"],
+        (countryVal) => {
+          selectedCountry =
+            countryVal === "Select Country" ? "" : countryVal;
+          filterData();
+        }
+      );
 
       filterData();
     }
   );
 
   /* ==========================================================
-     9️⃣ SEARCH
+     7️⃣ SEARCH LISTENER
   ========================================================== */
 
   searchInput.addEventListener("input", filterData);
 
   /* ==========================================================
-     🔟 INITIAL RENDER
+     8️⃣ INITIAL RENDER
   ========================================================== */
 
   renderCards(data);
