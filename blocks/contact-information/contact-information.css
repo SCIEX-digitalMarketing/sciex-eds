@@ -46,7 +46,6 @@ color: var(--Grey-900, #141414);
 .filters {
   display: flex;
   gap: 32px;
-  flex-wrap: wrap;
 }
 
 /* ===============================
@@ -189,9 +188,14 @@ line-height: normal;
   .cards {
     grid-template-columns: repeat(2, 1fr);
   }
+  .contact-title{
+    width: 80%;
+    font-size: 32px;
+  }
+
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .cards {
     grid-template-columns: 1fr;
   }
@@ -200,8 +204,12 @@ line-height: normal;
     flex-direction: column;
   }
 
-  .filters .custom-select,
-  .search-input {
+  
+
+  .custom-select,
+  .search-input,
+  .contact-title {
     width: 100%;
+    max-width: 100%;
   }
 }
