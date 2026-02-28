@@ -1666,6 +1666,10 @@ moveInstrumentation(block,headingText);
     </div>
   `;
 
+  // move instrumentation data off the original block into the new wrapper
+  const wrapper = block.querySelector('.contact-wrapper');
+  if (wrapper) moveInstrumentation(block, wrapper);
+
   const regionWrapper = block.querySelector(".region-select");
   const countryWrapper = block.querySelector(".country-select");
   const cardsContainer = block.querySelector(".cards");
