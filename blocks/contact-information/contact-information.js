@@ -1,5 +1,4 @@
 import getPartnersData from "../../scripts/blocks-controllers/partner-controller.js";
-import { moveInstrumentation } from '../../scripts/scripts.js';
 
 export default async function decorate(block) {
   /* ==========================================================
@@ -7,7 +6,6 @@ export default async function decorate(block) {
   ========================================================== */
 
   const headingText = block.querySelector("p")?.textContent || "";
-moveInstrumentation(block,headingText);
   // If you later want API data, replace static `data` with this
   await getPartnersData();
 
@@ -1666,9 +1664,6 @@ moveInstrumentation(block,headingText);
     </div>
   `;
 
-  // move instrumentation data off the original block into the new wrapper
-  const wrapper = block.querySelector('.contact-wrapper');
-  if (wrapper) moveInstrumentation(block, wrapper);
 
   const regionWrapper = block.querySelector(".region-select");
   const countryWrapper = block.querySelector(".country-select");
