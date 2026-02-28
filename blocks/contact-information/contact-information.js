@@ -1788,7 +1788,8 @@ export default async function decorate(block) {
         .filter(region => !selectedRegion || region.region === selectedRegion)
         .map(region => ({
           ...region,
-          countries: region.countries.filter(c =>
+          countries: region.countries
+          .filter(c =>
             !selectedCountry || c.country === selectedCountry
           )
         }))
