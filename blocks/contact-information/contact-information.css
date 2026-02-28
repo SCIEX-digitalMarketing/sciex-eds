@@ -33,7 +33,7 @@ color: var(--Grey-900, #141414);
   font-weight: 370;
   line-height: normal;
   outline: none;
-  max-width: 600px;
+  width: 90%;
 }
 .search-wrapper{
   width: 100%;

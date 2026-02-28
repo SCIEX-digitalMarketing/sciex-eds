@@ -1670,7 +1670,7 @@ export default async function decorate(block) {
   const cardsContainer = block.querySelector(".cards");
   const searchInput = block.querySelector(".search-input");
 
-  // Selected state (single source of truth)
+  // Selected state
   let selectedRegion = "";
   let selectedCountry = "";
 
@@ -1678,75 +1678,79 @@ export default async function decorate(block) {
      3️⃣ CUSTOM SELECT (Reusable Dropdown Builder)
   ========================================================== */
 
-function setupCustomSelect(wrapper, items, onSelect) {
+  function setupCustomSelect(wrapper, items, onSelect) {
+    const trigger = wrapper.querySelector(".select-trigger");
+    const optionsContainer = wrapper.querySelector(".options");
 
-  const trigger = wrapper.querySelector(".select-trigger");
-  const optionsContainer = wrapper.querySelector(".options");
+    optionsContainer.innerHTML = "";
 
- 
+    items.forEach((item) => {
+      const option = document.createElement("div");
+      option.className = "option";
+      option.textContent = item;
 
-  // Reset options
-  optionsContainer.innerHTML = "";
+      option.addEventListener("click", () => {
+        trigger.firstChild.textContent = item;
+        wrapper.classList.remove("open");
+        onSelect(item);
+      });
 
-  items.forEach((item) => {
-
-    const option = document.createElement("div");
-    option.className = "option";
-    option.textContent = item;
-
-    option.addEventListener("click", () => {
-
-      trigger.firstChild.textContent = item;
-
-      wrapper.classList.remove("open");
-
-      onSelect(item);
+      optionsContainer.appendChild(option);
     });
 
-    optionsContainer.appendChild(option);
-  });
+    trigger.onclick = () => {
+      document.querySelectorAll(".custom-select").forEach((el) => {
+        if (el !== wrapper) el.classList.remove("open");
+      });
+      wrapper.classList.toggle("open");
+    };
+  }
 
-  // Toggle dropdown open/close
-  trigger.onclick = () => {
-
-    document.querySelectorAll(".custom-select").forEach((el) => {
-      if (el !== wrapper) {
-        el.classList.remove("open");
-      }
-    });
-
-    wrapper.classList.toggle("open");
-  };
-}
-
-// Close dropdown if clicked outside
-document.addEventListener("click", (e) => {
-  document.querySelectorAll(".custom-select").forEach((dropdown) => {
+  // Close dropdowns on outside click
+  document.addEventListener("click", (e) => {
+    document.querySelectorAll(".custom-select").forEach((dropdown) => {
     if (!dropdown.contains(e.target)) {
       dropdown.classList.remove("open");
     }
+    });
   });
-});
 
- /* ==========================================================
+  /* ==========================================================
      5️⃣ RENDER CARDS
   ========================================================== */
 
-  function renderCards(filteredData) {
+  function renderCards(filteredData, showUSDefault = false) {
     cardsContainer.innerHTML = "";
 
-    filteredData.forEach((region) => {
-      region.countries.forEach((country) => {
-        country.companies.forEach((company) => {
+    // Show US if nothing selected or searched
+    if (showUSDefault && !selectedRegion && !selectedCountry && !searchInput.value) {
+      const usRegion = data.find(r => r.region === "North America");
+      const usCountry = usRegion?.countries.find(c => c.country === "United States");
+      if (usCountry) {
+        usCountry.companies.forEach(company => {
           const card = document.createElement("div");
           card.className = "contact-card";
+          card.innerHTML = `
+            <h3 class="company-name">${company.name ?? ""}</h3>
+            <p class="product-line">${company.productLine ?? ""}</p>
+            <p class="address">${company.address ?? ""}</p>
+          `;
+          cardsContainer.appendChild(card);
+        });
+        return;
+      }
+    }
 
-            card.innerHTML = `
-                <h3 class="company-name">${company.name ?? ""}</h3>
-                <p class="product-line">${company.productLine ?? ""}</p>
-                <p class="address">${company.address ?? ""}</p>
-            `;
-
+    filteredData.forEach(region => {
+      region.countries.forEach(country => {
+        country.companies.forEach(company => {
+          const card = document.createElement("div");
+          card.className = "contact-card";
+          card.innerHTML = `
+            <h3 class="company-name">${company.name ?? ""}</h3>
+            <p class="product-line">${company.productLine ?? ""}</p>
+            <p class="address">${company.address ?? ""}</p>
+          `;
           cardsContainer.appendChild(card);
         });
       });
@@ -1754,31 +1758,45 @@ document.addEventListener("click", (e) => {
   }
 
   /* ==========================================================
-     4️⃣ FILTERING LOGIC (Optimized)
+     4️⃣ FILTERING LOGIC
   ========================================================== */
 
   function filterData() {
-    const searchValue = searchInput.value.toLowerCase();
+    const searchValue = searchInput.value.trim().toLowerCase();
 
-    const filtered = data
-      .filter((region) =>
-        !selectedRegion || region.region === selectedRegion
-      )
-      .map((region) => ({
-        ...region,
-        countries: region.countries
-        .filter((country) =>
-        (!selectedCountry || country.country === selectedCountry) &&
-        (!searchValue ||
-        country.country.toLowerCase().includes(searchValue))
-        ),
-      }))
-      .filter((region) => region.countries.length > 0);
+    let filtered;
 
-    renderCards(filtered);
+    if (searchValue) {
+      // Search mode: ignore dropdowns
+      selectedRegion = "";
+      selectedCountry = "";
+      regionWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Region ";
+      countryWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Country ";
+
+      filtered = data
+        .map(region => ({
+          ...region,
+          countries: region.countries.filter(c =>
+            c.country.toLowerCase().includes(searchValue)
+          )
+        }))
+        .filter(region => region.countries.length > 0);
+
+    } else {
+      // Dropdown mode
+      filtered = data
+        .filter(region => !selectedRegion || region.region === selectedRegion)
+        .map(region => ({
+          ...region,
+          countries: region.countries.filter(c =>
+            !selectedCountry || c.country === selectedCountry
+          )
+        }))
+        .filter(region => region.countries.length > 0);
+    }
+
+    renderCards(filtered, true);
   }
-
- 
 
   /* ==========================================================
      6️⃣ REGION DROPDOWN INITIALIZATION
@@ -1786,32 +1804,20 @@ document.addEventListener("click", (e) => {
 
   setupCustomSelect(
     regionWrapper,
-    ["Select Region", ...data.map((r) => r.region)],
+    ["Select Region", ...data.map(r => r.region)],
     (value) => {
-      // Update selected region
       selectedRegion = value === "Select Region" ? "" : value;
-
-      // Whenever region changes → reset country
       selectedCountry = "";
+      searchInput.value = "";
 
-      // Reset country dropdown UI label
-      countryWrapper.querySelector(".select-trigger")
-        .firstChild.textContent = "Select Country ";
+      countryWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Country ";
 
-      // Get selected region object
-      const regionObj = data.find(
-        (r) => r.region === selectedRegion
-      );
-
-      // Populate country dropdown
+      const regionObj = data.find(r => r.region === selectedRegion);
       setupCustomSelect(
         countryWrapper,
-        selectedRegion
-          ? ["Select Country", ...regionObj.countries.map((c) => c.country)]
-          : ["Select Country"],
+        selectedRegion ? ["Select Country", ...regionObj.countries.map(c => c.country)] : ["Select Country"],
         (countryVal) => {
-          selectedCountry =
-            countryVal === "Select Country" ? "" : countryVal;
+          selectedCountry = countryVal === "Select Country" ? "" : countryVal;
           filterData();
         }
       );
@@ -1824,11 +1830,28 @@ document.addEventListener("click", (e) => {
      7️⃣ SEARCH LISTENER
   ========================================================== */
 
-  searchInput.addEventListener("input", filterData);
+// SEARCH LISTENER
+searchInput.addEventListener("input", () => {
+  const searchValue = searchInput.value.trim().toLowerCase();
 
+  if (searchValue) {
+    // Clear dropdown selections
+    selectedRegion = "";
+    selectedCountry = "";
+
+    // Reset dropdown labels
+    regionWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Region ";
+    countryWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Country ";
+
+    // Reset country dropdown options to only default
+    setupCustomSelect(countryWrapper, ["Select Country"], () => {});
+  }
+
+  filterData();
+});
   /* ==========================================================
      8️⃣ INITIAL RENDER
   ========================================================== */
 
-  renderCards(data);
+  renderCards(data, true); // Show US by default
 }
