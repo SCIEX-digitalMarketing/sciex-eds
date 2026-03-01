@@ -1,15 +1,9 @@
 import getPartnersData from "../../scripts/blocks-controllers/partner-controller.js";
 
 export default async function decorate(block) {
-  /* ==========================================================
-     1️⃣ INITIAL SETUP
-  ========================================================== */
 
   const headingText = block.querySelector("p")?.textContent || "";
-  // If you later want API data, replace static `data` with this
-  await getPartnersData();
-
-  // Static data (can be replaced by API response)
+  // const data = await getPartnersData();
   const data =[ {
   "region" : "EMEAI",
   "countries" : [ {
@@ -1628,15 +1622,9 @@ export default async function decorate(block) {
   } ]
 } ]
 
-  /* ==========================================================
-     2️⃣ BUILD UI
-  ========================================================== */
-
   block.innerHTML = `
     <div class="contact-wrapper">
-      <h2 class="contact-title">${headingText}</h2>
-
-      
+      <h2 class="contact-title">${headingText}</h2>      
       <div class="search-wrapper">
         <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M11 3.06348C15.4181 3.06348 18.9997 6.72141 19 11.2334C19 13.3075 18.241 15.1997 16.9941 16.6406L20.3574 20.0752L20.707 20.4326L19.9922 21.1318L19.6426 20.7744L16.2949 17.3555C14.884 18.6295 13.0313 19.4043 11 19.4043L10.5879 19.3936C6.36114 19.1745 3 15.6045 3 11.2334C3.00034 6.72141 6.58193 3.06348 11 3.06348ZM11 4.06348C7.15396 4.06348 4.00034 7.25375 4 11.2334C4 15.2133 7.15375 18.4043 11 18.4043C14.8463 18.4043 18 15.2133 18 11.2334C17.9997 7.25375 14.846 4.06348 11 4.06348Z" fill="#141414"/>
@@ -1659,29 +1647,22 @@ export default async function decorate(block) {
           <div class="options"></div>
         </div>
       </div>
-
       <div class="cards"></div>
     </div>
   `;
-
 
   const regionWrapper = block.querySelector(".region-select");
   const countryWrapper = block.querySelector(".country-select");
   const cardsContainer = block.querySelector(".cards");
   const searchInput = block.querySelector(".search-input");
 
-  // Selected state
   let selectedRegion = "";
   let selectedCountry = "";
 
-  /* ==========================================================
-     3️⃣ CUSTOM SELECT (Reusable Dropdown Builder)
-  ========================================================== */
-
+  //custom dropdown setup
   function setupCustomSelect(wrapper, items, onSelect) {
     const trigger = wrapper.querySelector(".select-trigger");
     const optionsContainer = wrapper.querySelector(".options");
-
     optionsContainer.innerHTML = "";
 
     items.forEach((item) => {
@@ -1698,15 +1679,12 @@ export default async function decorate(block) {
       optionsContainer.appendChild(option);
     });
 
-    trigger.onclick = () => {
-      document.querySelectorAll(".custom-select").forEach((el) => {
-        if (el !== wrapper) el.classList.remove("open");
-      });
+    trigger.onclick = () => {  
       wrapper.classList.toggle("open");
     };
   }
 
-  // Close dropdowns on outside click
+  // Close the other trigger dropdown, if already opened
   document.addEventListener("click", (e) => {
     document.querySelectorAll(".custom-select").forEach((dropdown) => {
     if (!dropdown.contains(e.target)) {
@@ -1714,11 +1692,7 @@ export default async function decorate(block) {
     }
     });
   });
-
-  /* ==========================================================
-     5️⃣ RENDER CARDS
-  ========================================================== */
-
+ 
   function renderCards(filteredData, showUSDefault = false) {
     cardsContainer.innerHTML = "";
 
@@ -1756,18 +1730,13 @@ export default async function decorate(block) {
       });
     });
   }
-
-  /* ==========================================================
-     4️⃣ FILTERING LOGIC
-  ========================================================== */
-
+ 
   function filterData() {
     const searchValue = searchInput.value.trim().toLowerCase();
 
     let filtered;
 
     if (searchValue) {
-      // Search mode: ignore dropdowns
       selectedRegion = "";
       selectedCountry = "";
       regionWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Region ";
@@ -1783,7 +1752,6 @@ export default async function decorate(block) {
         .filter(region => region.countries.length > 0);
 
     } else {
-      // Dropdown mode
       filtered = data
         .filter(region => !selectedRegion || region.region === selectedRegion)
         .map(region => ({
@@ -1798,10 +1766,6 @@ export default async function decorate(block) {
 
     renderCards(filtered, true);
   }
-
-  /* ==========================================================
-     6️⃣ REGION DROPDOWN INITIALIZATION
-  ========================================================== */
 
   setupCustomSelect(
     regionWrapper,
@@ -1827,11 +1791,6 @@ export default async function decorate(block) {
     }
   );
 
-  /* ==========================================================
-     7️⃣ SEARCH LISTENER
-  ========================================================== */
-
-// SEARCH LISTENER
 searchInput.addEventListener("input", () => {
   const searchValue = searchInput.value.trim().toLowerCase();
 
@@ -1844,15 +1803,11 @@ searchInput.addEventListener("input", () => {
     regionWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Region ";
     countryWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Country ";
 
-    // Reset country dropdown options to only default
     setupCustomSelect(countryWrapper, ["Select Country"], () => {});
   }
 
   filterData();
 });
-  /* ==========================================================
-     8️⃣ INITIAL RENDER
-  ========================================================== */
 
   renderCards(data, true); // Show US by default
 }
