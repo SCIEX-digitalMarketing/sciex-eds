@@ -1636,6 +1636,7 @@ export default async function decorate(block) {
             id="search-input"
         />
       </div>
+      <button class="clear-button">Clear</button>
       <div class="filters">
         <div class="custom-select region-select">
           <div class="select-trigger">Select Region <span class="arrow"></span></div>
@@ -1658,6 +1659,18 @@ export default async function decorate(block) {
 
   let selectedRegion = "";
   let selectedCountry = "";
+
+  const clearButton=block.querySelector(".clear-button");
+  clearButton.addEventListener("click", () => {
+    selectedRegion="";
+    selectedCountry="";
+    searchInput.value=""
+    regionWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Region ";
+    countryWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Country ";
+    setupCustomSelect(countryWrapper, ["Select Country"], () => {});
+    filterData();
+  })
+
 
   //custom dropdown setup
   function setupCustomSelect(wrapper, items, onSelect) {
@@ -1694,8 +1707,17 @@ export default async function decorate(block) {
   });
  
   function renderCards(filteredData, showUSDefault = false) {
-    cardsContainer.innerHTML = "";
 
+    if (selectedRegion || selectedCountry || searchInput.value) {
+      console.log("show clear")
+      clearButton.style.display = "block";
+    } else {
+      console.log("hide clear")
+      clearButton.style.display = "none";
+    }
+    
+    cardsContainer.innerHTML = "";
+    
     // Show US if nothing selected or searched
     if (showUSDefault && !selectedRegion && !selectedCountry && !searchInput.value) {
       const usRegion = data.find(r => r.region === "North America");
