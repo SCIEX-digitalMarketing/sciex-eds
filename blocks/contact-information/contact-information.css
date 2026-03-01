@@ -43,6 +43,22 @@ color: var(--Grey-900, #141414);
   background: var(--Grey-50, #F5F5F5);
   
 }
+
+.clear-button {
+  color: var(--Blue-700, #0068FA);
+  font-family: "Geogrotesque Sharp VF";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 530;
+  line-height: 24px;
+  letter-spacing: 0.08px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  border-bottom: 1px solid #0068FA;
+  border-radius: 0;
+  width: fit-content;
+}
 /* ===============================
    FILTER DROPDOWNS
 ================================= */
