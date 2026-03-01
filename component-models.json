@@ -794,7 +794,8 @@
         "component": "text",
         "name": "title",
         "label": "Title",
-        "valueType": "string"
+        "valueType": "string",
+        "value": "Select your region to find contact information for your area"
       }
     ]
   },
