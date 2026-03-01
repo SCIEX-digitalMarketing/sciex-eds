@@ -48,16 +48,6 @@ export default async function decorate(block) {
     <path d="M13 13.5L3.0001 3.5001" stroke="#3C8DFF"/>
     <path d="M13 3.5L3.0001 13.4999" stroke="#3C8DFF"/>
   </svg>`;
-  clearButton.addEventListener("click", () => {
-    selectedRegion="";
-    selectedCountry="";
-    searchInput.value=""
-    regionWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Region ";
-    countryWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Country ";
-    setupCustomSelect(countryWrapper, ["Select Country"], () => {});
-    filterData();
-  })
-
 
   //custom dropdown setup
   function setupCustomSelect(wrapper, items, onSelect) {
@@ -175,6 +165,17 @@ export default async function decorate(block) {
 
     renderCards(filtered, true);
   }
+
+  // Clear button functionality
+  clearButton.addEventListener("click", () => {
+    selectedRegion="";
+    selectedCountry="";
+    searchInput.value=""
+    regionWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Region ";
+    countryWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Country ";
+    setupCustomSelect(countryWrapper, ["Select Country"], () => {});
+    filterData();
+  })
 
   setupCustomSelect(
     regionWrapper,
