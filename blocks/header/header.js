@@ -198,12 +198,15 @@ function createGlobalSearch() {
 
   const menuItems = {
     All: 'All',
-    'Products & services': 'Products and services',
-    Applications: 'Applications',
-    'Regulatory Doc': 'Regulatory documents',
-    'Customer Doc': 'Customer documents',
-    'Resource library': 'Resource library',
-    Training: 'Training',
+    "Applications":"Applications",
+    "Customer documents":"Customer documents",
+    "eCommerce":"eCommerce",
+    "Knowledge base articles":"Knowledge base articles",
+    "Products and services":"Products and services",
+    "Regulatory documents":"Regulatory documents",
+    "SCIEX How":"SCIEX How",
+    "Technical Notes":"Technical Notes",
+    "Training":"Training"
   };
 
   let selectedContentType = 'All';
@@ -541,8 +544,10 @@ function createMainHeader(section) {
 
     if (index === 0) {
       myprofile = anchorTag.text;
+      myprofile = myprofile.replace(/^\/content\/sciex-eds/, '');
     } else if (index === 1) {
       myFavoriteResources = anchorTag.text;
+       myFavoriteResources = myFavoriteResources.replace(/^\/content\/sciex-eds/, '');
     } else if (index === 2) {
       anchorTag.text = '';
       anchorTag.className = '';

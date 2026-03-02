@@ -1340,3 +1340,133 @@ main .section.highlight {
     /* padding: 0 20px !important; */
   }
 }
+/* XL Display */
+.text-xlDisplay {
+  font-family: 'Geogrotesque Variable', sans-serif;
+  font-size: 140px;
+  line-height: 140px;
+  letter-spacing: -0.01em; /* -1% */
+  font-variation-settings: "wght" 270, "wdth" 550;
+}
+
+/* L Display */
+.text-lDisplay {
+  font-size: 80px;
+  line-height: 96px;
+  letter-spacing: -0.01em;
+  font-variation-settings: "wght" 270, "wdth" 550;
+}
+
+/* Alfa */
+.text-alfa {
+  font-size: 64px;
+  line-height: 80px;
+  letter-spacing: 0;
+  font-variation-settings: "wght" 270, "wdth" 550;
+}
+
+/* Bravo */
+.text-bravo {
+  font-size: 52px;
+  line-height: 64px;
+  letter-spacing: 0;
+  font-variation-settings: "wght" 270, "wdth" 550;
+}
+
+/* Charlie */
+.text-charlie {
+  font-size: 40px;
+  line-height: 52px;
+  letter-spacing: 0;
+  font-variation-settings: "wght" 330, "wdth" 550;
+}
+
+/* Delta */
+.text-delta {
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: 0;
+  font-variation-settings: "wght" 330, "wdth" 550;
+}
+
+/* Echo Bolder */
+.text-echo-bolder {
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0;
+  font-variation-settings: "wght" 530, "wdth" 550;
+}
+
+/* Echo */
+.text-echo {
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0;
+  font-variation-settings: "wght" 330, "wdth" 550;
+}
+
+/* Large Bolder */
+.text-lg-bolder {
+  font-size: 19px;
+  line-height: 28px;
+  letter-spacing: 0.0025em; /* 0.25% */
+  font-variation-settings: "wght" 530, "wdth" 550;
+}
+
+/* Large */
+.text-lg {
+  font-size: 19px;
+  line-height: 28px;
+  letter-spacing: 0.0025em;
+  font-variation-settings: "wght" 330, "wdth" 550;
+}
+
+/* Base Bolder */
+.text-base-bolder {
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.005em; /* 0.5% */
+  font-variation-settings: "wght" 530, "wdth" 550;
+}
+
+/* Base */
+.text-base {
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.005em;
+  font-variation-settings: "wght" 330, "wdth" 550;
+}
+
+/* Small Bolder */
+.text-sm-bolder {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.005em;
+  font-variation-settings: "wght" 530, "wdth" 550;
+}
+
+/* Small */
+.text-sm {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.005em;
+  font-variation-settings: "wght" 330, "wdth" 550;
+}
+
+/* Caption Large */
+.text-caption-lg {
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.1em; /* 10% */
+  text-transform: uppercase;
+  font-variation-settings: "wght" 330, "wdth" 550;
+}
+
+/* Caption Small */
+.text-caption-sm {
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-variation-settings: "wght" 330, "wdth" 550;
+}
