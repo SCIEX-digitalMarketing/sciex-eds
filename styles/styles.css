@@ -1470,3 +1470,18 @@ main .section.highlight {
   text-transform: uppercase;
   font-variation-settings: "wght" 330, "wdth" 550;
 }
+.text-blue {
+  color: var(--Blue-700, #0068FA);
+}
+
+.text-grey {
+  color: var(--Grey-700, #6B7280);
+}
+
+.text-white {
+  color: var(--White, #FFFFFF);
+}
+
+.text-black {
+  color: var(--Black, #000000);
+}
