@@ -130,6 +130,8 @@ export default function decorate(block) {
   let target = '_blank';
   let id = '';
   let gridValue = '';
+  let headingFontStyle = '';
+  let headingFontColor = '';
 
   [...block.children].forEach((row, index) => {
     if (index === 0) {
@@ -140,17 +142,25 @@ export default function decorate(block) {
       headingText = row.textContent.trim();
       return;
     }
-    if (index === 2) {
+    if (index === 2 ) {
+      headingFontStyle = row.textContent.trim();
+      return;
+    }
+    if (index === 3 ) {    
+      headingFontColor = row.textContent.trim();
+      return;
+    }
+    if (index === 4) {
       description = row.textContent.trim();
       return;
     }
-    if (index === 3 && row.querySelector('div > div > p')) {
+    if (index === 5 && row.querySelector('div > div > p')) {
       target = row.textContent.trim();
       return;
     }
 
     if (
-      index === 4
+      index === 6
       && /^[1-4]$/.test(row.textContent.trim())
     ) {
       gridValue = row.textContent.trim();
@@ -367,7 +377,7 @@ export default function decorate(block) {
 
   const headingEl = document.createElement('h2');
   headingEl.textContent = headingText;
-  headingEl.className = 'cards-heading';
+  headingEl.className = `cards-heading ${headingFontStyle} ${headingFontColor}`.trim();
 
   const descriptionEl = document.createElement('p');
   descriptionEl.textContent = description;
