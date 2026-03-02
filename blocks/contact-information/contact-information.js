@@ -39,6 +39,7 @@ export default async function decorate(block) {
   const countryWrapper = block.querySelector(".country-select");
   const cardsContainer = block.querySelector(".cards");
   const searchInput = block.querySelector(".search-input");
+  const filter=document.querySelector(".filters");
 
   let selectedRegion = "";
   let selectedCountry = "";
@@ -88,9 +89,11 @@ export default async function decorate(block) {
     if (selectedRegion || selectedCountry || searchInput.value) {
       console.log("show clear")
       clearButton.style.display = "flex";
+      filter.style.marginTop="0px";
     } else {
       console.log("hide clear")
       clearButton.style.display = "none";
+      filter.style.marginTop="40px";
     }
     
     cardsContainer.innerHTML = "";
