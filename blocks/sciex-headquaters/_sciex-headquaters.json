@@ -40,7 +40,7 @@
             "component": "text",
             "valueType": "string",
             "name": "sciexHeadquatersID",
-            "label": "s",
+            "label": "Sciex Headquaters Heading",
             "value": ""
           },
           {
