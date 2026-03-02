@@ -121,19 +121,7 @@ letter-spacing: 0.08px;
 
 .support-cta--align-bottom .support-cta-inner {
   flex-direction: column;
-  align-items: flex-start;
   gap: 16px;
-}
-
-/* =========*
-
-/* ========== Action Row Layout ========== */
-
-.support-cta-action {
-  display: flex;
-  align-items: center;
-  gap: 16px;              /* space between primary, secondary, link */
-  flex-wrap: wrap;      /* allows wrap on small screens */
 }
 
 /* Optional: keep link visually aligned with buttons */
@@ -173,6 +161,42 @@ letter-spacing: 0.08px;
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
+}
+
+/* ========== Contact Theme Modifiers ========== */
+
+/* Dark Theme */
+.support-cta--dark .support-cta-inner {
+  background: #000;
+}
+
+.support-cta--dark .support-cta-title,
+.support-cta--dark .support-cta-desc {
+  color: #fff;
+}
+
+/* Light Theme */
+.support-cta--light .support-cta-inner {
+  background: #F5F5F5;
+}
+
+/* ========== Contact Alignment Modifiers ========== */
+
+.support-cta--contact-left {
+ align-items: flex-start;
+}
+
+.support-cta--contact-middle {
+  align-items: center;
+}
+
+.support-cta--contact-right{
+  align-items: flex-end;
+}
+
+.support-cta--dark .support-cta-button--secondary {
+  border: 1px solid  #FFF;
+  color:  #FFF;;
 }
 
 /* ================= MOBILE FIX ================= */
