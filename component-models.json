@@ -890,6 +890,18 @@
     ]
   },
   {
+    "id": "contact-information",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string",
+        "value": "Select your region to find contact information for your area"
+      }
+    ]
+  },
+  {
     "id": "coursecatalog",
     "fields": [
       {
