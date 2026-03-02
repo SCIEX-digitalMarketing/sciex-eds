@@ -8,19 +8,26 @@ export default async function decorate(block) {
   const headingText = rows[1]?.querySelector('p')?.textContent?.trim();
   const columnCount = parseInt(rows[2]?.querySelector('p')?.textContent?.trim(), 10) || 4;
 
-  block.innerHTML = '';
-
   if (blockId) block.id = blockId;
 
   block.classList.add('sciex-hq');
 
   const wrapper = div({ class: 'sciex-hq__wrapper' });
 
+  /* ---------------------------
+     HEADING (Row 1)
+  ---------------------------- */
   const headingWrapper = div({ class: 'sciex-hq__heading-wrapper' });
   headingWrapper.innerHTML = `<h2 class="sciex-hq__heading">${headingText}</h2>`;
-    wrapper.append(headingWrapper);
-    moveInstrumentation(block, headingWrapper);
 
+  // Move instrumentation from heading authored row → heading wrapper
+  moveInstrumentation(rows[1], headingWrapper);
+
+  wrapper.append(headingWrapper);
+
+  /* ---------------------------
+     GRID
+  ---------------------------- */
   const grid = div({ class: 'sciex-hq__grid' });
   grid.style.setProperty('--columns', columnCount);
 
@@ -34,13 +41,21 @@ export default async function decorate(block) {
     labelEl.textContent = label;
 
     const valueEl = div({ class: 'sciex-hq__value' });
-    valueEl.innerHTML = rawValue; // preserve <br>
+    valueEl.innerHTML = rawValue;
 
-      item.append(labelEl, valueEl);
-      moveInstrumentation(row, item);
+    item.append(labelEl, valueEl);
+
+    // Move instrumentation from authored row → item
+    moveInstrumentation(row, item);
+
     grid.append(item);
   });
 
   wrapper.append(grid);
+
+  /* ---------------------------
+     CLEAR ORIGINAL BLOCK
+  ---------------------------- */
+  block.innerHTML = '';
   block.append(wrapper);
 }
