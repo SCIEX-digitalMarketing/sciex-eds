@@ -2,9 +2,13 @@ import getPartnersData from "../../scripts/blocks-controllers/partner-controller
 
 export default async function decorate(block) {
 
+  // Get heading text from block through author
   const headingText = block.querySelector("p")?.textContent || "";
+
+  // Fetch data from controller (regions → countries → companies)
   const data = await getPartnersData();
 
+  // Inject full UI structure into block
   block.innerHTML = `
     <div class="contact-wrapper">
       <h2 class="contact-title">${headingText}</h2>      
@@ -35,15 +39,18 @@ export default async function decorate(block) {
     </div>
   `;
 
+  // Cache frequently used DOM elements
   const regionWrapper = block.querySelector(".region-select");
   const countryWrapper = block.querySelector(".country-select");
   const cardsContainer = block.querySelector(".cards");
   const searchInput = block.querySelector(".search-input");
-  const filter=document.querySelector(".filters");
+  const filter = document.querySelector(".filters");
 
+  // State variables
   let selectedRegion = "";
   let selectedCountry = "";
-
+  
+  // Add Clear button UI
   const clearButton=block.querySelector(".clear-button");
   clearButton.innerHTML = `Clear All <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
     <path d="M13 13.5L3.0001 3.5001" stroke="#3C8DFF"/>
@@ -54,54 +61,70 @@ export default async function decorate(block) {
   function setupCustomSelect(wrapper, items, onSelect) {
     const trigger = wrapper.querySelector(".select-trigger");
     const optionsContainer = wrapper.querySelector(".options");
+
+    // Reset previous options
     optionsContainer.innerHTML = "";
 
+    // Create dropdown options dynamically
     items.forEach((item) => {
       const option = document.createElement("div");
       option.className = "option";
       option.textContent = item;
 
+      // Handle option click
       option.addEventListener("click", () => {
-        trigger.firstChild.textContent = item;
-        wrapper.classList.remove("open");
-        onSelect(item);
+        trigger.firstChild.textContent = item; // Update label
+        wrapper.classList.remove("open");      // Close dropdown
+        onSelect(item);                        // Execute callback
       });
 
       optionsContainer.appendChild(option);
     });
 
+    // Toggle dropdown open/close
     trigger.onclick = () => {  
       wrapper.classList.toggle("open");
     };
   }
 
-  // Close the other trigger dropdown, if already opened
+  /**
+   * Global click listener
+   * Closes any open dropdown when clicking outside
+   */
   document.addEventListener("click", (e) => {
     document.querySelectorAll(".custom-select").forEach((dropdown) => {
-    if (!dropdown.contains(e.target)) {
-      dropdown.classList.remove("open");
-    }
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove("open");
+      }
     });
   });
- 
+
+  /**
+   * renderCards
+   * Renders company cards based on filtered data
+   */
   function renderCards(filteredData, showUSDefault = false) {
 
+    // Show or hide clear button depending on active filters
     if (selectedRegion || selectedCountry || searchInput.value) {
-      console.log("show clear")
       clearButton.style.display = "flex";
-      filter.style.marginTop="0px";
+      filter.style.marginTop = "0px";
     } else {
-      console.log("hide clear")
       clearButton.style.display = "none";
-      filter.style.marginTop="40px";
+      filter.style.marginTop = "40px";
     }
-    
+
+    // Clear previous cards
     cardsContainer.innerHTML = "";
-    
-    // Show US if nothing selected or searched
+
+    /**
+     * Default Behavior:
+     * If nothing selected or searched → show United States companies
+     */
     if (showUSDefault && !selectedRegion && !selectedCountry && !searchInput.value) {
       const usRegion = data.find(r => r.region === "North America");
       const usCountry = usRegion?.countries.find(c => c.country === "United States");
+
       if (usCountry) {
         usCountry.companies.forEach(company => {
           const card = document.createElement("div");
@@ -117,6 +140,7 @@ export default async function decorate(block) {
       }
     }
 
+    // Render filtered companies
     filteredData.forEach(region => {
       region.countries.forEach(country => {
         country.companies.forEach(company => {
@@ -132,18 +156,27 @@ export default async function decorate(block) {
       });
     });
   }
- 
+
+  /**
+   * filterData
+   * Core filtering logic
+   * - If search has value → filter by country name (ignores dropdowns)
+   * - Else → filter by selected region and country
+   */
   function filterData() {
     const searchValue = searchInput.value.trim().toLowerCase();
 
     let filtered;
 
     if (searchValue) {
+      // Reset dropdown selections when searching
       selectedRegion = "";
       selectedCountry = "";
+
       regionWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Region ";
       countryWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Country ";
 
+      // Filter by country name across all regions
       filtered = data
         .map(region => ({
           ...region,
@@ -154,6 +187,7 @@ export default async function decorate(block) {
         .filter(region => region.countries.length > 0);
 
     } else {
+      // Filter based on selected region & country
       filtered = data
         .filter(region => !selectedRegion || region.region === selectedRegion)
         .map(region => ({
@@ -169,17 +203,26 @@ export default async function decorate(block) {
     renderCards(filtered, true);
   }
 
-  // Clear button functionality
+  /**
+   * Clear Button Logic
+   * - Reset region
+   * - Reset country
+   * - Clear search
+   * - Reset dropdown labels
+   */
   clearButton.addEventListener("click", () => {
-    selectedRegion="";
-    selectedCountry="";
-    searchInput.value=""
+    selectedRegion = "";
+    selectedCountry = "";
+    searchInput.value = "";
+
     regionWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Region ";
     countryWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Country ";
+
     setupCustomSelect(countryWrapper, ["Select Country"], () => {});
     filterData();
-  })
+  });
 
+  // Initialize Region Dropdown
   setupCustomSelect(
     regionWrapper,
     ["Select Region", ...data.map(r => r.region)],
@@ -191,6 +234,7 @@ export default async function decorate(block) {
       countryWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Country ";
 
       const regionObj = data.find(r => r.region === selectedRegion);
+
       setupCustomSelect(
         countryWrapper,
         selectedRegion ? ["Select Country", ...regionObj.countries.map(c => c.country)] : ["Select Country"],
@@ -204,23 +248,29 @@ export default async function decorate(block) {
     }
   );
 
-searchInput.addEventListener("input", () => {
-  const searchValue = searchInput.value.trim().toLowerCase();
+  /**
+   * Search Input Listener
+   * - Clears dropdown selections when typing
+   * - Filters based on country name
+   */
+  searchInput.addEventListener("input", () => {
+    const searchValue = searchInput.value.trim().toLowerCase();
 
-  if (searchValue) {
+    if (searchValue) {
     // Clear dropdown selections
-    selectedRegion = "";
-    selectedCountry = "";
+      selectedRegion = "";
+      selectedCountry = "";
 
     // Reset dropdown labels
-    regionWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Region ";
-    countryWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Country ";
+      regionWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Region ";
+      countryWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Country ";
 
-    setupCustomSelect(countryWrapper, ["Select Country"], () => {});
-  }
+      setupCustomSelect(countryWrapper, ["Select Country"], () => {});
+    }
 
-  filterData();
-});
+    filterData();
+  });
 
-  renderCards(data, true); // Show US by default
+  // Initial render → Show United States by default
+  renderCards(data, true);
 }
