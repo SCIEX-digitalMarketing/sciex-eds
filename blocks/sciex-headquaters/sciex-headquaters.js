@@ -1,4 +1,5 @@
 import { div } from '../../scripts/dom-builder.js';
+import { moveInstrumentation } from '../../scripts/scripts.js';
 
 export default async function decorate(block) {
   const rows = [...block.children];
@@ -17,7 +18,8 @@ export default async function decorate(block) {
 
   const headingWrapper = div({ class: 'sciex-hq__heading-wrapper' });
   headingWrapper.innerHTML = `<h2 class="sciex-hq__heading">${headingText}</h2>`;
-  wrapper.append(headingWrapper);
+    wrapper.append(headingWrapper);
+    moveInstrumentation(block, headingWrapper);
 
   const grid = div({ class: 'sciex-hq__grid' });
   grid.style.setProperty('--columns', columnCount);
@@ -34,7 +36,8 @@ export default async function decorate(block) {
     const valueEl = div({ class: 'sciex-hq__value' });
     valueEl.innerHTML = rawValue; // preserve <br>
 
-    item.append(labelEl, valueEl);
+      item.append(labelEl, valueEl);
+      moveInstrumentation(row, item);
     grid.append(item);
   });
 
