@@ -15,6 +15,21 @@
             }
           }
         }
+      },
+      {
+        "title": "Sciex Headquaters Item",
+        "id": "sciex-headquarters-item",
+        "plugins": {
+          "xwalk": {
+            "page": {
+              "resourceType": "core/franklin/components/block/v1/block/item",
+              "template": {
+                "name": "sciex-headquarters-item",
+                "model": "sciex-headquarters-item"
+              }
+            }
+          }
+        }
       }
     ],
     "models": [
@@ -60,33 +75,33 @@
                 "value": "1"
               }
             ]
+          }
+        ]
+      },
+      {
+        "id": "sciex-headquarters-item",
+        "fields": [
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "itemHeading",
+            "label": "Card Heading",
+            "value": ""
           },
           {
-            "component": "container",
-            "name": "test",
-            "label": "Multi Text",
-            "multi": true,
-            "fields": [
-            {
-                "component": "text",
-                "valueType": "string",
-                "name": "itemHeading",
-                "label": "Card Heading",
-                "value": ""
-            },
-            {
-                "component": "richtext",
-                "name": "itemDescription",
-                "value": "",
-                "label": "Card text area",
-                "valueType": "string"
-            }
-            ]
+            "component": "richtext",
+            "name": "itemDescription",
+            "value": "",
+            "label": "Card text area",
+            "valueType": "string"
           }
-          
         ]
       }
     ],
-    "filters": []
+    "filters": [
+      {
+        "id": "sciex-headquarters",
+        "components": ["sciex-headquarters-item"]
+      }
+    ]
   }
-  

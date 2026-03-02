@@ -182,6 +182,12 @@
     ]
   },
   {
+    "id": "sciex-headquarters",
+    "components": [
+      "sciex-headquarters-item"
+    ]
+  },
+  {
     "id": "sciex-related-resource",
     "components": [
       "resource-item"
