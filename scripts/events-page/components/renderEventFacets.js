@@ -4,7 +4,6 @@ import {
   eventeventyearController,
   eventeventmonthController,
 } from '../controller/event-page-controllers.js';
-import { formatMonth } from './renderEventList.js';
 
 // Global list to track all dropdown menus
 const allDropdownMenus = [];
@@ -81,13 +80,13 @@ function createDropdown(label, items, onSelect) {
   items.forEach((item) => {
     const itemDiv = document.createElement('div');
     itemDiv.className = 'dropdown-item';
-    const formattedValue = formatMonth(item.value);
+    const formattedValue = item.value;
     itemDiv.textContent = formattedValue;
 
-    if (item.state === 'selected') toggleText.textContent = formatMonth(item.value);
+    if (item.state === 'selected') toggleText.textContent = item.value;
 
     itemDiv.addEventListener('click', () => {
-      toggleText.textContent = formatMonth(item.value);
+      toggleText.textContent = item.value;
       dropdownMenu.classList.remove('active');
       onSelect?.(item);
     });
