@@ -1,7 +1,4 @@
-.icon-card-wrapper {
-  margin: 10px 45px !important;
-  max-width: 90pc !important;
-}
+
 
 .icon-card-container-text {
   text-align: left;
@@ -11,7 +8,7 @@
 .icon-card-heading {
   font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: 40px;
   color: var(--Grey-900, #141414);
   font-family: "Geogrotesque Sharp VF";
   font-size: 40px;
