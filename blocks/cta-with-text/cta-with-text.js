@@ -7,19 +7,21 @@ export default function decorate(block) {
   const heading = child[0]?.textContent.trim();
   const description = child[1]?.textContent.trim();
   const variation = child[2]?.textContent.trim(); // card | banner
-  const alignment = child[3]?.textContent.trim(); // left | right | bottom
+  const alignment = child[3]?.textContent.trim(); // left | right | center (buttons only)
 
-  const primaryText = child[4]?.textContent.trim();
-  const primaryLink = child[6]?.textContent.trim();
-  const primaryTarget = child[7]?.textContent.trim();
-
-  const secondaryText = child[8]?.textContent.trim();
-  const secondaryLink = child[10]?.textContent.trim();
-  const secondaryTarget = child[11]?.textContent.trim();
-
-  const linkText = child[12]?.textContent.trim();
-  const linkUrl = child[14]?.textContent.trim();
-  const linkTarget = child[15]?.textContent.trim();
+  const contactConfig = child[4]?.textContent.trim(); // dark,contact-middle
+  
+  const primaryText = child[5]?.textContent.trim();
+  const primaryLink = child[7]?.textContent.trim();
+  const primaryTarget = child[8]?.textContent.trim();
+  
+  const secondaryText = child[9]?.textContent.trim();
+  const secondaryLink = child[11]?.textContent.trim();
+  const secondaryTarget = child[12]?.textContent.trim();
+  
+  const linkText = child[13]?.textContent.trim();
+  const linkUrl = child[15]?.textContent.trim();
+  const linkTarget = child[16]?.textContent.trim();
 
   // Clear original author markup
   block.innerHTML = '';
@@ -46,7 +48,44 @@ export default function decorate(block) {
   const inner = document.createElement('div');
   inner.className = 'support-cta-inner';
 
-  // Text wrapper
+  /* ======================================================
+     CONTACT CONFIG (Theme + Whole Content Alignment)
+     Default contact alignment = right
+  ====================================================== */
+
+  let themeValue = null;
+  let contactAlignment = 'contact-right'; // default
+
+  if (contactConfig) {
+    const values = contactConfig.split(',').map(val => val.trim());
+
+    // Extract theme
+    themeValue = values.find(val => val === 'dark' || val === 'light');
+
+    // Extract contact alignment
+    const alignmentValue = values.find(val =>
+      val === 'contact-left' ||
+      val === 'contact-middle' ||
+      val === 'contact-right'
+    );
+
+    if (alignmentValue) {
+      contactAlignment = alignmentValue;
+    }
+  }
+
+  // Apply theme to section
+  if (themeValue) {
+    section.classList.add(`support-cta--${themeValue}`);
+  }
+
+  // Apply contact alignment to INNER only
+  inner.classList.add(`support-cta--${contactAlignment}`);
+
+  /* ======================================================
+     TEXT WRAPPER
+  ====================================================== */
+
   const textWrap = document.createElement('div');
   textWrap.className = 'support-cta-text';
 
@@ -64,7 +103,11 @@ export default function decorate(block) {
     textWrap.appendChild(descEl);
   }
 
-  // Action wrapper
+  /* ======================================================
+     ACTION WRAPPER (Buttons Only Alignment)
+     Default = right
+  ====================================================== */
+
   const actionWrap = document.createElement('div');
   actionWrap.className = 'support-cta-action';
 
@@ -125,11 +168,10 @@ export default function decorate(block) {
     inner.appendChild(textWrap);
   } else {
     // right & bottom default order
-    inner.appendChild(textWrap);
-    inner.appendChild(actionWrap);
+  inner.appendChild(textWrap);
+  inner.appendChild(actionWrap);
   }
 
   section.appendChild(inner);
-  block.textContent = '';
   block.appendChild(section);
 }

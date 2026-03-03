@@ -52,10 +52,6 @@ export default async function decorate(block) {
   });
 
   wrapper.append(grid);
-
-  /* ---------------------------
-     CLEAR ORIGINAL BLOCK
-  ---------------------------- */
   block.innerHTML = '';
   block.append(wrapper);
 }
