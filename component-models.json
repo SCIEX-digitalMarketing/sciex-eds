@@ -2685,6 +2685,69 @@
     ]
   },
   {
+    "id": "sciex-headquarters",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sciexHeadquatersID",
+        "label": "Sciex Headquaters Heading",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sciexHeadquatersHeading",
+        "label": "Sciex Headquaters Heading",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "grid",
+        "label": "Select how many cards in a column",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": "4"
+          },
+          {
+            "name": "3-columns",
+            "value": "3"
+          },
+          {
+            "name": "2-columns",
+            "value": "2"
+          },
+          {
+            "name": "1-columns",
+            "value": "1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sciex-headquarters-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "itemHeading",
+        "label": "Card Heading",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "itemDescription",
+        "value": "",
+        "label": "Card text area",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "sciex-related-resource",
     "fields": [
       {
