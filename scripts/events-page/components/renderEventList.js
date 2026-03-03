@@ -103,7 +103,7 @@ function createMonthHeading(monthKey = '') {
 
 function renderGroupedEvents(groupedEvents, container) {
   Object.entries(groupedEvents)
-    .sort(([a], [b]) => new Date(`1 ${a}`) - new Date(`1 ${b}`)) // Sort by date
+    .sort(([a], [b]) => new Date(`1 ${b}`) - new Date(`1 ${a}`)) // Lasted events first
     .forEach(([monthKey, events]) => {
       container.appendChild(createMonthHeading(monthKey));
       events.forEach((event, idx) => {
