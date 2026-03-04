@@ -7,11 +7,6 @@ function createElement(tag, className, innerHTML = '') {
   return el;
 }
 
-export function formatMonth(data) {
-  if (!data) return '';
-  return data.charAt(0).toUpperCase() + data.slice(1).toLowerCase();
-}
-
 function createIcon(eventType) {
   const iconContainer = createElement('div', 'event-icon');
   const icon = createElement('span');
@@ -21,7 +16,7 @@ function createIcon(eventType) {
   return iconContainer;
 }
 function createDate(month = '', date = '') {
-  const safeMonth = formatMonth(month ?? '');
+  const safeMonth = month ?? '';
   const safeDate = Number.isFinite(date) ? date : '';
 
   return createElement(
@@ -98,19 +93,25 @@ function createMonthHeading(monthKey = '') {
     .replace(/\bundefined\b/gi, '')
     .replace(/\bNaN\b/gi, '')
     .trim();
-  const formattedMonth = formatMonth(safeMonthKey);
+  if (!safeMonthKey) {
+    return null;
+  }
   return createElement(
     'div',
     'month-heading',
-    formattedMonth,
+    safeMonthKey
   );
 }
 
 function renderGroupedEvents(groupedEvents, container) {
   Object.entries(groupedEvents)
-    .sort(([a], [b]) => new Date(`1 ${a}`) - new Date(`1 ${b}`)) // Sort by date
+    .sort(([a], [b]) => new Date(`1 ${b}`) - new Date(`1 ${a}`)) // Lasted events first
     .forEach(([monthKey, events]) => {
-      container.appendChild(createMonthHeading(monthKey));
+      const heading = createMonthHeading(monthKey);
+      if (heading) {
+        container.appendChild(heading);
+      }
+
       events.forEach((event, idx) => {
         const card = createEventCard(event);
         if (idx === events.length - 1) {
