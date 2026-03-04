@@ -93,20 +93,24 @@ function createMonthHeading(monthKey = '') {
     .replace(/\bundefined\b/gi, '')
     .replace(/\bNaN\b/gi, '')
     .trim();
-  console.warn(`Creating month heading for key: "${monthKey}", sanitized to: "${safeMonthKey}"`);
-  const formattedMonth = safeMonthKey;
+  if (!safeMonthKey) {
+    return null;
+  }
   return createElement(
     'div',
     'month-heading',
-    formattedMonth,
+    safeMonthKey
   );
 }
 
 function renderGroupedEvents(groupedEvents, container) {
   Object.entries(groupedEvents)
-    .sort(([a], [b]) => new Date(`1 ${a}`) - new Date(`1 ${b}`)) // Sort by date
+    .sort(([a], [b]) => new Date(`1 ${b}`) - new Date(`1 ${a}`)) // Lasted events first
     .forEach(([monthKey, events]) => {
-  
+      const heading = createMonthHeading(monthKey);
+      if (heading) {
+        container.appendChild(heading);
+      }
 
       events.forEach((event, idx) => {
         const card = createEventCard(event);
