@@ -5,19 +5,19 @@
 }
 .contact-hero-heading-hero {
   color: var(--Grey-900, #141414);
-  font-family: "Geogrotesque Sharp VF TRIAL";
+  font-family: "Geogrotesque Sharp VF";
   font-size: 52px;
   font-style: normal;
   font-weight: 270;
 }
 .contact-hero-description{
   color: var(--Grey-900, #141414);
-/* font-family: "Geogrotesque Sharp VF TRIAL"; */
-font-size: 16px;
-font-style: normal;
-font-weight: 330;
-line-height: 24px; /* 150% */
-letter-spacing: 0.08px;
+  font-family: "Geogrotesque Sharp VF";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 330;
+  line-height: 24px;
+  letter-spacing: 0.08px;
 }
 .contact-hero-buttons a.button:any-link{
   margin: 0;
