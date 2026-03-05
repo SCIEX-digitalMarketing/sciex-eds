@@ -103,6 +103,23 @@
               "value": "contact-type"
             }
           ]
+        },
+        {
+          "component": "select",
+          "name": "brandType",
+          "label": "Select brand",
+          "value": "",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "sciex",
+              "value": "SCIEX"
+            },
+            {
+              "name": "Phenomenex",
+              "value": "PHENOMENEX"
+            }
+          ]
         }
       ]
     },

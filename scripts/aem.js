@@ -740,6 +740,26 @@ async function loadSections(element) {
   }
 }
 
+/**
+ * Loads all sections.
+ * @param {Element} element The parent element of sections to load
+ */
+
+async function sectionBackgroundColor(element) {
+  const sections = [...element.querySelectorAll('div.section')];
+
+  for (let i = 0; i < sections.length; i += 1) {
+    const section = sections[i];
+
+    // check for data-color attribute
+    const color = section.dataset.color;
+
+    if (color) {
+      section.classList.add(`section-bg-${color}`);
+    }
+  }
+}
+
 init();
 
 export {
@@ -760,6 +780,7 @@ export {
   loadScript,
   loadSection,
   loadSections,
+  sectionBackgroundColor,
   readBlockConfig,
   sampleRUM,
   setup,
