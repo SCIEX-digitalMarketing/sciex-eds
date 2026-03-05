@@ -103,23 +103,6 @@
               "value": "contact-type"
             }
           ]
-        },
-        {
-          "component": "select",
-          "name": "brandType",
-          "label": "Select brand",
-          "value": "",
-          "valueType": "string",
-          "options": [
-            {
-              "name": "sciex",
-              "value": "SCIEX"
-            },
-            {
-              "name": "Phenomenex",
-              "value": "PHENOMENEX"
-            }
-          ]
         }
       ]
     },
@@ -166,6 +149,23 @@
           "options": [
             { "name": "Open In Same Tab", "value": "_self" },
             { "name": "Open In New Tab", "value": "_blank" }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "brandType",
+          "label": "Select brand",
+          "value": "",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "sciex",
+              "value": "SCIEX"
+            },
+            {
+              "name": "Phenomenex",
+              "value": "PHENOMENEX"
+            }
           ]
         }
       ]
