@@ -1326,7 +1326,8 @@ main .section.highlight {
   .sciex-related-resource-wrapper,
   .featured-products-wrapper,
   .contact-information-wrapper,
-  .cta-with-text-wrapper {
+  .cta-with-text-wrapper,
+  .sciex-headquaters-wrapper {
     max-width: 90pc !important;
     /* padding: 0 55px !important; */
   }
