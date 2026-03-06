@@ -13,14 +13,18 @@ export default function decorate(block) {
   let description = '';
   let columns = 2;
   let typeOfCard = '';
+  let fontType = '';
+  let headingType = '';
 
   rows.forEach((row, index) => {
     const text = row.textContent.trim();
     if (index === 0) id = text;
     else if (index === 1) heading = text;
-    else if (index === 2) description = text;
-    else if (index === 3) columns = parseInt(text, 10) || 2;
-    else if (index === 4) typeOfCard = text;
+    else if (index === 2) fontType = text;
+    else if (index === 3)  headingType = text;
+    else if (index === 4) description = text;
+    else if (index === 5) columns = parseInt(text, 10) || 2;
+    else if (index === 6) typeOfCard = text;
   });
 
   if (id) iconCardContainer.id = `${id}-content`;
@@ -43,19 +47,17 @@ export default function decorate(block) {
   gridContainer.className = `icon-card-grid columns-${columns}`;
   iconCardContainer.append(gridContainer);
 
-  rows.slice(5).forEach((row) => {
+  rows.slice(7).forEach((row) => {
     const cells = [...row.children];
     if (!cells.length) return;
 
     const iconHTML = cells[0]?.innerHTML?.trim() || '';
     const headingHTML = cells[1]?.innerHTML?.trim() || '';
-    const fontType = cells[2]?.getAttribute('data-font-type') || '';
-    const heaingColor = cells[3]?.getAttribute('data-heading-color') || '';
-    const descriptionHTML = cells[4]?.innerHTML?.trim() || '';
-    const linkLabel = cells[5]?.textContent?.trim() || '';
-    const linkHref = cells[6]?.textContent?.trim() || '';
-    const linkTarget = cells[7]?.textContent?.trim() || '_self';
-    const brand = cells[8]?.textContent?.trim() || '';
+    const descriptionHTML = cells[2]?.innerHTML?.trim() || '';
+    const brand = cells[3]?.textContent?.trim() || '';
+    const linkLabel = cells[4]?.textContent?.trim() || '';
+    const linkHref = cells[5]?.textContent?.trim() || '';
+    const linkTarget = cells[6]?.textContent?.trim() || '_self';
 
     const card = document.createElement('div');
     card.className = 'icon-card-sub-container';
@@ -86,6 +88,13 @@ export default function decorate(block) {
       const h3 = document.createElement('h3');
       h3.className = 'icon-card-title';
       h3.innerHTML = headingHTML;
+      if (fontType) {
+        h3.classList.add(fontType);
+      }
+      
+      if (headingType) {
+        h3.classList.add(headingType);
+      }
       contentWrap.append(h3);
     }
 

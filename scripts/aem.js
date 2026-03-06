@@ -755,7 +755,7 @@ async function sectionBackgroundColor(element) {
     const color = section.dataset.color;
 
     if (color) {
-      section.classList.add(`section-bg-${color}`);
+      section.classList.add(color);
     }
   }
 }

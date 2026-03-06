@@ -296,16 +296,16 @@ main .section.highlight {
   overflow: hidden;
 }
 
-.section-bg-Gray {
+.text-blue {
+  color: var(--Blue-700, #0068FA) !important;
+}
+
+.text-gray{
   background-color: #F5F5F5;
 }
 
-.section-bg-Black {
+.text-black {
   background-color: black;
-}
-
-.section-bg-White {
-  background-color: white;
 }
 
 .search-result {
