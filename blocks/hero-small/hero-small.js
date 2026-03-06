@@ -6,7 +6,7 @@ function extractBlockData(block) {
   const clonedCells = cells.map((cell) => cell.cloneNode(true));
 
   const mediaDivChildren =
-    clonedCells[14]?.querySelectorAll(':scope > div') || [];
+    clonedCells[15]?.querySelectorAll(':scope > div') || [];
 
   const isContactHero =
     mediaDivChildren[1]
@@ -19,8 +19,9 @@ function extractBlockData(block) {
     description: clonedCells[2]?.innerText.trim(),
     tagline: clonedCells[12]?.innerText.trim(),
     badgePicture: clonedCells[13]?.querySelector('picture'),
-    mainPicture: clonedCells[14]?.querySelector('picture'),
-    videoAnchor: clonedCells[14]?.querySelector('.button-container a'),
+    captionPosition: clonedCells[14]?.querySelector('p')?.textContent?.trim() || 'top',
+    mainPicture: clonedCells[15]?.querySelector('picture'),
+    videoAnchor: clonedCells[15]?.querySelector('.button-container a'),
     mediaDivChildren,
     buttonDataList: [],
     isContactHero,
@@ -54,6 +55,7 @@ function preserveOriginalAuthoring(block) {
 }
 
 function buildHeroContent(data) {
+  const taglineWrap = document.createElement('div');
   const applyClass = (baseClass) =>
     data.isContactHero ? `contact-${baseClass}` : baseClass;
 
@@ -62,9 +64,12 @@ function buildHeroContent(data) {
 
   // Tagline + Badge
   if (data.tagline) {
-    const taglineWrap = document.createElement('div');
-    taglineWrap.className = applyClass('hero-tagline-wrap');
+    const baseClass = applyClass('hero-tagline-wrap');
 
+    taglineWrap.className =
+      data.captionPosition === 'bottom'
+        ? `${baseClass}-bottom`
+        : baseClass;
     if (data.badgePicture) {
       const badgeWrap = document.createElement('div');
       badgeWrap.className = applyClass('hero-badge');
@@ -76,8 +81,9 @@ function buildHeroContent(data) {
     tagline.className = applyClass('hero-tagline');
     tagline.textContent = data.tagline;
     taglineWrap.append(tagline);
+ if (data.captionPosition !== 'bottom') {
     content.append(taglineWrap);
-  }
+  }  }
 
   // Heading
   if (data.heading) {
@@ -122,6 +128,9 @@ function buildHeroContent(data) {
 
     content.append(buttons);
     decorateIcons(buttons);
+  }
+  if (taglineWrap && data.captionPosition === 'bottom') {
+    content.append(taglineWrap);
   }
 
   return content;
