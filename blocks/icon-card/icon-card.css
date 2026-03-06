@@ -129,6 +129,7 @@
 }
 
 .icon-card-image {
+  position: relative;
   width: 48px;
   height: 48px;
   display: flex;
@@ -266,8 +267,29 @@ line-height: normal;
   width: auto !important;
 }
 
+.icon-card-brand {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  border-radius: 4px;
+  background: var(--Grey-50, #F5F5F5);
+  color: #000;
+  font-family: "Geogrotesque Sharp VF";
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 8px;
+  line-height: 1;
+}
+
 /* ✅ Responsive adjustments */
 @media (max-width: 768px) {
+  .icon-card-brand {
+    top: 6px;
+    left: 45px;
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+
   .icon-card-wrapper {
     margin: 0px !important;
   }

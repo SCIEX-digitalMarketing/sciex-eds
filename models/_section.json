@@ -44,16 +44,16 @@
           "label": "Select background color",
           "options": [
             {
-              "name": "black",
-              "value": "black"
+              "name": "Black",
+              "value": "Black"
             },
             {
-              "name": "white",
-              "value": "white"
+              "name": "White",
+              "value": "White"
             },
             {
-              "name": "gray",
-              "value": "gray"
+              "name": "Gray",
+              "value": "Gray"
             }
           ]
         }

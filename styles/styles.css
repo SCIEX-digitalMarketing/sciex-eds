@@ -295,6 +295,19 @@ main .section.highlight {
   height: 100vh;
   overflow: hidden;
 }
+
+.section-bg-Gray {
+  background-color: #F5F5F5;
+}
+
+.section-bg-Black {
+  background-color: black;
+}
+
+.section-bg-White {
+  background-color: white;
+}
+
 .search-result {
   background-color: #fff;
 }

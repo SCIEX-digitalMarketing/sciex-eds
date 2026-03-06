@@ -49,10 +49,13 @@ export default function decorate(block) {
 
     const iconHTML = cells[0]?.innerHTML?.trim() || '';
     const headingHTML = cells[1]?.innerHTML?.trim() || '';
-    const descriptionHTML = cells[2]?.innerHTML?.trim() || '';
-    const linkLabel = cells[3]?.textContent?.trim() || '';
-    const linkHref = cells[4]?.textContent?.trim() || '';
-    const linkTarget = cells[5]?.textContent?.trim() || '_self';
+    const fontType = cells[2]?.getAttribute('data-font-type') || '';
+    const heaingColor = cells[3]?.getAttribute('data-heading-color') || '';
+    const descriptionHTML = cells[4]?.innerHTML?.trim() || '';
+    const linkLabel = cells[5]?.textContent?.trim() || '';
+    const linkHref = cells[6]?.textContent?.trim() || '';
+    const linkTarget = cells[7]?.textContent?.trim() || '_self';
+    const brand = cells[8]?.textContent?.trim() || '';
 
     const card = document.createElement('div');
     card.className = 'icon-card-sub-container';
@@ -63,7 +66,16 @@ export default function decorate(block) {
     if (iconHTML && typeOfCard !== 'contact-type') {
       const iconWrap = document.createElement('div');
       iconWrap.className = 'icon-card-image';
-      iconWrap.innerHTML = iconHTML;
+    
+      // Brand label above image
+      if (brand) {
+        const brandLabel = document.createElement('div');
+        brandLabel.className = 'icon-card-brand';
+        brandLabel.textContent = brand;
+        iconWrap.append(brandLabel);
+      }
+    
+      iconWrap.innerHTML += iconHTML;
       card.append(iconWrap);
     }
 

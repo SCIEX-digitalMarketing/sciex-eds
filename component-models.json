@@ -275,16 +275,16 @@
         "label": "Select background color",
         "options": [
           {
-            "name": "black",
-            "value": "black"
+            "name": "Black",
+            "value": "Black"
           },
           {
-            "name": "white",
-            "value": "white"
+            "name": "White",
+            "value": "White"
           },
           {
-            "name": "gray",
-            "value": "gray"
+            "name": "Gray",
+            "value": "Gray"
           }
         ]
       }
@@ -1887,6 +1887,108 @@
         "value": ""
       },
       {
+        "component": "select",
+        "name": "fontStyle",
+        "label": "Select Heading Font Style",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "XL Display",
+            "value": "text-xlDisplay"
+          },
+          {
+            "name": "L Display",
+            "value": "text-lDisplay"
+          },
+          {
+            "name": "Alfa",
+            "value": "text-alfa"
+          },
+          {
+            "name": "Bravo",
+            "value": "text-bravo"
+          },
+          {
+            "name": "Charlie",
+            "value": "text-charlie"
+          },
+          {
+            "name": "Delta",
+            "value": "text-delta"
+          },
+          {
+            "name": "Echo",
+            "value": "text-echo"
+          },
+          {
+            "name": "Echo Bolder",
+            "value": "text-echo-bolder"
+          },
+          {
+            "name": "Large",
+            "value": "text-lg"
+          },
+          {
+            "name": "Large Bolder",
+            "value": "text-lg-bolder"
+          },
+          {
+            "name": "Base",
+            "value": "text-base"
+          },
+          {
+            "name": "Base Bolder",
+            "value": "text-base-bolder"
+          },
+          {
+            "name": "Small",
+            "value": "text-sm"
+          },
+          {
+            "name": "Small Bolder",
+            "value": "text-sm-bolder"
+          },
+          {
+            "name": "Caption Large",
+            "value": "text-caption-lg"
+          },
+          {
+            "name": "Caption Small",
+            "value": "text-caption-sm"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "textColor",
+        "label": "Select Heading Color",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Blue",
+            "value": "text-blue"
+          },
+          {
+            "name": "Grey",
+            "value": "text-grey"
+          },
+          {
+            "name": "White",
+            "value": "text-white"
+          },
+          {
+            "name": "Black",
+            "value": "text-black"
+          }
+        ]
+      },
+      {
         "component": "text",
         "valueType": "string",
         "name": "iconCarddescription",
@@ -1993,21 +2095,10 @@
         ]
       },
       {
-        "component": "select",
-        "name": "brandType",
-        "label": "Select brand",
-        "value": "",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "sciex",
-            "value": "SCIEX"
-          },
-          {
-            "name": "Phenomenex",
-            "value": "PHENOMENEX"
-          }
-        ]
+        "component": "text",
+        "name": "imageLabel",
+        "label": "Image Label",
+        "value": ""
       }
     ]
   },
