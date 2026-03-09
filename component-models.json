@@ -1658,6 +1658,115 @@
         "placeholder": "YYYY-MM-DD",
         "displayFormat": null,
         "valueFormat": null
+      },
+      {
+        "component": "boolean",
+        "label": "it Full Image banner?",
+        "name": "itsFullImage",
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "name": "buttonText",
+        "label": "Primary Button Text",
+        "value": "",
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "aem-content",
+        "name": "buttonUrl",
+        "label": "primary Button Url",
+        "value": "",
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "radio-group",
+        "label": "option To Select primary button url",
+        "name": "OpentionToSelectPrimary",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            true
+          ]
+        },
+        "options": [
+          {
+            "name": "Open In Same Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open In New Tab",
+            "value": "_blank"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "buttonTextSecondary",
+        "label": "Secondary Button Text",
+        "value": "",
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "aem-content",
+        "name": "secondaryButtonUrl",
+        "label": "Secondary Button Url",
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "radio-group",
+        "label": "option To Select Secondary button url",
+        "name": "OpentionToSelectSecondary",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            true
+          ]
+        },
+        "options": [
+          {
+            "name": "Open In Same Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open In New Tab",
+            "value": "_blank"
+          }
+        ]
       }
     ]
   },
