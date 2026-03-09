@@ -276,15 +276,19 @@
         "options": [
           {
             "name": "Black",
-            "value": "text-black"
+            "value": "text-black-background"
           },
           {
             "name": "White",
-            "value": "text-white"
+            "value": "text-white-background"
           },
           {
             "name": "Gray",
-            "value": "text-grey"
+            "value": "text-grey-background"
+          },
+          {
+            "name": "Blue",
+            "value": "text-blue-background"
           }
         ]
       }

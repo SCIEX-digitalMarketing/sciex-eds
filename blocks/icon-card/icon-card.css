@@ -108,7 +108,6 @@
   font-size: 20px;
   font-weight: 600;
   line-height: 26px;
-  color: #141414;
   margin-bottom: 0.5rem;
 }
 
@@ -137,7 +136,6 @@
 }
 
 .icon-card-title {
-  color: #1A1A1A;
   font-family: "Geogrotesque Sharp VF";
   font-size: 24px;
   font-style: normal;
@@ -150,7 +148,6 @@
 }
 
 .contact-type .icon-card-title {
-  color: #1A1A1A;
 font-family: "Geogrotesque Sharp VF";
 font-size: 24px;
 font-style: normal;

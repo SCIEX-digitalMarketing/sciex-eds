@@ -296,18 +296,6 @@ main .section.highlight {
   overflow: hidden;
 }
 
-.text-blue {
-  color: var(--Blue-700, #0068FA) !important;
-}
-
-.text-gray{
-  background-color: #F5F5F5;
-}
-
-.text-black {
-  background-color: black;
-}
-
 .search-result {
   background-color: #fff;
 }
@@ -1500,4 +1488,20 @@ main .section.highlight {
 
 .text-black {
   color: var(--Black, #000000);
+}
+
+.text-blue-background {
+ background-color: var(--Blue-700, #0068FA);
+}
+
+.text-gray-background {
+  background-color: var(--Grey-700, #6B7280);
+}
+
+.text-black-background {
+  background-color: var(--Black, #000000);
+}
+
+.text-white-background {
+  background-color: var(--White, #FFFFFF);;
 }
