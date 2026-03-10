@@ -383,6 +383,7 @@ export default function decorate(block) {
   descriptionEl.textContent = description;
   descriptionEl.className = 'cards-description';
 
+  block.textContent = '';
   block.id = `${id}-content`;
   block.parentElement.classList.add('tabs-container-wrapper');
   block.append(headingEl);
