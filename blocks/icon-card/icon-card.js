@@ -54,10 +54,10 @@ export default function decorate(block) {
     const iconHTML = cells[0]?.innerHTML?.trim() || '';
     const headingHTML = cells[1]?.innerHTML?.trim() || '';
     const descriptionHTML = cells[2]?.innerHTML?.trim() || '';
-    const brand = cells[3]?.textContent?.trim() || '';
-    const linkLabel = cells[4]?.textContent?.trim() || '';
-    const linkHref = cells[5]?.textContent?.trim() || '';
-    const linkTarget = cells[6]?.textContent?.trim() || '_self';
+    const linkLabel = cells[3]?.textContent?.trim() || '';
+    const linkHref = cells[4]?.textContent?.trim() || '';
+    const linkTarget = cells[5]?.textContent?.trim() || '_self';
+    const brand = cells[6]?.textContent?.trim() || '';
 
     const card = document.createElement('div');
     card.className = 'icon-card-sub-container';
