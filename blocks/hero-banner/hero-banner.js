@@ -42,16 +42,35 @@ export default async function decorate(block) {
   const buttonContainer = block.querySelector('.button-container');
   const buttonText = buttonContainer?.querySelector('a')?.textContent;
   const eyeBrow = block.children[2]?.textContent?.trim();
+  const isFullImage = block.children[6]?.textContent?.trim()?.toLowerCase() === 'true';
+  let fullWidthButtonText = '';
+  let fullWidthButtonLink = '';
+  let fullWidthButtonTarget = '';
+  let oveyLayIMG = '';
+  let fullWidthButtonIcon = '';
+
+  if (isFullImage) {
+    oveyLayIMG = block.children[7]?.textContent?.trim();
+    fullWidthButtonText = block.children[8]?.textContent?.trim();
+    fullWidthButtonLink = block.children[9]?.textContent?.trim();
+    fullWidthButtonIcon = block.children[10]?.textContent?.trim();
+    fullWidthButtonTarget = block.children[11]?.textContent?.trim();
+    
+  }
 
   block.textContent = '';
 
   const eventCard = document.createElement('div');
   eventCard.classList.add('event-card');
 
+  if (isFullImage) {
+    eventCard.classList.add('full-image-layout');
+  }
+
   const contentContainer = document.createElement('div');
   contentContainer.classList.add('event-content');
 
-  if (buttonText) {
+  if (buttonText && !isFullImage) {
     const isLight = isLightBackground(buttonText);
     contentContainer.classList.add(isLight ? 'light-theme' : 'dark-theme');
   }
@@ -117,6 +136,23 @@ export default async function decorate(block) {
 
     datetimeWrapper.append(dateContainer, timeContainer);
     contentContainer.append(datetimeWrapper);
+  }
+
+  if (isFullImage && fullWidthButtonText && fullWidthButtonLink) {
+    const buttonWrapper = document.createElement('p');
+    buttonWrapper.classList.add('button-container');
+  
+    const button = document.createElement('a');
+    button.classList.add('button');
+    button.textContent = fullWidthButtonText;
+    button.href = fullWidthButtonLink;
+  
+    if (fullWidthButtonTarget) {
+      button.target = fullWidthButtonTarget;
+    }
+  
+    buttonWrapper.append(button);
+    contentContainer.append(buttonWrapper);
   }
 
   decorateIcons(contentContainer);
