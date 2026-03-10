@@ -58,13 +58,6 @@ export default function decorate(block) {
     wrapper.append(desktopPicture);
   }
 
-  // caption
-  if (caption) {
-    const captionEl = document.createElement("p");
-    captionEl.className = "image-caption";
-    captionEl.textContent = caption;
-    wrapper.append(captionEl);
-  }
 
   block.append(wrapper);
 }
