@@ -51,6 +51,108 @@
           "value": ""
         },
         {
+          "component": "select",
+          "name": "fontStyle",
+          "label": "Select Heading Font Style",
+          "value": "",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "XL Display",
+              "value": "text-xlDisplay"
+            },
+            {
+              "name": "L Display",
+              "value": "text-lDisplay"
+            },
+            {
+              "name": "Alfa",
+              "value": "text-alfa"
+            },
+            {
+              "name": "Bravo",
+              "value": "text-bravo"
+            },
+            {
+              "name": "Charlie",
+              "value": "text-charlie"
+            },
+            {
+              "name": "Delta",
+              "value": "text-delta"
+            },
+            {
+              "name": "Echo",
+              "value": "text-echo"
+            },
+            {
+              "name": "Echo Bolder",
+              "value": "text-echo-bolder"
+            },
+            {
+              "name": "Large",
+              "value": "text-lg"
+            },
+            {
+              "name": "Large Bolder",
+              "value": "text-lg-bolder"
+            },
+            {
+              "name": "Base",
+              "value": "text-base"
+            },
+            {
+              "name": "Base Bolder",
+              "value": "text-base-bolder"
+            },
+            {
+              "name": "Small",
+              "value": "text-sm"
+            },
+            {
+              "name": "Small Bolder",
+              "value": "text-sm-bolder"
+            },
+            {
+              "name": "Caption Large",
+              "value": "text-caption-lg"
+            },
+            {
+              "name": "Caption Small",
+              "value": "text-caption-sm"
+            }
+          ]
+      },
+      {
+        "component": "select",
+        "name": "textColor",
+        "label": "Select Heading Color",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Blue",
+            "value": "text-blue"
+          },
+          {
+            "name": "Grey",
+            "value": "text-grey"
+          },
+          {
+            "name": "White",
+            "value": "text-white"
+          },
+          {
+            "name": "Black",
+            "value": "text-black"
+          }
+        ]
+      },
+        {
           "component": "text",
           "valueType": "string",
           "name": "iconCarddescription",
@@ -150,6 +252,12 @@
             { "name": "Open In Same Tab", "value": "_self" },
             { "name": "Open In New Tab", "value": "_blank" }
           ]
+        },
+        {
+          "component": "text",
+          "name": "imageLabel",
+          "label": "Image Label",
+          "value": ""
         }
       ]
     }

@@ -1,5 +1,3 @@
-
-
 .icon-card-container-text {
   text-align: left;
   padding: 2rem 0;
@@ -90,10 +88,14 @@
   align-items: center;
 }
 
+.icon-card-image picture{
+  width: 100%;
+}
+
 .image-type .icon-card-image img {
   max-width: 100%;
-  height: 165px;
-  width: 192px;
+  height: 144px;
+  width: 100%;
 }
 
 .image-type .icon-card-content {
@@ -108,7 +110,6 @@
   font-size: 20px;
   font-weight: 600;
   line-height: 26px;
-  color: #141414;
   margin-bottom: 0.5rem;
 }
 
@@ -129,6 +130,7 @@
 }
 
 .icon-card-image {
+  position: relative;
   width: 48px;
   height: 48px;
   display: flex;
@@ -136,7 +138,6 @@
 }
 
 .icon-card-title {
-  color: #1A1A1A;
   font-family: "Geogrotesque Sharp VF";
   font-size: 24px;
   font-style: normal;
@@ -149,7 +150,6 @@
 }
 
 .contact-type .icon-card-title {
-  color: #1A1A1A;
 font-family: "Geogrotesque Sharp VF";
 font-size: 24px;
 font-style: normal;
@@ -216,25 +216,20 @@ line-height: normal;
   align-items: center;
   justify-content: center;
   gap: 8px;
-
   padding: 12px 24px;
   border-radius: 4px;
   border: none;
-
   background-color: #0068FA;
   color: #ffffff;
-
   font-family: "Geogrotesque Sharp VF";
   font-size: 16px;
   font-weight: 530;
   line-height: 24px;
-
   cursor: pointer;
   align-self: flex-start;
-
   transition: background-color 0.2s ease, transform 0.15s ease;
 }
-
+ 
 .contact-type .button-text {
     color: var(--White-0, #FFF);
     font-family: "Geogrotesque Sharp VF";
@@ -266,8 +261,30 @@ line-height: normal;
   width: auto !important;
 }
 
+.icon-card-brand {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  border-radius: 4px;
+  background: var(--Grey-50, #F5F5F5);
+  color: #000;
+  font-family: "Geogrotesque Sharp VF";
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 8px;
+  line-height: 1;
+}
+ 
 /* ✅ Responsive adjustments */
 @media (max-width: 768px) {
+  .icon-card-brand {    
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+  .image-type .icon-card-image img {
+  height: 257px;
+}
+
   .icon-card-wrapper {
     margin: 0px !important;
   }
