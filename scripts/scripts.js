@@ -9,6 +9,7 @@ import {
   waitForFirstImage,
   loadSection,
   loadSections,
+  sectionBackgroundColor,
   loadCSS,
   toClassName,
   getMetadata,
@@ -188,6 +189,7 @@ async function loadEager(doc) {
 async function loadLazy(doc) {
   const main = doc.querySelector('main');
   await loadSections(main);
+  await sectionBackgroundColor(main);
 
   const { hash } = window.location;
   const element = hash ? doc.getElementById(hash.substring(1)) : false;

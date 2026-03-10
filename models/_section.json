@@ -37,6 +37,29 @@
           "label": "Provide Tab Name",
           "description": "Provide a name for the tab (Applicable only when Tabs block is added)",
           "valueType": "string"
+        },
+        {
+          "component": "select",
+          "name": "color",
+          "label": "Select background color",
+          "options": [
+            {
+              "name": "Black",
+              "value": "text-black-background"
+            },
+            {
+              "name": "White",
+              "value": "text-white-background"
+            },
+            {
+              "name": "Gray",
+              "value": "text-grey-background"
+            },
+            {
+              "name": "Blue",
+              "value": "text-blue-background"
+            }
+          ]
         }
       ]
     }
