@@ -2112,13 +2112,38 @@
       {
         "component": "reference",
         "name": "image",
-        "label": "Image",
+        "label": "Desktop Image",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "mobileImage",
+        "label": "Mobile Image",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "caption",
-        "label": "Caption"
+        "label": "Caption (Used as ALT text)"
+      },
+      {
+        "component": "select",
+        "name": "align",
+        "label": "Alignment",
+        "options": [
+          {
+            "name": "Left",
+            "value": "left"
+          },
+          {
+            "name": "Center",
+            "value": "center"
+          },
+          {
+            "name": "Right",
+            "value": "right"
+          }
+        ]
       },
       {
         "component": "select",

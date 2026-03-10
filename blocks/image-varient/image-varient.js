@@ -1,63 +1,69 @@
 export default function decorate(block) {
-
-  // Get rows from block
   const rows = [...block.children];
 
-  let picture;
-  let caption;
-  let objectFit;
-  let width;
+  const desktopPicture = rows[0]?.querySelector("picture");
+  const mobilePicture = rows[1]?.querySelector("picture");
+  const caption = rows[2]?.textContent?.trim();
+  const align = rows[3]?.textContent?.trim().toLowerCase();
+  const imageFit = rows[4]?.textContent?.trim();
+  const width = rows[5]?.textContent?.trim();
 
-  rows.forEach((row) => {
-    const label = row.children[0]?.textContent?.toLowerCase().trim();
-    const valueCell = row.children[1];
-
-    if (!label || !valueCell) return;
-
-    if (label === "image") {
-      picture = valueCell.querySelector("picture");
-    }
-
-    if (label === "caption") {
-      caption = valueCell.textContent;
-    }
-
-    if (label === "image fit") {
-      objectFit = valueCell.textContent.trim();
-    }
-
-    if (label === "width (%)") {
-      width = valueCell.textContent.trim();
-    }
-  });
-
-  // Clear block
+  // clear existing structure
   block.innerHTML = "";
 
   const wrapper = document.createElement("div");
   wrapper.className = "image-wrapper";
 
-  // Apply width
+  // alignment class
+  if (align) {
+    block.classList.add(align);
+  }
+
+  // width
   if (width) {
     wrapper.style.width = `${width}%`;
   }
 
-  if (picture) {
-    const img = picture.querySelector("img");
+  if (desktopPicture) {
+    const desktopImg = desktopPicture.querySelector("img");
 
-    if (img && objectFit) {
-      img.style.objectFit = objectFit;
+    if (desktopImg) {
+      // set alt from caption
+      if (caption) {
+        desktopImg.alt = caption;
+      }
+
+      // object-fit
+      if (imageFit) {
+        desktopImg.style.objectFit = imageFit;
+      }
+
+      desktopImg.style.width = "100%";
+      desktopImg.style.height = "auto";
     }
 
-    wrapper.appendChild(picture);
+    // add mobile source if available
+    if (mobilePicture) {
+      const mobileImg = mobilePicture.querySelector("img");
+
+      if (mobileImg) {
+        const source = document.createElement("source");
+        source.media = "(max-width: 768px)";
+        source.srcset = mobileImg.src;
+
+        desktopPicture.prepend(source);
+      }
+    }
+
+    wrapper.append(desktopPicture);
   }
 
-  // Add caption
+  // caption
   if (caption) {
     const captionEl = document.createElement("p");
     captionEl.className = "image-caption";
     captionEl.textContent = caption;
-    wrapper.appendChild(captionEl);
+    wrapper.append(captionEl);
   }
 
   block.append(wrapper);
