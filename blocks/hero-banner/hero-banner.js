@@ -47,13 +47,13 @@ export default async function decorate(block) {
   let fullWidthButtonLink = '';
   let fullWidthButtonTarget = '';
   let oveyLayIMG = '';
-  let fullWidthButtonIcon = '';
+  let fullWidthButtonIcon = null;
 
   if (isFullImage) {
-    oveyLayIMG = block.children[7]?.textContent?.trim();
+    oveyLayIMG = block.children[7]?.querySelector('picture');
     fullWidthButtonText = block.children[8]?.textContent?.trim();
     fullWidthButtonLink = block.children[9]?.textContent?.trim();
-    fullWidthButtonIcon = block.children[10]?.textContent?.trim();
+    fullWidthButtonIcon = block.children[10]?.querySelector('picture');
     fullWidthButtonTarget = block.children[11]?.textContent?.trim();
     
   }
@@ -144,11 +144,22 @@ export default async function decorate(block) {
   
     const button = document.createElement('a');
     button.classList.add('button');
-    button.textContent = fullWidthButtonText;
     button.href = fullWidthButtonLink;
   
     if (fullWidthButtonTarget) {
       button.target = fullWidthButtonTarget;
+    }
+
+    const textSpan = document.createElement('span');
+    textSpan.textContent = fullWidthButtonText;
+    button.append(textSpan);
+
+    if (fullWidthButtonIcon) {
+      const iconWrapper = document.createElement('span');
+      iconWrapper.classList.add('button-icon');
+  
+      iconWrapper.append(fullWidthButtonIcon.cloneNode(true));
+      button.append(iconWrapper);
     }
   
     buttonWrapper.append(button);
@@ -157,10 +168,21 @@ export default async function decorate(block) {
 
   decorateIcons(contentContainer);
 
-  // Image
   const imageContainer = document.createElement('div');
   imageContainer.classList.add('event-image');
-  if (imgBanner) imageContainer.append(imgBanner);
+  
+  if (imgBanner) {
+    imageContainer.append(imgBanner);
+  }
+  
+  // Overlay image
+  if (isFullImage && oveyLayIMG) {
+    const overlayWrapper = document.createElement('div');
+    overlayWrapper.classList.add('overlay-image');
+  
+    overlayWrapper.append(oveyLayIMG.cloneNode(true));
+    imageContainer.append(overlayWrapper);
+  }
 
   eventCard.append(contentContainer, imageContainer);
   block.append(eventCard);
