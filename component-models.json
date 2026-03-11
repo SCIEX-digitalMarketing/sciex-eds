@@ -2123,8 +2123,8 @@
       },
       {
         "component": "text",
-        "name": "caption",
-        "label": "Caption (Used as ALT text)"
+        "name": "altText",
+        "label": "Alt Text"
       },
       {
         "component": "select",
@@ -2178,6 +2178,13 @@
         "label": "Width (%)",
         "valueType": "number",
         "placeholder": "Enter width in %"
+      },
+      {
+        "component": "number",
+        "name": "height",
+        "label": "Height (px)",
+        "valueType": "number",
+        "placeholder": "Enter height in px"
       }
     ]
   },
