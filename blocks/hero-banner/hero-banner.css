@@ -122,6 +122,7 @@ letter-spacing: 0.07px;
   .event-card.full-image-layout {
     position: relative;
     height: 258px;
+    margin-bottom: 20px;
   }
 
   .event-card.full-image-layout .event-image {
@@ -154,19 +155,34 @@ letter-spacing: 0.07px;
 
   .event-card .button-container .button {
     display: inline-flex;
-    align-items: center;
+    align-items: center;        /* vertical center */
+    justify-content: center;    /* horizontal center */
     gap: 8px;
     padding: 10px 18px;
-  
+
     background: var(--Blue-700, #0068FA);
     color: #fff;
-  
+
     border-radius: 4px;
     text-decoration: none;
     font-family: "Geogrotesque Sharp VF";
     font-size: 14px;
     font-weight: 330;
-  }
+    line-height: 1;             /* prevents icon misalignment */
+}
+
+.event-card .button-container .button-icon,
+.event-card .button-container .button span {
+  display: inline-flex;
+  align-items: center;
+}
+
+.event-card .button-container .button-icon svg,
+.event-card .button-container .button-icon img {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
   
   .event-card .button-container .button:hover {
     background: #0055d4;
@@ -185,7 +201,7 @@ letter-spacing: 0.07px;
   .overlay-image {
     position: absolute;
     top: 80%;
-    left: 70%;
+    left: 56.875rem;
     transform: translate(-30%, -50%);
     z-index: 2;
   }
@@ -196,8 +212,60 @@ letter-spacing: 0.07px;
     height: auto;
   }
 
+  .event-content.light-theme {
+    background-color: #C6C6C6;
+    color: #000;
+  }
+  
+  .event-content.dark-theme {
+    background-color: #141414;
+    color: #fff;
+  }
+  
+  .event-content.dark-theme * {
+    color: #fff !important;
+  }
+  .event-content.light-theme * {
+    color: #000 !important;
+  }
+
 @media (max-width: 768px) {
 
+   /* Increase banner height only for mobile */
+   .event-card.full-image-layout {
+    height: 564px;
+  }
+
+  .event-card.full-image-layout .event-image {
+    height: 100%;
+    position: relative;
+  }
+
+  /* Overlay image centered at top inside banner */
+  .overlay-image {
+    position: absolute;
+    top: 10%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  .overlay-image img {
+    width: 320px; /* adjust if needed */
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Keep text visible below overlay */
+  .event-card.full-image-layout .event-content {
+    left: 24px;
+    bottom: 24px;
+    max-width: 85%;
+    z-index: 3;
+  }
     .datetime-wrapper {
       display: none;
     }
@@ -221,10 +289,6 @@ letter-spacing: 0.07px;
       height: 100%;
       object-fit: cover;
     }
-
-    .event-card.full-image-layout {
-      height: 320px;
-    }
   
     .event-card.full-image-layout .event-content {
       left: 24px;
@@ -233,22 +297,6 @@ letter-spacing: 0.07px;
     }
   }
 
-  .event-content.light-theme {
-    background-color: #C6C6C6;
-    color: #000;
-  }
-  
-  .event-content.dark-theme {
-    background-color: #141414;
-    color: #fff;
-  }
-  
-  .event-content.dark-theme * {
-    color: #fff !important;
-  }
-  .event-content.light-theme * {
-    color: #000 !important;
-  }
   
   
   
