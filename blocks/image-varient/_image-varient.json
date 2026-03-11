@@ -64,14 +64,14 @@
           "name": "width",
           "label": "Width (%)",
           "valueType": "number",
-          "placeholder": "Enter width in %"
+          "description":"Enter width in % ,the default value is 100%"
         },
         {
           "component": "number",
           "name": "height",
           "label": "Height (px)",
           "valueType": "number",
-          "placeholder": "Enter height in px"
+          "description":"Enter height in px ,the default value is auto"
         }
       ]
     }
