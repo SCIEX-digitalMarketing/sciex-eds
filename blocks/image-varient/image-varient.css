@@ -1,0 +1,33 @@
+.image-varient {
+  margin: 40px auto;
+}
+
+.image-wrapper {
+  margin: 0 auto;
+}
+
+.image-wrapper img {
+  width: 100%;
+  display: block;
+}
+
+.image-caption {
+  margin-top: 8px;
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+}
+
+.image-varient.left .image-wrapper{
+  margin-left:0;
+  margin-right:auto;
+}
+
+.image-varient.center .image-wrapper{
+  margin:0 auto;
+}
+
+.image-varient.right .image-wrapper{
+  margin-left:auto;
+  margin-right:0;
+}

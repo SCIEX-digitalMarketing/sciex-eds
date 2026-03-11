@@ -182,6 +182,18 @@
           "name": "captionIconPick",
           "label": "Caption Icon",
           "multi": false
+        },
+        {
+          "component": "select",
+          "name": "captionPosition",
+          "label": "Caption Position",
+          "valueType": "string",
+          "value": "top",
+          "options": [
+            { "name": "Top", "value": "top" },
+            { "name": "Bottom", "value": "bottom" }
+          ],
+          "description": "Choose where the caption appears."
         }
 
       ]
