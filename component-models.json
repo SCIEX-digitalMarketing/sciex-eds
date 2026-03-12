@@ -1891,6 +1891,24 @@
         "name": "captionIconPick",
         "label": "Caption Icon",
         "multi": false
+      },
+      {
+        "component": "select",
+        "name": "captionPosition",
+        "label": "Caption Position",
+        "valueType": "string",
+        "value": "top",
+        "options": [
+          {
+            "name": "Top",
+            "value": "top"
+          },
+          {
+            "name": "Bottom",
+            "value": "bottom"
+          }
+        ],
+        "description": "Choose where the caption appears."
       }
     ]
   },
@@ -2191,6 +2209,88 @@
         "name": "imageLabel",
         "label": "Image Label",
         "value": ""
+      }
+    ]
+  },
+  {
+    "id": "image-varient",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Desktop Image",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "name": "mobileImage",
+        "label": "Mobile Image",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "altText",
+        "label": "Alt Text"
+      },
+      {
+        "component": "select",
+        "name": "align",
+        "label": "Alignment",
+        "options": [
+          {
+            "name": "Left",
+            "value": "left"
+          },
+          {
+            "name": "Center",
+            "value": "center"
+          },
+          {
+            "name": "Right",
+            "value": "right"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "imageFit",
+        "label": "Image Fit",
+        "options": [
+          {
+            "name": "Cover",
+            "value": "cover"
+          },
+          {
+            "name": "Contain",
+            "value": "contain"
+          },
+          {
+            "name": "Fill",
+            "value": "fill"
+          },
+          {
+            "name": "Scale Down",
+            "value": "scale-down"
+          },
+          {
+            "name": "None",
+            "value": "none"
+          }
+        ]
+      },
+      {
+        "component": "number",
+        "name": "width",
+        "label": "Width (%)",
+        "valueType": "number",
+        "description": "Enter width in % ,the default value is 100%"
+      },
+      {
+        "component": "number",
+        "name": "height",
+        "label": "Height (px)",
+        "valueType": "number",
+        "description": "Enter height in px ,the default value is auto"
       }
     ]
   },

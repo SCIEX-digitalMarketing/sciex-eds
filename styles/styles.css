@@ -1328,7 +1328,13 @@ main .section.highlight {
   .featured-products-wrapper,
   .contact-information-wrapper,
   .cta-with-text-wrapper,
-  .sciex-headquaters-wrapper {
+  .sciex-headquaters-wrapper,
+  .sciex-text-wrapper,
+  .button-block,
+  .sciex-tabs-wrapper,
+  .sciex-buttons-wrapper,
+  .image-varient-wrapper
+  {
     max-width: 90pc !important;
     /* padding: 0 55px !important; */
   }

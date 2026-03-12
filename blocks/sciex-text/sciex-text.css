@@ -1,6 +1,7 @@
 .sciex-text-wrapper {
-    max-width: 87pc !important;
-    padding:32px 32px !important;
+    /* max-width: 87pc !important; */
+    padding-top:32px !important;
+    padding-bottom:32px !important;
 }
 
 .sciex-text .text-left {
