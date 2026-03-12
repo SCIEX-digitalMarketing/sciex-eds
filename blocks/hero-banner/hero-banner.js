@@ -1,64 +1,91 @@
 import { decorateIcons } from '../../scripts/aem.js';
 
-const lightBackgrounds = ['#C6C6C6', '#FFFFFF', '#F0F0F0'];
+const LIGHT_BACKGROUNDS = ['#C6C6C6', '#FFFFFF', '#F0F0F0'];
 
 function isLightBackground(color) {
   if (!color) return false;
-  const normalized = color.trim().toUpperCase();
-  return lightBackgrounds.includes(normalized);
+  return LIGHT_BACKGROUNDS.includes(color.trim().toUpperCase());
 }
 
 function applyInvertFilter(element, color) {
   element.style.filter = isLightBackground(color) ? 'invert(1)' : 'invert(0)';
 }
 
-function decorateEyebrow(eyeBrow, buttonText, contentContainer) {
-  const eyebrowWrapper = document.createElement('p');
-  eyebrowWrapper.classList.add('eyebrow-wrapper');
+function formatDateTime(dateString) {
+  const dateObj = new Date(dateString);
+  if (Number.isNaN(dateObj.getTime())) return null;
 
-  const borderedPart = document.createElement('span');
-  borderedPart.classList.add('eyebrow-highlight');
-  borderedPart.textContent = eyeBrow;
+  const pad = (n) => String(n).padStart(2, '0');
 
-  if (isLightBackground(buttonText)) {
-    borderedPart.style.border = '1.5px solid #141414';
-  } else {
-    borderedPart.style.border = '1.5px solid #fff';
-    borderedPart.style.color = '#fff';
-  }
+  const months = [
+    'January','February','March','April','May','June',
+    'July','August','September','October','November','December',
+  ];
 
-  borderedPart.style.borderRadius = '4px';
-  eyebrowWrapper.append(borderedPart);
-  contentContainer.append(eyebrowWrapper);
+  const day = pad(dateObj.getDate());
+  const month = months[dateObj.getMonth()];
+  const year = dateObj.getFullYear();
+
+  let hours = dateObj.getHours();
+  const minutes = pad(dateObj.getMinutes());
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+
+  hours = hours % 12 || 12;
+
+  return {
+    date: `${day} ${month} ${year}`,
+    time: `${hours}:${minutes} ${ampm}`,
+  };
 }
 
-export default async function decorate(block) {
-  const imgBanner = block.querySelector('picture > img');
+function decorateEyebrow(eyebrowText, buttonColor, container) {
+  const wrapper = document.createElement('p');
+  wrapper.classList.add('eyebrow-wrapper');
+
+  const highlight = document.createElement('span');
+  highlight.classList.add('eyebrow-highlight');
+  highlight.textContent = eyebrowText;
+
+  if (isLightBackground(buttonColor)) {
+    highlight.style.border = '1.5px solid #141414';
+  } else {
+    highlight.style.border = '1.5px solid #fff';
+    highlight.style.color = '#fff';
+  }
+
+  highlight.style.borderRadius = '4px';
+  wrapper.append(highlight);
+  container.append(wrapper);
+}
+
+export default function decorate(block) {
+
+  const bannerImg = block.querySelector('picture > img');
   const heading = block.querySelector('h5');
   const description = heading?.nextElementSibling;
-  const lastChild = block.lastElementChild;
-  const time = lastChild.textContent.trim();
+  const timeText = block.children[5]?.textContent?.trim();
 
   const buttonContainer = block.querySelector('.button-container');
-  const buttonText = buttonContainer?.querySelector('a')?.textContent;
-  const eyeBrow = block.children[2]?.textContent?.trim();
+  const buttonLabel = buttonContainer?.querySelector('a')?.textContent;
+
+  const eyebrowText = block.children[2]?.textContent?.trim();
   const isFullImage = block.children[6]?.textContent?.trim()?.toLowerCase() === 'true';
-  let fullWidthButtonText = '';
-  let fullWidthButtonLink = '';
-  let fullWidthButtonTarget = '';
-  let oveyLayIMG = '';
-  let fullWidthButtonIcon = null;
+
+  let overlayImage;
+  let fullWidthButtonText;
+  let fullWidthButtonLink;
+  let fullWidthButtonTarget;
+  let fullWidthButtonIcon;
 
   if (isFullImage) {
-    oveyLayIMG = block.children[7]?.querySelector('picture');
+    overlayImage = block.children[7]?.querySelector('picture');
     fullWidthButtonText = block.children[8]?.textContent?.trim();
     fullWidthButtonLink = block.children[9]?.textContent?.trim();
     fullWidthButtonIcon = block.children[10]?.querySelector('picture');
     fullWidthButtonTarget = block.children[11]?.textContent?.trim();
-    
   }
 
-  block.textContent = '';
+  block.innerHTML = '';
 
   const eventCard = document.createElement('div');
   eventCard.classList.add('event-card');
@@ -70,82 +97,74 @@ export default async function decorate(block) {
   const contentContainer = document.createElement('div');
   contentContainer.classList.add('event-content');
 
-  if (buttonText && !isFullImage) {
-    const isLight = isLightBackground(buttonText);
-    contentContainer.classList.add(isLight ? 'light-theme' : 'dark-theme');
+  if (buttonLabel && !isFullImage) {
+    const lightTheme = isLightBackground(buttonLabel);
+    contentContainer.classList.add(lightTheme ? 'light-theme' : 'dark-theme');
   }
 
-  // Eyebrow
-  if (eyeBrow) {
-    decorateEyebrow(eyeBrow, buttonText, contentContainer);
+  /* Eyebrow */
+  if (eyebrowText) {
+    decorateEyebrow(eyebrowText, buttonLabel, contentContainer);
   }
 
-  // Heading and sibling grouped
+  /* Heading */
   if (heading) {
     const headingGroup = document.createElement('div');
     headingGroup.classList.add('heading-group');
+
     headingGroup.append(heading);
     if (description) headingGroup.append(description);
+
     contentContainer.append(headingGroup);
   }
 
-  // Format Date and Time if valid
-  const dateObj = new Date(time);
-  if (!Number.isNaN(dateObj.getTime())) {
-    const pad = (num) => String(num).padStart(2, '0');
-    const months = [
-      'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December',
-    ];
+  /* Date and Time */
+  const formatted = formatDateTime(timeText);
 
-    const day = pad(dateObj.getDate());
-    const month = months[dateObj.getMonth()];
-    const year = dateObj.getFullYear();
-    let hours = dateObj.getHours();
-    const minutes = pad(dateObj.getMinutes());
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12 || 12;
-
-    const formattedDate = `${day} ${month} ${year}`;
-    const formattedTime = `${hours}:${minutes} ${ampm}`;
-
+  if (formatted) {
     const datetimeWrapper = document.createElement('div');
     datetimeWrapper.classList.add('datetime-wrapper');
 
-    const dateContainer = document.createElement('div');
-    dateContainer.classList.add('datetime-item');
+    const dateItem = document.createElement('div');
+    dateItem.classList.add('datetime-item');
+
     const calendarIcon = document.createElement('span');
     calendarIcon.classList.add('icon', 'icon-calender');
-    applyInvertFilter(calendarIcon, buttonText);
+    applyInvertFilter(calendarIcon, buttonLabel);
 
     const dateSpan = document.createElement('span');
     dateSpan.classList.add('event-date');
-    dateSpan.textContent = formattedDate;
-    dateContainer.append(calendarIcon, dateSpan);
+    dateSpan.textContent = formatted.date;
 
-    const timeContainer = document.createElement('div');
-    timeContainer.classList.add('datetime-item');
+    dateItem.append(calendarIcon, dateSpan);
+
+    const timeItem = document.createElement('div');
+    timeItem.classList.add('datetime-item');
+
     const clockIcon = document.createElement('span');
     clockIcon.classList.add('icon', 'icon-clock');
-    applyInvertFilter(clockIcon, buttonText);
+    applyInvertFilter(clockIcon, buttonLabel);
 
     const timeSpan = document.createElement('span');
     timeSpan.classList.add('event-time');
-    timeSpan.textContent = formattedTime;
-    timeContainer.append(clockIcon, timeSpan);
+    timeSpan.textContent = formatted.time;
 
-    datetimeWrapper.append(dateContainer, timeContainer);
+    timeItem.append(clockIcon, timeSpan);
+
+    datetimeWrapper.append(dateItem, timeItem);
     contentContainer.append(datetimeWrapper);
   }
 
+  /* Full width button */
   if (isFullImage && fullWidthButtonText && fullWidthButtonLink) {
+
     const buttonWrapper = document.createElement('p');
     buttonWrapper.classList.add('button-container');
-  
+
     const button = document.createElement('a');
     button.classList.add('button');
     button.href = fullWidthButtonLink;
-  
+
     if (fullWidthButtonTarget) {
       button.target = fullWidthButtonTarget;
     }
@@ -157,11 +176,11 @@ export default async function decorate(block) {
     if (fullWidthButtonIcon) {
       const iconWrapper = document.createElement('span');
       iconWrapper.classList.add('button-icon');
-  
+
       iconWrapper.append(fullWidthButtonIcon.cloneNode(true));
       button.append(iconWrapper);
     }
-  
+
     buttonWrapper.append(button);
     contentContainer.append(buttonWrapper);
   }
@@ -170,17 +189,17 @@ export default async function decorate(block) {
 
   const imageContainer = document.createElement('div');
   imageContainer.classList.add('event-image');
-  
-  if (imgBanner) {
-    imageContainer.append(imgBanner);
+
+  if (bannerImg) {
+    imageContainer.append(bannerImg);
   }
-  
-  // Overlay image
-  if (isFullImage && oveyLayIMG) {
+
+  /* Overlay Image */
+  if (isFullImage && overlayImage) {
     const overlayWrapper = document.createElement('div');
     overlayWrapper.classList.add('overlay-image');
-  
-    overlayWrapper.append(oveyLayIMG.cloneNode(true));
+
+    overlayWrapper.append(overlayImage.cloneNode(true));
     imageContainer.append(overlayWrapper);
   }
 

@@ -1680,7 +1680,15 @@
         "label": "Publish Date",
         "placeholder": "YYYY-MM-DD",
         "displayFormat": null,
-        "valueFormat": null
+        "valueFormat": null,
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            false
+          ]
+        }
       },
       {
         "component": "boolean",
