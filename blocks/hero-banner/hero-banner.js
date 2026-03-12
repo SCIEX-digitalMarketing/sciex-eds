@@ -1,16 +1,20 @@
 import { decorateIcons } from '../../scripts/aem.js';
 
+/* List of background colors considered light */
 const LIGHT_BACKGROUNDS = ['#C6C6C6', '#FFFFFF', '#F0F0F0'];
 
+/* Check if provided color is a light background */
 function isLightBackground(color) {
   if (!color) return false;
   return LIGHT_BACKGROUNDS.includes(color.trim().toUpperCase());
 }
 
+/* Apply icon inversion for visibility on light backgrounds */
 function applyInvertFilter(element, color) {
   element.style.filter = isLightBackground(color) ? 'invert(1)' : 'invert(0)';
 }
 
+/* Convert raw date string into formatted date and time */
 function formatDateTime(dateString) {
   const dateObj = new Date(dateString);
   if (Number.isNaN(dateObj.getTime())) return null;
@@ -38,6 +42,7 @@ function formatDateTime(dateString) {
   };
 }
 
+/* Render eyebrow label above heading */
 function decorateEyebrow(eyebrowText, buttonColor, container) {
   const wrapper = document.createElement('p');
   wrapper.classList.add('eyebrow-wrapper');
@@ -46,6 +51,7 @@ function decorateEyebrow(eyebrowText, buttonColor, container) {
   highlight.classList.add('eyebrow-highlight');
   highlight.textContent = eyebrowText;
 
+  /* Adjust border/text color based on background */
   if (isLightBackground(buttonColor)) {
     highlight.style.border = '1.5px solid #141414';
   } else {
@@ -60,6 +66,7 @@ function decorateEyebrow(eyebrowText, buttonColor, container) {
 
 export default function decorate(block) {
 
+  /* Extract authored content from the block */
   const bannerImg = block.querySelector('picture > img');
   const heading = block.querySelector('h5');
   const description = heading?.nextElementSibling;
@@ -71,6 +78,7 @@ export default function decorate(block) {
   const eyebrowText = block.children[2]?.textContent?.trim();
   const isFullImage = block.children[6]?.textContent?.trim()?.toLowerCase() === 'true';
 
+  /* Variables used only in full-image layout */
   let overlayImage;
   let fullWidthButtonText;
   let fullWidthButtonLink;
@@ -85,6 +93,7 @@ export default function decorate(block) {
     fullWidthButtonTarget = block.children[11]?.textContent?.trim();
   }
 
+  /* Clear original block content before rebuilding layout */
   block.innerHTML = '';
 
   const eventCard = document.createElement('div');
@@ -97,17 +106,18 @@ export default function decorate(block) {
   const contentContainer = document.createElement('div');
   contentContainer.classList.add('event-content');
 
+  /* Apply theme based on background color */
   if (buttonLabel && !isFullImage) {
     const lightTheme = isLightBackground(buttonLabel);
     contentContainer.classList.add(lightTheme ? 'light-theme' : 'dark-theme');
   }
 
-  /* Eyebrow */
+  /* Eyebrow label */
   if (eyebrowText) {
     decorateEyebrow(eyebrowText, buttonLabel, contentContainer);
   }
 
-  /* Heading */
+  /* Heading and description */
   if (heading) {
     const headingGroup = document.createElement('div');
     headingGroup.classList.add('heading-group');
@@ -118,7 +128,7 @@ export default function decorate(block) {
     contentContainer.append(headingGroup);
   }
 
-  /* Date and Time */
+  /* Render date and time for standard layout */
   const formatted = formatDateTime(timeText);
 
   if (formatted && !isFullImage) {
@@ -155,7 +165,7 @@ export default function decorate(block) {
     contentContainer.append(datetimeWrapper);
   }
 
-  /* Full width button */
+  /* Full-width button used in full-image layout */
   if (isFullImage && fullWidthButtonText && fullWidthButtonLink) {
 
     const buttonWrapper = document.createElement('p');
@@ -173,6 +183,7 @@ export default function decorate(block) {
     textSpan.textContent = fullWidthButtonText;
     button.append(textSpan);
 
+    /* Optional button icon */
     if (fullWidthButtonIcon) {
       const iconWrapper = document.createElement('span');
       iconWrapper.classList.add('button-icon');
@@ -185,8 +196,10 @@ export default function decorate(block) {
     contentContainer.append(buttonWrapper);
   }
 
+  /* Convert icon placeholders into SVG icons */
   decorateIcons(contentContainer);
 
+  /* Image container */
   const imageContainer = document.createElement('div');
   imageContainer.classList.add('event-image');
 
@@ -194,7 +207,7 @@ export default function decorate(block) {
     imageContainer.append(bannerImg);
   }
 
-  /* Overlay Image */
+  /* Overlay image for full-image layout */
   if (isFullImage && overlayImage) {
     const overlayWrapper = document.createElement('div');
     overlayWrapper.classList.add('overlay-image');
@@ -203,6 +216,7 @@ export default function decorate(block) {
     imageContainer.append(overlayWrapper);
   }
 
+  /* Final card assembly */
   eventCard.append(contentContainer, imageContainer);
   block.append(eventCard);
 }
