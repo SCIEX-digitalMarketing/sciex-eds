@@ -121,7 +121,7 @@ export default function decorate(block) {
   /* Date and Time */
   const formatted = formatDateTime(timeText);
 
-  if (formatted) {
+  if (formatted && !isFullImage) {
     const datetimeWrapper = document.createElement('div');
     datetimeWrapper.classList.add('datetime-wrapper');
 
