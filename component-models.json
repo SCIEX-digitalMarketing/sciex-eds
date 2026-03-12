@@ -2695,6 +2695,108 @@
     ]
   },
   {
+    "id": "sciex-columns",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sciexColumnsId",
+        "label": "Sciex Columns Id",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sciexColumnsheading",
+        "label": "Sciex Columns Heading",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "backgroundColor",
+        "label": "Select background Color",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Blue",
+            "value": "text-blue"
+          },
+          {
+            "name": "Grey",
+            "value": "text-grey"
+          },
+          {
+            "name": "White",
+            "value": "text-white"
+          },
+          {
+            "name": "Black",
+            "value": "text-black"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "grid",
+        "label": "Select how many cards in a column",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": "4"
+          },
+          {
+            "name": "3-columns",
+            "value": "3"
+          },
+          {
+            "name": "2-columns",
+            "value": "2"
+          },
+          {
+            "name": "1-columns",
+            "value": "1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sciex-columns-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "itemHeading",
+        "label": "Heading",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "authorImage",
+        "label": "Author Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "authorName",
+        "label": "Author Name",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "authorDetails",
+        "value": "",
+        "label": "Author Deatails",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "sciex-container",
     "fields": [
       {
