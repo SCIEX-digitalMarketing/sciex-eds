@@ -226,14 +226,7 @@
           "name": "image",
           "label": "Image/Video",
           "multi": false
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "imageAlt",
-          "label": "Alt text",
-          "value": "card imageaaaaaaaa1"
-        },
+        },        
         {
           "component": "richtext",
           "name": "text",
@@ -248,7 +241,13 @@
           "label": "Video Thumbnail Picker",
           "multi": false
         },
-        
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "imageAlt",
+          "label": "Alt text",
+          "value": "card image"
+        },        
         {
           "component": "text",
           "valueType": "string",
