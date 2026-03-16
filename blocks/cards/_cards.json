@@ -51,166 +51,170 @@
     {
       "id": "cards",
       "fields": [
-          {
-            "component": "text",
-            "valueType": "string",
-            "name": "cardsId",
-            "label": "Cards Id",
-            "value": ""
-          },
-          {
-              "component": "text",
-              "valueType": "string",
-              "name": "heading",
-              "label": "Heading",
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "cardsId",
+          "label": "Cards Id",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "heading",
+          "label": "Heading",
+          "value": ""
+        },
+        {
+          "component": "select",
+          "name": "fontStyle",
+          "label": "Select Heading Font Style",
+          "value": "",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Default",
               "value": ""
-          },
-          {
-              "component": "select",
-              "name": "fontStyle",
-              "label": "Select Heading Font Style",
-              "value": "",
-              "valueType": "string",
-              "options": [
-                {
-                  "name": "Default",
-                  "value": ""
-                },
-                {
-                  "name": "XL Display",
-                  "value": "text-xlDisplay"
-                },
-                {
-                  "name": "L Display",
-                  "value": "text-lDisplay"
-                },
-                {
-                  "name": "Alfa",
-                  "value": "text-alfa"
-                },
-                {
-                  "name": "Bravo",
-                  "value": "text-bravo"
-                },
-                {
-                  "name": "Charlie",
-                  "value": "text-charlie"
-                },
-                {
-                  "name": "Delta",
-                  "value": "text-delta"
-                },
-                {
-                  "name": "Echo",
-                  "value": "text-echo"
-                },
-                {
-                  "name": "Echo Bolder",
-                  "value": "text-echo-bolder"
-                },
-                {
-                  "name": "Large",
-                  "value": "text-lg"
-                },
-                {
-                  "name": "Large Bolder",
-                  "value": "text-lg-bolder"
-                },
-                {
-                  "name": "Base",
-                  "value": "text-base"
-                },
-                {
-                  "name": "Base Bolder",
-                  "value": "text-base-bolder"
-                },
-                {
-                  "name": "Small",
-                  "value": "text-sm"
-                },
-                {
-                  "name": "Small Bolder",
-                  "value": "text-sm-bolder"
-                },
-                {
-                  "name": "Caption Large",
-                  "value": "text-caption-lg"
-                },
-                {
-                  "name": "Caption Small",
-                  "value": "text-caption-sm"
-                }
-              ]
-          },
-          {
-            "component": "select",
-            "name": "textColor",
-            "label": "Select Heading Color",
-            "value": "",
-            "valueType": "string",
-            "options": [
-              {
-                "name": "Blue",
-                "value": "text-blue"
-              },
-              {
-                "name": "Grey",
-                "value": "text-grey"
-              },
-              {
-                "name": "White",
-                "value": "text-white"
-              },
-              {
-                "name": "Black",
-                "value": "text-black"
-              }
-            ]
-          },
-
-          {
-            "component": "text",
-            "valueType": "string",
-            "name": "description",
-            "label": "Description",
-            "value": ""
-          },
-          {
-            "component": "radio-group",
-            "label": "option To Select anchor url",
-            "name": "OpentionToSelectPrimary",
-            "valueType": "string",
-            "options": [
-              { "name": "Open In Same Tab", "value": "_self" },
-              { "name": "Open In New Tab", "value": "_blank" }
-            ]
-          },
-          {
-            "component": "select",
-            "name": "grid",
-            "label": "Select how many cards in a row",
-            "value": "",
-            "valueType": "string",
-            "options": [
-              
-              {
-                "name": "Default",
-                "value": "4"
-              },
-              {
-                "name": "3-columns",
-                "value": "3"
-              },
-              {
-                "name": "2-columns",
-                "value": "2"
-              },
-              {
-                "name": "1-columns",
-                "value": "1"
-              }
-            ]
-          }
+            },
+            {
+              "name": "XL Display",
+              "value": "text-xlDisplay"
+            },
+            {
+              "name": "L Display",
+              "value": "text-lDisplay"
+            },
+            {
+              "name": "Alfa",
+              "value": "text-alfa"
+            },
+            {
+              "name": "Bravo",
+              "value": "text-bravo"
+            },
+            {
+              "name": "Charlie",
+              "value": "text-charlie"
+            },
+            {
+              "name": "Delta",
+              "value": "text-delta"
+            },
+            {
+              "name": "Echo",
+              "value": "text-echo"
+            },
+            {
+              "name": "Echo Bolder",
+              "value": "text-echo-bolder"
+            },
+            {
+              "name": "Large",
+              "value": "text-lg"
+            },
+            {
+              "name": "Large Bolder",
+              "value": "text-lg-bolder"
+            },
+            {
+              "name": "Base",
+              "value": "text-base"
+            },
+            {
+              "name": "Base Bolder",
+              "value": "text-base-bolder"
+            },
+            {
+              "name": "Small",
+              "value": "text-sm"
+            },
+            {
+              "name": "Small Bolder",
+              "value": "text-sm-bolder"
+            },
+            {
+              "name": "Caption Large",
+              "value": "text-caption-lg"
+            },
+            {
+              "name": "Caption Small",
+              "value": "text-caption-sm"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "textColor",
+          "label": "Select Heading Color",
+          "value": "",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Blue",
+              "value": "text-blue"
+            },
+            {
+              "name": "Grey",
+              "value": "text-grey"
+            },
+            {
+              "name": "White",
+              "value": "text-white"
+            },
+            {
+              "name": "Black",
+              "value": "text-black"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "description",
+          "label": "Description",
+          "value": ""
+        },
+        {
+          "component": "radio-group",
+          "label": "option To Select anchor url",
+          "name": "OpentionToSelectPrimary",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Open In Same Tab",
+              "value": "_self"
+            },
+            {
+              "name": "Open In New Tab",
+              "value": "_blank"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "grid",
+          "label": "Select how many cards in a row",
+          "value": "",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Default",
+              "value": "4"
+            },
+            {
+              "name": "3-columns",
+              "value": "3"
+            },
+            {
+              "name": "2-columns",
+              "value": "2"
+            },
+            {
+              "name": "1-columns",
+              "value": "1"
+            }
+          ]
+        }
       ]
     },
     {
@@ -243,7 +247,8 @@
           "name": "imageAltText",
           "label": "Alt text",
           "value": ""
-        },{
+        },
+        {
           "component": "text",
           "valueType": "string",
           "name": "imageLabel",
@@ -258,49 +263,70 @@
           "valueType": "boolean"
         },
         {
-  "component": "richtext",
-  "name": "text",
-  "value": "",
-  "label": "Text",
-  "valueType": "string",
-  "plugins": {
-    "format": {},
-    "lists": {},
-    "link": {},
-    "color": {
-      "colors": [
-        { "label": "Red", "value": "#FF0000" },
-        { "label": "Blue", "value": "#0000FF" },
-        { "label": "Green", "value": "#008000" },
-        { "label": "Black", "value": "#000000" }
-      ]
-    }
-  }
-},
-{
-  "component": "richtext",
-  "name": "text",
-  "label": "Text",
-  "valueType": "string",
-  "formats": [
-    "bold",
-    "italic",
-    "underline",
-    "link",
-    "textColor"
-  ]
-},
-{
-  "component": "richtext",
-  "name": "text",
-  "label": "Text",
-  "valueType": "string",
-  "styles": [
-    { "label": "Primary Color", "class": "text-primary" },
-    { "label": "Secondary Color", "class": "text-secondary" },
-    { "label": "Highlight", "class": "text-highlight" }
-  ]
-}
+          "component": "richtext",
+          "name": "text1",
+          "value": "",
+          "label": "Text",
+          "valueType": "string",
+          "plugins": {
+            "format": {},
+            "lists": {},
+            "link": {},
+            "color": {
+              "colors": [
+                {
+                  "label": "Red",
+                  "value": "#FF0000"
+                },
+                {
+                  "label": "Blue",
+                  "value": "#0000FF"
+                },
+                {
+                  "label": "Green",
+                  "value": "#008000"
+                },
+                {
+                  "label": "Black",
+                  "value": "#000000"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "component": "richtext",
+          "name": "text2",
+          "label": "Text",
+          "valueType": "string",
+          "formats": [
+            "bold",
+            "italic",
+            "underline",
+            "link",
+            "textColor"
+          ]
+        },
+        {
+          "component": "richtext",
+          "name": "text3",
+          "label": "Text",
+          "valueType": "string",
+          "styles": [
+            {
+              "label": "Primary Color",
+              "class": "text-primary"
+            },
+            {
+              "label": "Secondary Color",
+              "class": "text-secondary"
+            },
+            {
+              "label": "Highlight",
+              "class": "text-highlight"
+            }
+          ]
+        }
       ]
     },
     {
@@ -312,14 +338,14 @@
           "name": "youtube-link",
           "label": "Youtube Link",
           "value": ""
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
-      }
+        },
+        {
+          "component": "richtext",
+          "name": "text",
+          "value": "",
+          "label": "Text",
+          "valueType": "string"
+        }
       ]
     }
   ],

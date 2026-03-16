@@ -785,7 +785,7 @@
       },
       {
         "component": "richtext",
-        "name": "text",
+        "name": "text1",
         "value": "",
         "label": "Text",
         "valueType": "string",
@@ -817,7 +817,7 @@
       },
       {
         "component": "richtext",
-        "name": "text",
+        "name": "text2",
         "label": "Text",
         "valueType": "string",
         "formats": [
@@ -830,7 +830,7 @@
       },
       {
         "component": "richtext",
-        "name": "text",
+        "name": "text3",
         "label": "Text",
         "valueType": "string",
         "styles": [
