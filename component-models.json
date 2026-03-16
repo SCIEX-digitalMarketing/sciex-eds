@@ -770,18 +770,18 @@
         "value": "card image"
       },
       {
-        "component": "text",
-        "valueType": "string",
-        "name": "imageLabel",
-        "label": "imageLabel",
-        "value": "sciex"
-      },
-      {
         "component": "boolean",
         "name": "pfasStyle",
         "label": "Enable Pfas Style",
         "value": false,
         "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageLabel",
+        "label": "imageLabel",
+        "value": ""
       }
     ]
   },
