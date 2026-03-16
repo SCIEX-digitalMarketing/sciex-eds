@@ -2,9 +2,25 @@ import { } from '../../scripts/aem.js'; // Leave if needed for AEM-specific setu
 import renderEvents from '../../scripts/events-page/components/initialize-event.js';
 import renderEventSearchBox from '../../scripts/events-page/components/renderEventSeachBox.js';
 import { eventSearchEngine } from '../../scripts/events-page/event-engine.js';
-import { tabController } from '../../scripts/events-page/controller/event-page-controllers.js';
+import { tabController, eventregionController, } from '../../scripts/events-page/controller/event-page-controllers.js';
+
+function getEventPageParams() {
+  const params = new URLSearchParams(window.location.search);
+
+  return {
+    event: params.get('event'),
+    region: params.get('region'),
+  };
+}
+
+function clearQueryParams() {
+  const cleanUrl = window.location.origin + window.location.pathname;
+  window.history.replaceState({}, document.title, cleanUrl);
+}
 
 export default async function decorate(block) {
+
+  const { event, region } = getEventPageParams();
   const eventsDiv = document.createElement('div');
   eventsDiv.id = 'events';
 
@@ -69,12 +85,40 @@ export default async function decorate(block) {
 
   try {
     eventSearchEngine.executeFirstSearch();
-    tabController('NOT@eventType==On-demand', 'Upcoming');
+  
+    if (event === 'on-demand') {
+      tabOnDemand.classList.add('active');
+      tabUpcoming.classList.remove('active');
+    
+      tabController('@eventtype==On-demand', 'OnDemand');
+    } else {
+      tabUpcoming.classList.add('active');
+      tabOnDemand.classList.remove('active');
+    
+      tabController('NOT@eventType==On-demand', 'Upcoming');
+    }
+
+    clearQueryParams();
+
+    let regionApplied = false;
+
     eventSearchEngine.subscribe(() => {
+    
+      if (region && !regionApplied) {
+        const regionValue = eventregionController.state.values.find(
+          (v) => v.value.toLowerCase() === region.toLowerCase(),
+        );
+    
+        if (regionValue) {
+          eventregionController.toggleSelect(regionValue);
+          regionApplied = true;
+        }
+      }
+    
       const newUpcoming = renderEvents();
-
+    
       eventsDiv.replaceChild(newUpcoming, upcomingSection);
-
+    
       upcomingSection = newUpcoming;
     });
   } catch (error) {
