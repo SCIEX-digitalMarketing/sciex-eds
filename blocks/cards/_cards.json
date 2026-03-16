@@ -257,75 +257,10 @@
         },
         {
           "component": "boolean",
-          "name": "enableButtonStyle",
-          "label": "Enable Button Style",
+          "name": "pfasStyle",
+          "label": "Enable Pfas Style",
           "value": false,
           "valueType": "boolean"
-        },
-        {
-          "component": "richtext",
-          "name": "text1",
-          "value": "",
-          "label": "Text",
-          "valueType": "string",
-          "plugins": {
-            "format": {},
-            "lists": {},
-            "link": {},
-            "color": {
-              "colors": [
-                {
-                  "label": "Red",
-                  "value": "#FF0000"
-                },
-                {
-                  "label": "Blue",
-                  "value": "#0000FF"
-                },
-                {
-                  "label": "Green",
-                  "value": "#008000"
-                },
-                {
-                  "label": "Black",
-                  "value": "#000000"
-                }
-              ]
-            }
-          }
-        },
-        {
-          "component": "richtext",
-          "name": "text2",
-          "label": "Text",
-          "valueType": "string",
-          "formats": [
-            "bold",
-            "italic",
-            "underline",
-            "link",
-            "textColor"
-          ]
-        },
-        {
-          "component": "richtext",
-          "name": "text3",
-          "label": "Text",
-          "valueType": "string",
-          "styles": [
-            {
-              "label": "Primary Color",
-              "class": "text-primary"
-            },
-            {
-              "label": "Secondary Color",
-              "class": "text-secondary"
-            },
-            {
-              "label": "Highlight",
-              "class": "text-highlight"
-            }
-          ]
         }
       ]
     },
