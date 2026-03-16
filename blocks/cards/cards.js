@@ -132,6 +132,10 @@ export default function decorate(block) {
   let gridValue = '';
   let headingFontStyle = '';
   let headingFontColor = '';
+  let enableButtonStyle = false;
+  let imageLabel = '';
+
+
 
   [...block.children].forEach((row, index) => {
     if (index === 0) {
@@ -207,6 +211,20 @@ export default function decorate(block) {
 
           if (picture) {
             firstDiv.className = 'cards-card-image';
+            // image label overlay
+            const labelDiv = li.querySelector('.cards-card-body');
+            if (labelDiv) {
+              const labelText = labelDiv.textContent.trim();
+
+              if (labelText) {
+                const label = document.createElement('span');
+                label.className = 'image-label';
+                label.textContent = labelText;
+
+                firstDiv.style.position = 'relative';
+                firstDiv.appendChild(label);
+              }
+            }
           } else if (videoSrc) {
             const thumbnailSrc = videoThumbnailImg || `${videoSrc}/jcr:content/renditions/cq5dam.web.1280.1280.jpeg`;
 
@@ -282,7 +300,14 @@ export default function decorate(block) {
       const anchor = li.querySelector('a');
       if (anchor) {
         anchor.setAttribute('target', target);
-        anchor.appendChild(span({ class: 'icon icon-right-arrow' }));
+        anchor.appendChild(span({ class: 'icon icon-right-arrow mmm' }));
+
+        // enable button style if checkbox enabled
+        const enableButton = li.textContent.includes('true');
+
+        if (enableButton) {
+          anchor.classList.add('cards-button');
+        }
       }
 
       if (videoThumbnailImg) {

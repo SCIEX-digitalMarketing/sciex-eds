@@ -243,6 +243,19 @@
           "name": "imageAltText",
           "label": "Alt text",
           "value": ""
+        },{
+          "component": "text",
+          "valueType": "string",
+          "name": "imageLabel",
+          "label": "imageLabel",
+          "value": ""
+        },
+        {
+          "component": "checkbox",
+          "name": "enableButtonStyle",
+          "label": "Enable Button Style",
+          "value": false,
+          "valueType": "boolean"
         }
       ]
     },
