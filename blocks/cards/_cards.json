@@ -251,7 +251,7 @@
           "value": ""
         },
         {
-          "component": "checkbox",
+          "component": "boolean",
           "name": "enableButtonStyle",
           "label": "Enable Button Style",
           "value": false,
