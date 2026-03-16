@@ -751,7 +751,7 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "imageAltText",
+        "name": "imageAlt",
         "label": "Alt text",
         "value": "card imageaaaaaaaa1"
       },
