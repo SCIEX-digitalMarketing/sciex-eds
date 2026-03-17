@@ -312,6 +312,7 @@ export default function decorate(block) {
 
       // Apply PFAS style if enabled
       if (pfasStyle) {
+        li.classList.add('pfas-card');
         const heading = li.querySelector('h5, h4, h3');
         if (heading) {
           heading.classList.add('pfas-blue');
