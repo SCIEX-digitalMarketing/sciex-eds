@@ -700,6 +700,7 @@
         "label": "option To Select anchor url",
         "name": "OpentionToSelectPrimary",
         "valueType": "string",
+        "value": "_blank",
         "options": [
           {
             "name": "Open In Same Tab",
@@ -715,7 +716,7 @@
         "component": "select",
         "name": "grid",
         "label": "Select how many cards in a row",
-        "value": "",
+        "value": "3",
         "valueType": "string",
         "options": [
           {
@@ -735,6 +736,13 @@
             "value": "1"
           }
         ]
+      },
+      {
+        "component": "boolean",
+        "name": "pfasStyle",
+        "label": "Enable Pfas Style",
+        "value": false,
+        "valueType": "boolean"
       }
     ]
   },
@@ -765,8 +773,15 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "imageAltText",
+        "name": "imageAlt",
         "label": "Alt text",
+        "value": "card image"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageLabel",
+        "label": "imageLabel",
         "value": ""
       }
     ]

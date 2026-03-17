@@ -1333,7 +1333,8 @@ main .section.highlight {
   .button-block,
   .sciex-tabs-wrapper,
   .sciex-buttons-wrapper,
-  .image-varient-wrapper
+  .image-varient-wrapper,
+  .cards-wrapper
   {
     max-width: 90pc !important;
     /* padding: 0 55px !important; */
