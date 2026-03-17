@@ -24,17 +24,42 @@
 
 .cards-image-label {
   position: absolute;
-  top: 12px;
-  left: 12px;
-  color: black;
-  padding: 4px 10px;
-  font-size: 12px;
+  top: 10px;
+  left: 10px;
+  color: var(--Grey-500, #707070);
+  text-align: center;
+  font-family: Geogrotesque;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.07px;
   border-radius: 4px;
+  background: var(--Grey-50, #F5F5F5);
+  padding: 0 4px;
+
 }
 
 .pfas-blue {
   color: #0068FA !important;
  font-weight: 530 !important;
+}
+.icon.icon-arrow img{
+object-fit: none;
+}
+.cards-button{
+  display: flex !important;
+  gap: 16px;
+  background-color: var(--hero-primary-bg, #0072ce) !important;
+  color: #fff !important;
+  border: 2px solid transparent !important;
+  border-radius: 4px !important;
+  padding: 12px 20px !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
 }
 
 /* 3 Cards Layout */
@@ -68,7 +93,7 @@
 }
 
 .cards .cards-card-body {
-  margin: 20px 20px;
+  margin: 20px 0px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -179,6 +204,9 @@
   .fragment-wrapper {
     padding: 0 24px !important;
   }
+  .cards-button {
+      justify-content: space-between;
+    }
 }
 
 .cards-card-image .video-wrapper {

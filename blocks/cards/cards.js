@@ -311,9 +311,9 @@ export default function decorate(block) {
       ----------------------------*/
 
       const pfasDiv = li.querySelector('.pfasStyle');
+      const isPfas = pfasDiv.textContent.trim() === 'true';
 
       if (pfasDiv) {
-        const isPfas = pfasDiv.textContent.trim() === 'true';
 
         if (isPfas) {
           const heading = li.querySelector('h5, h4, h3');
@@ -327,9 +327,28 @@ export default function decorate(block) {
       }
 
       const anchor = li.querySelector('a');
+
       if (anchor) {
         anchor.setAttribute('target', target);
-        anchor.appendChild(span({ class: 'icon icon-right-arrow' }));
+
+        if (isPfas) {
+          // make it look like a button
+          anchor.classList.add('cards-button');
+
+          // wrap text in span (optional but cleaner)
+          const textSpan = document.createElement('span');
+          textSpan.textContent = anchor.textContent;
+          anchor.textContent = '';
+          anchor.appendChild(textSpan);
+
+          // add arrow icon
+          anchor.appendChild(span({ class: 'icon icon-arrow' }));
+
+        } else {
+          // normal link behavior
+          anchor.appendChild(span({ class: 'icon icon-right-arrow' }));
+
+        }
       }
 
       if (videoThumbnailImg) {
