@@ -1,0 +1,271 @@
+{
+  "definitions": [
+    {
+      "title": "Icon Card",
+      "id": "icon-card",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Icon Card",
+              "model": "icon-card",
+              "filter": "icon-card"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Icon Card Item",
+      "id": "icon-card-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "IconCardItem",
+              "model": "icon-card-item"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "icon-card",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "iconCardId",
+          "label": "Icon Card Id",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "iconCardheading",
+          "label": "Icon card Heading",
+          "value": ""
+        },
+        {
+          "component": "select",
+          "name": "fontStyle",
+          "label": "Select Heading Font Style",
+          "value": "",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "XL Display",
+              "value": "text-xlDisplay"
+            },
+            {
+              "name": "L Display",
+              "value": "text-lDisplay"
+            },
+            {
+              "name": "Alfa",
+              "value": "text-alfa"
+            },
+            {
+              "name": "Bravo",
+              "value": "text-bravo"
+            },
+            {
+              "name": "Charlie",
+              "value": "text-charlie"
+            },
+            {
+              "name": "Delta",
+              "value": "text-delta"
+            },
+            {
+              "name": "Echo",
+              "value": "text-echo"
+            },
+            {
+              "name": "Echo Bolder",
+              "value": "text-echo-bolder"
+            },
+            {
+              "name": "Large",
+              "value": "text-lg"
+            },
+            {
+              "name": "Large Bolder",
+              "value": "text-lg-bolder"
+            },
+            {
+              "name": "Base",
+              "value": "text-base"
+            },
+            {
+              "name": "Base Bolder",
+              "value": "text-base-bolder"
+            },
+            {
+              "name": "Small",
+              "value": "text-sm"
+            },
+            {
+              "name": "Small Bolder",
+              "value": "text-sm-bolder"
+            },
+            {
+              "name": "Caption Large",
+              "value": "text-caption-lg"
+            },
+            {
+              "name": "Caption Small",
+              "value": "text-caption-sm"
+            }
+          ]
+      },
+      {
+        "component": "select",
+        "name": "textColor",
+        "label": "Select Heading Color",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Blue",
+            "value": "text-blue"
+          },
+          {
+            "name": "Grey",
+            "value": "text-grey"
+          },
+          {
+            "name": "White",
+            "value": "text-white"
+          },
+          {
+            "name": "Black",
+            "value": "text-black"
+          }
+        ]
+      },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "iconCarddescription",
+          "label": "Icon card Description",
+          "value": ""
+        },
+        {
+          "component": "select",
+          "name": "grid",
+          "label": "Icon Card Select how many cards in a column",
+          "value": "",
+          "valueType": "string",
+          "options": [
+            
+            {
+              "name": "Default",
+              "value": "4"
+            },
+            {
+              "name": "3-columns",
+              "value": "3"
+            },
+            {
+              "name": "2-columns",
+              "value": "2"
+            },
+            {
+              "name": "1-columns",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "iconCardType",
+          "label": "Select type of Icon Card",
+          "value": "",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "iconType",
+              "value": "icon-type"
+            },
+            {
+              "name": "imageType",
+              "value": "image-type"
+            },
+            {
+              "name": "contactUsCardType",
+              "value": "contact-type"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "icon-card-item",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "iconCardItemIcon",
+          "label": "Icon of the card",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "iconCardItemHeading",
+          "label": "Heading",
+          "value": ""
+        },
+        {
+          "component": "richtext",
+          "name": "iconCardItemText",
+          "value": "",
+          "label": "Icon card text Area",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "iconCardItemTextLinkLabel",
+          "label": "Icon Card Text Link Label",
+          "value": ""
+        },
+        {
+          "component": "aem-content",
+          "name": "iconCardItemTextLinkUrl",
+          "label": "Icon Card Text Link URL"
+        },
+        {
+          "component": "radio-group",
+          "label": "Text Link Target",
+          "name": "iconCardItemLinkTarget",
+          "valueType": "string",
+          "options": [
+            { "name": "Open In Same Tab", "value": "_self" },
+            { "name": "Open In New Tab", "value": "_blank" }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "imageLabel",
+          "label": "Image Label",
+          "value": ""
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "icon-card",
+      "components": ["icon-card-item"]
+    }
+  ]
+}

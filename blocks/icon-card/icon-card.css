@@ -1,0 +1,312 @@
+.icon-card-container-text {
+  text-align: left;
+  padding: 2rem 0;
+}
+
+.icon-card-heading {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 40px;
+  color: var(--Grey-900, #141414);
+  font-family: "Geogrotesque Sharp VF";
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 330;
+  line-height: 52px; /* 130% */
+}
+
+.icon-card-description {
+  color: var(--Grey-500, #707070);
+  font-family: "Geogrotesque Sharp VF";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 330;
+  line-height: 26px; /* 144.444% */
+  letter-spacing: 0.045px;
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 2rem;
+  max-width: 800px;
+}
+
+.icon-card-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.icon-card-grid.columns-1 {
+  grid-template-columns: 1fr;
+}
+
+.icon-card-grid.columns-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.icon-card-grid.columns-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.icon-card-grid.columns-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.icon-card-sub-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-top: 1px solid #eee;
+  padding-top: 1.5rem;
+  min-height: auto;
+}
+
+/* ✅ ICON TYPE (unchanged) */
+.icon-type .icon-card-sub-container {
+  flex-direction: column;
+}
+
+/* ✅ IMAGE TYPE — new enhanced layout */
+.image-type .icon-card-grid {
+  display: grid;
+  gap: 3rem 4rem;
+}
+
+.image-type .icon-card-sub-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 2rem;
+  border-top: 1px solid #eee;
+  padding-top: 1.5rem;
+}
+
+.image-type .icon-card-image {
+  flex-shrink: 0;
+  width: 200px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-card-image picture{
+  width: 100%;
+}
+
+.image-type .icon-card-image img {
+  max-width: 100%;
+  height: 144px;
+  width: 100%;
+}
+
+.image-type .icon-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.image-type .icon-card-title {
+  font-family: "Geogrotesque Sharp VF";
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 26px;
+  margin-bottom: 0.5rem;
+}
+
+.image-type .icon-card-text {
+  font-family: "Geogrotesque Sharp VF";
+  font-size: 16px;
+  font-weight: 330;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 0;
+}
+
+/* Common content styles */
+.icon-card-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.icon-card-image {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.icon-card-title {
+  font-family: "Geogrotesque Sharp VF";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 370;
+  line-height: normal;
+  letter-spacing: 0.045px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: auto;
+}
+
+.contact-type .icon-card-title {
+font-family: "Geogrotesque Sharp VF";
+font-size: 24px;
+font-style: normal;
+font-weight: 370;
+line-height: normal;
+}
+
+.icon-card-text {
+  color: #666;
+  font-family: "Geogrotesque Sharp VF";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 370;
+  line-height: normal;
+  letter-spacing: 0.08px;
+  color: #555;
+  line-height: 1.4;
+  margin-bottom: auto;
+  padding-bottom: 16px;
+}
+
+.icon-card-link .icon img {
+  width: auto !important;
+  height: 12px !important;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+
+.contact-type .icon-card-sub-container {
+  border: 1px solid #eee;
+  padding-top: 0px;
+}
+
+.contact-type .icon-card-content {
+  margin: 20px 35px;
+  gap: 15px;
+}
+
+.contact-type .icon-card-link {
+  padding-bottom: 45px;
+}
+
+.icon-card-link {
+  color: var(--Blue-700, #0068FA);
+  font-family: "Geogrotesque Sharp VF";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 530;
+  line-height: 24px;
+  letter-spacing: 0.08px;
+  align-self: flex-start;
+  text-decoration: underline !important;
+  text-underline-offset: 5px;
+}
+
+.icon-card-link:hover {
+  text-decoration: none !important;
+}
+
+/* CONTACT TYPE BUTTON */
+.contact-type .icon-card-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 4px;
+  border: none;
+  background-color: #0068FA;
+  color: #ffffff;
+  font-family: "Geogrotesque Sharp VF";
+  font-size: 16px;
+  font-weight: 530;
+  line-height: 24px;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+ 
+.contact-type .button-text {
+    color: var(--White-0, #FFF);
+    font-family: "Geogrotesque Sharp VF";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 530;
+    line-height: 24px;
+    letter-spacing: 0.08px;
+}
+
+/* Hover */
+.contact-type .icon-card-button:hover {
+  background-color: #0052C2;
+}
+
+/* Active click feedback */
+.contact-type .icon-card-button:active {
+  transform: translateY(1px);
+}
+
+/* Icon inside button */
+.contact-type .icon-card-button .icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.contact-type .icon-card-button .icon img {
+  height: 12px !important;
+  width: auto !important;
+}
+
+.icon-card-brand {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  border-radius: 4px;
+  background: var(--Grey-50, #F5F5F5);
+  color: #000;
+  font-family: "Geogrotesque Sharp VF";
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 8px;
+  line-height: 1;
+}
+ 
+/* ✅ Responsive adjustments */
+@media (max-width: 768px) {
+  .icon-card-brand {    
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+  .image-type .icon-card-image img {
+  height: 257px;
+}
+
+  .icon-card-wrapper {
+    margin: 0px !important;
+  }
+
+  .icon-card-grid.columns-1,
+  .icon-card-grid.columns-2,
+  .icon-card-grid.columns-3,
+  .icon-card-grid.columns-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .image-type .icon-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .image-type .icon-card-sub-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .image-type .icon-card-image {
+    width: 100%;
+  }
+}

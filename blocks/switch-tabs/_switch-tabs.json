@@ -1,0 +1,145 @@
+{
+  "definitions": [
+    {
+      "title": "Switch Tabs",
+      "id": "switch-tabs",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Switch Tabs",
+              "model": "switch-tabs",
+              "filter": "switch-tabs"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Tab-item",
+      "id": "tab-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Tab item",
+              "model": "tab-item"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "switch-tabs",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "tabId",
+          "label": "Tab ID",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "heading",
+          "label": "Heading",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "description",
+          "label": "Description",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "tab-item",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "tabLabel",
+          "label": "Tab Label",
+          "value": ""
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "richtext",
+          "name": "imagetextArea",
+          "label": "Image Text Area",
+          "value": "",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "imageAltText",
+          "label": "Alt Text",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "tabHeading",
+          "label": "Tab Heading",
+          "value": ""
+        },
+        {
+          "component": "richtext",
+          "name": "textArea",
+          "label": "Text Area",
+          "value": "",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "tabTextLinkLabel",
+          "label": "Tab Text Link Label",
+          "value": ""
+        },
+        {
+          "component": "aem-content",
+          "name": "tabTextLinkUrl",
+          "label": "Tab Text Link URL"
+        },
+        {
+          "component": "radio-group",
+          "label": "Option to Select Text Link Target",
+          "name": "optionToSelectTextLink",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Open In Same Tab",
+              "value": "_self"
+            },
+            {
+              "name": "Open In New Tab",
+              "value": "_blank"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "switch-tabs",
+      "components": [
+        "tab-item"
+      ]
+    }
+  ]
+}

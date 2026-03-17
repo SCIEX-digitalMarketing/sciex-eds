@@ -1,0 +1,128 @@
+.stat-list-wrapper {
+  margin: 0 !important;
+  padding: 15px 69px !important;
+}
+
+/* Container */
+.stat-list-container-text {
+  max-width: 1350px;
+  margin: 0 auto;
+  padding: 15px 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 80px;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* Left side heading */
+.stat-list-container-text h2 {
+  flex: 0 0 220px;
+  font-family: "Geogrotesque Sharp VF TRIAL";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 330;
+  line-height: 40px; /* 125% */
+  letter-spacing: 0.01em;
+  color: var(--Grey-900, #141414);
+  margin: 0;
+}
+
+/* Right side (the three cards) */
+.benefits-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 35px;
+  flex: 1;
+}
+
+/* Each benefit card */
+.benefit-card {
+  border-left: 1px solid #e0e0e0;
+  padding-left: 48px;
+}
+
+/* Card headings (Flexibility, Quality, Portability) */
+.benefit-card h3 {
+  font-family: "Geogrotesque Sharp VF";
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 270;
+  line-height: 80px; /* 125% */
+  letter-spacing: 0.01em;
+  color: var(--Grey-900, #141414);
+  margin-bottom: 24px;
+}
+
+/* Card paragraph text */
+.benefit-card p {
+  font-family: "Geogrotesque Sharp VF TRIAL";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 330;
+  line-height: 24px; /* 150% */
+  letter-spacing: 0.08px;
+  color: var(--Grey-900, #141414);
+  margin: 0;
+  max-width: 360px;
+}
+
+/* Responsive: medium screens (tablets) */
+@media (max-width: 1024px) {
+  .stat-list-container-text {
+    flex-direction: column;
+    gap: 48px;
+    padding: 60px 40px;
+  }
+
+  .stat-list-container-text h2 {
+    flex: none;
+  }
+
+  .benefits-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+}
+
+/* Responsive: small screens (mobile) */
+@media (max-width: 768px) {
+   .stat-list-wrapper {
+    padding: 0px 25px !important;
+   }
+
+  .stat-list-container-text {
+    padding: 5px 0;
+    gap: 15px;
+  }
+
+  .benefits-wrapper {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .benefit-card {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 5px;
+  }
+
+  .benefit-card:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .stat-list-container-text h2 {
+    font-size: 2rem;
+  }
+
+  .benefit-card h3 {
+    font-size: 2rem;
+    margin-bottom: 5px;
+  }
+
+  .benefit-card p {
+    font-size: 1rem;
+  }
+}

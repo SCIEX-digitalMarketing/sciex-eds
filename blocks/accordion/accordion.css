@@ -1,0 +1,143 @@
+.accordion-wrapper {
+  max-width: none !important;
+}
+
+.accordion-container-block {
+  width: 100%;
+  max-width: 1342px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  font-family: "Geogrotesque Sharp VF", "Helvetica Neue", Arial, sans-serif;
+}
+
+.accordion-heading {
+  font-family: "Geogrotesque Sharp VF";
+  font-size: 40px;
+  font-weight: 330;
+  line-height: 52px;
+  color: var(--Grey-900, #141414);
+  margin-bottom: 0.75rem;
+}
+
+.accordion-description {
+  max-width: 850px;
+  color: var(--Grey-500, #707070);
+  font-size: 18px;
+  font-weight: 330;
+  line-height: 26px;
+  letter-spacing: 0.045px;
+  margin-bottom: 2rem;
+}
+
+.accordion-item {
+  border-top: 1px solid #ddd;
+  padding: 1rem 0;
+  transition: border-color 0.3s ease;
+}
+
+.accordion-item:last-child {
+  border-bottom: 1px solid #ddd;
+}
+
+.accordion-item:hover {
+  border-top: 1px solid #0066cc;
+  border-bottom: 1px solid #0066cc;
+}
+
+.accordion-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 4px;
+  color: var(--Grey-900, #141414);
+  font-size: 18px;
+  font-weight: 530;
+  line-height: 26px;
+  letter-spacing: 0.045px;
+  text-align: left;
+  transition: color 0.3s ease;
+  gap: 8px;
+  flex-wrap: nowrap;
+  box-sizing: border-box;
+}
+
+.accordion-title {
+  flex: 1 1 auto;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: break-word;
+  margin-right: 8px;
+}
+
+.accordion-toggle .icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+}
+
+.accordion-item.open .accordion-toggle .icon-accordion-up {
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  overflow: hidden;
+  padding-top: 0.75rem;
+  color: var(--Grey-500, #707070);
+  font-size: 16px;
+  font-weight: 330;
+  line-height: 24px;
+  letter-spacing: 0.08px;
+}
+
+.accordion-content p {
+  margin-bottom: 0.75rem;
+}
+
+.accordion-link {
+  color: #0066cc;
+  font-weight: 500;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.3s ease, padding-left 0.3s ease;
+}
+
+.accordion-link:hover {
+  color: #004999;
+  padding-left: 4px;
+}
+
+@media (max-width: 768px) {
+  .accordion-container-block {
+    padding: 2rem 0rem;
+  }
+
+  .accordion-heading {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .accordion-description {
+    font-size: 0.95rem;
+    line-height: 1.5rem;
+  }
+
+  .accordion-toggle {
+    align-items: center;
+    gap: 10px;
+    padding: 0 6px;
+  }
+
+  .accordion-title {
+    font-size: 16px;
+    line-height: 24px;
+    word-break: normal;
+  }
+}

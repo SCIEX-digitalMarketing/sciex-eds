@@ -1,0 +1,131 @@
+/* Wrapper */
+.sciex-tabs-wrapper {
+    /* margin: 0px 40px !important; */
+    /* padding: 0px 35px !important; */
+    /* max-width: 87pc !important; */
+    width: 100%;
+    position: relative;
+}
+
+.custom-sciex-tabs {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 0;
+    position: relative;
+}
+
+.custom-sciex-tabs .tab {
+    background: none;
+    border: none;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #000;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+}
+
+.custom-sciex-tabs .tab:hover,
+.custom-sciex-tabs .tab.active {
+    color: #0068fa;
+}
+
+.custom-sciex-tabs .tab.active::after {
+    content: '';
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    bottom: -1px;
+    height: 3px;
+    background-color: #0068fa;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.hide-section {
+    display: none !important;
+}
+
+.sciex-tabs-dropdown {
+    display: none;
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 1rem auto;
+    font-family: inherit;
+}
+
+.sciex-tabs-dropdown .dropdown-selected {
+    border: 1.5px solid #006CFF;
+    color: #006CFF;
+    font-weight: 600;
+    padding: 0.9rem 1.2rem;
+    cursor: pointer;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sciex-tabs-dropdown .dropdown-selected::after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='%230068fa' d='M6 8L0 0h12z'/%3E%3C/svg%3E") no-repeat center;
+    transition: 0.3s ease;
+}
+
+.sciex-tabs-dropdown.open .dropdown-selected::after {
+    transform: rotate(180deg);
+}
+
+.sciex-tabs-dropdown .dropdown-list {
+    display: none;
+    border: 1.5px solid #006CFF;
+    border-top: none;
+    background: white;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    z-index: 20;
+}
+
+.sciex-tabs-dropdown.open .dropdown-list {
+    display: flex;
+}
+
+.dropdown-item {
+    padding: 0.9rem 1.2rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.dropdown-item:hover {
+    background: rgba(0, 104, 250, 0.08);
+}
+
+.dropdown-item.active {
+    background: rgba(0, 104, 250, 0.12);
+    color: #006CFF;
+}
+
+@media (max-width: 768px) {
+    .sciex-tabs-wrapper {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .custom-sciex-tabs {
+        display: none;
+    }
+
+    .sciex-tabs-dropdown {
+        display: block;
+    }
+}

@@ -12,6 +12,20 @@
     ]
   },
   {
+    "id": "accordion",
+    "components": [
+      "accordion-item"
+    ]
+  },
+  {
+    "id": "atomic-media",
+    "components": [
+      "image-video",
+      "vimeo-item",
+      "youtube-item"
+    ]
+  },
+  {
     "id": "cards",
     "components": [
       "image-video",
@@ -50,6 +64,26 @@
     ]
   },
   {
+    "id": "hero-small",
+    "components": [
+      "hero-image",
+      "colour",
+      "video"
+    ]
+  },
+  {
+    "id": "icon-card",
+    "components": [
+      "icon-card-item"
+    ]
+  },
+  {
+    "id": "resources-grid",
+    "components": [
+      "resources-grid-item"
+    ]
+  },
+  {
     "id": "sciex-buttons",
     "components": [
       "sciex-button"
@@ -72,6 +106,48 @@
     ]
   },
   {
+    "id": "sciex-table",
+    "components": [
+      "table-row"
+    ]
+  },
+  {
+    "id": "table-2-columns",
+    "components": [
+      "table-col-2"
+    ]
+  },
+  {
+    "id": "table-3-columns",
+    "components": [
+      "table-col-3"
+    ]
+  },
+  {
+    "id": "table-4-columns",
+    "components": [
+      "table-col-4"
+    ]
+  },
+  {
+    "id": "table-5-columns",
+    "components": [
+      "table-col-5"
+    ]
+  },
+  {
+    "id": "table-6-columns",
+    "components": [
+      "table-col-6"
+    ]
+  },
+  {
+    "id": "table-7-columns",
+    "components": [
+      "table-col-7"
+    ]
+  },
+  {
     "id": "speakers",
     "components": [
       "speaker"
@@ -82,6 +158,18 @@
     "components": [
       "video-text",
       "youtube-video-text"
+    ]
+  },
+  {
+    "id": "stat-list",
+    "components": [
+      "stat-list-item"
+    ]
+  },
+  {
+    "id": "switch-tabs",
+    "components": [
+      "tab-item"
     ]
   },
   {

@@ -299,6 +299,204 @@
     ]
   },
   {
+    "id": "accordion",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "accordionId",
+        "label": "Accordion ID",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "accordion-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "subHeading",
+        "label": "Sub Heading",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "itemTextArea",
+        "label": "Item Text Area",
+        "value": "",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "accordionTextLinkLabel",
+        "label": "Accordion Link Label",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "accordionTextLinkUrl",
+        "label": "Accordion Text Link URL"
+      },
+      {
+        "component": "radio-group",
+        "label": "Option to Select Text Link Target",
+        "name": "optionToSelectTextLink",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Open In Same Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open In New Tab",
+            "value": "_blank"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "atomic-media",
+    "fields": [
+      {
+        "component": "multi",
+        "name": "atomicMediaItems",
+        "label": "Items",
+        "value": [],
+        "valueType": "array",
+        "allowed": [
+          "image-video",
+          "vimeo-item",
+          "youtube-item",
+          "direct-upload-item"
+        ],
+        "required": true
+      },
+      {
+        "component": "select",
+        "name": "imageOrientation",
+        "label": "Orientation",
+        "valueType": "string",
+        "value": "portrait",
+        "options": [
+          {
+            "name": "Portrait (4:5)",
+            "value": "portrait"
+          },
+          {
+            "name": "Landscape (4:3)",
+            "value": "landscape"
+          },
+          {
+            "name": "Video (16:9)",
+            "value": "video"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "image-video",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image.file",
+        "label": "Image (fileReference)",
+        "valueType": "string",
+        "multi": false,
+        "description": "Accepts .jpg, .png, .gif, .svg. Max file size: 2MB"
+      },
+      {
+        "component": "text",
+        "name": "imageAlt",
+        "label": "Alt text",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "number",
+        "name": "imageQuality",
+        "label": "Image compression level",
+        "valueType": "number",
+        "value": 75,
+        "min": 1,
+        "max": 100,
+        "step": 1,
+        "description": "Sets the compression level of the image (1-100). Aim to set this as low as possible without losing too much visual quality"
+      },
+      {
+        "component": "checkbox",
+        "name": "imageLazyLoad",
+        "label": "Enable lazy loading",
+        "valueType": "boolean",
+        "value": false,
+        "description": "When enabled, the image will be loaded as the user scrolls down the page. Avoid lazy loading any images that are 'above the fold'."
+      },
+      {
+        "component": "richtext",
+        "name": "caption",
+        "label": "Caption",
+        "valueType": "string",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "vimeo-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "embedUrlVimeo",
+        "label": "Vimeo embed URL",
+        "valueType": "string",
+        "value": "",
+        "description": "Video embed URL. To find this, view the video on Vimeo -> Click 'Share' -> Copy the value in the iframe's src attribute"
+      },
+      {
+        "component": "richtext",
+        "name": "caption",
+        "label": "Caption",
+        "valueType": "string",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "youtube-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "embedUrlYoutube",
+        "label": "Youtube embed URL",
+        "valueType": "string",
+        "value": "",
+        "description": "Video embed URL. To find this, view the video on YouTube -> Click 'Share' -> Copy the value in the iframe's src attribute"
+      },
+      {
+        "component": "richtext",
+        "name": "caption",
+        "label": "Caption",
+        "valueType": "string",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "button-text",
     "fields": [
       {
@@ -943,6 +1141,446 @@
     ]
   },
   {
+    "id": "hero-small",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heroSmallId",
+        "label": "Hero Small Id",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "buttonText",
+        "label": "Primary Button Text",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "buttonUrl",
+        "label": "primary Button Url",
+        "value": ""
+      },
+      {
+        "component": "radio-group",
+        "label": "option To Select primary button url",
+        "name": "OpentionToSelectPrimary",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Open In Same Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open In New Tab",
+            "value": "_blank"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "buttonTextSecondary",
+        "label": "Secondary Button Text",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "secondaryButtonUrl",
+        "label": "Secondary Button Url"
+      },
+      {
+        "component": "radio-group",
+        "label": "option To Select Secondary button url",
+        "name": "OpentionToSelectSecondary",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Open In Same Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open In New Tab",
+            "value": "_blank"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "textLinkLabel",
+        "label": "Text link label",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "textLinkUrl",
+        "label": "Text link label Url"
+      },
+      {
+        "component": "radio-group",
+        "label": "option To Select text Link url",
+        "name": "OpentionToSelectTextLink",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Open In Same Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open In New Tab",
+            "value": "_blank"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "caption",
+        "label": "caption",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "captionIconPick",
+        "label": "Caption Icon",
+        "multi": false
+      },
+      {
+        "component": "select",
+        "name": "captionPosition",
+        "label": "Caption Position",
+        "valueType": "string",
+        "value": "top",
+        "options": [
+          {
+            "name": "Top",
+            "value": "top"
+          },
+          {
+            "name": "Bottom",
+            "value": "bottom"
+          }
+        ],
+        "description": "Choose where the caption appears."
+      }
+    ]
+  },
+  {
+    "id": "hero-image",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "boolean",
+        "name": "isHeroContact",
+        "label": "Enable Hero Contact",
+        "valueType": "boolean",
+        "value": false,
+        "description": "Enabling this option will show the hero contact design."
+      }
+    ]
+  },
+  {
+    "id": "colour",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "colourimage",
+        "label": "Colour Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "colourimagealt",
+        "label": "Colour Image Alt",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "backgroundColour",
+        "label": "Background Colour",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "White",
+            "value": "#ffffff"
+          },
+          {
+            "name": "Silver",
+            "value": "#C0C0C0"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "video",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "video",
+        "label": "video",
+        "multi": false
+      }
+    ]
+  },
+  {
+    "id": "icon-card",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "iconCardId",
+        "label": "Icon Card Id",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "iconCardheading",
+        "label": "Icon card Heading",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "fontStyle",
+        "label": "Select Heading Font Style",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "XL Display",
+            "value": "text-xlDisplay"
+          },
+          {
+            "name": "L Display",
+            "value": "text-lDisplay"
+          },
+          {
+            "name": "Alfa",
+            "value": "text-alfa"
+          },
+          {
+            "name": "Bravo",
+            "value": "text-bravo"
+          },
+          {
+            "name": "Charlie",
+            "value": "text-charlie"
+          },
+          {
+            "name": "Delta",
+            "value": "text-delta"
+          },
+          {
+            "name": "Echo",
+            "value": "text-echo"
+          },
+          {
+            "name": "Echo Bolder",
+            "value": "text-echo-bolder"
+          },
+          {
+            "name": "Large",
+            "value": "text-lg"
+          },
+          {
+            "name": "Large Bolder",
+            "value": "text-lg-bolder"
+          },
+          {
+            "name": "Base",
+            "value": "text-base"
+          },
+          {
+            "name": "Base Bolder",
+            "value": "text-base-bolder"
+          },
+          {
+            "name": "Small",
+            "value": "text-sm"
+          },
+          {
+            "name": "Small Bolder",
+            "value": "text-sm-bolder"
+          },
+          {
+            "name": "Caption Large",
+            "value": "text-caption-lg"
+          },
+          {
+            "name": "Caption Small",
+            "value": "text-caption-sm"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "textColor",
+        "label": "Select Heading Color",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Blue",
+            "value": "text-blue"
+          },
+          {
+            "name": "Grey",
+            "value": "text-grey"
+          },
+          {
+            "name": "White",
+            "value": "text-white"
+          },
+          {
+            "name": "Black",
+            "value": "text-black"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "iconCarddescription",
+        "label": "Icon card Description",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "grid",
+        "label": "Icon Card Select how many cards in a column",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": "4"
+          },
+          {
+            "name": "3-columns",
+            "value": "3"
+          },
+          {
+            "name": "2-columns",
+            "value": "2"
+          },
+          {
+            "name": "1-columns",
+            "value": "1"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "iconCardType",
+        "label": "Select type of Icon Card",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "iconType",
+            "value": "icon-type"
+          },
+          {
+            "name": "imageType",
+            "value": "image-type"
+          },
+          {
+            "name": "contactUsCardType",
+            "value": "contact-type"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "icon-card-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "iconCardItemIcon",
+        "label": "Icon of the card",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "iconCardItemHeading",
+        "label": "Heading",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "iconCardItemText",
+        "value": "",
+        "label": "Icon card text Area",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "iconCardItemTextLinkLabel",
+        "label": "Icon Card Text Link Label",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "iconCardItemTextLinkUrl",
+        "label": "Icon Card Text Link URL"
+      },
+      {
+        "component": "radio-group",
+        "label": "Text Link Target",
+        "name": "iconCardItemLinkTarget",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Open In Same Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open In New Tab",
+            "value": "_blank"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "imageLabel",
+        "label": "Image Label",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "login-sso",
     "fields": [
       {
@@ -1079,6 +1717,258 @@
         "component": "aem-content",
         "name": "buttonUrl",
         "label": "Button URL"
+      }
+    ]
+  },
+  {
+    "id": "resources-grid",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "resourceGridId",
+        "label": "Resource Grid Id",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "headingSize",
+        "label": "Heading size",
+        "value": "text-delta",
+        "options": [
+          {
+            "name": "Delta",
+            "value": "text-delta"
+          },
+          {
+            "name": "Charlie",
+            "value": "text-charlie"
+          }
+        ]
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "textArea",
+        "label": "Text area",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "typeofView",
+        "label": "View type",
+        "value": "small",
+        "options": [
+          {
+            "name": "Small",
+            "value": "small"
+          },
+          {
+            "name": "Grid",
+            "value": "grid"
+          }
+        ]
+      },
+      {
+        "component": "radio-group",
+        "valueType": "string",
+        "name": "showFilter",
+        "label": "Show Filter",
+        "value": "show",
+        "options": [
+          {
+            "name": "Show Filter",
+            "value": "show"
+          },
+          {
+            "name": "Hide Filter",
+            "value": "hide"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "resources-grid-item",
+    "fields": [
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "style",
+        "label": "Style",
+        "value": "grey",
+        "options": [
+          {
+            "name": "Grey",
+            "value": "grey"
+          },
+          {
+            "name": "White",
+            "value": "white"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "resourceType",
+        "label": "Resource type",
+        "description": "Pick the resource type",
+        "options": [
+          {
+            "name": "Technical note",
+            "value": "Technical note"
+          },
+          {
+            "name": "Webinar",
+            "value": "Webinar"
+          },
+          {
+            "name": "Document",
+            "value": "Document"
+          },
+          {
+            "name": "Video",
+            "value": "Video"
+          },
+          {
+            "name": "PDF",
+            "value": "PDF"
+          },
+          {
+            "name": "Q&A blog",
+            "value": "Q&A blog"
+          },
+          {
+            "name": "Blog",
+            "value": "Blog"
+          },
+          {
+            "name": "Solution guide",
+            "value": "Solution guide"
+          },
+          {
+            "name": "Brochure",
+            "value": "Brochure"
+          },
+          {
+            "name": "Flyer",
+            "value": "Flyer"
+          },
+          {
+            "name": "Expert brief",
+            "value": "Expert brief"
+          },
+          {
+            "name": "Poster",
+            "value": "Poster"
+          },
+          {
+            "name": "Publication",
+            "value": "Publication"
+          },
+          {
+            "name": "Podcast",
+            "value": "Podcast"
+          },
+          {
+            "name": "Vodcast",
+            "value": "Vodcast"
+          },
+          {
+            "name": "Article",
+            "value": "Article"
+          },
+          {
+            "name": "Infographic",
+            "value": "Infographic"
+          },
+          {
+            "name": "Compendium",
+            "value": "Compendium"
+          },
+          {
+            "name": "Press release",
+            "value": "Press release"
+          },
+          {
+            "name": "Executive summary",
+            "value": "Executive summary"
+          },
+          {
+            "name": "User guide",
+            "value": "User guide"
+          },
+          {
+            "name": "Application guide",
+            "value": "Application guide"
+          },
+          {
+            "name": "Manual",
+            "value": "Manual"
+          },
+          {
+            "name": "Release notes",
+            "value": "Release notes"
+          },
+          {
+            "name": "Specification sheet",
+            "value": "Specification sheet"
+          },
+          {
+            "name": "Hub",
+            "value": "Hub"
+          },
+          {
+            "name": "Spectral library",
+            "value": "Spectral library"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "textArea",
+        "label": "Text area",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "textLinkDestination",
+        "label": "Link destination"
+      },
+      {
+        "component": "radio-group",
+        "valueType": "string",
+        "name": "textLinkTarget",
+        "label": "Link behaviour",
+        "value": "_self",
+        "options": [
+          {
+            "name": "Same tab",
+            "value": "_self"
+          },
+          {
+            "name": "New tab",
+            "value": "_blank"
+          }
+        ]
       }
     ]
   },
@@ -1355,6 +2245,303 @@
             "value": "_blank"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "sciex-table",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "value": "",
+        "label": "Options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Border",
+            "children": [
+              {
+                "name": "Striped",
+                "value": "striped"
+              },
+              {
+                "name": "Bordered",
+                "value": "bordered"
+              }
+            ]
+          },
+          {
+            "name": "Header",
+            "children": [
+              {
+                "name": "No Header",
+                "value": "no-header"
+              }
+            ]
+          },
+          {
+            "name": "Search",
+            "children": [
+              {
+                "name": "Include Search Filter",
+                "value": "search-filter"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "filter",
+        "label": "Columns",
+        "valueType": "string",
+        "value": "table",
+        "options": [
+          {
+            "name": "1 Column",
+            "value": "table"
+          },
+          {
+            "name": "2 Columns",
+            "value": "table-2-columns"
+          },
+          {
+            "name": "3 Columns",
+            "value": "table-3-columns"
+          },
+          {
+            "name": "4 Columns",
+            "value": "table-4-columns"
+          },
+          {
+            "name": "5 Columns",
+            "value": "table-5-columns"
+          },
+          {
+            "name": "6 Columns",
+            "value": "table-6-columns"
+          },
+          {
+            "name": "7 Columns",
+            "value": "table-7-columns"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table-row",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column1text",
+        "label": "Column1"
+      }
+    ]
+  },
+  {
+    "id": "table-col-2",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column1text",
+        "label": "Column1"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column2text",
+        "label": "Column2"
+      }
+    ]
+  },
+  {
+    "id": "table-col-3",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column1text",
+        "label": "Column1"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column2text",
+        "label": "Column2"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column3text",
+        "label": "Column3"
+      }
+    ]
+  },
+  {
+    "id": "table-col-4",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column1text",
+        "label": "Column1"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column2text",
+        "label": "Column2"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column3text",
+        "label": "Column3"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column4text",
+        "label": "Column4"
+      }
+    ]
+  },
+  {
+    "id": "table-col-5",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column1text",
+        "label": "Column1"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column2text",
+        "label": "Column2"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column3text",
+        "label": "Column3"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column4text",
+        "label": "Column4"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column5text",
+        "label": "Column5"
+      }
+    ]
+  },
+  {
+    "id": "table-col-6",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column1text",
+        "label": "Column1"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column2text",
+        "label": "Column2"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column3text",
+        "label": "Column3"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column4text",
+        "label": "Column4"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column5text",
+        "label": "Column5"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column6text",
+        "label": "Column6"
+      }
+    ]
+  },
+  {
+    "id": "table-col-7",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column1text",
+        "label": "Column1"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column2text",
+        "label": "Column2"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column3text",
+        "label": "Column3"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column4text",
+        "label": "Column4"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column5text",
+        "label": "Column5"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column6text",
+        "label": "Column6"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column7text",
+        "label": "Column7"
+      }
+    ]
+  },
+  {
+    "id": "sciex-tabs",
+    "fields": [
+      {
+        "component": "text",
+        "name": "sciexContainerId",
+        "value": "",
+        "label": "Sciex Container Id",
+        "valueType": "string"
       }
     ]
   },
@@ -1665,6 +2852,44 @@
     ]
   },
   {
+    "id": "stat-list",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "statListId",
+        "label": "Stat list Id",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "statListheading",
+        "label": "Stat List Heading",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "stat-list-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "statListItemHeading",
+        "label": "Heading",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "statListItemText",
+        "value": "",
+        "label": "Stat List text Area",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "survey-script",
     "fields": [
       {
@@ -1673,6 +2898,106 @@
         "name": "id",
         "label": "Id",
         "value": "abstract"
+      }
+    ]
+  },
+  {
+    "id": "switch-tabs",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "tabId",
+        "label": "Tab ID",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "tab-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "tabLabel",
+        "label": "Tab Label",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "name": "imagetextArea",
+        "label": "Image Text Area",
+        "value": "",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAltText",
+        "label": "Alt Text",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "tabHeading",
+        "label": "Tab Heading",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "textArea",
+        "label": "Text Area",
+        "value": "",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "tabTextLinkLabel",
+        "label": "Tab Text Link Label",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "tabTextLinkUrl",
+        "label": "Tab Text Link URL"
+      },
+      {
+        "component": "radio-group",
+        "label": "Option to Select Text Link Target",
+        "name": "optionToSelectTextLink",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Open In Same Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open In New Tab",
+            "value": "_blank"
+          }
+        ]
       }
     ]
   },

@@ -9,6 +9,7 @@ import {
   waitForFirstImage,
   loadSection,
   loadSections,
+  sectionBackgroundColor,
   loadCSS,
   toClassName,
   getMetadata,
@@ -59,6 +60,8 @@ export function moveInstrumentation(from, to) {
       .filter((attr) => attr.startsWith('data-aue-') || attr.startsWith('data-richtext-')),
   );
 }
+
+export const applyClasses = (element, classes) => element?.classList.add(...classes.split(' '));
 
 /* Start Search survey script */
 /* eslint-disable */
@@ -152,7 +155,14 @@ async function decorateTemplates(main) {
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
-  document.documentElement.lang = 'en';
+  const domain = window.location.hostname;
+  let lang = 'en';
+  if (domain === 'devcs.sciex.com.cn') {
+    lang = 'zh-cn';
+  } else if (domain === 'devcs.sciex.jp') {
+    lang = 'ja';
+  }
+  document.documentElement.lang = lang;
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
@@ -179,6 +189,7 @@ async function loadEager(doc) {
 async function loadLazy(doc) {
   const main = doc.querySelector('main');
   await loadSections(main);
+  await sectionBackgroundColor(main);
 
   const { hash } = window.location;
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
@@ -197,7 +208,7 @@ async function loadLazy(doc) {
  */
 function loadDelayed() {
   // eslint-disable-next-line import/no-cycle
-  window.setTimeout(() => import('./delayed.js'), 9000);
+  window.setTimeout(() => import('./delayed.js'), 3000);
   // load anything that can be postponed to the latest here
 }
 

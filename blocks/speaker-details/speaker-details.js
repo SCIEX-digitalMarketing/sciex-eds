@@ -45,7 +45,7 @@ export default async function decorate(block) {
 
   for (let index = 0; index < rows.length; index += 1) {
     const row = rows[index];
-  
+
     moveInstrumentation(row, speakerDiv);
     if (index === 0) {
       block.id = `${row.textContent.trim()}-content`;
@@ -56,13 +56,13 @@ export default async function decorate(block) {
       const clonedRow = row.cloneNode(true);
       setImgsEager(clonedRow);
       waitForImagesToDecode(clonedRow);
-  
+
       while (clonedRow.firstElementChild) {
         speakerDiv.append(clonedRow.firstElementChild);
       }
     }
   }
-  
+
   const children = Array.from(speakerDiv.children);
   const contentWrapper = document.createElement('div');
   contentWrapper.className = 'speaker-content';

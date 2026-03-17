@@ -1,0 +1,36 @@
+{
+    "definitions": [
+      {
+        "title": "Sciex Tabs",
+        "id": "sciex-tabs",
+        "plugins": {
+          "xwalk": {
+            "page": {
+              "resourceType": "core/franklin/components/block/v1/block",
+              "template": {
+                "name": "Sciex Tabs",
+                "model": "sciex-tabs"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "models": [
+      {
+        "id": "sciex-tabs",
+        "fields": [
+            {
+                "component": "text",
+                "name": "sciexContainerId",
+                "value": "",
+                "label": "Sciex Container Id",
+                "valueType": "string"
+              }
+        ]
+      }
+    ],
+    "filters": []
+  }
+  
+  
