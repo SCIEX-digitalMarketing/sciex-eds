@@ -280,7 +280,10 @@ export default function decorate(block) {
         } else {
           const content = div.textContent.trim();
           if (content !== '') {
-            div.className = 'cards-card-body';
+            div.className = 'cards-card-body';             
+            if (divIndex === 2) {
+              div.className = 'imageLabel';
+            }
           }
         }
       });
