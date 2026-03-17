@@ -179,6 +179,7 @@
           "label": "option To Select anchor url",
           "name": "OpentionToSelectPrimary",
           "valueType": "string",
+          "value": "_blank",
           "options": [
             {
               "name": "Open In Same Tab",
@@ -194,7 +195,7 @@
           "component": "select",
           "name": "grid",
           "label": "Select how many cards in a row",
-          "value": "",
+          "value": "4",
           "valueType": "string",
           "options": [
             {
