@@ -716,7 +716,7 @@
         "component": "select",
         "name": "grid",
         "label": "Select how many cards in a row",
-        "value": "4",
+        "value": "3",
         "valueType": "string",
         "options": [
           {
