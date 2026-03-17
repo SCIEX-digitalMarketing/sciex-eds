@@ -214,6 +214,13 @@
               "value": "1"
             }
           ]
+        },
+        {
+          "component": "boolean",
+          "name": "pfasStyle",
+          "label": "Enable Pfas Style",
+          "value": false,
+          "valueType": "boolean"
         }
       ]
     },
@@ -247,13 +254,6 @@
           "name": "imageAlt",
           "label": "Alt text",
           "value": "card image"
-        },         
-        {
-          "component": "boolean",
-          "name": "pfasStyle",
-          "label": "Enable Pfas Style",
-          "value": false,
-          "valueType": "boolean"
         },       
         {
           "component": "text",
