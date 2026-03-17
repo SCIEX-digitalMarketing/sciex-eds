@@ -19,7 +19,7 @@ export default function decorate(block) {
   });
 
   const container = document.createElement('div');
-  container.className = 'sciex-columns-container';
+  container.className = 'sciex-columns-block';
 
   if (backgroundClass) container.classList.add(backgroundClass);
   if (id) container.id = `${id}-content`;

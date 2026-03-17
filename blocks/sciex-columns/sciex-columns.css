@@ -1,49 +1,151 @@
-.sciex-columns-container {
-    padding: 80px 0;
+/* Section background */
+.sciex-columns-block {
+    padding: 40px 64px;
+    background: #0b0b0b;
+    color: #ffffff;
+    max-width: 1400px;
+    margin: 0 auto;
   }
   
+  /* Heading */
   .sciex-columns-heading {
+    color: var(--Grey-400, #8A8A8A);
+    font-family: Geogrotesque;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 330;
+    /* line-height: 26px; */
+    letter-spacing: 0.045px;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 50px;
+    opacity: 0.5;
+    margin-bottom: 40px;
   }
   
+  /* Grid */
   .sciex-columns-grid {
     display: grid;
-    gap: 60px;
+    gap: 32px;
   }
   
   .sciex-columns-grid.columns-3 {
     grid-template-columns: repeat(3, 1fr);
   }
   
+  /* Card */
   .sciex-columns-card {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 32px;
   }
   
+  /* Quote text */
   .sciex-columns-quote {
+    color: var(--White-0, #FFF);
+    font-family: Geogrotesque;
     font-size: 24px;
-    line-height: 1.5;
+    font-style: normal;
+    font-weight: 330;
+    line-height: 32px; /* 133.333% */
   }
   
+  /* Author section */
   .sciex-columns-author {
     display: flex;
     align-items: center;
     gap: 16px;
+    height: 72px;
   }
   
+  /* Author image */
   .sciex-columns-author-image img {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    border-radius: 4px;
+    object-fit: cover;
   }
   
+  /* Author text container */
+  .sciex-columns-author-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  /* Author name */
   .sciex-columns-author-name {
-    font-weight: 600;
+    color: var(--White-0, #FFF);
+    font-family: Geogrotesque;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.08px;
   }
   
+  /* Author details */
   .sciex-columns-author-details {
-    opacity: 0.7;
+    font-size: 13px;
+    opacity: 0.6;
+    line-height: 1.4;
+  }
+  
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .sciex-columns-grid.columns-3 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .sciex-columns-grid.columns-3 {
+      grid-template-columns: 1fr;
+    }
+  
+    .sciex-columns-container {
+      padding: 60px 20px;
+    }
+  
+    .sciex-columns-quote {
+      font-size: 20px;
+    }
+  }
+
+  /* Tablet */
+@media (max-width: 1024px) {
+    .sciex-columns-block {
+      padding: 40px;
+    }
+  
+    .sciex-columns-grid.columns-3 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  /* Mobile */
+  @media (max-width: 768px) {
+    .sciex-columns-block {
+      padding: 32px 20px;
+    }
+  
+    .sciex-columns-grid {
+      gap: 24px;
+    }
+  
+    .sciex-columns-grid.columns-3 {
+      grid-template-columns: 1fr; /* ONE CARD PER ROW */
+    }
+  
+    .sciex-columns-quote {
+      font-size: 20px;
+      line-height: 28px;
+    }
+  
+    .sciex-columns-author {
+      height: auto;
+    }
+  
+    .sciex-columns-author-image img {
+      width: 56px;
+      height: 56px;
+    }
   }
