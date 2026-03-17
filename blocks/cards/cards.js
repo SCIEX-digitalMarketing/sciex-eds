@@ -132,6 +132,7 @@ export default function decorate(block) {
   let gridValue = '';
   let headingFontStyle = '';
   let headingFontColor = '';
+  let pfasStyle = false;
 
   [...block.children].forEach((row, index) => {
     if (index === 0) {
@@ -164,6 +165,11 @@ export default function decorate(block) {
       && /^[1-4]$/.test(row.textContent.trim())
     ) {
       gridValue = row.textContent.trim();
+      return;
+    }
+
+    if (index === 7) {
+      pfasStyle = row.textContent.trim().toLowerCase() === 'true';
       return;
     }
 
@@ -274,20 +280,11 @@ export default function decorate(block) {
         } else {
           const content = div.textContent.trim();
           if (content !== '') {
-            div.className = `cards-card-body  ${divIndex}`;
-            if (divIndex === 2) {
-              div.className = 'pfasStyle';
-            }
-            if (divIndex === 3) {
-              div.className = 'imageLabel';
-            }
+            div.className = 'cards-card-body';
           }
         }
       });
 
-      /* ---------------------------
-         IMAGE LABEL (absolute)
-      ----------------------------*/
 
       const imageContainer = li.querySelector('.cards-card-image');
       const imageLabelDiv = li.querySelector('.imageLabel');
@@ -310,20 +307,12 @@ export default function decorate(block) {
          PFAS STYLE
       ----------------------------*/
 
-      const pfasDiv = li.querySelector('.pfasStyle');
-      const isPfas = pfasDiv.textContent.trim() === 'true';
-
-      if (pfasDiv) {
-
-        if (isPfas) {
-          const heading = li.querySelector('h5, h4, h3');
-
-          if (heading) {
-            heading.classList.add('pfas-blue');
-          }
+      // Apply PFAS style if enabled
+      if (pfasStyle) {
+        const heading = li.querySelector('h5, h4, h3');
+        if (heading) {
+          heading.classList.add('pfas-blue');
         }
-
-        pfasDiv.remove();
       }
 
       const anchor = li.querySelector('a');
@@ -331,7 +320,7 @@ export default function decorate(block) {
       if (anchor) {
         anchor.setAttribute('target', target);
 
-        if (isPfas) {
+        if (pfasStyle) {
           // make it look like a button
           anchor.classList.add('cards-button');
 
