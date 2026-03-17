@@ -6,9 +6,61 @@
     ]
   },
   {
-    "id": "speakers",
+    "id": "section",
     "components": [
-      "speaker"
+      "text",
+      "image",
+      "button",
+      "title",
+      "hero",
+      "cards",
+      "columns",
+      "fragment",
+      "hello",
+      "sciex-footer",
+      "header",
+      "footer-topBanner",
+      "searchresult",
+      "login-sso",
+      "breadcrumb",
+      "featured-products",
+      "coursecatalog",
+      "button-text",
+      "sciex-title",
+      "tech-note",
+      "customer-document",
+      "survey-script",
+      "sciex-related-resource",
+      "tabs-nav",
+      "tabs-container",
+      "sciex-text",
+      "events",
+      "hero-banner",
+      "events-container",
+      "session-timeline",
+      "events-details",
+      "speakers",
+      "events-register-form",
+      "sciex-buttons",
+      "split-video-text",
+      "regulatory-document",
+      "resource-library",
+      "hero-small",
+      "text-container",
+      "switch-tabs",
+      "table",
+      "icon-card",
+      "resources-grid",
+      "stat-list",
+      "accordion",
+      "speaker",
+      "sciex-tabs",
+      "atomic-media",
+      "sciex-container",
+      "sciex-table",
+      "cta-with-text",
+      "contact-information",
+      "sciex-headquarters"
     ]
   },
   {
@@ -97,6 +149,12 @@
       "image",
       "icon",
       "links"
+    ]
+  },
+  {
+    "id": "sciex-headquarters",
+    "components": [
+      "sciex-headquarters-item"
     ]
   },
   {
