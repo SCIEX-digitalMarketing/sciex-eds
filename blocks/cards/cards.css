@@ -18,6 +18,25 @@
   align-items: stretch;
 }
 
+.cards-card-image {
+  position: relative;
+}
+
+.cards-image-label {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  color: black;
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+.pfas-blue {
+  color: #0068FA !important;
+ font-weight: 530 !important;
+}
+
 /* 3 Cards Layout */
 .cards > ul:has(> li:nth-child(3):last-child) > li {
   flex: 1 1 calc(33.333% - 16px);

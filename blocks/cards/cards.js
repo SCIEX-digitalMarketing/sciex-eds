@@ -275,9 +275,56 @@ export default function decorate(block) {
           const content = div.textContent.trim();
           if (content !== '') {
             div.className = `cards-card-body  ${divIndex}`;
+            if (divIndex === 2) {
+              div.className = 'pfasStyle';
+            }
+            if (divIndex === 3) {
+              div.className = 'imageLabel';
+            }
           }
         }
       });
+
+      /* ---------------------------
+         IMAGE LABEL (absolute)
+      ----------------------------*/
+
+      const imageContainer = li.querySelector('.cards-card-image');
+      const imageLabelDiv = li.querySelector('.imageLabel');
+
+      if (imageContainer && imageLabelDiv) {
+        const labelText = imageLabelDiv.textContent.trim();
+
+        if (labelText) {
+          const label = document.createElement('span');
+          label.className = 'cards-image-label';
+          label.textContent = labelText;
+
+          imageContainer.appendChild(label);
+        }
+
+        imageLabelDiv.remove();
+      }
+
+      /* ---------------------------
+         PFAS STYLE
+      ----------------------------*/
+
+      const pfasDiv = li.querySelector('.pfasStyle');
+
+      if (pfasDiv) {
+        const isPfas = pfasDiv.textContent.trim() === 'true';
+
+        if (isPfas) {
+          const heading = li.querySelector('h5, h4, h3');
+
+          if (heading) {
+            heading.classList.add('pfas-blue');
+          }
+        }
+
+        pfasDiv.remove();
+      }
 
       const anchor = li.querySelector('a');
       if (anchor) {
