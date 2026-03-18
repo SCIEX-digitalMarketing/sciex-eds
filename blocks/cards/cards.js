@@ -149,6 +149,9 @@ export default function decorate(block) {
     }
     if (index === 3 ) {    
       headingFontColor = row.textContent.trim();
+      if (headingFontColor === '') { 
+        headingFontColor = 'text-black' 
+      };
       return;
     }
     if (index === 4) {

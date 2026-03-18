@@ -194,7 +194,6 @@ object-fit: none;
 }
 
 .cards .cards-heading {
-  color: var(--Grey-900, #141414);
   font-family: "Geogrotesque Sharp VF";
   font-size: 40px;
   font-style: normal;
