@@ -1,9 +1,13 @@
+.sciex-columns-wrapper {
+  max-width: 92pc !important;
+  padding: 0px !important;
+
+  }
+
 /* Section background */
 .sciex-columns-block {
     padding: 40px 64px;
-    background: #0b0b0b;
     color: #ffffff;
-    max-width: 1400px;
     margin: 0 auto;
   }
   
@@ -51,17 +55,17 @@
   /* Author section */
   .sciex-columns-author {
     display: flex;
-    align-items: center;
-    gap: 16px;
+    align-items: flex-start;
+    gap: 24px;
+    flex: 1 0 0;
     height: 72px;
   }
   
   /* Author image */
   .sciex-columns-author-image img {
-    width: 60px;
-    height: 60px;
-    border-radius: 4px;
-    object-fit: cover;
+    width: 72px;
+    height: 72px;
+    aspect-ratio: 1/1;
   }
   
   /* Author text container */
@@ -84,9 +88,13 @@
   
   /* Author details */
   .sciex-columns-author-details {
-    font-size: 13px;
-    opacity: 0.6;
-    line-height: 1.4;
+    color: var(--Grey-400, #8A8A8A);
+    font-family: Geogrotesque;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+    letter-spacing: 0.08px;
   }
   
   /* Responsive */
