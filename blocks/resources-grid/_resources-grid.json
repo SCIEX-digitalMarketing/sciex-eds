@@ -177,6 +177,13 @@
             { "name": "Same tab", "value": "_self" },
             { "name": "New tab", "value": "_blank" }
           ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "gridLabel",
+          "label": "gridLabel",
+          "value": ""
         }
       ]
     }

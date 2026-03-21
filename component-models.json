@@ -2622,6 +2622,13 @@
             "value": "_blank"
           }
         ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "gridLabel",
+        "label": "gridLabel",
+        "value": ""
       }
     ]
   },

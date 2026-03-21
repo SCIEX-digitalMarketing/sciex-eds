@@ -12,6 +12,7 @@ export default function decorate(block) {
   let headingText = '';
   let textSize = 'text-delta';
   let description = '';
+  let pfasStyle = false;
   const sectionDiv = document.createElement('div');
   sectionDiv.className = 'resources-grid-text-hide';
   const subDiv = document.createElement('div');
@@ -69,7 +70,11 @@ export default function decorate(block) {
         sectionDiv.className = 'resources-grid-text-hide';
       }
     }
-    if (index >= 6 && row.children.length > 0) {
+    if(index===6){
+      console.log(`Row text content for index 6: ${row.textContent.trim()}`);
+      pfasStyle = row.textContent.trim();
+    }
+    if (index >= 7 && row.children.length > 0) {
       const li = document.createElement('li');
       if (viewType === 'small') {
         li.className = 'resource-grid-li-small resource-grid-li';
