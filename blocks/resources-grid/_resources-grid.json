@@ -88,6 +88,13 @@
             { "name": "Hide Filter", "value": "hide" }
            
           ]
+        },
+        {
+          "component": "boolean",
+          "name": "pfasStyle",
+          "label": "Enable Pfas Style",
+          "value": false,
+          "valueType": "boolean"
         }
       ]
     },

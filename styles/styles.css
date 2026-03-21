@@ -1334,7 +1334,8 @@ main .section.highlight {
   .sciex-tabs-wrapper,
   .sciex-buttons-wrapper,
   .image-varient-wrapper,
-  .cards-wrapper
+  .cards-wrapper,
+  .resources-grid-wrapper
   {
     max-width: 90pc !important;
     /* padding: 0 55px !important; */
@@ -1501,7 +1502,7 @@ main .section.highlight {
  background-color: var(--Blue-700, #0068FA);
 }
 
-.text-gray-background {
+.text-grey-background {
   background-color: var(--Grey-700, #6B7280);
 }
 

@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 2rem;
   font-family: Arial, sans-serif;
-  max-width: 86pc !important;
+  /* max-width: 86pc !important; */
 }
 .resources-grid-text-show{
   display: grid;
@@ -44,7 +44,7 @@
 }
 .resource-grid-li-small,
 .resource-grid-li-grid {
-  width: 305px;
+  width: 270px;
   padding: 32px;
   margin-top: 10px;
 
