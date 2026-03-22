@@ -213,8 +213,18 @@
 }
 
 /* pfas-style */
-
-
+.resource-grid-li-description.pfas-style{
+color: var(--Blue-700, #0068FA);
+}
+.resource-grid-li.pfas-style{
+background-color: white;
+}
+.resource-grid-ul.pfas-style{
+  gap: 4px;
+}
+.resource-grid-bottomDiv.pfas-style{
+display: none;
+}
 @media (max-width: 768px) {
   .resources-grid-text-show {
     display:inline-block;

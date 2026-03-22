@@ -14,6 +14,7 @@ export default function decorate(block) {
   let description = '';
   let pfasStyle = false;
   let buttonText = '';
+  let gridLabel = 'mm';
   const sectionDiv = document.createElement('div');
   sectionDiv.className = 'resources-grid-text-hide';
   const subDiv = document.createElement('div');
@@ -96,6 +97,12 @@ export default function decorate(block) {
       const middleDiv = document.createElement('div');
       const bottomDiv = document.createElement('div');
       bottomDiv.className = 'resource-grid-bottomDiv';
+      if (pfasStyle === 'true') {
+        topDiv.classList.add('pfas-style');
+        middleDiv.classList.add('pfas-style');
+        bottomDiv.classList.add('pfas-style');
+      }
+
       let pTag = '';
       [...row.children].forEach((column, colIndex) => {
         li.appendChild(a);
@@ -169,7 +176,7 @@ export default function decorate(block) {
               <path d="M16.999 13.5004H9.99902" stroke="#141414"/>
               <path d="M7.49902 5.25043H4.49902V20.2504H17.249V17.2504" stroke="#141414"/>
             </svg>`;
-          }
+        }
 
           topDiv.appendChild(span);
           const title = document.createElement('p');
@@ -182,6 +189,9 @@ export default function decorate(block) {
           }
           const desc = document.createElement('p');
           desc.className = 'resource-grid-li-description';
+          if (pfasStyle === 'true') {
+            desc.classList.add('pfas-style');
+          }
           desc.textContent = column.textContent;
           middleDiv.appendChild(desc);
         } else if (colIndex === 4) {
@@ -207,8 +217,7 @@ export default function decorate(block) {
   if (pfasStyle === 'true') {
     const container = document.querySelector('.resources-grid-container');
     if (container) container.classList.add('pfas-style');
-    const descriptionDiv = sectionDiv.querySelector('.resources-grid-description');
-    if (descriptionDiv) descriptionDiv.classList.add('pfas-style');
+   
     const heading = sectionDiv.querySelector('#headingDiv');
     if (heading) heading.classList.add('pfas-style');
     const filterWrapper = sectionDiv.querySelector('.resource-grid-filter-label');
