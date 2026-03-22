@@ -2450,9 +2450,18 @@
       },
       {
         "component": "text",
+        "id": "button",
         "valueType": "string",
         "name": "button",
         "label": "Button",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "id": "button1",
+        "valueType": "string",
+        "name": "button1",
+        "label": "Button 1",
         "value": ""
       }
     ]
