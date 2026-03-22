@@ -85,6 +85,9 @@ export default function decorate(block) {
       } else {
         li.className = 'resource-grid-li-grid resource-grid-li';
       }
+      if (pfasStyle === 'true') {
+        li.classList.add('pfas-style');
+      }
       let colour = 'grey';
       const a = document.createElement('a');
       a.className = 'resource-grid-link';
@@ -201,6 +204,19 @@ export default function decorate(block) {
       moveInstrumentation(row, li);
     }
   });
+  if (pfasStyle === 'true') {
+    const container = document.querySelector('.resources-grid-container');
+    if (container) container.classList.add('pfas-style');
+    const descriptionDiv = sectionDiv.querySelector('.resources-grid-description');
+    if (descriptionDiv) descriptionDiv.classList.add('pfas-style');
+    const heading = sectionDiv.querySelector('#headingDiv');
+    if (heading) heading.classList.add('pfas-style');
+    const filterWrapper = sectionDiv.querySelector('.resource-grid-filter-label');
+    if (filterWrapper) filterWrapper.classList.add('pfas-style');
+    const labels = sectionDiv.querySelectorAll('.resource-grid-filter-input-white');
+    labels.forEach(label => label.classList.add('pfas-style'));
+    
+  }
   if (filterValue === 'show') {
     const filterLabel = document.createElement('span');
     filterLabel.className = '';
@@ -240,6 +256,11 @@ export default function decorate(block) {
   }
   block.textContent = '';
   block.appendChild(sectionDiv);
+  if (pfasStyle === 'true') {
+    ul.classList.add('pfas-style');
+    block.classList.add('pfas-style');
+    sectionDiv.classList.add('pfas-style');
+  }
 
   block.appendChild(ul);
 }

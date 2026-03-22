@@ -212,6 +212,9 @@
   height: auto;
 }
 
+/* pfas-style */
+
+
 @media (max-width: 768px) {
   .resources-grid-text-show {
     display:inline-block;
