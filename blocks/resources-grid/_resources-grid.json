@@ -95,6 +95,13 @@
           "label": "Enable Pfas Style",
           "value": false,
           "valueType": "boolean"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "button",
+          "label": "Button",
+          "value": ""
         }
       ]
     },

@@ -41,12 +41,11 @@
 .resource-grid-ul{
  display: grid;
  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
 }
 .resource-grid-li-small,
 .resource-grid-li-grid {
-  width: 270px;
   padding: 32px;
-  margin-top: 10px;
 
   /* FIX */
   display: flex;
