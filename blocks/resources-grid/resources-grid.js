@@ -14,7 +14,6 @@ export default function decorate(block) {
   let description = '';
   let pfasStyle = false;
   let buttonText = '';
-  let gridLabel = 'mm';
   const sectionDiv = document.createElement('div');
   sectionDiv.className = 'resources-grid-text-hide';
   const subDiv = document.createElement('div');

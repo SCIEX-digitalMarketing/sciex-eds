@@ -248,6 +248,11 @@ display: none;
   letter-spacing: 0.08px;
 }
 @media (max-width: 768px) {
+  .resources-grid-button {
+      width: 100%;
+      justify-content: space-between;
+      color: #0068FA;
+    }
   .resources-grid-text-show {
     display:inline-block;
   }
