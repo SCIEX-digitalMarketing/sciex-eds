@@ -112,6 +112,7 @@ export default function decorate(block) {
           }
           li.classList.add(`resource-grid-li-background-${colour.toLowerCase()}`);
         } else if (colIndex === 1) {
+          if(!pfasStyle){
           pTag = column.textContent;
           const tageName = document.createElement('p');
           tageName.textContent = column.textContent;
@@ -120,9 +121,11 @@ export default function decorate(block) {
           if (filters.findIndex((f) => f.value === column.textContent) === -1) {
             const tagName = column.textContent;
             filters.push({ id: column.textContent.trim().toLowerCase().replace(/\s+/g, '-'), label: tagName, value: tagName });
-          }
+          }}
         } else if (colIndex === 2) {
           const span = document.createElement('span');
+          span.className = 'resource-grid-label';
+          if (!pfasStyle ){
           if (pTag === 'Technical note') {
             span.innerHTML = `
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -177,12 +180,16 @@ export default function decorate(block) {
               <path d="M7.49902 5.25043H4.49902V20.2504H17.249V17.2504" stroke="#141414"/>
             </svg>`;
         }
-
-          topDiv.appendChild(span);
+      }
           const title = document.createElement('p');
           title.className = 'resource-grid-li-title';
           title.textContent = column.textContent;
+          if(pfasStyle){           
+          topDiv.appendChild(title);
+          }else{
           middleDiv.appendChild(title);
+          }
+          topDiv.appendChild(span);
         } else if (colIndex === 3) {
           if (column.textContent.trim() === '') {
             return;
@@ -205,6 +212,12 @@ export default function decorate(block) {
           console.log(`Setting href for link${aTag}`);
           aTag.setAttribute('href', column.textContent);
           aTag.setAttribute('target', '_blank');
+        }
+        else if (colIndex === 6) {
+          if(pfasStyle === 'true'){
+            const labelSpan = li.querySelector('.resource-grid-label');
+            if (labelSpan) labelSpan.textContent = column.textContent;
+          }
         }
         a.appendChild(topDiv);
         a.appendChild(middleDiv);
