@@ -122,11 +122,11 @@ export default function decorate(block) {
               filters.push({ id: column.textContent.trim().toLowerCase().replace(/\s+/g, '-'), label: tagName, value: tagName });
           }}
         } else if (colIndex === 2) {
-          const span = document.createElement('span');
-          span.className = 'resource-grid-label';
+          const spanEL = document.createElement('span');
+          spanEL.className = 'resource-grid-label';
           if (!pfasStyle ){
             if (pTag === 'Technical note') {
-              span.innerHTML = `
+              spanEL.innerHTML = `
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <path d="M2.99902 18.9284V4.13917C2.99902 4.07091 3.06589 4.02272 3.13065 4.0443L11.9306 6.97763C11.9715 6.99125 11.999 7.02946 11.999 7.0725V21.8617C11.999 21.9299 11.9322 21.9781 11.8674 21.9566L3.0674 19.0232C3.02657 19.0096 2.99902 18.9714 2.99902 18.9284Z" stroke="#141414"></path>
@@ -134,7 +134,7 @@ export default function decorate(block) {
               <path d="M14.7328 10.086L18.7082 8.79433C18.8318 8.75415 18.8885 8.78561 18.8873 8.92561L18.8836 9.37559C18.8825 9.51559 18.825 9.58413 18.7014 9.6243L17.1797 10.1187L17.1324 15.8885C17.1312 16.0285 17.0832 16.104 16.9595 16.1441L16.3699 16.3357C16.2462 16.3759 16.1992 16.3314 16.2003 16.1914L16.2477 10.4216L14.726 10.916C14.5928 10.9593 14.5457 10.9247 14.5468 10.7847L14.5505 10.3347C14.5517 10.1947 14.5996 10.1293 14.7328 10.086Z" fill="#141414"></path>
             </svg>`;
             } else if (pTag === 'Webinar' || pTag === 'Q&A blog' || pTag === 'Blog' || pTag === 'Article' || pTag === 'Hub') {
-              span.innerHTML = `
+              spanEL.innerHTML = `
             <svg width="24" height="24" viewBox="0 0 40 40"
               fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="3.75" y="3.75" width="32.5" height="32.5" stroke="#141414" />
@@ -144,19 +144,19 @@ export default function decorate(block) {
               <circle cx="18.3337" cy="8.33333" r="1.66667" fill="#141414" />
             </svg>`;
             } else if (pTag === 'Document' || pTag === 'Solution guide' || pTag === 'Publication' || pTag === 'User guide' || pTag === 'Application guide' || pTag === 'Manual' || pTag === 'Release notes' || pTag === 'Specification sheet') {
-              span.innerHTML = `
+              spanEL.innerHTML = `
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2.99902 18.9284V4.13917C2.99902 4.07091 3.06589 4.02272 3.13065 4.0443L11.9306 6.97763C11.9715 6.99125 11.999 7.02946 11.999 7.0725V21.8617C11.999 21.9299 11.9322 21.9781 11.8674 21.9566L3.0674 19.0232C3.02657 19.0096 2.99902 18.9714 2.99902 18.9284Z" stroke="#141414"/>
             <path d="M20.999 18.9284V4.13917C20.999 4.07091 20.9322 4.02272 20.8674 4.0443L12.0674 6.97763C12.0266 6.99125 11.999 7.02946 11.999 7.0725V21.8617C11.999 21.9299 12.0659 21.9781 12.1306 21.9566L20.9306 19.0232C20.9715 19.0096 20.999 18.9714 20.999 18.9284Z" stroke="#141414"/>
             <path d="M18.8779 13.4918V14.1218C18.8779 14.9418 18.4119 15.8132 16.7761 16.3447C15.1403 16.8762 14.6743 16.3077 14.6743 15.4877V11.6077C14.6743 10.7877 15.1403 9.91623 16.7761 9.38472C18.4119 8.85321 18.8779 9.4218 18.8779 10.2418V10.7318C18.8779 10.8718 18.8304 10.9472 18.7068 10.9874L18.1551 11.1666C18.022 11.2099 17.9744 11.1654 17.9744 11.0254V10.6954C17.9744 10.1554 17.6416 9.93352 16.7856 10.2116C15.9297 10.4897 15.6063 10.9248 15.6063 11.4648V15.0248C15.6063 15.5648 15.9297 15.7897 16.7856 15.5116C17.6416 15.2335 17.9744 14.7954 17.9744 14.2554V13.7854C17.9744 13.6554 18.022 13.5799 18.1551 13.5366L18.7068 13.3574C18.8304 13.3172 18.8779 13.3618 18.8779 13.4918Z" fill="#141414"/>
           </svg>`;
             } else if (pTag === 'Video' || pTag === 'Podcast' || pTag === 'Vodcast') {
-              span.innerHTML = `
+              spanEL.innerHTML = `
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5.5 19.191V4.80902L19.882 12L5.5 19.191Z" stroke="#141414"/>
             </svg>`;
             } else if (pTag === 'PDF' || pTag === 'Compendium') {
-              span.innerHTML = `
+              spanEL.innerHTML = `
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="5.49902" y="2.50043" width="16" height="19" stroke="#141414"/>
               <path d="M10.999 16.0004H17.999" stroke="#141414"/>
@@ -170,7 +170,7 @@ export default function decorate(block) {
               <path d="M7.99902 17.0004C7.99902 15.6197 6.87974 14.5004 5.49902 14.5004" stroke="#141414"/>
             </svg>`;
             } else if (pTag === 'Brochure' || pTag === 'Flyer' || pTag === 'Expert brief' || pTag === 'Poster' || pTag === 'Infographic' || pTag === 'Press release' || pTag === 'Executive summary' || pTag === 'Spectral library') {
-              span.innerHTML = `
+              spanEL.innerHTML = `
            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12.749 3.75043H7.49902V17.2504H19.499V9.75043" stroke="#141414"/>
               <path d="M15.499 7.50043V4.20753L17.1455 5.85398L18.7919 7.50043H15.499Z" stroke="#141414"/>
@@ -188,7 +188,7 @@ export default function decorate(block) {
           }else{
             middleDiv.appendChild(title);
           }
-          topDiv.appendChild(span);
+          topDiv.appendChild(spanEL);
         } else if (colIndex === 3) {
           if (column.textContent.trim() === '') {
             return;
