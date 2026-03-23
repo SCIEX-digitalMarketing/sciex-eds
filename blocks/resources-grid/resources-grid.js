@@ -1,5 +1,5 @@
-import {} from '../../scripts/aem.js';
-import { } from '../../scripts/dom-builder.js';
+import { span } from '../../scripts/dom-builder.js';
+import { decorateIcons } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
@@ -285,4 +285,12 @@ export default function decorate(block) {
   }
 
   block.appendChild(ul);
+ if (buttonText) {
+  const button = document.createElement('button');
+  button.className = 'resources-grid-button';
+  button.textContent = buttonText;
+  button.append(span({ class: 'icon icon-arrow-blue' }));
+  block.appendChild(button);
+  decorateIcons(button);
+}
 }

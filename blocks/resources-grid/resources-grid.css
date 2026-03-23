@@ -231,6 +231,22 @@ display: none;
   background: var(--Grey-50, #F5F5F5);
   padding: 0 4px;
 }
+.resources-grid-button{
+  width: fit-content;
+  display: flex;
+  padding: 12px 20px;
+  align-items: center;
+  gap: 16px;
+  border-radius: 4px;
+  border: 1px solid var(--Blue-700, #0068FA);
+  color: var(--Grey-900, #141414);
+  font-family: Geogrotesque;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.08px;
+}
 @media (max-width: 768px) {
   .resources-grid-text-show {
     display:inline-block;
