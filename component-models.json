@@ -1700,6 +1700,94 @@
         "placeholder": "YYYY-MM-DD",
         "displayFormat": null,
         "valueFormat": null
+      },
+      {
+        "component": "boolean",
+        "label": "it Full Image banner?",
+        "name": "itsFullImage",
+        "valueType": "boolean"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "overlayImage",
+        "label": "Overlay Image",
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "buttonText",
+        "label": "Primary Button Text",
+        "value": "",
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "aem-content",
+        "name": "buttonUrl",
+        "label": "primary Button Url",
+        "value": "",
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "buttonIcon",
+        "label": "Button Icon",
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "radio-group",
+        "label": "option To Select primary button url",
+        "name": "OpentionToSelectPrimary",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            true
+          ]
+        },
+        "options": [
+          {
+            "name": "Open In Same Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open In New Tab",
+            "value": "_blank"
+          }
+        ]
       }
     ]
   },
@@ -2731,6 +2819,108 @@
             "value": "_blank"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "sciex-columns",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sciexColumnsId",
+        "label": "Sciex Columns Id",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sciexColumnsheading",
+        "label": "Sciex Columns Heading",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "backgroundColor",
+        "label": "Select background Color",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Blue",
+            "value": "text-blue-background"
+          },
+          {
+            "name": "Grey",
+            "value": "text-grey-background"
+          },
+          {
+            "name": "White",
+            "value": "text-white-background"
+          },
+          {
+            "name": "Black",
+            "value": "text-black-background"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "grid",
+        "label": "Select how many cards in a column",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": "4"
+          },
+          {
+            "name": "3-columns",
+            "value": "3"
+          },
+          {
+            "name": "2-columns",
+            "value": "2"
+          },
+          {
+            "name": "1-columns",
+            "value": "1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sciex-columns-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "itemHeading",
+        "label": "Heading",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "authorImage",
+        "label": "Author Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "authorName",
+        "label": "Author Name",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "authorDetails",
+        "value": "",
+        "label": "Author Deatails",
+        "valueType": "string"
       }
     ]
   },

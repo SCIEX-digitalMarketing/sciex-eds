@@ -1,0 +1,159 @@
+.sciex-columns-wrapper {
+  max-width: 92pc !important;
+  padding: 0px !important;
+
+  }
+
+/* Section background */
+.sciex-columns-block {
+    padding: 40px 64px;
+    color: #ffffff;
+    margin: 0 auto;
+  }
+  
+  /* Heading */
+  .sciex-columns-heading {
+    color: var(--Grey-400, #8A8A8A);
+    font-family: Geogrotesque;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 330;
+    /* line-height: 26px; */
+    letter-spacing: 0.045px;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 40px;
+  }
+  
+  /* Grid */
+  .sciex-columns-grid {
+    display: grid;
+    gap: 32px;
+  }
+  
+  .sciex-columns-grid.columns-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  /* Card */
+  .sciex-columns-card {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  
+  /* Quote text */
+  .sciex-columns-quote {
+    color: var(--White-0, #FFF);
+    font-family: Geogrotesque;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 330;
+    line-height: 32px; /* 133.333% */
+  }
+  
+  /* Author section */
+  .sciex-columns-author {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    flex: 1 0 0;
+    height: 72px;
+  }
+  
+  /* Author image */
+  .sciex-columns-author-image img {
+    width: 72px;
+    height: 72px;
+    aspect-ratio: 1/1;
+  }
+  
+  /* Author text container */
+  .sciex-columns-author-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  /* Author name */
+  .sciex-columns-author-name {
+    color: var(--White-0, #FFF);
+    font-family: Geogrotesque;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.08px;
+  }
+  
+  /* Author details */
+  .sciex-columns-author-details {
+    color: var(--Grey-400, #8A8A8A);
+    font-family: Geogrotesque;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+    letter-spacing: 0.08px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .sciex-columns-grid.columns-3 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .sciex-columns-grid.columns-3 {
+      grid-template-columns: 1fr;
+    }
+  
+    .sciex-columns-container {
+      padding: 60px 20px;
+    }
+  
+    .sciex-columns-quote {
+      font-size: 20px;
+    }
+  }
+
+  /* Tablet */
+@media (max-width: 1024px) {
+    .sciex-columns-block {
+      padding: 40px;
+    }
+  
+    .sciex-columns-grid.columns-3 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  /* Mobile */
+  @media (max-width: 768px) {
+    .sciex-columns-block {
+      padding: 32px 20px;
+    }
+  
+    .sciex-columns-grid {
+      gap: 24px;
+    }
+  
+    .sciex-columns-grid.columns-3 {
+      grid-template-columns: 1fr; /* ONE CARD PER ROW */
+    }
+  
+    .sciex-columns-quote {
+      font-size: 20px;
+      line-height: 28px;
+    }
+  
+    .sciex-columns-author {
+      height: auto;
+    }
+  
+    .sciex-columns-author-image img {
+      width: 56px;
+      height: 56px;
+    }
+  }

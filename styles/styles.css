@@ -1335,6 +1335,7 @@ main .section.highlight {
   .sciex-buttons-wrapper,
   .image-varient-wrapper,
   .cards-wrapper,
+  .sciex-columns-wrapper,
   .resources-grid-wrapper
   {
     max-width: 90pc !important;
@@ -1348,7 +1349,8 @@ main .section.highlight {
   .tabs-nav-wrapper,
   .tabs-container-wrapper,
   .sciex-related-resource-wrapper,
-  .featured-products-wrapper {
+  .featured-products-wrapper
+  .sciex-columns-wrapper {
     /* padding: 0 20px !important; */
   }
 }
