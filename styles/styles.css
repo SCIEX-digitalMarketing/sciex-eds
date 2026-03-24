@@ -1512,3 +1512,25 @@ main .section.highlight {
 .text-white-background {
   background-color: var(--White, #FFFFFF);;
 }
+
+.border-blue {
+  border-color: var(--Blue-700, #0068FA);
+}
+
+.border-grey {
+  border-color: var(--Grey-700, #6B7280);
+}
+
+.border-white {
+  border-color: var(--White, #FFFFFF);
+}
+
+.border-black {
+  border-color: var(--Black, #000000);
+}
+.border-light-grey {
+  border-color: #F5F5F5;
+}
+.border-soft-grey {
+  border-color: #ECECEC;
+}

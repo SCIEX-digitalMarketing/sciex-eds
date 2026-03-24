@@ -1,0 +1,102 @@
+{
+  "definitions": [
+    {
+      "title": "Sciex Border",
+      "id": "sciex-border",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "sciex-border",
+              "model": "sciex-border"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "sciex-border",
+      "fields": [
+        {
+          "component": "select",
+          "name": "borderWidth",
+          "label": "Border width",
+          "valueType": "string",
+          "value": "1px",
+          "options": [
+            {
+              "name": "1px",
+              "value": "1px"
+            },
+            {
+              "name": "2px",
+              "value": "2px"
+            },
+            {
+              "name": "3px",
+              "value": "3px"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "borderStyle",
+          "label": "Border style",
+          "valueType": "string",
+          "value": "solid",
+          "options": [
+            {
+              "name": "Solid",
+              "value": "solid"
+            },
+            {
+              "name": "Dashed",
+              "value": "dashed"
+            },
+            {
+              "name": "Dotted",
+              "value": "dotted"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "borderColor",
+          "label": "Border color",
+          "valueType": "string",
+          "value": "border-black",
+          "options": [
+            {
+              "name": "Black",
+              "value": "border-black"
+            },
+            {
+              "name": "Blue",
+              "value": "border-blue"
+            },
+            {
+              "name": "Grey",
+              "value": "border-grey"
+            },
+            {
+              "name": "White",
+              "value": "border-white"
+            },
+            {
+              "name": "Light Grey",
+              "value": "border-light-grey"
+            },
+            {
+              "name": "Soft Grey",
+              "value": "border-soft-grey"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "filters": []
+}
