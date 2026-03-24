@@ -111,7 +111,7 @@ export default function decorate(block) {
           }
           li.classList.add(`resource-grid-li-background-${colour.toLowerCase()}`);
         } else if (colIndex === 1) {
-          if(!pfasStyle){
+          if(pfasStyle==='false'){
             pTag = column.textContent;
             const tageName = document.createElement('p');
             tageName.textContent = column.textContent;
@@ -124,7 +124,7 @@ export default function decorate(block) {
         } else if (colIndex === 2) {
           const spanEL = document.createElement('span');
           spanEL.className = 'resource-grid-label';
-          if (!pfasStyle ){
+          if (pfasStyle === 'false') {
             if (pTag === 'Technical note') {
               spanEL.innerHTML = `
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -183,7 +183,7 @@ export default function decorate(block) {
           const title = document.createElement('p');
           title.className = 'resource-grid-li-title';
           title.textContent = column.textContent;
-          if(pfasStyle){           
+          if(pfasStyle==='true'){           
             topDiv.appendChild(title);
           }else{
             middleDiv.appendChild(title);
