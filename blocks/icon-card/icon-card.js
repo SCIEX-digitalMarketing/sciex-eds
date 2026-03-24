@@ -13,7 +13,7 @@ export default function decorate(block) {
   let description = '';
   let columns = 2;
   let typeOfCard = '';
-  let fontType = '';
+  let fontType = 'icon-card-title';
   let headingType = '';
 
   rows.forEach((row, index) => {
