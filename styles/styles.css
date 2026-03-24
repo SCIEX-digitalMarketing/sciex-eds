@@ -1514,23 +1514,23 @@ main .section.highlight {
 }
 
 .border-blue {
-  border-color: var(--Blue-700, #0068FA);
+  border-color: var(--Blue-700, #0068FA) !important;
 }
 
 .border-grey {
-  border-color: var(--Grey-700, #6B7280);
+  border-color: var(--Grey-700, #6B7280) !important;
 }
 
 .border-white {
-  border-color: var(--White, #FFFFFF);
+  border-color: var(--White, #FFFFFF) !important;
 }
 
 .border-black {
-  border-color: var(--Black, #000000);
+  border-color: var(--Black, #000000) !important;
 }
 .border-light-grey {
-  border-color: #F5F5F5;
+  border-color: #F5F5F5 !important;
 }
 .border-soft-grey {
-  border-color: #ECECEC;
+  border-color: #ECECEC !important;
 }
