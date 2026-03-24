@@ -1334,6 +1334,7 @@ main .section.highlight {
   .sciex-tabs-wrapper,
   .sciex-buttons-wrapper,
   .image-varient-wrapper,
+  .cards-wrapper,
   .sciex-columns-wrapper
   {
     max-width: 90pc !important;

@@ -700,6 +700,7 @@
         "label": "option To Select anchor url",
         "name": "OpentionToSelectPrimary",
         "valueType": "string",
+        "value": "_blank",
         "options": [
           {
             "name": "Open In Same Tab",
@@ -715,7 +716,7 @@
         "component": "select",
         "name": "grid",
         "label": "Select how many cards in a row",
-        "value": "",
+        "value": "3",
         "valueType": "string",
         "options": [
           {
@@ -735,6 +736,13 @@
             "value": "1"
           }
         ]
+      },
+      {
+        "component": "boolean",
+        "name": "pfasStyle",
+        "label": "Enable Pfas Style",
+        "value": false,
+        "valueType": "boolean"
       }
     ]
   },
@@ -765,8 +773,15 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "imageAltText",
+        "name": "imageAlt",
         "label": "Alt text",
+        "value": "card image"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageLabel",
+        "label": "imageLabel",
         "value": ""
       }
     ]
@@ -1681,6 +1696,94 @@
         "placeholder": "YYYY-MM-DD",
         "displayFormat": null,
         "valueFormat": null
+      },
+      {
+        "component": "boolean",
+        "label": "it Full Image banner?",
+        "name": "itsFullImage",
+        "valueType": "boolean"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "overlayImage",
+        "label": "Overlay Image",
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "buttonText",
+        "label": "Primary Button Text",
+        "value": "",
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "aem-content",
+        "name": "buttonUrl",
+        "label": "primary Button Url",
+        "value": "",
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "buttonIcon",
+        "label": "Button Icon",
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "radio-group",
+        "label": "option To Select primary button url",
+        "name": "OpentionToSelectPrimary",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            true
+          ]
+        },
+        "options": [
+          {
+            "name": "Open In Same Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open In New Tab",
+            "value": "_blank"
+          }
+        ]
       }
     ]
   },

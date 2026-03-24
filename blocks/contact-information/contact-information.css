@@ -193,12 +193,16 @@ font-weight: 370;
 line-height: normal;
 }
 
-.address {
+.address,.phone,.email {
 color: #666;
 font-size: 15px;
 font-style: normal;
 font-weight: 370;
 line-height: normal;
+}
+
+.website-link{
+  color: var(--Blue-700, #0068FA) !important;
 }
 .search-wrapper {
   display: flex;

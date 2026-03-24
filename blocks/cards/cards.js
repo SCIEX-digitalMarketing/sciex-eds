@@ -132,6 +132,7 @@ export default function decorate(block) {
   let gridValue = '';
   let headingFontStyle = '';
   let headingFontColor = '';
+  let pfasStyle = false;
 
   [...block.children].forEach((row, index) => {
     if (index === 0) {
@@ -148,6 +149,9 @@ export default function decorate(block) {
     }
     if (index === 3 ) {    
       headingFontColor = row.textContent.trim();
+      if (headingFontColor === '') { 
+        headingFontColor = 'text-black' 
+      };
       return;
     }
     if (index === 4) {
@@ -164,6 +168,11 @@ export default function decorate(block) {
       && /^[1-4]$/.test(row.textContent.trim())
     ) {
       gridValue = row.textContent.trim();
+      return;
+    }
+
+    if (index === 7) {
+      pfasStyle = row.textContent.trim().toLowerCase() === 'true';
       return;
     }
 
@@ -274,15 +283,68 @@ export default function decorate(block) {
         } else {
           const content = div.textContent.trim();
           if (content !== '') {
-            div.className = 'cards-card-body';
+            div.className = 'cards-card-body';             
+            if (divIndex === 2) {
+              div.className = 'imageLabel';
+            }
           }
         }
       });
 
+
+      const imageContainer = li.querySelector('.cards-card-image');
+      const imageLabelDiv = li.querySelector('.imageLabel');
+
+      if (imageContainer && imageLabelDiv) {
+        const labelText = imageLabelDiv.textContent.trim();
+
+        if (labelText) {
+          const label = document.createElement('span');
+          label.className = 'cards-image-label';
+          label.textContent = labelText;
+
+          imageContainer.appendChild(label);
+        }
+
+        imageLabelDiv.remove();
+      }
+
+      /* ---------------------------
+         PFAS STYLE
+      ----------------------------*/
+
+      // Apply PFAS style if enabled
+      if (pfasStyle) {
+        li.classList.add('pfas-card');
+        const heading = li.querySelector('h5, h4, h3');
+        if (heading) {
+          heading.classList.add('pfas-blue');
+        }
+      }
+
       const anchor = li.querySelector('a');
+
       if (anchor) {
         anchor.setAttribute('target', target);
-        anchor.appendChild(span({ class: 'icon icon-right-arrow' }));
+
+        if (pfasStyle) {
+          // make it look like a button
+          anchor.classList.add('cards-button');
+
+          // wrap text in span (optional but cleaner)
+          const textSpan = document.createElement('span');
+          textSpan.textContent = anchor.textContent;
+          anchor.textContent = '';
+          anchor.appendChild(textSpan);
+
+          // add arrow icon
+          anchor.appendChild(span({ class: 'icon icon-arrow' }));
+
+        } else {
+          // normal link behavior
+          anchor.appendChild(span({ class: 'icon icon-right-arrow' }));
+
+        }
       }
 
       if (videoThumbnailImg) {
