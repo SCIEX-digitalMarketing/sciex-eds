@@ -100,6 +100,7 @@ export default function decorate(block) {
         topDiv.classList.add('pfas-style');
         middleDiv.classList.add('pfas-style');
         bottomDiv.classList.add('pfas-style');
+        a.classList.add('pfas-style');
       }
 
       let pTag = '';
@@ -183,7 +184,8 @@ export default function decorate(block) {
           const title = document.createElement('p');
           title.className = 'resource-grid-li-title';
           title.textContent = column.textContent;
-          if(pfasStyle==='true'){           
+          if(pfasStyle==='true'){   
+            title.classList.add('pfas-style');        
             topDiv.appendChild(title);
           }else{
             middleDiv.appendChild(title);
