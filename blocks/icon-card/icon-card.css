@@ -105,7 +105,7 @@
   justify-content: center;
 }
 
-.image-type .icon-card-title {
+.image-type .default-icon-card-title {
   font-family: "Geogrotesque Sharp VF";
   font-size: 20px;
   font-weight: 600;
@@ -137,7 +137,7 @@
   justify-content: flex-start;
 }
 
-.icon-card-title {
+.default-icon-card-title {
   font-family: "Geogrotesque Sharp VF";
   font-size: 24px;
   font-style: normal;
@@ -149,7 +149,7 @@
   margin-bottom: auto;
 }
 
-.contact-type .icon-card-title {
+.contact-type .default-icon-card-title {
 font-family: "Geogrotesque Sharp VF";
 font-size: 24px;
 font-style: normal;
@@ -194,7 +194,7 @@ line-height: normal;
 }
 
 .icon-card-link {
-  color: var(--Blue-700, #0068FA);
+  color: var(--Blue-700, #0068FA) !important;
   font-family: "Geogrotesque Sharp VF";
   font-size: 16px;
   font-style: normal;

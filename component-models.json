@@ -283,8 +283,12 @@
             "value": "text-white-background"
           },
           {
-            "name": "Gray",
+            "name": "Grey",
             "value": "text-grey-background"
+          },
+          {
+            "name": "Lite Grey",
+            "value": "text-lite-grey-background"
           },
           {
             "name": "Blue",
@@ -2528,6 +2532,20 @@
             "value": "hide"
           }
         ]
+      },
+      {
+        "component": "boolean",
+        "name": "pfasStyle",
+        "label": "Enable Pfas Style",
+        "value": false,
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "button",
+        "label": "Button",
+        "value": ""
       }
     ]
   },
@@ -2703,6 +2721,13 @@
             "value": "_blank"
           }
         ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "gridLabel",
+        "label": "gridLabel",
+        "value": ""
       }
     ]
   },
@@ -2874,6 +2899,108 @@
             "value": "_blank"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "sciex-columns",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sciexColumnsId",
+        "label": "Sciex Columns Id",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sciexColumnsheading",
+        "label": "Sciex Columns Heading",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "backgroundColor",
+        "label": "Select background Color",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Blue",
+            "value": "text-blue-background"
+          },
+          {
+            "name": "Grey",
+            "value": "text-grey-background"
+          },
+          {
+            "name": "White",
+            "value": "text-white-background"
+          },
+          {
+            "name": "Black",
+            "value": "text-black-background"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "grid",
+        "label": "Select how many cards in a column",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": "4"
+          },
+          {
+            "name": "3-columns",
+            "value": "3"
+          },
+          {
+            "name": "2-columns",
+            "value": "2"
+          },
+          {
+            "name": "1-columns",
+            "value": "1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sciex-columns-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "itemHeading",
+        "label": "Heading",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "authorImage",
+        "label": "Author Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "authorName",
+        "label": "Author Name",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "authorDetails",
+        "value": "",
+        "label": "Author Deatails",
+        "valueType": "string"
       }
     ]
   },
