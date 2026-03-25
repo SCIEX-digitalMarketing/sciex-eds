@@ -1336,7 +1336,8 @@ main .section.highlight {
   .image-varient-wrapper,
   .cards-wrapper,
   .sciex-columns-wrapper,
-  .resources-grid-wrapper
+  .resources-grid-wrapper,
+  .sciex-border-wrapper
   {
     max-width: 90pc !important;
     /* padding: 0 55px !important; */
