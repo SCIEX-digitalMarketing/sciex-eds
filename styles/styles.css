@@ -296,6 +296,10 @@ main .section.highlight {
   overflow: hidden;
 }
 
+.text-grey-background {
+  background-color: #F5F5F5;
+}
+
 .search-result {
   background-color: #fff;
 }

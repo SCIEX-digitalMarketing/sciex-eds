@@ -32,6 +32,7 @@ export async function loadFragment(rawPath) {
 }
 
 export default async function decorate(block) {
+  const containedID = block.children[0]?.textContent?.trim();
   const rawColumnText = block.children[1]?.textContent?.trim();
   const columnSetting = Number(rawColumnText);
   const gridValueColumns = columnSetting > 0 ? columnSetting : 2;
@@ -50,7 +51,7 @@ export default async function decorate(block) {
 
   const container = document.createElement('div');
   container.classList.add('fragment-multi-container', `container-grid-${gridValueColumns}`);
-
+ 
   const fragments = await Promise.all(
     links.map((link) => loadFragment(link.getAttribute('href'))),
   );
@@ -70,5 +71,7 @@ export default async function decorate(block) {
 
   // Append container into block FIRST, then run instrumentation
   block.appendChild(container);
+  block.parentElement.classList.add('tabs-container-wrapper');
+  block.id = `${containedID}-content`;
   moveInstrumentation(container);
 }

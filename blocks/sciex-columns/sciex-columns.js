@@ -6,7 +6,6 @@ export default function decorate(block) {
 
   let id = '';
   let heading = '';
-  let backgroundClass = '';
   let columns = 3;
 
   rows.forEach((row, index) => {
@@ -14,14 +13,13 @@ export default function decorate(block) {
 
     if (index === 0) id = text;
     else if (index === 1) heading = text;
-    else if (index === 2) backgroundClass = text;
-    else if (index === 3) columns = parseInt(text, 10) || 3;
+    else if (index === 2) columns = parseInt(text, 10) || 3;
   });
 
   const container = document.createElement('div');
   container.className = 'sciex-columns-block';
 
-  if (backgroundClass) container.classList.add(backgroundClass);
+  container.classList.add('text-black-background');
   if (id) container.id = `${id}-content`;
 
   moveInstrumentation(block, container);
@@ -40,7 +38,7 @@ export default function decorate(block) {
   container.append(grid);
 
   /* Cards */
-  rows.slice(4).forEach((row) => {
+  rows.slice(3).forEach((row) => {
     const cells = [...row.children];
     if (!cells.length) return;
 
