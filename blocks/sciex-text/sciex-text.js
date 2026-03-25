@@ -4,6 +4,8 @@ export default function decorate(block) {
   let blockId = 'sciex-text';
   let alignment = 'text-left';
   let content;
+  let paddingTop = 0;
+  let paddingBottom = 0;
   const children = Array.from(block.children);
   const [first, second, third] = children;
   if (children.length === 3) {
@@ -34,7 +36,9 @@ export default function decorate(block) {
       content = singleChild;
     }
   }
-
+  // paddingTop = parseInt(children[3]?.textContent?.trim(), 10) || 32;
+  // paddingBottom = parseInt(children[4]?.textContent?.trim(), 10) || 32;
+  console.log('kkkk',children[3]?.textContent?.trim(),children[4]?.textContent?.trim());
   block.id = `${blockId}-content`;
   block.className = 'sciex-text';
   //  block.parentElement.classList.add('tabs-container-wrapper');
@@ -46,5 +50,14 @@ export default function decorate(block) {
     }
     block.textContent = '';
     block.append(content);
+  }
+  const wrapper = block.closest('.sciex-text-wrapper') || block;
+console.log('Wrapper element:', paddingBottom,paddingTop);
+  if (paddingTop) {
+    wrapper.style.paddingTop = `${paddingTop}px`;
+  }
+
+  if (paddingBottom) {
+    wrapper.style.paddingBottom = `${paddingBottom}px`;
   }
 }

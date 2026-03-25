@@ -3670,6 +3670,20 @@
         "valueType": "string",
         "name": "text",
         "label": "Text"
+      },
+      {
+        "component": "number",
+        "name": "paddingTop",
+        "label": "Padding Top (px)",
+        "valueType": "number",
+        "value": 32
+      },
+      {
+        "component": "number",
+        "name": "paddingBottom",
+        "label": "Padding Bottom (px)",
+        "valueType": "number",
+        "value": 32
       }
     ]
   },
