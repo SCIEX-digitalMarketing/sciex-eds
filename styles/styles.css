@@ -1335,7 +1335,8 @@ main .section.highlight {
   .sciex-buttons-wrapper,
   .image-varient-wrapper,
   .cards-wrapper,
-  .sciex-columns-wrapper
+  .sciex-columns-wrapper,
+  .resources-grid-wrapper
   {
     max-width: 90pc !important;
     /* padding: 0 55px !important; */
@@ -1503,10 +1504,12 @@ main .section.highlight {
  background-color: var(--Blue-700, #0068FA);
 }
 
-.text-gray-background {
+.text-grey-background {
   background-color: var(--Grey-700, #6B7280);
 }
-
+.text-lite-grey-background {
+  background-color: #F5F5F5;;
+}
 .text-black-background {
   background-color: var(--Black, #000000);
 }

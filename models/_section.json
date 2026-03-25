@@ -52,8 +52,12 @@
               "value": "text-white-background"
             },
             {
-              "name": "Gray",
+              "name": "Grey",
               "value": "text-grey-background"
+            },
+            {
+                "name": "Lite Grey",
+                "value": "text-lite-grey-background"
             },
             {
               "name": "Blue",

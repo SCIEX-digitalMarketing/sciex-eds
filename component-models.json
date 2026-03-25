@@ -283,8 +283,12 @@
             "value": "text-white-background"
           },
           {
-            "name": "Gray",
+            "name": "Grey",
             "value": "text-grey-background"
+          },
+          {
+            "name": "Lite Grey",
+            "value": "text-lite-grey-background"
           },
           {
             "name": "Blue",
@@ -2528,6 +2532,20 @@
             "value": "hide"
           }
         ]
+      },
+      {
+        "component": "boolean",
+        "name": "pfasStyle",
+        "label": "Enable Pfas Style",
+        "value": false,
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "button",
+        "label": "Button",
+        "value": ""
       }
     ]
   },
@@ -2703,6 +2721,13 @@
             "value": "_blank"
           }
         ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "gridLabel",
+        "label": "gridLabel",
+        "value": ""
       }
     ]
   },
