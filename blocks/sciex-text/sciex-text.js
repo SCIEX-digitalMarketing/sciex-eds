@@ -36,9 +36,15 @@ export default function decorate(block) {
       content = singleChild;
     }
   }
-  // paddingTop = parseInt(children[3]?.textContent?.trim(), 10) || 32;
-  // paddingBottom = parseInt(children[4]?.textContent?.trim(), 10) || 32;
-  console.log('kkkk',children[3]?.textContent?.trim(),children[4]?.textContent?.trim());
+    // Get padding values and remove the elements from the DOM
+  const paddingTopEl = children[3];
+  const paddingBottomEl = children[4];
+
+   paddingTop = paddingTopEl?.textContent?.trim();
+   paddingBottom = paddingBottomEl?.textContent?.trim();
+
+  if (paddingTopEl) paddingTopEl.remove();        // Remove from UI
+  if (paddingBottomEl) paddingBottomEl.remove();  
   block.id = `${blockId}-content`;
   block.className = 'sciex-text';
   //  block.parentElement.classList.add('tabs-container-wrapper');
