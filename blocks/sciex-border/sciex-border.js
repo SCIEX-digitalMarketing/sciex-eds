@@ -7,8 +7,8 @@ export default function decorate(block) {
 
   block.className = `sciex-border ${borderColorClass}`;
 
-  block.style.setProperty('--border-width', borderWidth);
-  block.style.setProperty('--border-style', borderStyle);
+  block.style.borderWidth = borderWidth;
+  block.style.borderStyle = borderStyle;
 
   block.textContent = '';
 }

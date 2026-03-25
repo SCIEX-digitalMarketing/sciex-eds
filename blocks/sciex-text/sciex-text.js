@@ -58,7 +58,6 @@ export default function decorate(block) {
     block.append(content);
   }
   const wrapper = block.closest('.sciex-text-wrapper') || block;
-console.log('Wrapper element:', paddingBottom,paddingTop);
   if (paddingTop) {
     wrapper.style.paddingTop = `${paddingTop}px`;
   }
