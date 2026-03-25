@@ -50,31 +50,6 @@
             "label": "Sciex Columns Heading",
             "value": ""
           },
-        {
-          "component": "select",
-          "name": "backgroundColor",
-          "label": "Select background Color",
-          "value": "",
-          "valueType": "string",
-          "options": [
-            {
-              "name": "Blue",
-              "value": "text-blue-background"
-            },
-            {
-              "name": "Grey",
-              "value": "text-grey-background"
-            },
-            {
-              "name": "White",
-              "value": "text-white-background"
-            },
-            {
-              "name": "Black",
-              "value": "text-black-background"
-            }
-          ]
-        },
           {
             "component": "select",
             "name": "grid",
