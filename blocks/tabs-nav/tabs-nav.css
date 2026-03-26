@@ -3,17 +3,6 @@
   flex-wrap: wrap; 
   margin: auto;
 }
-.custom-tab-button {
-  border: 1px solid var(--Blue-700, #0068FA);
-  border-radius: 4px;
-  padding: 10px 16px;
-  color: var(--Grey-900, #141414);
-  font-family: "Geogrotesque Sharp VF", sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 24px;
-}
-
   
 .tab-buttons {
   display: flex;
@@ -95,7 +84,7 @@ html {
   background: var(--White-0, #FFF);
 }
 .feature-products-button,
-.related-resource-button {
+.related-resource-button,.custom-tab-button {
   color: var(--Grey-900, #141414);
 
   /* Desktop/text-base/bolder */
@@ -190,7 +179,7 @@ color: var(--Grey-900, #141414);
     
   }
   .feature-products-button,
-.related-resource-button{
+.related-resource-button,.custom-tab-button{
     display: flex;
     padding: 10px 12px;
     align-items: center;
