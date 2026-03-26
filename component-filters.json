@@ -282,7 +282,7 @@
     "id": "tabs-nav",
     "components": [
       "tab",
-      "button"
+      "tab-button"
     ]
   },
   {

@@ -31,15 +31,15 @@
       }
     },
      {
-      "title": "Button",
-      "id": "button",
+      "title": "Tab Button",
+      "id": "tab-button",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "Button",
-              "model": "button"
+              "name": "Tab Button",
+              "model": "tab-button"
             }
           }
         }
@@ -66,7 +66,7 @@
       ]
     },
     {
-      "id": "button",
+      "id": "tab-button",
       "fields": [
         {
           "component": "text",
@@ -94,7 +94,7 @@
       "id": "tabs-nav",
       "components": [
         "tab",
-        "button"
+        "tab-button"
       ]
     }
   ]

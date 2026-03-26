@@ -4197,7 +4197,7 @@
     ]
   },
   {
-    "id": "button",
+    "id": "tab-button",
     "fields": [
       {
         "component": "text",
