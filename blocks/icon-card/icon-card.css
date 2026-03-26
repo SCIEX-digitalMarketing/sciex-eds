@@ -274,6 +274,26 @@ line-height: normal;
   padding: 4px 8px;
   line-height: 1;
 }
+
+.card-clickable {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-clickable:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.card-clickable:active {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+.card-clickable:focus {
+  outline: 2px solid #0068FA;
+  outline-offset: 2px;
+}
  
 /* ✅ Responsive adjustments */
 @media (max-width: 768px) {

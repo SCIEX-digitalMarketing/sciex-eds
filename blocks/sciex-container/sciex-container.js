@@ -58,15 +58,15 @@ export default async function decorate(block) {
 
   fragments.forEach((fragment) => {
     if (!fragment) return;
-    const fragmentSection = fragment.querySelector(':scope .section');
+      const fragmentSections = fragment.querySelectorAll(':scope .section');
 
-    if (fragmentSection) {
-      const wrapper = document.createElement('div');
-      wrapper.classList.add('fragment-item');
+      fragmentSections.forEach((section) => {
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('fragment-item');
 
-      wrapper.append(...fragmentSection.childNodes);
-      container.appendChild(wrapper);
-    }
+        wrapper.append(...section.childNodes);
+        container.appendChild(wrapper);
+      });
   });
 
   // Append container into block FIRST, then run instrumentation
