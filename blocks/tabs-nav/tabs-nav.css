@@ -16,14 +16,10 @@
   white-space: nowrap;
 }
 
-.tabs-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
   
 .tab-buttons {
   display: flex;
+  gap: 24px;
 }
 
 html {
@@ -36,6 +32,8 @@ html {
 
 .tabs-nav {
   gap: 24px;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
 .tabs-nav-wrapper .block {
