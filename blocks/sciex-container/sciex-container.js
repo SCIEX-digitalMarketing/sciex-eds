@@ -1,15 +1,16 @@
 import { decorateMain, moveInstrumentation } from '../../scripts/scripts.js';
-import { loadSections } from '../../scripts/aem.js';
+import { loadSections, loadBlock } from '../../scripts/aem.js';
 
 export async function loadFragment(rawPath) {
   if (rawPath && rawPath.startsWith('/')) {
     const cleanPath = rawPath.replace(/(\.plain)?\.html/, '');
     const resp = await fetch(`${cleanPath}.plain.html`);
+
     if (resp.ok) {
       const main = document.createElement('main');
       main.innerHTML = await resp.text();
 
-      // Reset base for media URLs
+      // 🔧 Fix relative media paths
       const resetAttributeBase = (tag, attr) => {
         main.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((elem) => {
           const absolute = new URL(
@@ -23,8 +24,32 @@ export async function loadFragment(rawPath) {
       resetAttributeBase('img', 'src');
       resetAttributeBase('source', 'srcset');
 
+      // ✅ Step 1: Decorate main
       decorateMain(main);
+
+      // ✅ Step 2: Let EDS prepare sections
       await loadSections(main);
+
+      // 🔥 Step 3: FORCE load all sections + blocks
+      const sections = [...main.querySelectorAll('.section')];
+
+      for (const section of sections) {
+        // prevent lazy loading issues
+        section.dataset.sectionStatus = 'loaded';
+
+        const blocks = [...section.querySelectorAll('.block')];
+
+        await Promise.all(
+          blocks.map(async (block) => {
+            try {
+              await loadBlock(block);
+            } catch (e) {
+              console.error('Block load failed:', block, e);
+            }
+          })
+        );
+      }
+
       return main;
     }
   }
@@ -39,40 +64,47 @@ export default async function decorate(block) {
 
   const firstChild = block.children[0] ?? null;
   const secondChild = block.children[1] ?? null;
-  const links = Array.from(block.querySelectorAll('a'));
 
-  if (links.length === 0) {
-    return;
-  }
+  const links = Array.from(block.querySelectorAll('a'));
+  if (links.length === 0) return;
+
+  // remove config rows
   if (firstChild) firstChild.remove();
   if (secondChild) secondChild.remove();
-
-  Array.from(block.querySelectorAll('a')).forEach((a) => a.remove());
+  links.forEach((a) => a.remove());
 
   const container = document.createElement('div');
-  container.classList.add('fragment-multi-container', `container-grid-${gridValueColumns}`);
- 
-  const fragments = await Promise.all(
-    links.map((link) => loadFragment(link.getAttribute('href'))),
+  container.classList.add(
+    'fragment-multi-container',
+    `container-grid-${gridValueColumns}`
   );
 
+  // 🔥 Load all fragments
+  const fragments = await Promise.all(
+    links.map((link) => loadFragment(link.getAttribute('href')))
+  );
+
+  // 🔥 Append ALL sections from ALL fragments
   fragments.forEach((fragment) => {
-  if (!fragment) return;
+    if (!fragment) return;
 
-  const fragmentSections = fragment.querySelectorAll(':scope .section');
+    const sections = fragment.querySelectorAll('.section');
 
-  fragmentSections.forEach((section) => {
-    const wrapper = document.createElement('div');
-    wrapper.classList.add('fragment-item');
+    sections.forEach((section) => {
+      const wrapper = document.createElement('div');
+      wrapper.classList.add('fragment-item');
 
-    wrapper.append(...section.childNodes);
-    container.appendChild(wrapper);
+      // move full section (better than childNodes)
+      wrapper.appendChild(section);
+      container.appendChild(wrapper);
+    });
   });
-});
 
-  // Append container into block FIRST, then run instrumentation
+  // append to DOM
   block.appendChild(container);
+
   block.parentElement.classList.add('tabs-container-wrapper');
   block.id = `${containedID}-content`;
+
   moveInstrumentation(container);
 }
