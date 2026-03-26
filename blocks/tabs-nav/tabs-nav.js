@@ -79,26 +79,50 @@ function hideIfEmpty(selector, buttonSelector) {
 
 export default async function decorate(block) {
   const blockDiv = document.createElement('div');
-  blockDiv.classList.add('tw', 'tabs-nav', 'tab-buttons', 'tw-bg-white');
+blockDiv.classList.add('tw', 'tabs-nav', 'tw-flex', 'tw-justify-between', 'tw-items-center', 'tw-bg-white');
+
+const tabsWrapper = document.createElement('div');
+tabsWrapper.classList.add('tab-buttons', 'tw-flex', 'tw-gap-6');
+
+const buttonsWrapper = document.createElement('div');
+buttonsWrapper.classList.add('tabs-right');
   const tabData = document.createElement('div');
   tabData.classList.add('tab-data');
-  [...block.children].forEach((row) => {
-    const tabDIv = document.createElement('div');
-    tabDIv.id = row.children[1].textContent;
-    tabDIv.classList.add('tab-section');
-    tabDIv.textContent = row.children[0].textContent;
-    moveInstrumentation(row, tabDIv);
-    blockDiv.append(tabDIv);
-    tabDIv.addEventListener('click', function () {
-      tabDIv.click();
-      tabDIv.click();
+[...block.children].forEach((row) => {
+  const type = row.dataset?.aemType; // depends on your setup
+
+  // TAB
+  if (row.children.length >= 2) {
+    const tabDiv = document.createElement('div');
+    tabDiv.id = row.children[1].textContent;
+    tabDiv.classList.add('tab-section');
+    tabDiv.textContent = row.children[0].textContent;
+
+    moveInstrumentation(row, tabDiv);
+    tabsWrapper.append(tabDiv);
+
+    tabDiv.addEventListener('click', function () {
       showTabContent(this.id);
       showActiveTab(this.id);
       if (window.matchMedia('(max-width: 768px)').matches) {
         handleMobileTabs();
       }
     });
-  });
+  }
+
+  // BUTTON (3rd field = href)
+  if (row.children.length === 3) {
+    const btn = document.createElement('a');
+    btn.classList.add('custom-tab-button');
+
+    btn.textContent = row.children[0].textContent;
+    btn.id = row.children[1].textContent;
+    btn.href = row.children[2].textContent || '#';
+
+    moveInstrumentation(row, btn);
+    buttonsWrapper.append(btn);
+  }
+});
   block.textContent = '';
   block.classList.add('tw');
   const buttons = document.createElement('div');
@@ -151,7 +175,8 @@ export default async function decorate(block) {
   mobileTabsNav.append(mobileTabsNavIcon);
   mobileTabsNav.addEventListener('click', handleMobileTabs);
 
-  blockDiv.append(buttons);
+blockDiv.append(tabsWrapper);
+blockDiv.append(buttonsWrapper);
   block.append(mobileTabsNav);
   block.append(blockDiv);
   block.append(tabData);

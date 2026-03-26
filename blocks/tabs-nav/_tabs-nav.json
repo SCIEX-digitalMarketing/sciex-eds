@@ -29,6 +29,21 @@
           }
         }
       }
+    },
+     {
+      "title": "Button",
+      "id": "button",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Button",
+              "model": "button"
+            }
+          }
+        }
+      }
     }
   ],
   "models": [
@@ -49,13 +64,37 @@
           "valueType": "string"
         }
       ]
+    },
+    {
+      "id": "button",
+      "fields": [
+        {
+          "component": "text",
+          "name": "buttonName",
+          "label": "Button Name",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "buttonId",
+          "label": "Id",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "buttonHref",
+          "label": "Button Link (Href)",
+          "valueType": "string"
+        }
+      ]
     }
   ],
   "filters": [
     {
       "id": "tabs-nav",
       "components": [
-        "tab"
+        "tab",
+        "button"
       ]
     }
   ]

@@ -3,6 +3,24 @@
   flex-wrap: wrap; 
   margin: auto;
 }
+.custom-tab-button {
+  border: 1px solid var(--Blue-700, #0068FA);
+  border-radius: 4px;
+  padding: 6px 12px;
+  text-decoration: none;
+  color: var(--Grey-900, #141414);
+  font-family: "Geogrotesque Sharp VF", sans-serif;
+  font-size: 16px;
+  font-weight: 530;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.tabs-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
   
 .tab-buttons {
   display: flex;

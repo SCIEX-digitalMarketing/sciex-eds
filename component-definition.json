@@ -1500,6 +1500,21 @@
           }
         },
         {
+          "title": "Button",
+          "id": "button",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Button",
+                  "model": "button"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Tech Note",
           "id": "tech-note",
           "plugins": {
