@@ -6,20 +6,17 @@
 .custom-tab-button {
   border: 1px solid var(--Blue-700, #0068FA);
   border-radius: 4px;
-  padding: 6px 12px;
-  text-decoration: none;
+  padding: 10px 16px;
   color: var(--Grey-900, #141414);
   font-family: "Geogrotesque Sharp VF", sans-serif;
   font-size: 16px;
-  font-weight: 530;
+  font-weight: 500;
   line-height: 24px;
-  white-space: nowrap;
 }
 
   
 .tab-buttons {
   display: flex;
-  gap: 24px;
 }
 
 html {
@@ -123,7 +120,7 @@ color: var(--Grey-900, #141414);
   margin-left: auto; /* pushes it to the far right */
   white-space: nowrap; /* keep button text on one line */
   display: flex;
-  gap: 10px;
+  gap: 8px;
   cursor: pointer;
 }
 
@@ -138,7 +135,7 @@ color: var(--Grey-900, #141414);
    .tabs-right{
     flex-direction: column ;
     align-items: flex-start ;
-    gap: 15px;
+    gap: 16px;
   }
   #mobile-tabs-nav {
     /*  position: absolute;*/
