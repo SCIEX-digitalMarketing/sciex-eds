@@ -58,7 +58,7 @@ export default async function decorate(block) {
 
   fragments.forEach((fragment) => {
     if (!fragment) return;
-    const fragmentSection = fragment.querySelector(':scope .section');
+    const fragmentSection = fragment.querySelectorAll(':scope .section');
 
     if (fragmentSection) {
       const wrapper = document.createElement('div');
