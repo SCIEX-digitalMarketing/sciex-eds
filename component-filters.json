@@ -281,7 +281,8 @@
   {
     "id": "tabs-nav",
     "components": [
-      "tab"
+      "tab",
+      "tab-button"
     ]
   },
   {
