@@ -80,45 +80,13 @@ function hideIfEmpty(selector, buttonSelector) {
 export default async function decorate(block) {
   const blockDiv = document.createElement('div');
   blockDiv.classList.add('tw', 'tabs-nav', 'tab-buttons', 'tw-bg-white');
-
   const tabData = document.createElement('div');
   tabData.classList.add('tab-data');
 
   const buttons = document.createElement('div');
   buttons.classList.add('tabs-right');
 
-  // 🔹 HARDCODED BUTTONS (UNCHANGED)
-  const featurebutton = document.createElement('div');
-  featurebutton.classList.add('feature-products-button');
-  featurebutton.textContent = 'Featured products';
-
-  featurebutton.addEventListener('click', () => {
-    const section = document.getElementsByClassName('featured-products-wrapper');
-    if (section[0]) {
-      smoothScrollTo(section[0], 80, 1000);
-      if (window.matchMedia('(max-width: 768px)').matches) {
-        handleMobileTabs();
-      }
-    }
-  });
-
-  const relatedresources = document.createElement('div');
-  relatedresources.classList.add('related-resource-button');
-  relatedresources.textContent = 'Related resources';
-
-  relatedresources.addEventListener('click', () => {
-    const section = document.getElementsByClassName('sciex-related-resource-wrapper');
-    if (section[0]) {
-      smoothScrollTo(section[0], 80, 1000);
-      if (window.matchMedia('(max-width: 768px)').matches) {
-        handleMobileTabs();
-      }
-    }
-  });
-
-  buttons.append(featurebutton, relatedresources);
-
-  // 🔹 LOOP: TABS + AUTHOR BUTTONS
+  // 🔹 EXISTING LOOP (kept in same place, enhanced)
   [...block.children].forEach((row) => {
     const cells = row.children;
 
@@ -173,7 +141,37 @@ export default async function decorate(block) {
     }
   });
 
-  // 🔹 MOBILE NAV (UNCHANGED)
+  block.textContent = '';
+  block.classList.add('tw');
+
+  const featurebutton = document.createElement('div');
+  featurebutton.classList.add('feature-products-button');
+  featurebutton.textContent = 'Featured products';
+  buttons.append(featurebutton);
+  featurebutton.addEventListener('click', () => {
+    const section = document.getElementsByClassName('featured-products-wrapper');
+    if (section[0]) {
+      smoothScrollTo(section[0], 80, 1000);
+      if (window.matchMedia('(max-width: 768px)').matches) {
+        handleMobileTabs();
+      }
+    }
+  });
+
+  const relatedresources = document.createElement('div');
+  relatedresources.classList.add('related-resource-button');
+  relatedresources.textContent = 'Related resources';
+  buttons.append(relatedresources);
+  relatedresources.addEventListener('click', () => {
+    const section = document.getElementsByClassName('sciex-related-resource-wrapper');
+    if (section[0]) {
+      smoothScrollTo(section[0], 80, 1000);
+      if (window.matchMedia('(max-width: 768px)').matches) {
+        handleMobileTabs();
+      }
+    }
+  });
+
   const mobileTabsNav = document.createElement('div');
   mobileTabsNav.id = 'mobile-tabs-nav';
   mobileTabsNav.classList.add(
@@ -193,9 +191,6 @@ export default async function decorate(block) {
   mobileTabsNav.append(mobileTabsNavIcon);
   mobileTabsNav.addEventListener('click', handleMobileTabs);
 
-  // 🔹 FINAL APPEND
-  block.textContent = '';
-  block.classList.add('tw');
   blockDiv.append(buttons);
   block.append(mobileTabsNav);
   block.append(blockDiv);
