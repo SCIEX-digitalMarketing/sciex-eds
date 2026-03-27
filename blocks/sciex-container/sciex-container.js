@@ -25,12 +25,9 @@ export async function loadFragment(rawPath) {
 
       decorateMain(main);
       await loadSections(main);
-
-      // 🔥 Step 3: FORCE load all sections + blocks
       const sections = [...main.querySelectorAll('.section')];
 
       for (const section of sections) {
-        // prevent lazy loading issues
         section.dataset.sectionStatus = 'loaded';
 
         const blocks = [...section.querySelectorAll('.block')];
@@ -83,8 +80,6 @@ export default async function decorate(block) {
     sections.forEach((section) => {
       const wrapper = document.createElement('div');
       wrapper.classList.add('fragment-item');
-
-      // move full section (better than childNodes)
       wrapper.appendChild(section);
       container.appendChild(wrapper);
     });
