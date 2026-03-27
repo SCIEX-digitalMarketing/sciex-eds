@@ -29,26 +29,25 @@ export async function loadFragment(rawPath) {
 
       // ✅ Step 2: Let EDS prepare sections
       await loadSections(main);
-
-      // 🔥 Step 3: FORCE load all sections + blocks
       const sections = [...main.querySelectorAll('.section')];
 
-      for (const section of sections) {
-        // prevent lazy loading issues
-        section.dataset.sectionStatus = 'loaded';
+      await Promise.all(
+        sections.map(async (section) => {
+          section.dataset.sectionStatus = 'loaded';
 
-        const blocks = [...section.querySelectorAll('.block')];
+          const blocks = [...section.querySelectorAll('.block')];
 
-        await Promise.all(
-          blocks.map(async (block) => {
-            try {
-              await loadBlock(block);
-            } catch (e) {
-              console.error('Block load failed:', block, e);
-            }
-          })
-        );
-      }
+          await Promise.all(
+            blocks.map(async (block) => {
+              try {
+                await loadBlock(block);
+              } catch (e) {
+                console.error('Block load failed:', block, e);
+              }
+            }),
+          );
+        }),
+      );
 
       return main;
     }
@@ -74,12 +73,8 @@ export default async function decorate(block) {
   links.forEach((a) => a.remove());
 
   const container = document.createElement('div');
-  container.classList.add(
-    'fragment-multi-container',
-    `container-grid-${gridValueColumns}`
-  );
+  container.classList.add('fragment-multi-container', `container-grid-${gridValueColumns}`);
 
-  // 🔥 Load all fragments
   const fragments = await Promise.all(
     links.map((link) => loadFragment(link.getAttribute('href')))
   );
@@ -93,8 +88,6 @@ export default async function decorate(block) {
     sections.forEach((section) => {
       const wrapper = document.createElement('div');
       wrapper.classList.add('fragment-item');
-
-      // move full section (better than childNodes)
       wrapper.appendChild(section);
       container.appendChild(wrapper);
     });

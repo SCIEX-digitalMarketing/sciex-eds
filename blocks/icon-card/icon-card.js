@@ -149,6 +149,28 @@ export default function decorate(block) {
       }
     }
 
+    if (linkHref && !linkLabel) {
+      card.classList.add('card-clickable');
+
+      card.addEventListener('click', () => {
+        if (linkTarget === '_blank') {
+          window.open(linkHref, '_blank', 'noopener,noreferrer');
+        } else {
+          window.location.href = linkHref;
+        }
+      });
+
+      // Accessibility improvement
+      card.setAttribute('role', 'link');
+      card.setAttribute('tabindex', '0');
+
+      card.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          card.click();
+        }
+      });
+    }
+
     // Append content only if it has children (prevents empty wrapper)
     if (contentWrap.childElementCount) {
       card.append(contentWrap);
