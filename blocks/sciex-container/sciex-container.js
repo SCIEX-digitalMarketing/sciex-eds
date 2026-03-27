@@ -27,21 +27,23 @@ export async function loadFragment(rawPath) {
       await loadSections(main);
       const sections = [...main.querySelectorAll('.section')];
 
-      for (const section of sections) {
-        section.dataset.sectionStatus = 'loaded';
+      await Promise.all(
+        sections.map(async (section) => {
+          section.dataset.sectionStatus = 'loaded';
 
-        const blocks = [...section.querySelectorAll('.block')];
+          const blocks = [...section.querySelectorAll('.block')];
 
-        await Promise.all(
-          blocks.map(async (block) => {
-            try {
-              await loadBlock(block);
-            } catch (e) {
-              console.error('Block load failed:', block, e);
-            }
-          })
-        );
-      }
+          await Promise.all(
+            blocks.map(async (block) => {
+              try {
+                await loadBlock(block);
+              } catch (e) {
+                console.error('Block load failed:', block, e);
+              }
+            }),
+          );
+        }),
+      );
 
       return main;
     }
