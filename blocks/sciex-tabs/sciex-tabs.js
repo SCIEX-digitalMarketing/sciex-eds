@@ -129,6 +129,8 @@ function decorateButtonTabs(block) {
   buildMobileDropdown(tabs, containerId);
 
   toggleTabs(tabs[0], desktopTabs, tabs);
+  block.id = `${containerId}-content`;
+  block.parentElement.classList.add('tabs-container-wrapper');
 }
 
 export default function decorate(block) {

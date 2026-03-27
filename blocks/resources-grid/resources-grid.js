@@ -288,6 +288,8 @@ export default function decorate(block) {
   }
 
   block.appendChild(ul);
+  block.id = `${id}-content`;
+  block.parentElement.classList.add('tabs-container-wrapper');
   if (buttonText) {
     const button = document.createElement('button');
     button.className = 'resources-grid-button';
