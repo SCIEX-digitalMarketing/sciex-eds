@@ -198,7 +198,21 @@ export default async function decorate(block) {
 
   window.addEventListener('resize', toggleVisibility);
   onload();
+  const tabs = document.querySelector('.tabs-nav-wrapper');
+  const parent = document.querySelector('.section');
 
+  window.addEventListener('scroll', () => {
+    const rect = parent.getBoundingClientRect();
+
+    if (rect.bottom <= 0) {
+      tabs.style.position = 'fixed';
+      tabs.style.top = '0';
+      tabs.style.width = '100%';
+    } else {
+      tabs.style.position = 'sticky';
+      tabs.style.top = '0';
+    }
+  });
   hideIfEmpty('.sciex-related-resource', '.related-resource-button');
   hideIfEmpty('.featured-products', '.feature-products-button');
 }
