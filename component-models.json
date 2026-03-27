@@ -4197,6 +4197,29 @@
     ]
   },
   {
+    "id": "tab-button",
+    "fields": [
+      {
+        "component": "text",
+        "name": "buttonName",
+        "label": "Button Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "buttonId",
+        "label": "Id",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "buttonHref",
+        "label": "Button Link (Href)",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "tech-note",
     "fields": [
       {

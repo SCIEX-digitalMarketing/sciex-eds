@@ -1500,6 +1500,21 @@
           }
         },
         {
+          "title": "Tab Button",
+          "id": "tab-button",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Tab Button",
+                  "model": "tab-button"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Tech Note",
           "id": "tech-note",
           "plugins": {

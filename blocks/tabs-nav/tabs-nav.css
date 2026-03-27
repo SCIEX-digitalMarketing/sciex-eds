@@ -18,6 +18,8 @@ html {
 
 .tabs-nav {
   gap: 24px;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
 .tabs-nav-wrapper .block {
@@ -48,7 +50,8 @@ html {
   position: sticky;
   top: 0;
   z-index: 1000;
-  max-width: 90pc !important;
+  background-color: white;
+  max-width: 100% !important;
   padding: 0 64px!important;
   margin: auto;
 }
@@ -81,7 +84,7 @@ html {
   background: var(--White-0, #FFF);
 }
 .feature-products-button,
-.related-resource-button {
+.related-resource-button,.custom-tab-button {
   color: var(--Grey-900, #141414);
 
   /* Desktop/text-base/bolder */
@@ -106,7 +109,7 @@ color: var(--Grey-900, #141414);
   margin-left: auto; /* pushes it to the far right */
   white-space: nowrap; /* keep button text on one line */
   display: flex;
-  gap: 10px;
+  gap: 8px;
   cursor: pointer;
 }
 
@@ -118,6 +121,11 @@ color: var(--Grey-900, #141414);
 }
 
 @media (max-width: 768px) {
+   .tabs-right{
+    flex-direction: column ;
+    align-items: flex-start ;
+    gap: 16px;
+  }
   #mobile-tabs-nav {
     /*  position: absolute;*/
       width: 100%;
@@ -171,7 +179,7 @@ color: var(--Grey-900, #141414);
     
   }
   .feature-products-button,
-.related-resource-button{
+.related-resource-button,.custom-tab-button{
     display: flex;
     padding: 10px 12px;
     align-items: center;
