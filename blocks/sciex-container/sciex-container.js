@@ -5,12 +5,11 @@ export async function loadFragment(rawPath) {
   if (rawPath && rawPath.startsWith('/')) {
     const cleanPath = rawPath.replace(/(\.plain)?\.html/, '');
     const resp = await fetch(`${cleanPath}.plain.html`);
-
     if (resp.ok) {
       const main = document.createElement('main');
       main.innerHTML = await resp.text();
 
-      // 🔧 Fix relative media paths
+      // Reset base for media URLs
       const resetAttributeBase = (tag, attr) => {
         main.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((elem) => {
           const absolute = new URL(
@@ -24,10 +23,7 @@ export async function loadFragment(rawPath) {
       resetAttributeBase('img', 'src');
       resetAttributeBase('source', 'srcset');
 
-      // ✅ Step 1: Decorate main
       decorateMain(main);
-
-      // ✅ Step 2: Let EDS prepare sections
       await loadSections(main);
       const sections = [...main.querySelectorAll('.section')];
 
@@ -63,7 +59,6 @@ export default async function decorate(block) {
 
   const firstChild = block.children[0] ?? null;
   const secondChild = block.children[1] ?? null;
-
   const links = Array.from(block.querySelectorAll('a'));
   if (links.length === 0) return;
 
@@ -76,10 +71,9 @@ export default async function decorate(block) {
   container.classList.add('fragment-multi-container', `container-grid-${gridValueColumns}`);
 
   const fragments = await Promise.all(
-    links.map((link) => loadFragment(link.getAttribute('href')))
+    links.map((link) => loadFragment(link.getAttribute('href'))),
   );
 
-  // 🔥 Append ALL sections from ALL fragments
   fragments.forEach((fragment) => {
     if (!fragment) return;
 
@@ -93,11 +87,9 @@ export default async function decorate(block) {
     });
   });
 
-  // append to DOM
+  // Append container into block FIRST, then run instrumentation
   block.appendChild(container);
-
   block.parentElement.classList.add('tabs-container-wrapper');
   block.id = `${containedID}-content`;
-
   moveInstrumentation(container);
 }
