@@ -262,6 +262,19 @@ main > .section > div {
   margin: auto;
   padding: 0 24px;
 }
+main > .section > div.sciex-container-wrapper {
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+.fragment-item > div > div{
+  max-width: 1200px !important;
+  margin: auto !important;
+  padding: 0 24px !important;
+}
+.container-grid-2{
+  max-width: 1200px !important;
+  margin: auto !important;
+}
 
 main > .section:first-of-type {
   margin-top: 0;
@@ -271,6 +284,12 @@ main > .section:first-of-type {
   main > .section > div {
       padding: 0 32px;
   }
+  .fragment-item > div > div{
+      padding: 0 32px !important;
+  }
+  /* main > .section > div.sciex-container-wrapper{
+      padding: 0 !important;
+  } */
 }
 
 /* section metadata */
@@ -1341,7 +1360,9 @@ main .section.highlight {
   .cards-wrapper,
   .sciex-columns-wrapper,
   .resources-grid-wrapper,
-  .sciex-border-wrapper
+  .sciex-border-wrapper,
+  .fragment-item > div > div,
+  .container-grid-2
   {
     max-width: 90pc !important;
     /* padding: 0 55px !important; */

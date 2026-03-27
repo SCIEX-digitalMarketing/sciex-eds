@@ -3,7 +3,6 @@ import { decorateIcons } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
-  const parentEl=document.querySelector('.resources-grid-wrapper');
   const ul = document.createElement('ul');
   ul.classList.add('resource-grid-ul');
   block.classList.add('resources-grid-wrapper');
@@ -284,7 +283,6 @@ export default function decorate(block) {
     ul.classList.add('pfas-style');
     block.classList.add('pfas-style');
     sectionDiv.classList.add('pfas-style');
-    parentEl.classList.add('pfas-style');
   }
 
   block.appendChild(ul);
