@@ -1,5 +1,5 @@
 import { decorateMain, moveInstrumentation } from '../../scripts/scripts.js';
-import { loadSections } from '../../scripts/aem.js';
+import { loadSections, loadBlock } from '../../scripts/aem.js';
 
 export async function loadFragment(rawPath) {
   if (rawPath && rawPath.startsWith('/')) {
@@ -25,6 +25,26 @@ export async function loadFragment(rawPath) {
 
       decorateMain(main);
       await loadSections(main);
+      const sections = [...main.querySelectorAll('.section')];
+
+      await Promise.all(
+        sections.map(async (section) => {
+          section.dataset.sectionStatus = 'loaded';
+
+          const blocks = [...section.querySelectorAll('.block')];
+
+          await Promise.all(
+            blocks.map(async (block) => {
+              try {
+                await loadBlock(block);
+              } catch (e) {
+                console.error('Block load failed:', block, e);
+              }
+            }),
+          );
+        }),
+      );
+
       return main;
     }
   }
@@ -40,33 +60,31 @@ export default async function decorate(block) {
   const firstChild = block.children[0] ?? null;
   const secondChild = block.children[1] ?? null;
   const links = Array.from(block.querySelectorAll('a'));
+  if (links.length === 0) return;
 
-  if (links.length === 0) {
-    return;
-  }
+  // remove config rows
   if (firstChild) firstChild.remove();
   if (secondChild) secondChild.remove();
-
-  Array.from(block.querySelectorAll('a')).forEach((a) => a.remove());
+  links.forEach((a) => a.remove());
 
   const container = document.createElement('div');
   container.classList.add('fragment-multi-container', `container-grid-${gridValueColumns}`);
- 
+
   const fragments = await Promise.all(
     links.map((link) => loadFragment(link.getAttribute('href'))),
   );
 
   fragments.forEach((fragment) => {
     if (!fragment) return;
-    const fragmentSection = fragment.querySelector(':scope .section');
 
-    if (fragmentSection) {
+    const sections = fragment.querySelectorAll('.section');
+
+    sections.forEach((section) => {
       const wrapper = document.createElement('div');
       wrapper.classList.add('fragment-item');
-
-      wrapper.append(...fragmentSection.childNodes);
+      wrapper.appendChild(section);
       container.appendChild(wrapper);
-    }
+    });
   });
 
   // Append container into block FIRST, then run instrumentation

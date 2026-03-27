@@ -8,11 +8,11 @@ export default function decorate(block) {
   let paddingBottom = 0;
   const children = Array.from(block.children);
   const [first, second, third] = children;
-  if (children.length === 3) {
+  if (children.length === 5) {
     blockId = first?.textContent?.trim() || 'sciex-text';
     alignment = second?.textContent?.trim() || 'text-left';
     content = third;
-  } else if (children.length === 2) {
+  } else if (children.length === 4) {
     const maybeAlignment = first?.textContent?.trim();
     if (maybeAlignment === 'text-left' || maybeAlignment === 'text-right' || maybeAlignment === 'text-center') {
       alignment = maybeAlignment;
@@ -20,7 +20,7 @@ export default function decorate(block) {
       blockId = first?.textContent?.trim() || 'sciex-text';
     }
     content = second;
-  } else if (children.length === 1) {
+  } else if (children.length === 3) {
     const singleChild = first;
     const text = singleChild?.textContent?.trim();
     if (singleChild.querySelector('h3')) {
@@ -47,7 +47,7 @@ export default function decorate(block) {
   if (paddingBottomEl) paddingBottomEl.remove();  
   block.id = `${blockId}-content`;
   block.className = 'sciex-text';
-  //  block.parentElement.classList.add('tabs-container-wrapper');
+  block.parentElement.classList.add('tabs-container-wrapper');
   if (content) {
     if (alignment) {
       content.className = alignment;

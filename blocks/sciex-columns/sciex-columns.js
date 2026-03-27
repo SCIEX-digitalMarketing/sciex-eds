@@ -20,8 +20,6 @@ export default function decorate(block) {
   container.className = 'sciex-columns-block';
 
   container.classList.add('text-black-background');
-  if (id) container.id = `${id}-content`;
-
   moveInstrumentation(block, container);
 
   /* Heading */
@@ -104,4 +102,5 @@ export default function decorate(block) {
   block.append(container);
 
   if (id) block.id = `${id}-content`;
+  block.parentElement.classList.add('tabs-container-wrapper');
 }
