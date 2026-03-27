@@ -2,7 +2,13 @@
   "mappings": [
     "/content/sciex-eds/:/",
     "/content/sciex-eds/configuration:/.helix/config.json",
-    "/content/sciex-eds/metadata:/metadata.json"
+    "/content/sciex-eds/metadata:/metadata.json",
+    "/content/sciex-eds/zh-cn/search-results:/search-results",
+    "/content/sciex-eds/ja-jp/search-results:/search-results",
+    "/content/sciex-eds/ja-jp/nav:/ja-jp/nav",
+    "/content/sciex-eds/zh-cn/nav:/zh-cn/nav",
+    "/content/sciex-eds/ja-jp/footer:/ja-jp/footer",
+    "/content/sciex-eds/zh-cn/footer:/zh-cn/footer"
   ],
   "includes": [
     "/content/sciex-eds/"
