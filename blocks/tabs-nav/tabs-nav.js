@@ -122,9 +122,8 @@ export default async function decorate(block) {
 
       if (buttonHref) {
         btn.href = buttonHref;
-        if (buttonHref.startsWith('http')) {
           btn.target = '_blank';
-        }
+          btn.rel = 'noopener noreferrer';         
       } else if (buttonId) {
         btn.href = `#${buttonId}`;
         btn.addEventListener('click', (e) => {
