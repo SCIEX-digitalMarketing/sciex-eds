@@ -133,8 +133,8 @@ export default async function decorate(block) {
             <h3 class="company-name">${company.name ?? ""}</h3>
             <p class="product-line">${company.productLine ?? ""}</p>
             <p class="address">${company.address ?? ""}</p>
-            <p class="phone">Phone: ${company.phone ?? " - "}</p>
-            <p class="email">Email: ${company.email ?? " - "}</p>
+            ${company.phone?.trim()  ? `<p class="phone">Phone: ${company.phone}</p>` : ""}            
+            ${company.email?.trim()  ? `<p class="email">Email: ${company.email}</p>` : ""}
             <a href="${company.website ?? "#"}" target="_blank" class="website-link">${company.website ?? ""}</a>
           `;
           cardsContainer.appendChild(card);
@@ -153,8 +153,8 @@ export default async function decorate(block) {
             <h3 class="company-name">${company.name ?? ""}</h3>
             <p class="product-line">${company.productLine ?? ""}</p>
             <p class="address">${company.address ?? ""}</p>
-            <p class="phone">Phone: ${company.phone ?? " - "}</p>
-            <p class="email">Email: ${company.email ?? " - "}</p>
+            ${company.phone?.trim()  ? `<p class="phone">Phone: ${company.phone}</p>` : ""}            
+            ${company.email?.trim()  ? `<p class="email">Email: ${company.email}</p>` : ""}
             <a href="${company.website ?? "#"}" target="_blank" class="website-link">${company.website ?? ""}</a>
           `;
           cardsContainer.appendChild(card);
