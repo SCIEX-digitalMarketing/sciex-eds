@@ -27,8 +27,7 @@ export default function decorate(block) {
   // Handle content
   if (contentEl) {
     contentEl.classList.add(alignment || 'text-left');
-
-    block.textContent = '';
+    // block.textContent = '';
     block.append(contentEl);
   }
 
