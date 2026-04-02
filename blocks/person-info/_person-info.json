@@ -22,8 +22,8 @@
       "fields": [
         {
           "component": "text",
-          "name": "name",
-          "label": "Name",
+          "name": "firstName",
+          "label": "First Name",
           "valueType": "string"
         },
         {
