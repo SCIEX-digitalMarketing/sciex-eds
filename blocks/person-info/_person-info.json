@@ -39,7 +39,7 @@
           "valueType": "string"
         },
         {
-          "component": "multiline",
+          "component": "text",
           "name": "address",
           "label": "Address",
           "valueType": "string"
