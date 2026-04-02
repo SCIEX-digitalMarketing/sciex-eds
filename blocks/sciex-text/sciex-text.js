@@ -40,10 +40,10 @@ export default function decorate(block) {
 
   // Apply padding safely
   if (paddingTop) {
-    wrapper.style.paddingTop = `${parseInt(paddingTop, 10)}px`;
+    wrapper.style.paddingTop = `${paddingTop}px`;
   }
 
   if (paddingBottom) {
-    wrapper.style.paddingBottom = `${parseInt(paddingBottom, 10)}px`;
+    wrapper.style.paddingBottom = `${paddingBottom}px`;
   }
 }
