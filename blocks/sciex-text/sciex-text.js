@@ -23,11 +23,11 @@ export default function decorate(block) {
   // Wrapper handling
   const wrapper = block.closest('.sciex-text-wrapper') || block;
   block.parentElement?.classList.add('tabs-container-wrapper');
-
+  block.textContent = '';
+  
   // Handle content
   if (contentEl) {
     contentEl.classList.add(alignment || 'text-left');
-    // block.textContent = '';
     block.append(contentEl);
   }
 
