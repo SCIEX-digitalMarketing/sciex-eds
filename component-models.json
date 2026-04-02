@@ -2425,35 +2425,6 @@
     ]
   },
   {
-    "id": "person-info",
-    "fields": [
-      {
-        "component": "text",
-        "name": "firstName",
-        "label": "First Name",
-        "valueType": "string"
-      },
-      {
-        "component": "number",
-        "name": "age",
-        "label": "Age",
-        "valueType": "number"
-      },
-      {
-        "component": "text",
-        "name": "dob",
-        "label": "Date of Birth",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "address",
-        "label": "Address",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "regulatory-document",
     "fields": [
       {
