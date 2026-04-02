@@ -16,12 +16,6 @@ export default function decorate(block) {
   const paddingTop = paddingTopEl?.textContent?.trim();
   const paddingBottom = paddingBottomEl?.textContent?.trim();
 
-  // Clean up unwanted elements
-  idEl?.remove();
-  alignmentEl?.remove();
-  paddingTopEl?.remove();
-  paddingBottomEl?.remove();
-
   // Set block properties
   block.id = `${blockId}-content`;
   block.classList.add('sciex-text');
@@ -38,7 +32,7 @@ export default function decorate(block) {
     block.append(contentEl);
   }
 
-  // Apply padding safely
+  // Apply padding
   if (paddingTop) {
     wrapper.style.paddingTop = `${paddingTop}px`;
   }
