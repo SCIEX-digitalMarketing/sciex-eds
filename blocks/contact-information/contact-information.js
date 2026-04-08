@@ -1,9 +1,8 @@
-import getPartnersData from "../../scripts/blocks-controllers/partner-controller.js";
+import getPartnersData from '../../scripts/blocks-controllers/partner-controller.js';
 
 export default async function decorate(block) {
-
   // Get heading text from block through author
-  const headingText = block.querySelector("p")?.textContent || "";
+  const headingText = block.querySelector('p')?.textContent || '';
 
   // Fetch data from controller (regions → countries → companies)
   const data = await getPartnersData();
@@ -40,50 +39,50 @@ export default async function decorate(block) {
   `;
 
   // Cache frequently used DOM elements
-  const regionWrapper = block.querySelector(".region-select");
-  const countryWrapper = block.querySelector(".country-select");
-  const cardsContainer = block.querySelector(".cards");
-  const searchInput = block.querySelector(".search-input");
-  const filter = document.querySelector(".filters");
+  const regionWrapper = block.querySelector('.region-select');
+  const countryWrapper = block.querySelector('.country-select');
+  const cardsContainer = block.querySelector('.cards');
+  const searchInput = block.querySelector('.search-input');
+  const filter = document.querySelector('.filters');
 
   // State variables
-  let selectedRegion = "";
-  let selectedCountry = "";
-  
+  let selectedRegion = '';
+  let selectedCountry = '';
+
   // Add Clear button UI
-  const clearButton=block.querySelector(".clear-button");
+  const clearButton = block.querySelector('.clear-button');
   clearButton.innerHTML = `Clear All <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
     <path d="M13 13.5L3.0001 3.5001" stroke="#3C8DFF"/>
     <path d="M13 3.5L3.0001 13.4999" stroke="#3C8DFF"/>
   </svg>`;
 
-  //custom dropdown setup
+  // custom dropdown setup
   function setupCustomSelect(wrapper, items, onSelect) {
-    const trigger = wrapper.querySelector(".select-trigger");
-    const optionsContainer = wrapper.querySelector(".options");
+    const trigger = wrapper.querySelector('.select-trigger');
+    const optionsContainer = wrapper.querySelector('.options');
 
     // Reset previous options
-    optionsContainer.innerHTML = "";
+    optionsContainer.innerHTML = '';
 
     // Create dropdown options dynamically
     items.forEach((item) => {
-      const option = document.createElement("div");
-      option.className = "option";
+      const option = document.createElement('div');
+      option.className = 'option';
       option.textContent = item;
 
       // Handle option click
-      option.addEventListener("click", () => {
+      option.addEventListener('click', () => {
         trigger.firstChild.textContent = item; // Update label
-        wrapper.classList.remove("open");      // Close dropdown
-        onSelect(item);                        // Execute callback
+        wrapper.classList.remove('open'); // Close dropdown
+        onSelect(item); // Execute callback
       });
 
       optionsContainer.appendChild(option);
     });
 
     // Toggle dropdown open/close
-    trigger.onclick = () => {  
-      wrapper.classList.toggle("open");
+    trigger.onclick = () => {
+      wrapper.classList.toggle('open');
     };
   }
 
@@ -91,10 +90,10 @@ export default async function decorate(block) {
    * Global click listener
    * Closes any open dropdown when clicking outside
    */
-  document.addEventListener("click", (e) => {
-    document.querySelectorAll(".custom-select").forEach((dropdown) => {
+  document.addEventListener('click', (e) => {
+    document.querySelectorAll('.custom-select').forEach((dropdown) => {
       if (!dropdown.contains(e.target)) {
-        dropdown.classList.remove("open");
+        dropdown.classList.remove('open');
       }
     });
   });
@@ -104,38 +103,37 @@ export default async function decorate(block) {
    * Renders company cards based on filtered data
    */
   function renderCards(filteredData, showUSDefault = false) {
-
     // Show or hide clear button depending on active filters
     if (selectedRegion || selectedCountry || searchInput.value) {
-      clearButton.style.display = "flex";
-      filter.style.marginTop = "0px";
+      clearButton.style.display = 'flex';
+      filter.style.marginTop = '0px';
     } else {
-      clearButton.style.display = "none";
-      filter.style.marginTop = "40px";
+      clearButton.style.display = 'none';
+      filter.style.marginTop = '40px';
     }
 
     // Clear previous cards
-    cardsContainer.innerHTML = "";
+    cardsContainer.innerHTML = '';
 
     /**
      * Default Behavior:
      * If nothing selected or searched → show United States companies
      */
     if (showUSDefault && !selectedRegion && !selectedCountry && !searchInput.value) {
-      const usRegion = data.find(r => r.region === "North America");
-      const usCountry = usRegion?.countries.find(c => c.country === "United States");
+      const usRegion = data.find((r) => r.region === 'North America');
+      const usCountry = usRegion?.countries.find((c) => c.country === 'United States');
 
       if (usCountry) {
-        usCountry.companies.forEach(company => {
-          const card = document.createElement("div");
-          card.className = "contact-card";
+        usCountry.companies.forEach((company) => {
+          const card = document.createElement('div');
+          card.className = 'contact-card';
           card.innerHTML = `
-            <h3 class="company-name">${company.name ?? ""}</h3>
-            <p class="product-line">${company.productLine ?? ""}</p>
-            <p class="address">${company.address ?? ""}</p>
-            <p class="phone">Phone: ${company.phone ?? " - "}</p>
-            <p class="email">Email: ${company.email ?? " - "}</p>
-            <a href="${company.website ?? "#"}" target="_blank" class="website-link">${company.website ?? ""}</a>
+            <h3 class="company-name">${company.name ?? ''}</h3>
+            <p class="product-line">${company.productLine ?? ''}</p>
+            <p class="address">${company.address ?? ''}</p>
+            <p class="phone">Phone: ${company.phone ?? ' - '}</p>
+            <p class="email">Email: ${company.email ?? ' - '}</p>
+            <a href="${company.website ?? '#'}" target="_blank" class="website-link">${company.website ?? ''}</a>
           `;
           cardsContainer.appendChild(card);
         });
@@ -144,18 +142,18 @@ export default async function decorate(block) {
     }
 
     // Render filtered companies
-    filteredData.forEach(region => {
-      region.countries.forEach(country => {
-        country.companies.forEach(company => {
-          const card = document.createElement("div");
-          card.className = "contact-card";
+    filteredData.forEach((region) => {
+      region.countries.forEach((country) => {
+        country.companies.forEach((company) => {
+          const card = document.createElement('div');
+          card.className = 'contact-card';
           card.innerHTML = `
-            <h3 class="company-name">${company.name ?? ""}</h3>
-            <p class="product-line">${company.productLine ?? ""}</p>
-            <p class="address">${company.address ?? ""}</p>
-            <p class="phone">Phone: ${company.phone ?? " - "}</p>
-            <p class="email">Email: ${company.email ?? " - "}</p>
-            <a href="${company.website ?? "#"}" target="_blank" class="website-link">${company.website ?? ""}</a>
+            <h3 class="company-name">${company.name ?? ''}</h3>
+            <p class="product-line">${company.productLine ?? ''}</p>
+            <p class="address">${company.address ?? ''}</p>
+            <p class="phone">Phone: ${company.phone ?? ' - '}</p>
+            <p class="email">Email: ${company.email ?? ' - '}</p>
+            <a href="${company.website ?? '#'}" target="_blank" class="website-link">${company.website ?? ''}</a>
           `;
           cardsContainer.appendChild(card);
         });
@@ -176,34 +174,29 @@ export default async function decorate(block) {
 
     if (searchValue) {
       // Reset dropdown selections when searching
-      selectedRegion = "";
-      selectedCountry = "";
+      selectedRegion = '';
+      selectedCountry = '';
 
-      regionWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Region ";
-      countryWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Country ";
+      regionWrapper.querySelector('.select-trigger').firstChild.textContent = 'Select Region ';
+      countryWrapper.querySelector('.select-trigger').firstChild.textContent = 'Select Country ';
 
       // Filter by country name across all regions
       filtered = data
-        .map(region => ({
+        .map((region) => ({
           ...region,
-          countries: region.countries.filter(c =>
-            c.country.toLowerCase().includes(searchValue)
-          )
+          countries: region.countries.filter((c) => c.country.toLowerCase().includes(searchValue)),
         }))
-        .filter(region => region.countries.length > 0);
-
+        .filter((region) => region.countries.length > 0);
     } else {
       // Filter based on selected region & country
       filtered = data
-        .filter(region => !selectedRegion || region.region === selectedRegion)
-        .map(region => ({
+        .filter((region) => !selectedRegion || region.region === selectedRegion)
+        .map((region) => ({
           ...region,
           countries: region.countries
-          .filter(c =>
-            !selectedCountry || c.country === selectedCountry
-          )
+            .filter((c) => !selectedCountry || c.country === selectedCountry),
         }))
-        .filter(region => region.countries.length > 0);
+        .filter((region) => region.countries.length > 0);
     }
 
     renderCards(filtered, true);
@@ -216,42 +209,42 @@ export default async function decorate(block) {
    * - Clear search
    * - Reset dropdown labels
    */
-  clearButton.addEventListener("click", () => {
-    selectedRegion = "";
-    selectedCountry = "";
-    searchInput.value = "";
+  clearButton.addEventListener('click', () => {
+    selectedRegion = '';
+    selectedCountry = '';
+    searchInput.value = '';
 
-    regionWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Region ";
-    countryWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Country ";
+    regionWrapper.querySelector('.select-trigger').firstChild.textContent = 'Select Region ';
+    countryWrapper.querySelector('.select-trigger').firstChild.textContent = 'Select Country ';
 
-    setupCustomSelect(countryWrapper, ["Select Country"], () => {});
+    setupCustomSelect(countryWrapper, ['Select Country'], () => {});
     filterData();
   });
 
   // Initialize Region Dropdown
   setupCustomSelect(
     regionWrapper,
-    ["Select Region", ...data.map(r => r.region)],
+    ['Select Region', ...data.map((r) => r.region)],
     (value) => {
-      selectedRegion = value === "Select Region" ? "" : value;
-      selectedCountry = "";
-      searchInput.value = "";
+      selectedRegion = value === 'Select Region' ? '' : value;
+      selectedCountry = '';
+      searchInput.value = '';
 
-      countryWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Country ";
+      countryWrapper.querySelector('.select-trigger').firstChild.textContent = 'Select Country ';
 
-      const regionObj = data.find(r => r.region === selectedRegion);
+      const regionObj = data.find((r) => r.region === selectedRegion);
 
       setupCustomSelect(
         countryWrapper,
-        selectedRegion ? ["Select Country", ...regionObj.countries.map(c => c.country)] : ["Select Country"],
+        selectedRegion ? ['Select Country', ...regionObj.countries.map((c) => c.country)] : ['Select Country'],
         (countryVal) => {
-          selectedCountry = countryVal === "Select Country" ? "" : countryVal;
+          selectedCountry = countryVal === 'Select Country' ? '' : countryVal;
           filterData();
-        }
+        },
       );
 
       filterData();
-    }
+    },
   );
 
   /**
@@ -259,19 +252,19 @@ export default async function decorate(block) {
    * - Clears dropdown selections when typing
    * - Filters based on country name
    */
-  searchInput.addEventListener("input", () => {
+  searchInput.addEventListener('input', () => {
     const searchValue = searchInput.value.trim().toLowerCase();
 
     if (searchValue) {
     // Clear dropdown selections
-      selectedRegion = "";
-      selectedCountry = "";
+      selectedRegion = '';
+      selectedCountry = '';
 
-    // Reset dropdown labels
-      regionWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Region ";
-      countryWrapper.querySelector(".select-trigger").firstChild.textContent = "Select Country ";
+      // Reset dropdown labels
+      regionWrapper.querySelector('.select-trigger').firstChild.textContent = 'Select Region ';
+      countryWrapper.querySelector('.select-trigger').firstChild.textContent = 'Select Country ';
 
-      setupCustomSelect(countryWrapper, ["Select Country"], () => {});
+      setupCustomSelect(countryWrapper, ['Select Country'], () => {});
     }
 
     filterData();
