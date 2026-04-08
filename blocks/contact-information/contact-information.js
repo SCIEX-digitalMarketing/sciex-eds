@@ -130,13 +130,17 @@ export default async function decorate(block) {
           const card = document.createElement("div");
           card.className = "contact-card";
           card.innerHTML = `
-            <h3 class="company-name">${company.name ?? ""}</h3>
-            <p class="product-line">${company.productLine ?? ""}</p>
-            <p class="address">${company.address ?? ""}</p>
-            ${company.phone?.trim()  ? `<p class="phone">Phone: ${company.phone}</p>` : ""}            
-            ${company.email?.trim()  ? `<p class="email">Email: ${company.email}</p>` : ""}
-            <a href="${company.website ?? "#"}" target="_blank" class="website-link">${company.website ?? ""}</a>
-          `;
+          ${company.name?.trim() ? `<h3 class="company-name">${company.name.trim()}</h3>` : ""}
+          ${company.productLine?.trim() ? `<p class="product-line">${company.productLine.trim()}</p>` : ""}
+          ${company.address?.trim() ? `<p class="address">${company.address.trim()}</p>` : ""}
+          ${company.hours?.trim() ? `<p class="hours">${company.hours.trim()}</p>` : ""}
+          ${company.phone?.trim() ? `<p class="phone">Phone: ${company.phone.trim()}</p>` : ""} 
+          ${company.fax?.trim() ? `<p class="fax">Fax: ${company.fax.trim()}</p>` : ""}  
+          ${company.email?.trim() ? `<p class="email">Email: ${company.email.trim()}</p>` : ""}
+          ${company.website?.trim()
+                        ? `<a href="${company.website.trim()}" target="_blank" class="website-link">${company.website.trim()}</a>`
+                        : ""}
+              `;
           cardsContainer.appendChild(card);
         });
         return;
@@ -150,12 +154,16 @@ export default async function decorate(block) {
           const card = document.createElement("div");
           card.className = "contact-card";
           card.innerHTML = `
-            <h3 class="company-name">${company.name ?? ""}</h3>
-            <p class="product-line">${company.productLine ?? ""}</p>
-            <p class="address">${company.address ?? ""}</p>
-            ${company.phone?.trim()  ? `<p class="phone">Phone: ${company.phone}</p>` : ""}            
-            ${company.email?.trim()  ? `<p class="email">Email: ${company.email}</p>` : ""}
-            <a href="${company.website ?? "#"}" target="_blank" class="website-link">${company.website ?? ""}</a>
+          ${company.name?.trim() ? `<h3 class="company-name">${company.name.trim()}</h3>` : ""}
+          ${company.productLine?.trim() ? `<p class="product-line">${company.productLine.trim()}</p>` : ""}
+          ${company.address?.trim() ? `<p class="address">${company.address.trim()}</p>` : ""}
+          ${company.hours?.trim() ? `<p class="hours">${company.hours.trim()}</p>` : ""}
+          ${company.phone?.trim() ? `<p class="phone">Phone: ${company.phone.trim()}</p>` : ""} 
+          ${company.fax?.trim() ? `<p class="fax">Fax: ${company.fax.trim()}</p>` : ""}  
+          ${company.email?.trim() ? `<p class="email">Email: ${company.email.trim()}</p>` : ""}
+          ${company.website?.trim() 
+            ? `<a href="${company.website.trim()}" target="_blank" class="website-link">${company.website.trim()}</a>` 
+            : ""}
           `;
           cardsContainer.appendChild(card);
         });

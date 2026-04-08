@@ -23,7 +23,7 @@
   position: relative;  
 }
 .cards-card-image picture img {
-   height: 210px;
+   /* height: 210px; */
 }
 
 .cards-image-label {
