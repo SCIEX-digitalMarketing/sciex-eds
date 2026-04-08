@@ -126,10 +126,11 @@ function extractYouTubeID(url) {
 export default function decorate(block) {
   const ul = document.createElement('ul');
   let headingText = '';
+  let description = '';
   let target = '_blank';
   let id = '';
   let gridValue = '';
-
+  let headingFontStyle = '';
   let headingFontColor = '';
   let pfasStyle = false;
 
@@ -143,7 +144,7 @@ export default function decorate(block) {
       return;
     }
     if (index === 2) {
-      row.textContent.trim();
+      headingFontStyle = row.textContent.trim();
       return;
     }
     if (index === 3) {
@@ -154,7 +155,7 @@ export default function decorate(block) {
       return;
     }
     if (index === 4) {
-      row.textContent.trim();
+      description = row.textContent.trim();
       return;
     }
     if (index === 5 && row.querySelector('div > div > p')) {
@@ -163,7 +164,7 @@ export default function decorate(block) {
     }
 
     if (
-      index === 3
+      index === 6
       && /^[1-4]$/.test(row.textContent.trim())
     ) {
       gridValue = row.textContent.trim();
@@ -177,7 +178,17 @@ export default function decorate(block) {
 
     const li = document.createElement('li');
     moveInstrumentation(row, li);
-    while (row.firstElementChild) li.append(row.firstElementChild);
+    while (row.firstElementChild) {
+      const child = row.firstElementChild;
+
+      const isEmpty = child.textContent.trim() === '' && child.children.length === 0;
+
+      if (isEmpty) {
+        row.removeChild(child);
+      } else {
+        li.append(child);
+      }
+    }
 
     const firstDiv = li.children[0];
     const youtubeLink = firstDiv.textContent.trim();
@@ -425,11 +436,16 @@ export default function decorate(block) {
 
   const headingEl = document.createElement('h2');
   headingEl.textContent = headingText;
-  headingEl.className = 'cards-heading';
+  headingEl.className = `cards-heading ${headingFontStyle} ${headingFontColor}`.trim();
+
+  const descriptionEl = document.createElement('p');
+  descriptionEl.textContent = description;
+  descriptionEl.className = 'cards-description';
 
   block.textContent = '';
   block.id = `${id}-content`;
   block.parentElement.classList.add('tabs-container-wrapper');
   block.append(headingEl);
+  block.append(descriptionEl);
   block.append(ul);
 }
