@@ -88,6 +88,20 @@
             { "name": "Hide Filter", "value": "hide" }
            
           ]
+        },
+        {
+          "component": "boolean",
+          "name": "pfasStyle",
+          "label": "Enable Pfas Style",
+          "value": false,
+          "valueType": "boolean"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "button",
+          "label": "Button",
+          "value": ""
         }
       ]
     },
@@ -170,6 +184,13 @@
             { "name": "Same tab", "value": "_self" },
             { "name": "New tab", "value": "_blank" }
           ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "gridLabel",
+          "label": "gridLabel",
+          "value": ""
         }
       ]
     }

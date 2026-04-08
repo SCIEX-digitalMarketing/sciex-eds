@@ -52,8 +52,12 @@
               "value": "text-white-background"
             },
             {
-              "name": "Gray",
+              "name": "Grey",
               "value": "text-grey-background"
+            },
+            {
+                "name": "Lite Grey",
+                "value": "text-lite-grey-background"
             },
             {
               "name": "Blue",
@@ -120,7 +124,10 @@
         "sciex-table",
         "cta-with-text",
         "contact-information",
-        "sciex-headquarters"
+         "sciex-headquarters",
+         "image-varient",
+         "sciex-columns",
+         "sciex-border"
       ]
     }
   ]

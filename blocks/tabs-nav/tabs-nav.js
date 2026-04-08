@@ -83,27 +83,66 @@ export default async function decorate(block) {
   blockDiv.classList.add('tw', 'tabs-nav', 'tab-buttons', 'tw-bg-white');
   const tabData = document.createElement('div');
   tabData.classList.add('tab-data');
-  [...block.children].forEach((row) => {
-    const tabDIv = document.createElement('div');
-    tabDIv.id = row.children[1].textContent;
-    tabDIv.classList.add('tab-section');
-    tabDIv.textContent = row.children[0].textContent;
-    moveInstrumentation(row, tabDIv);
-    blockDiv.append(tabDIv);
-    tabDIv.addEventListener('click', function () {
-      tabDIv.click();
-      tabDIv.click();
-      showTabContent(this.id);
-      showActiveTab(this.id);
-      if (window.matchMedia('(max-width: 768px)').matches) {
-        handleMobileTabs();
-      }
-    });
-  });
-  block.textContent = '';
-  block.classList.add('tw');
+
   const buttons = document.createElement('div');
   buttons.classList.add('tabs-right');
+
+  // 🔹 EXISTING LOOP (kept in same place, enhanced)
+  [...block.children].forEach((row) => {
+    const cells = row.children;
+
+    // ---- TAB ----
+    if (cells.length === 2) {
+      const tabDiv = document.createElement('div');
+      tabDiv.id = cells[1].textContent.trim();
+      tabDiv.classList.add('tab-section');
+      tabDiv.textContent = cells[0].textContent.trim();
+
+      moveInstrumentation(row, tabDiv);
+      blockDiv.append(tabDiv);
+
+      tabDiv.addEventListener('click', function () {
+        showTabContent(this.id);
+        showActiveTab(this.id);
+
+        if (window.matchMedia('(max-width: 768px)').matches) {
+          handleMobileTabs();
+        }
+      });
+    }
+
+    // ---- AUTHOR BUTTON ----
+    if (cells.length === 3) {
+      const buttonName = cells[0].textContent.trim();
+      const buttonId = cells[1].textContent.trim();
+      const buttonHref = cells[2].textContent.trim();
+
+      const btn = document.createElement('a');
+      btn.classList.add('custom-tab-button');
+      btn.textContent = buttonName;
+
+      if (buttonHref) {
+        btn.href = buttonHref;
+          btn.target = '_blank';
+          btn.rel = 'noopener noreferrer';         
+      } else if (buttonId) {
+        btn.href = `#${buttonId}`;
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const section = document.getElementById(buttonId);
+          if (section) {
+            smoothScrollTo(section);
+          }
+        });
+      }
+
+      moveInstrumentation(row, btn);
+      buttons.append(btn);
+    }
+  });
+
+  block.textContent = '';
+  block.classList.add('tw');
 
   const featurebutton = document.createElement('div');
   featurebutton.classList.add('feature-products-button');
@@ -159,7 +198,21 @@ export default async function decorate(block) {
 
   window.addEventListener('resize', toggleVisibility);
   onload();
+  const tabs = document.querySelector('.tabs-nav-wrapper');
+  const parent = document.querySelector('.section');
 
+  window.addEventListener('scroll', () => {
+    const rect = parent.getBoundingClientRect();
+
+    if (rect.bottom <= 0) {
+      tabs.style.position = 'fixed';
+      tabs.style.top = '0';
+      tabs.style.width = '100%';
+    } else {
+      tabs.style.position = 'sticky';
+      tabs.style.top = '0';
+    }
+  });
   hideIfEmpty('.sciex-related-resource', '.related-resource-button');
   hideIfEmpty('.featured-products', '.feature-products-button');
 }

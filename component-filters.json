@@ -60,7 +60,10 @@
       "sciex-table",
       "cta-with-text",
       "contact-information",
-      "sciex-headquarters"
+      "sciex-headquarters",
+      "image-varient",
+      "sciex-columns",
+      "sciex-border"
     ]
   },
   {
@@ -139,6 +142,12 @@
     "id": "sciex-buttons",
     "components": [
       "sciex-button"
+    ]
+  },
+  {
+    "id": "sciex-columns",
+    "components": [
+      "sciex-columns-item"
     ]
   },
   {
@@ -240,7 +249,8 @@
   {
     "id": "tabs-nav",
     "components": [
-      "tab"
+      "tab",
+      "tab-button"
     ]
   }
 ]

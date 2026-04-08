@@ -20,5 +20,6 @@ export default async function decorate(block) {
   blockDiv.append(headingDiv);
 
   block.textContent = '';
+  block.parentElement.classList.add('tabs-container-wrapper');
   block.append(blockDiv);
 }

@@ -18,6 +18,8 @@ html {
 
 .tabs-nav {
   gap: 24px;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
 .tabs-nav-wrapper .block {
@@ -48,7 +50,9 @@ html {
   position: sticky;
   top: 0;
   z-index: 1000;
-  max-width: 90pc !important;
+  background-color: white;
+  max-width: 100% !important;
+  padding: 0 64px!important;
   margin: auto;
 }
 
@@ -70,7 +74,6 @@ html {
   letter-spacing: 0.08px;
 }
 
-
 /* .tabs-container-wrapper {
   min-height: 200px; 
 } */
@@ -80,12 +83,12 @@ html {
   background: var(--White-0, #FFF);
 }
 .feature-products-button,
-.related-resource-button {
+.related-resource-button,.custom-tab-button {
   color: var(--Grey-900, #141414);
 
   /* Desktop/text-base/bolder */
   padding:5px;
-  margin-top: -15px;
+  /* margin-top: -15px; */
   font-family: "Geogrotesque Sharp VF", sans-serif;
   font-size: 16px;
   font-style: normal;
@@ -105,7 +108,7 @@ color: var(--Grey-900, #141414);
   margin-left: auto; /* pushes it to the far right */
   white-space: nowrap; /* keep button text on one line */
   display: flex;
-  gap: 10px;
+  gap: 8px;
   cursor: pointer;
 }
 
@@ -117,6 +120,11 @@ color: var(--Grey-900, #141414);
 }
 
 @media (max-width: 768px) {
+   .tabs-right{
+    flex-direction: column ;
+    align-items: flex-start ;
+    gap: 16px;
+  }
   #mobile-tabs-nav {
     /*  position: absolute;*/
       width: 100%;
@@ -170,7 +178,7 @@ color: var(--Grey-900, #141414);
     
   }
   .feature-products-button,
-.related-resource-button{
+.related-resource-button,.custom-tab-button{
     display: flex;
     padding: 10px 12px;
     align-items: center;

@@ -54,8 +54,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-top: 1px solid #eee;
-  padding-top: 1.5rem;
   min-height: auto;
 }
 
@@ -75,8 +73,6 @@
   flex-direction: row;
   align-items: flex-start;
   gap: 2rem;
-  border-top: 1px solid #eee;
-  padding-top: 1.5rem;
 }
 
 .image-type .icon-card-image {
@@ -105,7 +101,7 @@
   justify-content: center;
 }
 
-.image-type .icon-card-title {
+.image-type .default-icon-card-title {
   font-family: "Geogrotesque Sharp VF";
   font-size: 20px;
   font-weight: 600;
@@ -137,7 +133,7 @@
   justify-content: flex-start;
 }
 
-.icon-card-title {
+.default-icon-card-title {
   font-family: "Geogrotesque Sharp VF";
   font-size: 24px;
   font-style: normal;
@@ -149,7 +145,7 @@
   margin-bottom: auto;
 }
 
-.contact-type .icon-card-title {
+.contact-type .default-icon-card-title {
 font-family: "Geogrotesque Sharp VF";
 font-size: 24px;
 font-style: normal;
@@ -194,7 +190,7 @@ line-height: normal;
 }
 
 .icon-card-link {
-  color: var(--Blue-700, #0068FA);
+  color: var(--Blue-700, #0068FA) !important;
   font-family: "Geogrotesque Sharp VF";
   font-size: 16px;
   font-style: normal;
@@ -273,6 +269,26 @@ line-height: normal;
   font-weight: 500;
   padding: 4px 8px;
   line-height: 1;
+}
+
+.card-clickable {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-clickable:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.card-clickable:active {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+.card-clickable:focus {
+  outline: 2px solid #0068FA;
+  outline-offset: 2px;
 }
  
 /* ✅ Responsive adjustments */

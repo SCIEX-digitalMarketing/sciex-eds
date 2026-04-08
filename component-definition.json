@@ -571,6 +571,21 @@
           }
         },
         {
+          "title": "Knowledge Base Article",
+          "id": "knowledge-base-article",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "knowledge-base-article",
+                  "model": "knowledge-base-article"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Login SSO",
           "id": "login-sso",
           "plugins": {
@@ -647,6 +662,21 @@
           }
         },
         {
+          "title": "Sciex Border",
+          "id": "sciex-border",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "sciex-border",
+                  "model": "sciex-border"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Sciex Buttons",
           "id": "sciex-buttons",
           "plugins": {
@@ -672,6 +702,37 @@
                 "template": {
                   "name": "Sciex Button",
                   "model": "sciex-button"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Sciex Columns",
+          "id": "sciex-columns",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Sciex Columns",
+                  "model": "sciex-columns",
+                  "filter": "sciex-columns"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Sciex columns Item",
+          "id": "sciex-columns-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "sciex-columns-item",
+                  "model": "sciex-columns-item"
                 }
               }
             }
@@ -1278,6 +1339,21 @@
                 "template": {
                   "name": "Tab",
                   "model": "tab"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Tab Button",
+          "id": "tab-button",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Tab Button",
+                  "model": "tab-button"
                 }
               }
             }

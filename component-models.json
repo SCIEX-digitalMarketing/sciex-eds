@@ -290,8 +290,12 @@
             "value": "text-white-background"
           },
           {
-            "name": "Gray",
+            "name": "Grey",
             "value": "text-grey-background"
+          },
+          {
+            "name": "Lite Grey",
+            "value": "text-lite-grey-background"
           },
           {
             "name": "Blue",
@@ -594,6 +598,7 @@
         "label": "option To Select anchor url",
         "name": "OpentionToSelectPrimary",
         "valueType": "string",
+        "value": "_blank",
         "options": [
           {
             "name": "Open In Same Tab",
@@ -609,7 +614,7 @@
         "component": "select",
         "name": "grid",
         "label": "Select how many cards in a row",
-        "value": "",
+        "value": "3",
         "valueType": "string",
         "options": [
           {
@@ -629,6 +634,13 @@
             "value": "1"
           }
         ]
+      },
+      {
+        "component": "boolean",
+        "name": "pfasStyle",
+        "label": "Enable Pfas Style",
+        "value": false,
+        "valueType": "boolean"
       }
     ]
   },
@@ -655,6 +667,20 @@
         "name": "videoThumbnail",
         "label": "Video Thumbnail Picker",
         "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Alt text",
+        "value": "card image"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageLabel",
+        "label": "imageLabel",
+        "value": ""
       }
     ]
   },
@@ -1339,6 +1365,94 @@
         "placeholder": "YYYY-MM-DD",
         "displayFormat": null,
         "valueFormat": null
+      },
+      {
+        "component": "boolean",
+        "label": "it Full Image banner?",
+        "name": "itsFullImage",
+        "valueType": "boolean"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "overlayImage",
+        "label": "Overlay Image",
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "text",
+        "name": "buttonText",
+        "label": "Primary Button Text",
+        "value": "",
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "aem-content",
+        "name": "buttonUrl",
+        "label": "primary Button Url",
+        "value": "",
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "buttonIcon",
+        "label": "Button Icon",
+        "multi": false,
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            true
+          ]
+        }
+      },
+      {
+        "component": "radio-group",
+        "label": "option To Select primary button url",
+        "name": "OpentionToSelectPrimary",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            true
+          ]
+        },
+        "options": [
+          {
+            "name": "Open In Same Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open In New Tab",
+            "value": "_blank"
+          }
+        ]
       }
     ]
   },
@@ -1783,6 +1897,117 @@
     ]
   },
   {
+    "id": "knowledge-base-article",
+    "fields": [
+      {
+        "component": "text",
+        "name": "versionId",
+        "label": "Version ID",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "knowledgeArticleId",
+        "label": "Knowledge Article ID",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "articleId",
+        "label": "Article ID",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "urlName",
+        "label": "URL Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "textarea",
+        "name": "summary",
+        "label": "Summary",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "body",
+        "label": "Body",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "publishStatus",
+        "label": "Publish Status",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Online",
+            "value": "Online"
+          },
+          {
+            "name": "Draft",
+            "value": "Draft"
+          },
+          {
+            "name": "Archived",
+            "value": "Archived"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "syncStatus",
+        "label": "Sync Status",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "New",
+            "value": "New"
+          },
+          {
+            "name": "Updated",
+            "value": "Updated"
+          },
+          {
+            "name": "Synced",
+            "value": "Synced"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "language",
+        "label": "Language",
+        "valueType": "string"
+      },
+      {
+        "component": "date",
+        "name": "createdDate",
+        "label": "Created Date",
+        "valueType": "string"
+      },
+      {
+        "component": "checkbox",
+        "name": "entitledContent",
+        "label": "Entitled Content",
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "name": "articleType",
+        "label": "Article Type",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "login-sso",
     "fields": [
       {
@@ -1996,6 +2221,20 @@
             "value": "hide"
           }
         ]
+      },
+      {
+        "component": "boolean",
+        "name": "pfasStyle",
+        "label": "Enable Pfas Style",
+        "value": false,
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "button",
+        "label": "Button",
+        "value": ""
       }
     ]
   },
@@ -2171,6 +2410,93 @@
             "value": "_blank"
           }
         ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "gridLabel",
+        "label": "gridLabel",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "sciex-border",
+    "fields": [
+      {
+        "component": "select",
+        "name": "borderWidth",
+        "label": "Border width",
+        "valueType": "string",
+        "value": "1px",
+        "options": [
+          {
+            "name": "1px",
+            "value": "1px"
+          },
+          {
+            "name": "2px",
+            "value": "2px"
+          },
+          {
+            "name": "3px",
+            "value": "3px"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "borderStyle",
+        "label": "Border style",
+        "valueType": "string",
+        "value": "solid",
+        "options": [
+          {
+            "name": "Solid",
+            "value": "solid"
+          },
+          {
+            "name": "Dashed",
+            "value": "dashed"
+          },
+          {
+            "name": "Dotted",
+            "value": "dotted"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "borderColor",
+        "label": "Border color",
+        "valueType": "string",
+        "value": "border-black",
+        "options": [
+          {
+            "name": "Black",
+            "value": "border-black"
+          },
+          {
+            "name": "Blue",
+            "value": "border-blue"
+          },
+          {
+            "name": "Grey",
+            "value": "border-grey"
+          },
+          {
+            "name": "White",
+            "value": "border-white"
+          },
+          {
+            "name": "Light Grey",
+            "value": "border-light-grey"
+          },
+          {
+            "name": "Soft Grey",
+            "value": "border-soft-grey"
+          }
+        ]
       }
     ]
   },
@@ -2262,6 +2588,83 @@
             "value": "_blank"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "sciex-columns",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sciexColumnsId",
+        "label": "Sciex Columns Id",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "sciexColumnsheading",
+        "label": "Sciex Columns Heading",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "grid",
+        "label": "Select how many cards in a column",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": "4"
+          },
+          {
+            "name": "3-columns",
+            "value": "3"
+          },
+          {
+            "name": "2-columns",
+            "value": "2"
+          },
+          {
+            "name": "1-columns",
+            "value": "1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sciex-columns-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "itemHeading",
+        "label": "Heading",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "authorImage",
+        "label": "Author Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "authorName",
+        "label": "Author Name",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "authorDetails",
+        "value": "",
+        "label": "Author Deatails",
+        "valueType": "string"
       }
     ]
   },
@@ -2845,6 +3248,20 @@
         "valueType": "string",
         "name": "text",
         "label": "Text"
+      },
+      {
+        "component": "number",
+        "name": "paddingTop",
+        "label": "Padding Top (px)",
+        "valueType": "number",
+        "value": 32
+      },
+      {
+        "component": "number",
+        "name": "paddingBottom",
+        "label": "Padding Bottom (px)",
+        "valueType": "number",
+        "value": 32
       }
     ]
   },
@@ -3293,6 +3710,29 @@
         "name": "tabId",
         "value": "",
         "label": "Id",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "tab-button",
+    "fields": [
+      {
+        "component": "text",
+        "name": "buttonName",
+        "label": "Button Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "buttonId",
+        "label": "Id",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "buttonHref",
+        "label": "Button Link (Href)",
         "valueType": "string"
       }
     ]
