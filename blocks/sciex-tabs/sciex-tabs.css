@@ -29,8 +29,8 @@
     transition: color 0.3s ease;
     white-space: nowrap;
 }
-.custom-sciex-tabs .tab:first-child {
-    padding: 0.75rem 0;
+button.tab.active{
+    border-radius: 0;
 }
 
 .custom-sciex-tabs .tab:hover,

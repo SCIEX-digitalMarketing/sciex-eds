@@ -193,7 +193,7 @@ font-weight: 370;
 line-height: normal;
 }
 
-.address,.phone,.email {
+.address,.phone,.email,.fax,.hours {
 color: #666;
 font-size: 15px;
 font-style: normal;
