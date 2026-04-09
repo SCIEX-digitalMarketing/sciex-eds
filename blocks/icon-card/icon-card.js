@@ -21,7 +21,7 @@ export default function decorate(block) {
     if (index === 0) id = text;
     else if (index === 1) heading = text;
     else if (index === 2) fontType = text;
-    else if (index === 3)  headingType = text;
+    else if (index === 3) headingType = text;
     else if (index === 4) description = text;
     else if (index === 5) columns = parseInt(text, 10) || 2;
     else if (index === 6) typeOfCard = text;
@@ -51,7 +51,7 @@ export default function decorate(block) {
     const cells = [...row.children];
     if (!cells.length) return;
 
-    const iconHTML = cells[0]?.innerHTML?.trim() || '';
+    // const iconHTML = cells[0]?.innerHTML?.trim() || '';
     const headingHTML = cells[1]?.innerHTML?.trim() || '';
     const descriptionHTML = cells[2]?.innerHTML?.trim() || '';
     const linkLabel = cells[3]?.textContent?.trim() || '';
@@ -68,7 +68,7 @@ export default function decorate(block) {
     if (cells[0] && typeOfCard !== 'contact-type') {
       const iconWrap = document.createElement('div');
       iconWrap.className = 'icon-card-image';
-    
+
       // Brand label above image
       if (brand) {
         const brandLabel = document.createElement('div');
@@ -76,16 +76,16 @@ export default function decorate(block) {
         brandLabel.textContent = brand;
         iconWrap.append(brandLabel);
       }
-      
+
       const picture = cells[0].querySelector('picture');
       const img = cells[0].querySelector('img');
-    
+
       if (picture) {
         iconWrap.append(picture.cloneNode(true));
       } else if (img) {
         iconWrap.append(img.cloneNode(true));
       }
-    
+
       card.append(iconWrap);
     }
 
@@ -99,7 +99,7 @@ export default function decorate(block) {
       if (fontType) {
         h3.classList.add(fontType);
       }
-      
+
       if (headingType) {
         h3.classList.add(headingType);
       }
@@ -119,16 +119,16 @@ export default function decorate(block) {
         const button = document.createElement('button');
         button.className = 'icon-card-button';
         button.type = 'button';
-      
+
         const textSpan = document.createElement('span');
         textSpan.className = 'button-text';
         textSpan.textContent = linkLabel;
-      
+
         const iconSpan = span({ class: 'icon icon-arrow' });
-      
+
         button.append(textSpan);
         button.append(iconSpan);
-      
+
         button.addEventListener('click', () => {
           if (linkTarget === '_blank') {
             window.open(linkHref, '_blank', 'noopener,noreferrer');
@@ -136,7 +136,7 @@ export default function decorate(block) {
             window.location.href = linkHref;
           }
         });
-      
+
         contentWrap.append(button);
       } else {
         // DEFAULT → Anchor Link
@@ -145,14 +145,14 @@ export default function decorate(block) {
         link.href = linkHref;
         link.target = linkTarget;
         link.textContent = linkLabel;
-    
+
         if (linkTarget === '_blank') {
           link.rel = 'noopener noreferrer';
         }
-    
+
         const iconSpan = span({ class: 'icon icon-arrow-blue' });
         link.append(iconSpan);
-    
+
         contentWrap.append(link);
       }
     }
