@@ -37,7 +37,6 @@ export default function decorate(block) {
 
   block.id = `${blockId}-content`;
   block.className = 'sciex-text';
-  block.textContent = '';
   //  block.parentElement.classList.add('tabs-container-wrapper');
   if (content) {
     if (alignment) {
@@ -45,7 +44,7 @@ export default function decorate(block) {
     } else {
       content.className = 'text-left';
     }
-
+    block.textContent = '';
     block.append(content);
   }
 }
