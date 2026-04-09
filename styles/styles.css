@@ -1367,6 +1367,9 @@ main .section.highlight {
     max-width: 90pc !important;
     /* padding: 0 55px !important; */
   }
+  .tabs-nav-wrapper .block{
+      padding: 10px 32px 0 32px !important;
+  }
 }
 
 @media (min-width: 1600px) {
