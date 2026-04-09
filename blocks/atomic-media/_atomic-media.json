@@ -1,0 +1,209 @@
+{
+  "definitions": [
+    {
+      "title": "Atomic Media",
+      "id": "atomic-media",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Atomic Media",
+              "model": "atomic-media",
+              "filter": "atomic-media"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Image / Video",
+      "id": "image-video",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Image/Video",
+              "model": "image-video"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Vimeo",
+      "id": "vimeo-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Vimeo",
+              "model": "vimeo-item"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Youtube",
+      "id": "youtube-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Youtube",
+              "model": "youtube-item"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Direct Upload Video",
+      "id": "direct-upload-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Direct Upload Video",
+              "model": "direct-upload-item"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "atomic-media",
+      "fields": [
+        {
+          "component": "multi",
+          "name": "atomicMediaItems",
+          "label": "Items",
+          "value": [],
+          "valueType": "array",
+          "allowed": [
+            "image-video",
+            "vimeo-item",
+            "youtube-item",
+            "direct-upload-item"
+          ],
+          "required": true
+        },
+        {
+          "component": "select",
+          "name": "imageOrientation",
+          "label": "Orientation",
+          "valueType": "string",
+          "value": "portrait",
+          "options": [
+            { "name": "Portrait (4:5)", "value": "portrait" },
+            { "name": "Landscape (4:3)", "value": "landscape" },
+            { "name": "Video (16:9)", "value": "video" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "image-video",
+      "fields": [
+        {
+          "component": "reference",
+          "name": "image.file",
+          "label": "Image (fileReference)",
+          "valueType": "string",
+          "multi": false,
+          "description": "Accepts .jpg, .png, .gif, .svg. Max file size: 2MB"
+        },
+        {
+          "component": "text",
+          "name": "imageAlt",
+          "label": "Alt text",
+          "valueType": "string",
+          "value": ""
+        },
+        {
+          "component": "number",
+          "name": "imageQuality",
+          "label": "Image compression level",
+          "valueType": "number",
+          "value": 75,
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "description": "Sets the compression level of the image (1-100). Aim to set this as low as possible without losing too much visual quality"
+        },
+        {
+          "component": "checkbox",
+          "name": "imageLazyLoad",
+          "label": "Enable lazy loading",
+          "valueType": "boolean",
+          "value": false,
+          "description": "When enabled, the image will be loaded as the user scrolls down the page. Avoid lazy loading any images that are 'above the fold'."
+        },
+        {
+          "component": "richtext",
+          "name": "caption",
+          "label": "Caption",
+          "valueType": "string",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "vimeo-item",
+      "fields": [
+        {
+          "component": "text",
+          "name": "embedUrlVimeo",
+          "label": "Vimeo embed URL",
+          "valueType": "string",
+          "value": "",
+          "description": "Video embed URL. To find this, view the video on Vimeo -> Click 'Share' -> Copy the value in the iframe's src attribute"
+        },
+        {
+          "component": "richtext",
+          "name": "caption",
+          "label": "Caption",
+          "valueType": "string",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "youtube-item",
+      "fields": [
+        {
+          "component": "text",
+          "name": "embedUrlYoutube",
+          "label": "Youtube embed URL",
+          "valueType": "string",
+          "value": "",
+          "description": "Video embed URL. To find this, view the video on YouTube -> Click 'Share' -> Copy the value in the iframe's src attribute"
+        },
+        {
+          "component": "richtext",
+          "name": "caption",
+          "label": "Caption",
+          "valueType": "string",
+          "value": ""
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "atomic-media",
+      "components": [
+        "image-video",
+        "vimeo-item",
+        "youtube-item"
+      ]
+    }
+  ]
+}

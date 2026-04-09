@@ -1,0 +1,161 @@
+/* Wrapper sizing */
+.sciex-table-wrapper {
+  max-width: 1360px !important;
+  padding: 10px 0 !important;
+}
+
+/* Utilities */
+.sciex-table :is(.relative) {
+  position: relative;
+}
+
+.sciex-table thead {
+  background-color:rgb(240,240,240);
+}
+
+.sciex-table :is(.mb-2) {
+  margin-bottom: 0.5rem;
+}
+
+.sciex-table :is(.\!block) {
+  display: block !important;
+}
+
+.sciex-table :is(.block) {
+  display: block;
+}
+
+.sciex-table :is(.table) {
+  display: table;
+}
+
+.sciex-table :is(.hidden) {
+  display: none;
+}
+
+.sciex-table :is(.w-full) {
+  width: 100%;
+}
+
+.sciex-table :is(.w-max) {
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.sciex-table :is(.table-auto) {
+  table-layout: auto;
+}
+
+.sciex-table :is(.space-y-1 > :not([hidden]) ~ :not([hidden])) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.25rem * (1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+}
+
+.sciex-table :is(.overflow-x-auto) {
+  overflow-x: auto;
+}
+
+.sciex-table :is(.rounded-lg) {
+  border-radius: 0.5rem;
+}
+
+/* Border utilities */
+.sciex-table :is(.border) {
+  border-width: 2px;
+  border-style: solid;
+}
+
+.sciex-table :is(.border-t) {
+  border-top-width: 1px;
+}
+
+.sciex-table :is(.border-\[\#273F3F\]) {
+  --tw-border-opacity: 1;
+  border-color: rgb(39 63 63 / var(--tw-border-opacity));
+}
+
+.sciex-table :is(.border-gray-300) {
+  --tw-border-opacity: 1;
+  border-color: rgb(209 213 219 / var(--tw-border-opacity));
+}
+
+.sciex-table :is(.border-opacity-25) {
+  --tw-border-opacity: 0.25;
+}
+
+/* Background */
+.sciex-table :is(.bg-gray-50) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+}
+
+/* Padding */
+.sciex-table :is(.p-2) {
+  padding: 0.5rem;
+}
+
+.sciex-table :is(.p-2\.5) {
+  padding: 0.625rem;
+}
+
+.sciex-table :is(.p-4) {
+  padding: 1rem;
+}
+
+/* Typography */
+.sciex-table :is(.text-left) {
+  text-align: left;
+}
+
+.sciex-table :is(.text-sm) {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.sciex-table :is(.font-semibold) {
+  font-weight: 600;
+}
+
+.sciex-table :is(.leading-5) {
+  line-height: 1.25rem;
+}
+
+.sciex-table :is(.text-\[\#378189\]) {
+  --tw-text-opacity: 1;
+  color: rgb(55 129 137 / var(--tw-text-opacity));
+}
+
+.sciex-table :is(.text-gray-900) {
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity));
+}
+
+.sciex-table :is(.text-slate-400) {
+  --tw-text-opacity: 1;
+  color: rgb(148 163 184 / var(--tw-text-opacity));
+}
+
+.sciex-table :is(.underline) {
+  text-decoration-line: underline;
+}
+
+/* Filters */
+.sciex-table :is(.filter) {
+  filter: var(--tw-blur)
+          var(--tw-brightness)
+          var(--tw-contrast)
+          var(--tw-grayscale)
+          var(--tw-hue-rotate)
+          var(--tw-invert)
+          var(--tw-saturate)
+          var(--tw-sepia)
+          var(--tw-drop-shadow);
+}
+
+/* Responsive */
+@media (min-width: 1024px) {
+  .sciex-table :is(.lg\:w-1\/4) {
+    width: 25%;
+  }
+}

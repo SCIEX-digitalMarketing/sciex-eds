@@ -1,0 +1,65 @@
+.atomic-media-carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Slide */
+.splide__slide {
+  flex: 0 0 100%;
+  width: 100%;
+  padding: 1rem;
+}
+
+/* Media */
+.portrait {
+  width: 100%;
+  height: 720px;
+  object-fit: cover;
+}
+
+.landscape {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+}
+
+/* Caption + Buttons Row */
+.caption-row {
+  margin-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.media-card-caption {
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+}
+
+/* Arrows beside caption */
+.caption-arrows {
+  display: flex;
+  gap: 12px;
+}
+
+/* Arrow Buttons */
+.carousel-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid #0068fa;
+  color: #0068fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.carousel-btn:hover {
+  background: #0068fa;
+  color: white;
+}

@@ -649,9 +649,28 @@ function decorateBlocks(main) {
  * @param {Element} header header element
  * @returns {Promise}
  */
-async function loadHeader(header) {
+/* async function loadHeader(header) {
   const headerBlock = buildBlock('header', '');
   header.append(headerBlock);
+  decorateBlock(headerBlock);
+  return loadBlock(headerBlock);
+} */
+
+async function loadHeader(header) {
+  const { lang } = document.documentElement;
+  let path = `/${lang}/nav`;
+  if (lang === 'en') {
+    path = '/header';
+  } else if (lang === 'ja') {
+    path = '/ja-jp/nav';
+  } else if (lang === 'zh-cn') {
+    path = '/zh-cn/nav';
+  }
+  const headerBlock = buildBlock('header', '');
+  header.append(headerBlock);
+  headerBlock.dataset.lang = lang;
+  headerBlock.dataset.blockName = 'header';
+  headerBlock.dataset.blockSrc = path;
   decorateBlock(headerBlock);
   return loadBlock(headerBlock);
 }
@@ -721,6 +740,26 @@ async function loadSections(element) {
   }
 }
 
+/**
+ * Loads all sections.
+ * @param {Element} element The parent element of sections to load
+ */
+
+async function sectionBackgroundColor(element) {
+  const sections = [...element.querySelectorAll('div.section')];
+
+  for (let i = 0; i < sections.length; i += 1) {
+    const section = sections[i];
+
+    // check for data-color attribute
+    const color = section.dataset.color;
+
+    if (color) {
+      section.classList.add(color);
+    }
+  }
+}
+
 init();
 
 export {
@@ -741,6 +780,7 @@ export {
   loadScript,
   loadSection,
   loadSections,
+  sectionBackgroundColor,
   readBlockConfig,
   sampleRUM,
   setup,

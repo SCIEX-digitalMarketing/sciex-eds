@@ -126,9 +126,13 @@ function extractYouTubeID(url) {
 export default function decorate(block) {
   const ul = document.createElement('ul');
   let headingText = '';
+  let description = '';
   let target = '_blank';
   let id = '';
   let gridValue = '';
+  let headingFontStyle = '';
+  let headingFontColor = '';
+  let pfasStyle = false;
 
   [...block.children].forEach((row, index) => {
     if (index === 0) {
@@ -139,22 +143,52 @@ export default function decorate(block) {
       headingText = row.textContent.trim();
       return;
     }
-    if (index === 2 && row.querySelector('div > div > p')) {
+    if (index === 2) {
+      headingFontStyle = row.textContent.trim();
+      return;
+    }
+    if (index === 3) {
+      headingFontColor = row.textContent.trim();
+      if (headingFontColor === '') {
+        headingFontColor = 'text-black';
+      }
+      return;
+    }
+    if (index === 4) {
+      description = row.textContent.trim();
+      return;
+    }
+    if (index === 5 && row.querySelector('div > div > p')) {
       target = row.textContent.trim();
       return;
     }
 
     if (
-      index === 3
+      index === 6
       && /^[1-4]$/.test(row.textContent.trim())
     ) {
       gridValue = row.textContent.trim();
       return;
     }
 
+    if (index === 7) {
+      pfasStyle = row.textContent.trim().toLowerCase() === 'true';
+      return;
+    }
+
     const li = document.createElement('li');
     moveInstrumentation(row, li);
-    while (row.firstElementChild) li.append(row.firstElementChild);
+    while (row.firstElementChild) {
+      const child = row.firstElementChild;
+
+      const isEmpty = child.textContent.trim() === '' && child.children.length === 0;
+
+      if (isEmpty) {
+        row.removeChild(child);
+      } else {
+        li.append(child);
+      }
+    }
 
     const firstDiv = li.children[0];
     const youtubeLink = firstDiv.textContent.trim();
@@ -247,14 +281,67 @@ export default function decorate(block) {
             firstDiv.className = 'cards-card-image';
           }
         } else {
-          div.className = 'cards-card-body';
+          const content = div.textContent.trim();
+          if (content !== '') {
+            div.className = 'cards-card-body';
+            if (divIndex === 2) {
+              div.className = 'imageLabel';
+            }
+          }
         }
       });
 
+      const imageContainer = li.querySelector('.cards-card-image');
+      const imageLabelDiv = li.querySelector('.imageLabel');
+
+      if (imageContainer && imageLabelDiv) {
+        const labelText = imageLabelDiv.textContent.trim();
+
+        if (labelText) {
+          const label = document.createElement('span');
+          label.className = 'cards-image-label';
+          label.textContent = labelText;
+
+          imageContainer.appendChild(label);
+        }
+
+        imageLabelDiv.remove();
+      }
+
+      /* ---------------------------
+         PFAS STYLE
+      ----------------------------*/
+
+      // Apply PFAS style if enabled
+      if (pfasStyle) {
+        li.classList.add('pfas-card');
+        const heading = li.querySelector('h5, h4, h3');
+        if (heading) {
+          heading.classList.add('pfas-blue');
+        }
+      }
+
       const anchor = li.querySelector('a');
+
       if (anchor) {
         anchor.setAttribute('target', target);
-        anchor.appendChild(span({ class: 'icon icon-right-arrow' }));
+
+        if (pfasStyle) {
+          // make it look like a button
+          anchor.classList.add('cards-button');
+
+          // wrap text in span (optional but cleaner)
+          const textSpan = document.createElement('span');
+          textSpan.textContent = anchor.textContent;
+          anchor.textContent = '';
+          anchor.appendChild(textSpan);
+
+          // add arrow icon
+          anchor.appendChild(span({ class: 'icon icon-arrow' }));
+        } else {
+          // normal link behavior
+          anchor.appendChild(span({ class: 'icon icon-right-arrow' }));
+        }
       }
 
       if (videoThumbnailImg) {
@@ -349,11 +436,16 @@ export default function decorate(block) {
 
   const headingEl = document.createElement('h2');
   headingEl.textContent = headingText;
-  headingEl.className = 'cards-heading';
+  headingEl.className = `cards-heading ${headingFontStyle} ${headingFontColor}`.trim();
+
+  const descriptionEl = document.createElement('p');
+  descriptionEl.textContent = description;
+  descriptionEl.className = 'cards-description';
 
   block.textContent = '';
   block.id = `${id}-content`;
   block.parentElement.classList.add('tabs-container-wrapper');
   block.append(headingEl);
+  block.append(descriptionEl);
   block.append(ul);
 }

@@ -1,0 +1,107 @@
+{
+    "definitions": [
+      {
+        "title": "Sciex Headquaters",
+        "id": "sciex-headquarters",
+        "plugins": {
+          "xwalk": {
+            "page": {
+              "resourceType": "core/franklin/components/block/v1/block",
+              "template": {
+                "name": "Sciex Headquaters",
+                "model": "sciex-headquarters",
+                "filter": "sciex-headquarters"
+              }
+            }
+          }
+        }
+      },
+      {
+        "title": "Sciex Headquaters Item",
+        "id": "sciex-headquarters-item",
+        "plugins": {
+          "xwalk": {
+            "page": {
+              "resourceType": "core/franklin/components/block/v1/block/item",
+              "template": {
+                "name": "sciex-headquarters-item",
+                "model": "sciex-headquarters-item"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "models": [
+      {
+        "id": "sciex-headquarters",
+        "fields": [
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "sciexHeadquatersID",
+            "label": "Sciex Headquaters Heading",
+            "value": ""
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "sciexHeadquatersHeading",  
+            "label": "Sciex Headquaters Heading",
+            "value": ""
+          },
+          {
+            "component": "select",
+            "name": "grid",
+            "label": "Select how many cards in a column",
+            "value": "",
+            "valueType": "string",
+            "options": [
+              
+              {
+                "name": "Default",
+                "value": "4"
+              },
+              {
+                "name": "3-columns",
+                "value": "3"
+              },
+              {
+                "name": "2-columns",
+                "value": "2"
+              },
+              {
+                "name": "1-columns",
+                "value": "1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sciex-headquarters-item",
+        "fields": [
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "itemHeading",
+            "label": "Card Heading",
+            "value": ""
+          },
+          {
+            "component": "richtext",
+            "name": "itemDescription",
+            "value": "",
+            "label": "Card text area",
+            "valueType": "string"
+          }
+        ]
+      }
+    ],
+    "filters": [
+      {
+        "id": "sciex-headquarters",
+        "components": ["sciex-headquarters-item"]
+      }
+    ]
+  }

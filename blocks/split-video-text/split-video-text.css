@@ -1,4 +1,7 @@
-
+.split-video-text-wrapper{
+  max-width: 87pc !important;
+  padding: 45px 32px !important;
+}
   .split-video-text {
     display: flex;
     flex-direction: column;
