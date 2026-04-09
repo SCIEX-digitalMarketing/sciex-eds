@@ -1,8 +1,8 @@
 /* Container width control */
 .sciex-container-wrapper {
-    max-width: 86pc !important;
-    margin: 0 auto;
-    padding: 32px 32px !important;
+    /* max-width: 86pc !important; */
+    /* margin: 0 auto; */
+    /* padding: 32px 32px !important; */
 }
 
 .sciex-container-wrapper .sciex-text-wrapper {
