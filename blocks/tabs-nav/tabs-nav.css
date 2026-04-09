@@ -23,7 +23,8 @@ html {
 }
 
 .tabs-nav-wrapper .block {
-  border-bottom: 1px solid var(--Grey-100, #ECECEC);
+  max-width: 1440px;
+  padding: 10px 64px 0 64px;
   background: var(--White-0, #FFF);
   width: 100%;
   justify-content: space-between;
@@ -52,8 +53,9 @@ html {
   z-index: 1000;
   background-color: white;
   max-width: 100% !important;
-  padding: 0 64px!important;
+  padding: 0 !important;
   margin: auto;
+  border-bottom: 1px solid var(--Grey-100, #ECECEC);
 }
 
 
@@ -119,6 +121,11 @@ color: var(--Grey-900, #141414);
   }
 }
 
+@media (max-width: 1200px) {
+    .tabs-nav-wrapper .block {
+      padding: 32px 24px;
+    }
+}
 @media (max-width: 768px) {
    .tabs-right{
     flex-direction: column ;
