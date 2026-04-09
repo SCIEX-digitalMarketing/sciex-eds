@@ -217,7 +217,7 @@ export default function decorate(block) {
   }
  
   /* Final card assembly */
-  eventCard.append(imageContainer, overlayWrapper, contentContainer);
+  eventCard.append(contentContainer, overlayWrapper, imageContainer);
   block.id = `${containerID}-content`;
   block.parentElement.classList.add('tabs-container-wrapper');
   block.append(eventCard);

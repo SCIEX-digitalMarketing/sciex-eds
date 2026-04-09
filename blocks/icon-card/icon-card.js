@@ -65,7 +65,7 @@ export default function decorate(block) {
 
     if (typeOfCard) iconCardContainer.classList.add(typeOfCard);
 
-    if (iconHTML && typeOfCard !== 'contact-type') {
+    if (cells[0] && typeOfCard !== 'contact-type') {
       const iconWrap = document.createElement('div');
       iconWrap.className = 'icon-card-image';
     
@@ -76,8 +76,16 @@ export default function decorate(block) {
         brandLabel.textContent = brand;
         iconWrap.append(brandLabel);
       }
+      
+      const picture = cells[0].querySelector('picture');
+      const img = cells[0].querySelector('img');
     
-      iconWrap.innerHTML += iconHTML;
+      if (picture) {
+        iconWrap.append(picture.cloneNode(true));
+      } else if (img) {
+        iconWrap.append(img.cloneNode(true));
+      }
+    
       card.append(iconWrap);
     }
 

@@ -41,8 +41,8 @@ button.tab.active{
 .custom-sciex-tabs .tab.active::after {
     content: '';
     position: absolute;
-    left: 10%;
-    right: 10%;
+    left: 0%;
+    right: 0%;
     bottom: -1px;
     height: 3px;
     background-color: #0068fa;
