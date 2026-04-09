@@ -151,6 +151,12 @@
     ]
   },
   {
+    "id": "sciex-container",
+    "components": [
+      "container-item"
+    ]
+  },
+  {
     "id": "sciex-footer",
     "components": [
       "title",
