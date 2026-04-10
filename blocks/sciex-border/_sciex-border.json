@@ -94,6 +94,20 @@
               "value": "border-soft-grey"
             }
           ]
+        },
+        {
+          "component":"number",
+          "name":"marginTop",
+          "label":"Margin Top (px)",
+          "valueType":"number",
+          "value":20
+        },
+        {
+          "component":"number",
+          "name":"marginBottom",
+          "label":"Margin Bottom (px)",
+          "valueType":"number",
+          "value":20
         }
       ]
     }
