@@ -191,7 +191,7 @@ export default function decorate(block) {
     }
 
     const firstDiv = li.children[0];
-    const youtubeLink = firstDiv.textContent.trim();
+    const youtubeLink = firstDiv ? firstDiv.textContent.trim() : '';
     let videoThumbnailImg;
 
     if (!youtubeLink.includes('youtube')) {
