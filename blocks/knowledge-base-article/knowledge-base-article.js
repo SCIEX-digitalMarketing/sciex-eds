@@ -286,9 +286,9 @@ export default function decorate(block) {
   detailsText.innerHTML = '<span class="kba-note">Note : </span><span class="kba-text">For research use only. Not for use in diagnostic procedures.</span>';
 
   details.append(detailsHeading, detailsRelatedText, detailsText);
-  /*if (!isUserLoggedIn) {
+  if (!isUserLoggedIn) {
     articleRatingBar.style.display = 'none';
-  }*/
+  }
   const exploreBtn = document.createElement('a');
   exploreBtn.href = '/resource-hub/knowledge-base-articles?type=knowledge';
   exploreBtn.target = '_blank';
