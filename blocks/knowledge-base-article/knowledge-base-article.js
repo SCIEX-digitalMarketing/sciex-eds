@@ -208,8 +208,8 @@ export default function decorate(block) {
 
     articleStarsRow.appendChild(articleStarItem);
   }
-  async function getArticle(kbaarticleId) {
-    const res = await fetch(`/bin/sciex/knowledge?articleId=${kbaarticleId}`);
+  async function getArticle(kbaarticleId,voteVal) {
+    const res = await fetch(`/bin/sciex/knowledge?articleId=${kbaarticleId}&voteVal=${voteVal}`);
     return res.json();
   }
   const voteStars = articleStarsRow.querySelectorAll('.votestar');
@@ -225,7 +225,29 @@ export default function decorate(block) {
     star.addEventListener('click', () => {
       savedArticleRating = ratingValue;
       updateArticleStars(savedArticleRating);
-      getArticle(articleId);
+      getArticle(articleId, ratingValue);
+       // 👉 Replace rating UI with thank you message
+        articleRatingBar.innerHTML = '';
+
+        const thankYouWrapper = document.createElement('div');
+        thankYouWrapper.className = 'thank-you-message';
+
+        const tickIcon = document.createElement('div');
+        tickIcon.className = 'thank-you-tick';
+        tickIcon.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M4 12.8095L9.90091 18L20 5" stroke="white"/>
+          </svg>
+        `;
+
+        const thankYouText = document.createElement('div');
+        thankYouText.className = 'thank-you-message-text';
+        thankYouText.textContent = 'Thank you for your feedback';
+
+        thankYouWrapper.append(tickIcon, thankYouText);
+
+        articleRatingBar.appendChild(thankYouWrapper);
+        articleRatingBar.classList.add('success');
     });
   });
   updateArticleStars(currentUserScore);
@@ -265,10 +287,16 @@ export default function decorate(block) {
 
   details.append(detailsHeading, detailsRelatedText, detailsText);
   if (!isUserLoggedIn) {
-   articleRatingBar.style.display = 'none';
+    articleRatingBar.style.display = 'none';
   }
-  container.append(header, articleRatingBar, bodyContent, details);
+  const exploreBtn = document.createElement('a');
+  exploreBtn.href = '/resource-hub/knowledge-base-articles?type=knowledge';
+  exploreBtn.target = '_blank';
+  exploreBtn.className = 'btn secondary related-explore-btn';
+  exploreBtn.textContent = 'Explore more articles';
 
+  container.append(header, articleRatingBar, bodyContent, details);
+  container.appendChild(exploreBtn);
   block.textContent = '';
   block.append(container);
 

@@ -341,6 +341,51 @@ line-height: 24px; /* 150% */
 letter-spacing: 0.08px;
 }
 
+.btn.secondary {
+  display: flex;
+  width: fit-content;
+  text-decoration: none;
+  border: 1px solid var(--Blue-700, #0068FA);
+  border-radius: 4px;
+  padding: 12px 20px;
+  align-items: center;
+  gap: 16px;
+  color: black;
+}
+.related-explore-btn{
+  margin-top: 53px !important;
+  margin: auto;
+}
+.thank-you-message {
+ display: flex;
+  width: 1312px;
+  height: 80px;
+  padding: 24px 64px;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+
+}
+.thank-you-tick{
+  width: 24px;
+  height: 24px;
+}
+.thank-you-message-text{
+ color: var(--White-0, #FFF);
+  text-align: right;
+  font-family: Geogrotesque;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 32px; /* 133.333% */
+  letter-spacing: 0.06px;
+}
+.voterating-bar.success {
+    background: var(--Validation-Success-700, #30855D);
+  height: 80px;
+align-self: stretch;
+ 
+}
 /* Responsive */
 @media (max-width: 768px) {
   .kba-header {
