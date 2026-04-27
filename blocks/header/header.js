@@ -192,6 +192,10 @@ function createMainHeader(section) {
         picture.className = 'tw-mr-8';
         anchorTag.prepend(picture);
       }
+      if (anchorTag.text.trim() === 'Login') {
+        console.log('login link found');
+        anchorTag.href = '/bin/sciex/login';
+      }
       liTag.append(anchorTag);
       ulTag.append(liTag);
     } else {
@@ -1515,12 +1519,11 @@ export default async function decorate(block) {
   decorateIcons(block);
 
   document.getElementById('logout').addEventListener('click', () => {
-    const redirectUrl = encodeURIComponent(window.location.href);
     fetch('/bin/sciex/logout')
       .then((response) => response)
       .catch(() => {})
       .finally(() => {
-        document.location = `https://sso.sciex.cloud/auth/realms/sciex/protocol/openid-connect/logout?redirect_uri=${redirectUrl}`;
+        document.location = '/bin/sciex/logout';
       });
   });
 
