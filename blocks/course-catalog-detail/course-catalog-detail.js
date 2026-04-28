@@ -191,6 +191,60 @@ export default async function decorate(block) {
     }
   });
 
+  const enrollmentContainer = document.createElement('div');
+  enrollmentContainer.classList.add('enrollment-container');
+
+  const enrollmentTable = document.createElement('table');
+  enrollmentTable.classList.add('enrollment-table');
+  const enrollmentThead = document.createElement('thead');
+  enrollmentThead.innerHTML = `
+    <tr>  
+      <th>Session available</th>
+      <th>Number of open spaces</th>
+      <th></th>
+    </tr>
+    `
+  enrollmentTable.appendChild(enrollmentThead);
+
+  const enrollmentBody = document.createElement('tbody');
+
+  // if (isLoggedIn && userEmail && courseId) {
+  const catalogData = await getCourseCatalogData(userEmail, courseId);
+  if (catalogData && catalogData.enrolment && catalogData.enrolment.length > 0) {
+    catalogData.enrolment.forEach((enrollment) => {
+      const tr = document.createElement('tr');
+
+      const tdName = document.createElement('td');
+      tdName.textContent = enrollment.LMSSession?.Name || 'N/A';
+
+      const tdSeats = document.createElement('td');
+      tdSeats.textContent = `${enrollment.seatsRemaining} Seats remaining` || 0;
+
+      const baseUrl = "https://sciex.com/form-pages/product-request";
+
+      const requestType = "quote";
+      const solution = "training";
+
+      const location = enrollment.LMSSession?.Name || 'N/A'; // dynamic (or Framingham)
+
+      const product = `${catalogData.cost.PriceBookEntry.Name} - ${location}`;
+
+      const url = `${baseUrl}?requesttype=${requestType}&solution=${solution}&product=${encodeURIComponent(product)}&UTM_Content=${encodeURIComponent(product)}`;
+
+      const buyButton = document.createElement('td');
+      buyButton.innerHTML = `
+            <a href="${url}" target="_blank" class="btn primary enroll-buy-now">
+              Buy now
+            </a>
+          `;
+      tr.append(tdName, tdSeats, buyButton);
+      enrollmentBody.appendChild(tr);
+    });
+  }
+  // }
+
+  enrollmentTable.appendChild(enrollmentBody);
+  enrollmentContainer.appendChild(enrollmentTable);
   const relatedContainer = document.createElement('div');
   relatedContainer.classList.add('related-container');
 
@@ -231,6 +285,7 @@ export default async function decorate(block) {
   decorateIcons(exploreBtn);
   relatedContainer.appendChild(exploreBtn);
 
+  descriptionContainer.appendChild(enrollmentContainer);
   descriptionContainer.appendChild(relatedContainer);
 
   // ===== RIGHT (COURSE DETAILS) =====

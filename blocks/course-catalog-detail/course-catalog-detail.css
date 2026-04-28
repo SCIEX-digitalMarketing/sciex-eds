@@ -148,8 +148,9 @@
 .cost-login-link {
   text-decoration: none !important;  
 }
-
-
+.enroll-buy-now{
+  margin: auto;
+}
 
 .description-container div li p>strong {
   color: #000;
@@ -192,13 +193,13 @@
   margin-left: 20px;
 }
 
-.course-table {
+.course-table,.enrollment-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
 }
 
-.course-table th {
+.course-table th,.enrollment-table th {
   background: #f0f0f0;
   text-align: left;
   padding: 12px;
@@ -208,17 +209,21 @@
 
 }
 
-.course-table td {
+.course-table td,.enrollment-table td {
   border: 1px solid #ddd;
   padding: 12px;
   vertical-align: top;
 }
-
+.enrollment-table td{
+  vertical-align: middle;
+}
 .course-table th:first-child,
 .course-table td:first-child {
   width: 140px;
 }
-
+.enrollment-container{
+  margin-top: 53px;
+}
 .related-container{
   margin-top: 53px;
 }
