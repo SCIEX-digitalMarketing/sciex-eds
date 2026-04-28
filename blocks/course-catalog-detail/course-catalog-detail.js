@@ -204,13 +204,13 @@ export default async function decorate(block) {
       <th></th>
     </tr>
     `
-  enrollmentTable.appendChild(enrollmentThead);
 
   const enrollmentBody = document.createElement('tbody');
 
-  // if (isLoggedIn && userEmail && courseId) {
+  if (isLoggedIn && userEmail && courseId) {
   const catalogData = await getCourseCatalogData(userEmail, courseId);
   if (catalogData && catalogData.enrolment && catalogData.enrolment.length > 0) {
+    enrollmentTable.appendChild(enrollmentThead);
     catalogData.enrolment.forEach((enrollment) => {
       const tr = document.createElement('tr');
 
@@ -241,7 +241,7 @@ export default async function decorate(block) {
       enrollmentBody.appendChild(tr);
     });
   }
-  // }
+  }
 
   enrollmentTable.appendChild(enrollmentBody);
   enrollmentContainer.appendChild(enrollmentTable);
