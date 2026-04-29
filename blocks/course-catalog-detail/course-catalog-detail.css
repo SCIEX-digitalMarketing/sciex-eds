@@ -227,7 +227,7 @@
 .related-container{
   margin-top: 53px;
 }
-.related-title {
+.related-title,.enrollment-title {
  color: var(--Neutrals-900, #141414);
 font-family: "Geogrotesque Sharp VF";
 font-size: 24px;
@@ -246,4 +246,42 @@ margin-bottom: 20px;
 .related-explore-btn{
   margin-top: 53px !important;
   margin: auto;
+}
+
+.enroll-banner-content{
+  padding: 32px 12px;
+  background: var(--Grey-50, #F5F5F5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.enroll-contact-link{
+  text-decoration: none !important;
+}
+
+.support-content{
+   margin-top: 53px;
+  display: flex;
+  justify-content: space-between;
+  padding: 48px 64px;
+  background: var(--Grey-800, #2C2C2C);
+  color: white !important;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
+  
+}
+.contact-support-btn{
+  color: white !important;
+  border: 1px solid white !important;
+}
+.support-actions{
+  display: flex;
+  gap: 16px;
+}
+.support-subtitle{
+  color: var(--Grey-300, #A1A1A1);
+
 }

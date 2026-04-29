@@ -1,6 +1,6 @@
 import { span } from '../../scripts/dom-builder.js';
 import { decorateIcons } from '../../scripts/aem.js';
-import  getCourseCatalogData  from '../../scripts/blocks-controllers/course-catalog-controller.js';
+import getCourseCatalogData from '../../scripts/blocks-controllers/course-catalog-controller.js';
 
 const USER_API = '/bin/sciex/currentuserdetails';
 
@@ -194,6 +194,11 @@ export default async function decorate(block) {
   const enrollmentContainer = document.createElement('div');
   enrollmentContainer.classList.add('enrollment-container');
 
+  const enrollmentHeading = document.createElement('h3');
+  enrollmentHeading.className = 'enrollment-title';
+  enrollmentHeading.textContent = 'Enrollment';
+  enrollmentContainer.appendChild(enrollmentHeading);
+
   const enrollmentTable = document.createElement('table');
   enrollmentTable.classList.add('enrollment-table');
   const enrollmentThead = document.createElement('thead');
@@ -208,43 +213,57 @@ export default async function decorate(block) {
   const enrollmentBody = document.createElement('tbody');
 
   if (isLoggedIn && userEmail && courseId) {
-  const catalogData = await getCourseCatalogData(userEmail, courseId);
-  if (catalogData && catalogData.enrolment && catalogData.enrolment.length > 0) {
-    enrollmentTable.appendChild(enrollmentThead);
-    catalogData.enrolment.forEach((enrollment) => {
-      const tr = document.createElement('tr');
+    const catalogData = await getCourseCatalogData(userEmail, courseId);
+    if (catalogData && catalogData.enrolment && catalogData.enrolment.length > 0) {
+      enrollmentTable.appendChild(enrollmentThead);
+      catalogData.enrolment.forEach((enrollment) => {
+        const tr = document.createElement('tr');
 
-      const tdName = document.createElement('td');
-      tdName.textContent = enrollment.LMSSession?.Name || 'N/A';
+        const tdName = document.createElement('td');
+        tdName.textContent = enrollment.LMSSession?.Name || 'N/A';
 
-      const tdSeats = document.createElement('td');
-      tdSeats.textContent = `${enrollment.seatsRemaining} Seats remaining` || 0;
+        const tdSeats = document.createElement('td');
+        tdSeats.textContent = `${enrollment.seatsRemaining} Seats remaining` || 0;
 
-      const baseUrl = "https://sciex.com/form-pages/product-request";
+        const baseUrl = "https://sciex.com/form-pages/product-request";
 
-      const requestType = "quote";
-      const solution = "training";
+        const requestType = "quote";
+        const solution = "training";
 
-      const location = enrollment.LMSSession?.Name || 'N/A'; // dynamic (or Framingham)
+        const location = enrollment.LMSSession?.Name || 'N/A'; // dynamic (or Framingham)
 
-      const product = `${catalogData.cost.PriceBookEntry.Name} - ${location}`;
+        const product = `${catalogData.cost.PriceBookEntry.Name} - ${location}`;
 
-      const url = `${baseUrl}?requesttype=${requestType}&solution=${solution}&product=${encodeURIComponent(product)}&UTM_Content=${encodeURIComponent(product)}`;
+        const url = `${baseUrl}?requesttype=${requestType}&solution=${solution}&product=${encodeURIComponent(product)}&UTM_Content=${encodeURIComponent(product)}`;
 
-      const buyButton = document.createElement('td');
-      buyButton.innerHTML = `
+        const buyButton = document.createElement('td');
+        buyButton.innerHTML = `
             <a href="${url}" target="_blank" class="btn primary enroll-buy-now">
               Buy now
             </a>
           `;
-      tr.append(tdName, tdSeats, buyButton);
-      enrollmentBody.appendChild(tr);
-    });
-  }
+        tr.append(tdName, tdSeats, buyButton);
+        enrollmentBody.appendChild(tr);
+      });
+      enrollmentTable.appendChild(enrollmentBody);
+      enrollmentContainer.appendChild(enrollmentTable);
+    }
+
+  } else {
+    // Banner for not logged in users and without enrollment course sessions
+    const enrollBanner = document.createElement('div');
+    enrollBanner.className = 'enroll-banner';
+    enrollBanner.innerHTML = `
+    <div class="enroll-banner-content">
+      <p>Currently there are no active sessions to display.</p>
+       <p> Please <a href="/contact-us" class="enroll-contact-link">contact us</a> if you are interested in taking this course.</p>
+       </div>
+    `;
+    enrollmentContainer.appendChild(enrollBanner);
+
   }
 
-  enrollmentTable.appendChild(enrollmentBody);
-  enrollmentContainer.appendChild(enrollmentTable);
+
   const relatedContainer = document.createElement('div');
   relatedContainer.classList.add('related-container');
 
@@ -283,10 +302,52 @@ export default async function decorate(block) {
   exploreBtn.append(span({ class: 'icon icon-arrow-blue' }));
   // append buttons
   decorateIcons(exploreBtn);
-  relatedContainer.appendChild(exploreBtn);
+
+  const supportNetworkContainer = document.createElement('div');
+  supportNetworkContainer.className = 'support-network-container';
+
+
+  supportNetworkContainer.innerHTML = `
+  <div class="support-content">
+    <div class="support-text">
+      <div class="support-title">SCIEX Now support network</div>
+      <div class="support-subtitle">The destination for all your support needs.</div>
+    </div>
+    <div class="support-actions">   
+    </div>
+  </div>
+`;
+
+  const supportActionRow = supportNetworkContainer.querySelector('.support-actions');
+
+  // --- Primary button ---
+  const resourceHubBtn = document.createElement('a');
+  resourceHubBtn.href = '/resource-hub';
+  resourceHubBtn.target = '_blank';
+  resourceHubBtn.className = 'btn primary';
+  resourceHubBtn.textContent = 'Resource hub';
+
+  // icon (your required pattern)
+  resourceHubBtn.append(span({ class: 'icon icon-arrow' }));
+
+  // --- Secondary button ---
+  const contactSupportBtn = document.createElement('a');
+  contactSupportBtn.href = '/contact-support';
+  contactSupportBtn.target = '_blank';
+  contactSupportBtn.className = 'btn secondary contact-support-btn';
+  contactSupportBtn.textContent = 'Contact support';
+
+  // icon
+  contactSupportBtn.append(span({ class: 'icon icon-arrow' }));
+  // append buttons
+  supportActionRow.append(resourceHubBtn, contactSupportBtn);
+  decorateIcons(supportActionRow);
+
+
 
   descriptionContainer.appendChild(enrollmentContainer);
   descriptionContainer.appendChild(relatedContainer);
+  descriptionContainer.appendChild(exploreBtn);
 
   // ===== RIGHT (COURSE DETAILS) =====
   const courseDetailsContainer = document.createElement('div');
@@ -373,7 +434,7 @@ export default async function decorate(block) {
   layout.append(descriptionContainer, courseDetailsContainer);
   const mainLayout = document.createElement('div');
   mainLayout.className = 'course-catalog-detail-main-layout';
-  mainLayout.append(courseHeaderContainer, layout);
+  mainLayout.append(courseHeaderContainer, layout, supportNetworkContainer);
   block.textContent = '';
   block.append(mainLayout);
 }
