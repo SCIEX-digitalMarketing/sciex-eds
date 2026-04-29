@@ -47,6 +47,46 @@ export default function decorate(block) {
   const title = children[4];
   const tagNames = children[13];
   const voteAvg = children[14] || 0;
+
+ let finalTags = [];
+
+// Ensure tagNames is a string
+let tagString = tagNames.textContent?.trim() || '';
+
+if (Array.isArray(tagNames)) {
+  tagString = tagNames.join(',');   // convert array → string
+} else if (typeof tagNames === 'string') {
+  tagString = tagNames;
+}
+console.log('Parsed tagString :>> ', tagString);
+if (tagString) {
+  tagString.split(';').forEach(group => {
+
+    const parts = group.split('-');
+
+    if (parts.length === 2) {
+      let parent = parts[0].trim();
+      const part = parts[1].split('|');
+      if(parent === 'Application') {
+        parent = 'applications';
+      }else if(parent === 'Language') {
+        parent = 'language';
+      }else{
+        parent = parent + 'categories';
+      }
+      part.forEach(child => {
+        const childName = child.trim();
+        // URL creation
+        const url = `/search-results?contentType=Knowledge base articles&facetId=${encodeURIComponent(parent.toLowerCase())}&value=${encodeURIComponent(childName)}`;
+        finalTags.push(`<a href="${url}">${childName}</a>`);
+      });
+    }
+  });
+}
+
+console.log('finalTags:', finalTags);
+
+
   // const currentUserHasVoted = children[15]?.textContent === 'true';
   const currentUserScore = children[16]?.textContent || 0;
   console.log('currentUserScore :>> ', currentUserScore);
@@ -280,7 +320,7 @@ export default function decorate(block) {
   detailsHeading.className = 'kba-details';
   detailsHeading.textContent = 'Details';
   const detailsRelatedText = document.createElement('p');
-  detailsRelatedText.innerHTML = `<span class="kba-note">Related to : </span><span class="kba-tag">${tagNames?.textContent || ''}</span>  `;
+  detailsRelatedText.innerHTML = `<span class="kba-note">Related to : </span><span class="kba-tag">${finalTags.join(', ')}</span>  `;
 
   const detailsText = document.createElement('p');
   detailsText.innerHTML = '<span class="kba-note">Note : </span><span class="kba-text">For research use only. Not for use in diagnostic procedures.</span>';
