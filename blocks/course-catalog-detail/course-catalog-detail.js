@@ -35,8 +35,6 @@ export default async function decorate(block) {
   const courseLevel = children[9]?.textContent?.trim();
   const relatedResources = children[10]?.textContent?.trim();
   const isFree = children[11]?.textContent?.trim();
-  console.log('freeeeeeeeeeeee', isFree);
-  console.log('id', courseId, relatedResources, isFree);
 
   // Check login status and fetch available course sessions if logged in
   const [isLoggedIn, userEmail] = await checkLoginStatus();
