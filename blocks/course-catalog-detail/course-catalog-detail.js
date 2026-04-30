@@ -196,6 +196,8 @@ export default async function decorate(block) {
   enrollmentHeading.className = 'enrollment-title';
   enrollmentHeading.textContent = 'Enrollment';
   enrollmentContainer.appendChild(enrollmentHeading);
+  const tableContainer = document.createElement('div');
+  tableContainer.className = 'enrollment-table-container';
 
   const enrollmentTable = document.createElement('table');
   enrollmentTable.classList.add('enrollment-table');
@@ -244,7 +246,8 @@ export default async function decorate(block) {
         enrollmentBody.appendChild(tr);
       });
       enrollmentTable.appendChild(enrollmentBody);
-      enrollmentContainer.appendChild(enrollmentTable);
+      tableContainer.appendChild(enrollmentTable);
+      enrollmentContainer.appendChild(tableContainer);
     }
 
   } else {

@@ -4,7 +4,6 @@
 
 .course-header-row {
   display: flex;
-  gap: 50px;
   justify-content: space-between;
   padding-top: 24px;
   padding-bottom: 24px;
@@ -55,11 +54,19 @@
 }
 
 .course-layout {
-  display: grid;
-  grid-template-columns: 2.3fr 1fr;
+  display: flex;
   gap: 50px;
   margin-top: 32px;
 }
+
+.description-container {
+  flex: 3;
+}
+
+.course-details-container {
+  flex: 1;
+}
+
 
 .course-details-container {
   padding: 30px;
@@ -145,14 +152,17 @@
 .cost-not-logged-in {
   color: var(--Blue-700, #0068FA) !important;
 }
+
 .cost-login-link {
-  text-decoration: none !important;  
+  text-decoration: none !important;
 }
-.enroll-buy-now{
+
+.enroll-buy-now {
   margin: auto;
 }
 
-.description-container div li p>strong,.description-container div li >strong {
+.description-container div li p>strong,
+.description-container div li>strong {
   color: #000;
   font-family: "Geogrotesque Sharp VF";
   font-size: 24px;
@@ -180,75 +190,88 @@
   gap: 53px;
 }
 
-.description-container div>ul>li p,.description-container div>ul>li  {
+.description-container div>ul>li p,
+.description-container div>ul>li {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.description-container div ul li  ul {
+.description-container div ul li ul {
   list-style: disc;
 }
+
 .description-container div ul ul li {
   margin-left: 20px;
 }
 
-.course-table,.enrollment-table {
+.course-table,
+.enrollment-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
 }
 
-.course-table th,.enrollment-table th {
+.course-table th,
+.enrollment-table th {
   background: #f0f0f0;
   text-align: left;
   padding: 12px;
   font-weight: 600;
-  border: 1px solid #ddd; 
+  border: 1px solid #ddd;
   color: #000;
 
 }
 
-.course-table td,.enrollment-table td {
+.course-table td,
+.enrollment-table td {
   border: 1px solid #ddd;
   padding: 12px;
   vertical-align: top;
 }
-.enrollment-table td{
+
+.enrollment-table td {
   vertical-align: middle;
 }
+
 .course-table th:first-child,
 .course-table td:first-child {
   width: 140px;
 }
-.enrollment-container{
+
+.enrollment-container {
   margin-top: 53px;
 }
-.related-container{
+
+.related-container {
   margin-top: 53px;
 }
-.related-title,.enrollment-title {
- color: var(--Neutrals-900, #141414);
-font-family: "Geogrotesque Sharp VF";
-font-size: 24px;
-font-style: normal;
-font-weight: 330;
-line-height: 32px; 
-margin-bottom: 20px;
+
+.related-title,
+.enrollment-title {
+  color: var(--Neutrals-900, #141414);
+  font-family: "Geogrotesque Sharp VF";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 330;
+  line-height: 32px;
+  margin-bottom: 20px;
 }
-.related-links{
+
+.related-links {
   display: flex;
   flex-direction: column;
   gap: 12px;
   text-decoration: underline;
   text-decoration-color: #3b63fb;
 }
-.related-explore-btn{
+
+.related-explore-btn {
   margin-top: 53px !important;
   margin: auto;
 }
 
-.enroll-banner-content{
+.enroll-banner-content {
   padding: 32px 12px;
   background: var(--Grey-50, #F5F5F5);
   display: flex;
@@ -256,12 +279,12 @@ margin-bottom: 20px;
   align-items: center;
 }
 
-.enroll-contact-link{
+.enroll-contact-link {
   text-decoration: none !important;
 }
 
-.support-content{
-   margin-top: 53px;
+.support-content {
+  margin-top: 53px;
   display: flex;
   justify-content: space-between;
   padding: 48px 64px;
@@ -271,17 +294,61 @@ margin-bottom: 20px;
   position: relative;
   left: 50%;
   transform: translate(-50%);
-  
+
 }
-.contact-support-btn{
+
+.contact-support-btn {
   color: white !important;
   border: 1px solid white !important;
 }
-.support-actions{
+
+.support-actions {
   display: flex;
   gap: 16px;
 }
-.support-subtitle{
+
+.support-subtitle {
   color: var(--Grey-300, #A1A1A1);
+
+}
+
+@media (max-width: 768px) {
+  .course-layout {
+    flex-direction: column;
+  }
+
+  .course-details-container {
+    order: 1;
+  }
+
+  .description-container {
+    order: 2;
+  }
+
+  .support-content {
+    flex-direction: column;
+    text-align: center;
+    padding: 32px 12px;
+    gap: 16px;
+  }
+
+  .support-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn.primary,
+  .btn.secondary {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .enrollment-table-container{
+    text-wrap-mode: nowrap;
+    width: 100vw;
+    overflow: auto;
+    position: relative;
+    left: 20%;
+    transform:  translate(-20%);
+  }
 
 }
