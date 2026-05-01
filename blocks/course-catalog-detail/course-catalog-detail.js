@@ -1,6 +1,11 @@
 import { span } from '../../scripts/dom-builder.js';
 import { decorateIcons } from '../../scripts/aem.js';
 import getCourseCatalogData from '../../scripts/blocks-controllers/course-catalog-controller.js';
+import {
+  getfavoriteAllData,
+  removeFavoriteSearchEngine,
+  addToFavorite,
+} from '../../scripts/favorite-all/favorite-allDocEngine.js';
 
 const USER_API = '/bin/sciex/currentuserdetails';
 
@@ -438,4 +443,65 @@ export default async function decorate(block) {
   mainLayout.append(courseHeaderContainer, layout, supportNetworkContainer);
   block.textContent = '';
   block.append(mainLayout);
+
+  // ===== FAVORITE ICON HANDLER =====
+  const favoriteIcon = courseHeaderContainer.querySelector('.favorite-icon');
+  if (favoriteIcon) {
+    // Check if the course is already favorited
+    const checkAndSetFavoriteStatus = async () => {
+      try {
+        const favoriteData = await getfavoriteAllData();
+        if (favoriteData && favoriteData.favorites) {
+          const isFavorited = favoriteData.favorites.some(
+            (fav) => fav.path === courseUrl,
+          );
+          if (isFavorited) {
+            favoriteIcon.classList.add('favorited');
+          }
+        }
+      } catch (error) {
+        console.error('Error checking favorite status:', error);
+      }
+    };
+
+    await checkAndSetFavoriteStatus();
+
+    favoriteIcon.addEventListener('click', async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (favoriteIcon.classList.contains('is-loading')) return;
+      favoriteIcon.classList.add('is-loading');
+
+      const isFavorited = favoriteIcon.classList.contains('favorited');
+
+      try {
+        if (isFavorited) {
+          favoriteIcon.classList.remove('favorited');
+          const res = await removeFavoriteSearchEngine(courseUrl);
+
+          if (!res.success) {
+            favoriteIcon.classList.add('favorited');
+          }
+        } else {
+          favoriteIcon.classList.add('favorited');
+          const res = await addToFavorite(courseUrl);
+
+          if (!res.success) {
+            favoriteIcon.classList.remove('favorited');
+          }
+        }
+      } catch (error) {
+        console.error('Error updating favorite:', error);
+        // Revert the class if there's an error
+        if (isFavorited) {
+          favoriteIcon.classList.add('favorited');
+        } else {
+          favoriteIcon.classList.remove('favorited');
+        }
+      } finally {
+        favoriteIcon.classList.remove('is-loading');
+      }
+    });
+  }
 }
