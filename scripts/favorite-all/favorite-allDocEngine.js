@@ -1,7 +1,7 @@
 export const getfavoriteAllData = async () => {
   try {
     const response = await fetch(
-      '/bin/sciex/eds-favorite-content',
+      '/bin/sciex/get-favorite-content',
     );
 
     if (!response.ok) {
