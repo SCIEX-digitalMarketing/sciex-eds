@@ -470,9 +470,6 @@ export default async function decorate(block) {
       e.preventDefault();
       e.stopPropagation();
 
-      if (favoriteIcon.classList.contains('is-loading')) return;
-      favoriteIcon.classList.add('is-loading');
-
       const isFavorited = favoriteIcon.classList.contains('favorited');
 
       try {
@@ -499,8 +496,6 @@ export default async function decorate(block) {
         } else {
           favoriteIcon.classList.remove('favorited');
         }
-      } finally {
-        favoriteIcon.classList.remove('is-loading');
       }
     });
   }

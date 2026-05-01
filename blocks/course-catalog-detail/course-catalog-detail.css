@@ -311,7 +311,21 @@
 
 .support-subtitle {
   color: var(--Grey-300, #A1A1A1);
+}
 
+.favorite-icon {
+  cursor: pointer;  
+}
+
+.favorite-icon svg {
+  stroke: #000;
+  fill: none;
+  transition: stroke 0.3s ease, fill 0.3s ease;
+}
+
+.favorite-icon.favorited svg {
+  stroke: #E63946;
+  fill: #E63946;
 }
 
 @media (max-width: 768px) {
