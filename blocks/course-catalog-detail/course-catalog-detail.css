@@ -1,7 +1,9 @@
 .course-catalog-detail-main-layout {
   margin-top: 24px;
 }
-
+.course-catalog-detail-container{
+  margin-bottom: 0 !important;
+}
 .course-header-row {
   display: flex;
   justify-content: space-between;
@@ -313,6 +315,26 @@
 }
 
 @media (max-width: 768px) {
+  .course-name {
+    font-size: 31px;
+    line-height: 38px;
+    font-weight: 330;
+  }
+  .course-header-row{
+    flex-direction: column;
+    gap: 16px;
+  }
+  .course-header-social {
+    padding-top: 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .rating{
+    justify-content: flex-start;
+  }
+  .course-header-left{
+    order: 2;
+  }
   .course-layout {
     flex-direction: column;
   }
