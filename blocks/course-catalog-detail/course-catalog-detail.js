@@ -451,8 +451,8 @@ export default async function decorate(block) {
     const checkAndSetFavoriteStatus = async () => {
       try {
         const favoriteData = await getfavoriteAllData();
-        if (favoriteData && favoriteData.favorites) {
-          const isFavorited = favoriteData.favorites.some(
+        if (favoriteData) {
+          const isFavorited = favoriteData.path.some(
             (fav) => fav.path === courseUrl,
           );
           if (isFavorited) {
