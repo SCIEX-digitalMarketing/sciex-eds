@@ -477,14 +477,14 @@ export default async function decorate(block) {
           favoriteIcon.classList.remove('favorited');
           const res = await removeFavoriteSearchEngine(courseUrl);
 
-          if (!res.success) {
+          if (!res.ok) {
             favoriteIcon.classList.add('favorited');
           }
         } else {
           favoriteIcon.classList.add('favorited');
           const res = await addToFavorite(courseUrl);
 
-          if (!res.success) {
+          if (!res.ok) {
             favoriteIcon.classList.remove('favorited');
           }
         }
