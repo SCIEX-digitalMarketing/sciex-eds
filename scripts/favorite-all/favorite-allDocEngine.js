@@ -35,7 +35,7 @@ export const removeFavoriteSearchEngine = async (url) => {
 export const addToFavorite = async (url) => {
   try {
     const response = await fetch(
-      `/bin/sciex/favoritecontent?url=${encodeURIComponent(url)}&operation=add`,
+      `/bin/sciex/favoritecontent?url=${url}&operation=add`,
     );
 
     if (!response.ok) {
