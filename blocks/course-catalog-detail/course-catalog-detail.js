@@ -477,7 +477,7 @@ export default async function decorate(block) {
           favoriteIcon.classList.remove('favorited');
           const res = await removeFavoriteSearchEngine(courseUrl);
 
-          if (!res.ok) {
+          if (!res.status === 200) {
             favoriteIcon.classList.add('favorited');
           }
         } else {
