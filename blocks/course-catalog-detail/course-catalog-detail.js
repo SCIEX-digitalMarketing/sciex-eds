@@ -452,7 +452,7 @@ export default async function decorate(block) {
       try {
         const favoriteData = await getfavoriteAllData();
         if (favoriteData) {
-          const isFavorited = favoriteData.path.some(
+          const isFavorited = favoriteData.some(
             (fav) => fav.path === courseUrl,
           );
           if (isFavorited) {
