@@ -483,8 +483,7 @@ export default async function decorate(block) {
         } else {
           favoriteIcon.classList.add('favorited');
           const res = await addToFavorite(courseUrl);
-
-          if (!res.ok) {
+          if (!response.status === 200 ||!response.status === 201) {
             favoriteIcon.classList.remove('favorited');
           }
         }
