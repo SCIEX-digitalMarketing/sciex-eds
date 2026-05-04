@@ -355,6 +355,7 @@
 
   .course-details-container {
     order: 1;
+    padding: 16px;
   }
 
   .description-container {
