@@ -43,8 +43,8 @@ export default async function decorate(block) {
   const isInEcommerce = children[12]?.textContent?.trim();
 
   // Check login status and fetch available course sessions if logged in
-  const [isLoggedIn, userEmail] = await checkLoginStatus();
-
+  const [isLoggedIn, userEmail, countryCode] = await checkLoginStatus();
+  const allowedCountryCode = ["us", "gb", "de", "ca", "cz", "nl", "it", "pt", "es"]
   // Determine cost display based on login status and free status
   let costDisplay = '';
   let costClassName = '';
@@ -401,19 +401,24 @@ export default async function decorate(block) {
 
   const actionRow = courseDetailsContainer.querySelector('.course-action-row');
 
+  // Determine button text and href based on conditions
+  const showBuyNow = isInEcommerce && countryCode && allowedCountryCode.includes(countryCode.toLowerCase()) && costDisplay;
+  const buttonText = showBuyNow ? 'Buy Now' : 'Get a Quote';
+  const buttonHref = showBuyNow ? courseUrl : '/form-pages/product-request';
+
   // --- Primary button ---
   const takeCourseBtn = document.createElement('a');
-  takeCourseBtn.href = courseUrl;
+  takeCourseBtn.href = buttonHref;
   takeCourseBtn.target = '_blank';
   takeCourseBtn.className = 'btn primary';
-  takeCourseBtn.textContent = 'Get a Quote';
+  takeCourseBtn.textContent = buttonText;
 
   // icon (your required pattern)
   takeCourseBtn.append(span({ class: 'icon icon-arrow' }));
 
   // --- Secondary button ---
   const quoteBtn = document.createElement('a');
-  quoteBtn.href = courseUrl;
+  quoteBtn.href = 'https://training.sciex.com';
   quoteBtn.target = '_blank';
   quoteBtn.className = 'btn secondary';
   quoteBtn.textContent = 'My Learning Hub';
@@ -474,7 +479,7 @@ export default async function decorate(block) {
         } else {
           favoriteIcon.classList.add('favorited');
           const res = await addToFavorite(courseUrl);
-          if (!res.status === 200 ||!res.status === 201) {
+          if (!res.status === 200 || !res.status === 201) {
             favoriteIcon.classList.remove('favorited');
           }
         }
