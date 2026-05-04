@@ -339,6 +339,7 @@ function orderFacetBasedOnSelection(selectedValue) {
   if (selectedValue === 'Products and services') {
     desiredOrder = [
       'contenttype-facet',
+      'language-facet',
       'massspectrometerscategories-facet',
       'capillaryelectrophoresiscategories-facet',
       'hplcandceproductscategories-facet',
@@ -350,15 +351,16 @@ function orderFacetBasedOnSelection(selectedValue) {
   } else if (selectedValue === 'Regulatory documents') {
     desiredOrder = [
       'contenttype-facet',
+      'languagecountry-facet',
       'technicaldocuments-facet',
       'instrumentfamily-facet',
-      'languagecountry-facet',
       'year-facet'
     ];
     orderFacetChildren('facets', desiredOrder);
-  } else if (selectedValue === 'Resource library') {
+  } else if (selectedValue === 'Resource library' || selectedValue === 'Knowledge base articles' || selectedValue === 'SCIEX How' || selectedValue === 'Technical Notes') {
     desiredOrder = [
       'contenttype-facet',
+      'language-facet',
       'assettypes-facet',
       'applications-facet',
       'massspectrometerscategories-facet',
@@ -366,13 +368,14 @@ function orderFacetBasedOnSelection(selectedValue) {
       'hplcandceproductscategories-facet',
       'integratedsolutionscategories-facet',
       'softwarecategories-facet',
-      'standardsandreagentscategories-facet',
-      'language-facet'
+      'standardsandreagentscategories-facet'
+      
     ];
     orderFacetChildren('facets', desiredOrder);
   } else if (selectedValue === 'Training') {
     desiredOrder = [
       'contenttype-facet',
+      'language-facet',
       'location-facet',
       'coursetypecategories-facet',
       'trainingtopiccategories-facet',
@@ -381,7 +384,6 @@ function orderFacetBasedOnSelection(selectedValue) {
       'trainingcoursetype-facet',
       'levelcategories-facet',
       'certificatetypecategories-facet',
-      'language-facet',
       'massspectrometerscategories-facet',
       'capillaryelectrophoresiscategories-facet',
       'hplcandceproductscategories-facet',
@@ -390,12 +392,12 @@ function orderFacetBasedOnSelection(selectedValue) {
       'standardsandreagentscategories-facet',
     ];
     orderFacetChildren('facets', desiredOrder);
-  } else if (selectedValue === 'Customer documents') {
+  } else if (selectedValue === 'Customer documents' || selectedValue === 'User guides') {
     desiredOrder = [
       'contenttype-facet',
+      'language-facet',
       'assettypes-facet',
       'year-facet',
-      'language-facet',
       'massspectrometerscategories-facet',
       'capillaryelectrophoresiscategories-facet',
       'hplcandceproductscategories-facet',

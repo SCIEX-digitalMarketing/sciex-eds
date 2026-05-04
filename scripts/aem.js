@@ -159,8 +159,55 @@ function setup() {
 function init() {
   setup();
   sampleRUM();
+  document.addEventListener('DOMContentLoaded', () => {
+    decorateHreflangFromMetadata();
+  });
 }
+function decorateHreflangFromMetadata() {
+  const currentLang = document.documentElement.lang || 'en';
+  const currentUrl = window.location.href;
 
+  let domain =new URL(currentUrl).origin;
+  const url = new URL(currentUrl);
+
+  let modifyLang ="";
+ // if(url.includes('.com')) {
+    if (currentLang === 'en') {
+      modifyLang = 'en_US';
+    } else if (currentLang === 'ja') {
+      domain = url.origin.replace('.com', '.jp');
+      modifyLang = 'ja_JP';
+    } else if (currentLang === 'zh-cn') {
+      
+      domain = url.origin.replace('.com', '.com.cn');
+      modifyLang = 'zh_CN';
+    }
+ // }
+  // 🔹 Define supported languages
+  const supportedLangs = ['en_US',  'ja_JP', 'zh_CN'];
+
+  supportedLangs.forEach((lang) => {
+    let href = currentUrl;
+    href = `${domain}${url.pathname}`;
+    if (document.head.querySelector(`link[hreflang="${lang}"]`)) return;
+    const link = document.createElement('link');
+    link.rel = 'alternate';
+    link.href = href;
+    link.hreflang = lang;
+    document.head.appendChild(link);
+  });
+
+  // 🔹 x-default (usually default language)
+  const defaultLang = 'en-us';
+  let defaultHref = currentUrl.replace(`/${currentLang}/`, `/${defaultLang}/`);
+
+  const xDefault = document.createElement('link');
+  xDefault.rel = 'alternate';
+  xDefault.hreflang = 'x-default';
+  xDefault.href = defaultHref;
+
+  document.head.appendChild(xDefault);
+}
 /**
  * Sanitizes a string for use as class name.
  * @param {string} name The unsanitized string

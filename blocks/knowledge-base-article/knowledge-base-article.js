@@ -69,8 +69,17 @@ if (tagString) {
       const part = parts[1].split('|');
       if(parent === 'Application') {
         parent = 'applications';
-      }else if(parent === 'Language') {
-        parent = 'language';
+      }else if(parent === 'Mass spectrometry') { 
+        parent = 'massspectrometerscategories';
+      }else if(parent === 'Liquid chromatography') {
+        parent = 'hplcandceproductscategories';
+      } else if(parent === 'Biomedical and omics research') {
+        parent = 'lifescienceresearchcategories';
+      }else if(parent === 'Training course type') {
+        parent = 'trainingcoursetype';
+      }
+      else if(parent === 'Language') {
+        parent = 'language';  
       }else{
         parent = parent + 'categories';
       }
@@ -84,7 +93,6 @@ if (tagString) {
   });
 }
 
-console.log('finalTags:', finalTags);
 
 
   // const currentUserHasVoted = children[15]?.textContent === 'true';
@@ -249,7 +257,7 @@ console.log('finalTags:', finalTags);
     articleStarsRow.appendChild(articleStarItem);
   }
   async function getArticle(kbaarticleId,voteVal) {
-    const res = await fetch(`/bin/sciex/knowledge?articleId=${kbaarticleId}&voteVal=${voteVal}`);
+    const res = await fetch(`/bin/sciex/knowledge?articleId=${kbaarticleId}&voteVal=${voteVal}&pagePath=${window.location.pathname}`);
     return res.json();
   }
   const voteStars = articleStarsRow.querySelectorAll('.votestar');
@@ -262,10 +270,18 @@ console.log('finalTags:', finalTags);
       updateArticleStars(ratingValue);
     });
 
-    star.addEventListener('click', () => {
+    star.addEventListener('click', async () => {
       savedArticleRating = ratingValue;
       updateArticleStars(savedArticleRating);
-      getArticle(articleId, ratingValue);
+        try {
+          const response = await getArticle(articleId, ratingValue);
+          console.log('API response:', response);
+
+          savedArticleRating = response?.currentUserScore || ratingValue;
+
+        } catch (e) {
+          console.error('Vote failed:', e);
+        }
        // 👉 Replace rating UI with thank you message
         articleRatingBar.innerHTML = '';
 
@@ -326,9 +342,9 @@ console.log('finalTags:', finalTags);
   detailsText.innerHTML = '<span class="kba-note">Note : </span><span class="kba-text">For research use only. Not for use in diagnostic procedures.</span>';
 
   details.append(detailsHeading, detailsRelatedText, detailsText);
-  if (!isUserLoggedIn) {
+  /*if (!isUserLoggedIn) {
     articleRatingBar.style.display = 'none';
-  }
+  }*/
   const exploreBtn = document.createElement('a');
   exploreBtn.href = '/resource-hub/knowledge-base-articles?type=knowledge';
   exploreBtn.target = '_blank';
