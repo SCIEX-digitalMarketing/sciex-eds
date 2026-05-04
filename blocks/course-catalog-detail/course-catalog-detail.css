@@ -1,9 +1,11 @@
 .course-catalog-detail-main-layout {
   margin-top: 24px;
 }
-.course-catalog-detail-container{
+
+.course-catalog-detail-container {
   margin-bottom: 0 !important;
 }
+
 .course-header-row {
   display: flex;
   justify-content: space-between;
@@ -314,7 +316,7 @@
 }
 
 .favorite-icon {
-  cursor: pointer;  
+  cursor: pointer;
 }
 
 .favorite-icon svg {
@@ -334,21 +336,26 @@
     line-height: 38px;
     font-weight: 330;
   }
-  .course-header-row{
+
+  .course-header-row {
     flex-direction: column;
     gap: 16px;
   }
+
   .course-header-social {
     padding-top: 0;
     display: flex;
     justify-content: flex-end;
   }
-  .rating{
+
+  .rating {
     justify-content: flex-start;
   }
-  .course-header-left{
+
+  .course-header-left {
     order: 2;
   }
+
   .course-layout {
     flex-direction: column;
   }
@@ -379,13 +386,14 @@
     width: 100%;
     justify-content: space-between;
   }
-  .enrollment-table-container{
-    text-wrap-mode: nowrap;
-    width: 100vw;
-    overflow: auto;
-    position: relative;
-    left: 20%;
-    transform:  translate(-20%);
+
+  .enrollment-table-container {    
+    overflow: auto;    
+    text-wrap: nowrap;
+  }
+
+  .enrollment-table th {
+    text-wrap: wrap;
   }
 
 }
