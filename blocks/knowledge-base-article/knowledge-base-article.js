@@ -48,52 +48,48 @@ export default function decorate(block) {
   const tagNames = children[13];
   const voteAvg = children[14] || 0;
 
- let finalTags = [];
+  const finalTags = [];
 
-// Ensure tagNames is a string
-let tagString = tagNames.textContent?.trim() || '';
+  // Ensure tagNames is a string
+  let tagString = tagNames.textContent?.trim() || '';
 
-if (Array.isArray(tagNames)) {
-  tagString = tagNames.join(',');   // convert array → string
-} else if (typeof tagNames === 'string') {
-  tagString = tagNames;
-}
-console.log('Parsed tagString :>> ', tagString);
-if (tagString) {
-  tagString.split(';').forEach(group => {
+  if (Array.isArray(tagNames)) {
+    tagString = tagNames.join(','); // convert array → string
+  } else if (typeof tagNames === 'string') {
+    tagString = tagNames;
+  }
+  console.log('Parsed tagString :>> ', tagString);
+  if (tagString) {
+    tagString.split(';').forEach((group) => {
+      const parts = group.split('-');
 
-    const parts = group.split('-');
-
-    if (parts.length === 2) {
-      let parent = parts[0].trim();
-      const part = parts[1].split('|');
-      if(parent === 'Application') {
-        parent = 'applications';
-      }else if(parent === 'Mass spectrometry') { 
-        parent = 'massspectrometerscategories';
-      }else if(parent === 'Liquid chromatography') {
-        parent = 'hplcandceproductscategories';
-      } else if(parent === 'Biomedical and omics research') {
-        parent = 'lifescienceresearchcategories';
-      }else if(parent === 'Training course type') {
-        parent = 'trainingcoursetype';
+      if (parts.length === 2) {
+        let parent = parts[0].trim();
+        const part = parts[1].split('|');
+        if (parent === 'Application') {
+          parent = 'applications';
+        } else if (parent === 'Mass spectrometry') {
+          parent = 'massspectrometerscategories';
+        } else if (parent === 'Liquid chromatography') {
+          parent = 'hplcandceproductscategories';
+        } else if (parent === 'Biomedical and omics research') {
+          parent = 'lifescienceresearchcategories';
+        } else if (parent === 'Training course type') {
+          parent = 'trainingcoursetype';
+        } else if (parent === 'Language') {
+          parent = 'language';
+        } else {
+          parent = `${parent}categories`;
+        }
+        part.forEach((child) => {
+          const childName = child.trim();
+          // URL creation
+          const url = `/search-results?contentType=Knowledge base articles&facetId=${encodeURIComponent(parent.toLowerCase())}&value=${encodeURIComponent(childName)}`;
+          finalTags.push(`<a href="${url}">${childName}</a>`);
+        });
       }
-      else if(parent === 'Language') {
-        parent = 'language';  
-      }else{
-        parent = parent + 'categories';
-      }
-      part.forEach(child => {
-        const childName = child.trim();
-        // URL creation
-        const url = `/search-results?contentType=Knowledge base articles&facetId=${encodeURIComponent(parent.toLowerCase())}&value=${encodeURIComponent(childName)}`;
-        finalTags.push(`<a href="${url}">${childName}</a>`);
-      });
-    }
-  });
-}
-
-
+    });
+  }
 
   // const currentUserHasVoted = children[15]?.textContent === 'true';
   const currentUserScore = children[16]?.textContent || 0;
@@ -256,7 +252,7 @@ if (tagString) {
 
     articleStarsRow.appendChild(articleStarItem);
   }
-  async function getArticle(kbaarticleId,voteVal) {
+  async function getArticle(kbaarticleId, voteVal) {
     const res = await fetch(`/bin/sciex/knowledge?articleId=${kbaarticleId}&voteVal=${voteVal}&pagePath=${window.location.pathname}`);
     return res.json();
   }
@@ -273,37 +269,36 @@ if (tagString) {
     star.addEventListener('click', async () => {
       savedArticleRating = ratingValue;
       updateArticleStars(savedArticleRating);
-        try {
-          const response = await getArticle(articleId, ratingValue);
-          console.log('API response:', response);
+      try {
+        const response = await getArticle(articleId, ratingValue);
+        console.log('API response:', response);
 
-          savedArticleRating = response?.currentUserScore || ratingValue;
+        savedArticleRating = response?.currentUserScore || ratingValue;
+      } catch (e) {
+        console.error('Vote failed:', e);
+      }
+      // 👉 Replace rating UI with thank you message
+      articleRatingBar.innerHTML = '';
 
-        } catch (e) {
-          console.error('Vote failed:', e);
-        }
-       // 👉 Replace rating UI with thank you message
-        articleRatingBar.innerHTML = '';
+      const thankYouWrapper = document.createElement('div');
+      thankYouWrapper.className = 'thank-you-message';
 
-        const thankYouWrapper = document.createElement('div');
-        thankYouWrapper.className = 'thank-you-message';
-
-        const tickIcon = document.createElement('div');
-        tickIcon.className = 'thank-you-tick';
-        tickIcon.innerHTML = `
+      const tickIcon = document.createElement('div');
+      tickIcon.className = 'thank-you-tick';
+      tickIcon.innerHTML = `
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path d="M4 12.8095L9.90091 18L20 5" stroke="white"/>
           </svg>
         `;
 
-        const thankYouText = document.createElement('div');
-        thankYouText.className = 'thank-you-message-text';
-        thankYouText.textContent = 'Thank you for your feedback';
+      const thankYouText = document.createElement('div');
+      thankYouText.className = 'thank-you-message-text';
+      thankYouText.textContent = 'Thank you for your feedback';
 
-        thankYouWrapper.append(tickIcon, thankYouText);
+      thankYouWrapper.append(tickIcon, thankYouText);
 
-        articleRatingBar.appendChild(thankYouWrapper);
-        articleRatingBar.classList.add('success');
+      articleRatingBar.appendChild(thankYouWrapper);
+      articleRatingBar.classList.add('success');
     });
   });
   updateArticleStars(currentUserScore);
@@ -342,9 +337,9 @@ if (tagString) {
   detailsText.innerHTML = '<span class="kba-note">Note : </span><span class="kba-text">For research use only. Not for use in diagnostic procedures.</span>';
 
   details.append(detailsHeading, detailsRelatedText, detailsText);
-  /*if (!isUserLoggedIn) {
+  if (!isUserLoggedIn) {
     articleRatingBar.style.display = 'none';
-  }*/
+  }
   const exploreBtn = document.createElement('a');
   exploreBtn.href = '/resource-hub/knowledge-base-articles?type=knowledge';
   exploreBtn.target = '_blank';
