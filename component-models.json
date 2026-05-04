@@ -1017,6 +1017,12 @@
         "name": "isfree",
         "label": "Is Free",
         "valueType": "boolean"
+      },
+      {
+        "component": "boolean",
+        "name": "isInEcommerce",
+        "label": "In Ecommerce",
+        "valueType": "boolean"
       }
     ]
   },

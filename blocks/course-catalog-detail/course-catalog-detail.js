@@ -40,6 +40,7 @@ export default async function decorate(block) {
   const courseLevel = children[9]?.textContent?.trim();
   const relatedResources = children[10]?.textContent?.trim();
   const isFree = children[11]?.textContent?.trim();
+  const isInEcommerce = children[12]?.textContent?.trim();
 
   // Check login status and fetch available course sessions if logged in
   const [isLoggedIn, userEmail] = await checkLoginStatus();
@@ -405,17 +406,17 @@ export default async function decorate(block) {
   takeCourseBtn.href = courseUrl;
   takeCourseBtn.target = '_blank';
   takeCourseBtn.className = 'btn primary';
-  takeCourseBtn.textContent = 'Take course';
+  takeCourseBtn.textContent = 'Get a Quote';
 
   // icon (your required pattern)
   takeCourseBtn.append(span({ class: 'icon icon-arrow' }));
 
   // --- Secondary button ---
   const quoteBtn = document.createElement('a');
-  quoteBtn.href = '/my-learning-hub';
+  quoteBtn.href = courseUrl;
   quoteBtn.target = '_blank';
   quoteBtn.className = 'btn secondary';
-  quoteBtn.textContent = 'Request a quote';
+  quoteBtn.textContent = 'My Learning Hub';
 
   // icon
   quoteBtn.append(span({ class: 'icon icon-arrow-blue' }));
