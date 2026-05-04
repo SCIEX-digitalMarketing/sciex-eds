@@ -359,41 +359,31 @@ export default async function decorate(block) {
   const courseDetailsContainer = document.createElement('div');
   courseDetailsContainer.className = 'course-details-container';
 
+  const details = [
+    { key: 'Cost', value: costDisplay },
+    { key: 'Duration', value: duration },
+    { key: 'Region', value: region },
+    { key: 'Language', value: language },
+    { key: 'Type', value: courseType },
+    { key: 'Course Level', value: courseLevel }
+  ];
+
+  const rowsHTML = details
+    .filter(item => item.value) // removes empty/null/undefined
+    .map(item => `
+    <div class="course-detail-row">
+      <span class="course-detail-key">${item.key}:</span>
+      <span class="course-detail-value">${item.value}</span>
+    </div>
+  `)
+    .join('');
+
   courseDetailsContainer.innerHTML = `
   <h3 class="course-details-title">Course details</h3>
   <div class="course-detail-info">
-
-  <div class="course-detail-row">
-    <span class="course-detail-key">Cost:</span>
-    <span class="course-detail-value"></span>
+    ${rowsHTML}
   </div>
-
-  <div class="course-detail-row">
-    <span class="course-detail-key">Duration:</span>
-    <span class="course-detail-value">${duration}</span>
-  </div>
-
-  <div class="course-detail-row">
-    <span class="course-detail-key">Region:</span>
-    <span class="course-detail-value">${region}</span>
-  </div>
-
-  <div class="course-detail-row">
-    <span class="course-detail-key">Language:</span>
-    <span class="course-detail-value">${language}</span>
-  </div>
-
-  <div class="course-detail-row">
-    <span class="course-detail-key">Type:</span>
-    <span class="course-detail-value">${courseType}</span>
-  </div>
-
-  <div class="course-detail-row">
-    <span class="course-detail-key">Course Level:</span>
-    <span class="course-detail-value">${courseLevel}</span>
-  </div>
-  </div>
-  <div class="course-action-row"></div> 
+  <div class="course-action-row"></div>
 `;
   // Update cost display in the course details
   const costValueSpan = courseDetailsContainer.querySelector('.course-detail-value');
