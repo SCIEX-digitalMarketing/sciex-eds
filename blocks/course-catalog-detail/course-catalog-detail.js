@@ -48,7 +48,23 @@ export default async function decorate(block) {
 
   // Fetch user authentication info and allowed countries for ecommerce
   const [isLoggedIn, userEmail, countryCode] = await checkLoginStatus();
-  const allowedCountryCode = ["us", "gb", "de", "ca", "cz", "nl", "it", "pt", "es"]
+  const allowedCountryCode = ["us", "gb", "de", "ca", "cz", "nl", "fr", "at", "be", "it", "pt", "es"]
+  
+  // Country-specific store URLs for Buy Now button
+  const storePathMap = {
+    us: 'https://shop.sciex.com/',
+    gb: 'https://shop.sciex.com/uk/en.html',
+    de: 'https://shop.sciex.com/eu/en.html',
+    ca: 'https://shop.sciex.com/ca/en.html',
+    cz: 'https://shop.sciex.com/',
+    nl: 'https://shop.sciex.com/eu/en.html',
+    fr: 'https://shop.sciex.com/eu/en.html',
+    at: 'https://shop.sciex.com/eu/en.html',
+    be: 'https://shop.sciex.com/eu/en.html',
+    it: 'https://shop.sciex.com/eu/en.html',
+    pt: 'https://shop.sciex.com/eu/en.html',
+    es: 'https://shop.sciex.com/eu/en.html',
+  }
   
   // Initialize cost and catalog data
   let costDisplay = '';
@@ -410,10 +426,13 @@ export default async function decorate(block) {
   
   const buttonText = showBuyNow ? 'Buy Now' : 'Get a Quote';
   
-  // Build button href: direct to course URL for Buy Now, 
+  // Build button href: use country-specific store URL for Buy Now, 
   // or construct quote form URL for Get a Quote
-  let buttonHref = courseUrl;
-  if (!showBuyNow) {
+  let buttonHref;
+  if (showBuyNow) {
+    const countryCodeLower = countryCode.toLowerCase();
+    buttonHref = storePathMap[countryCodeLower];
+  } else {
     const baseUrl = "https://sciex.com/form-pages/product-request";
     const requestType = "quote";
     const solution = "training";
