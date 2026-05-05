@@ -31,7 +31,7 @@ async function checkLoginStatus() {
 
 export default async function decorate(block) {
   const children = Array.from(block.children);
-  if (children.length < 10) return;
+  if (children.length < 13) return;
   const courseId = children[0]?.textContent?.trim();
   const courseTitle = children[1]?.textContent?.trim();
   const courseUrl = children[2]?.textContent?.trim();
@@ -296,12 +296,12 @@ export default async function decorate(block) {
         linksWrapper.appendChild(link);
       }
     });
+    relatedContainer.appendChild(linksWrapper);
   }
-  relatedContainer.appendChild(linksWrapper);
   const exploreBtn = document.createElement('a');
   exploreBtn.href = '/explore-more-courses';
   exploreBtn.target = '_blank';
-  exploreBtn.className = 'btn secondary related-explore-btn';
+  exploreBtn.className = 'btn secondary explore-more-btn';
   exploreBtn.textContent = 'Explore more courses';
 
   // icon
@@ -330,7 +330,7 @@ export default async function decorate(block) {
   const resourceHubBtn = document.createElement('a');
   resourceHubBtn.href = '/resource-hub';
   resourceHubBtn.target = '_blank';
-  resourceHubBtn.className = 'btn primary';
+  resourceHubBtn.className = 'btn primary resource-hub-btn';
   resourceHubBtn.textContent = 'Resource hub';
 
   // icon (your required pattern)
