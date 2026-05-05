@@ -48,7 +48,7 @@ export default async function decorate(block) {
 
   // Fetch user authentication info and allowed countries for ecommerce
   const [isLoggedIn, userEmail, countryCode] = await checkLoginStatus();
-  const allowedCountryCode = ["us", "gb", "de", "ca", "cz", "nl", "it", "pt", "es"]
+  const allowedCountryCode = ["us", "gb", "de", "ca", "cz", "nl", "fr", "at", "be", "it", "pt", "es"];
   // Country-specific store URLs for Buy Now button
   const storePathMap = {
     us: 'https://shop.sciex.com/',
