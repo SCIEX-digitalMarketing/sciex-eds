@@ -48,8 +48,7 @@ export default async function decorate(block) {
 
   // Fetch user authentication info and allowed countries for ecommerce
   const [isLoggedIn, userEmail, countryCode] = await checkLoginStatus();
-  const allowedCountryCode = ["us", "gb", "de", "ca", "cz", "nl", "fr", "at", "be", "it", "pt", "es"]
-  
+  const allowedCountryCode = ["us", "gb", "de", "ca", "cz", "nl", "it", "pt", "es"]
   // Country-specific store URLs for Buy Now button
   const storePathMap = {
     us: 'https://shop.sciex.com/',
@@ -65,7 +64,7 @@ export default async function decorate(block) {
     pt: 'https://shop.sciex.com/eu/en.html',
     es: 'https://shop.sciex.com/eu/en.html',
   }
-  
+
   // Initialize cost and catalog data
   let costDisplay = '';
   let costClassName = '';
@@ -420,12 +419,12 @@ export default async function decorate(block) {
 
   // Determine primary button: "Buy Now" if ecommerce-enabled, 
   // allowed country, and price available; otherwise "Get a Quote"
-  const showBuyNow = isInEcommerce && countryCode && 
-           allowedCountryCode.includes(countryCode.toLowerCase()) && 
-           costDisplay;
-  
+  const showBuyNow = isInEcommerce && countryCode &&
+    allowedCountryCode.includes(countryCode.toLowerCase()) &&
+    costDisplay;
+
   const buttonText = showBuyNow ? 'Buy Now' : 'Get a Quote';
-  
+
   // Build button href: use country-specific store URL for Buy Now, 
   // or construct quote form URL for Get a Quote
   let buttonHref;
@@ -456,7 +455,7 @@ export default async function decorate(block) {
   quoteBtn.className = 'btn secondary';
   quoteBtn.textContent = 'My Learning Hub';
   quoteBtn.append(span({ class: 'icon icon-arrow-blue' }));
-  
+
   // Add both buttons to action row
   actionRow.append(takeCourseBtn, quoteBtn);
   decorateIcons(actionRow);
@@ -465,7 +464,7 @@ export default async function decorate(block) {
   const layout = document.createElement('div');
   layout.className = 'course-layout';
   layout.append(descriptionContainer, courseDetailsContainer);
-  
+
   const mainLayout = document.createElement('div');
   mainLayout.className = 'course-catalog-detail-main-layout';
   mainLayout.append(courseHeaderContainer, layout, supportNetworkContainer);
