@@ -1,28 +1,37 @@
 import { span } from '../../scripts/dom-builder.js';
 import { decorateIcons } from '../../scripts/aem.js';
-import  getCourseCatalogData  from '../../scripts/blocks-controllers/course-catalog-controller.js';
+import getCourseCatalogData from '../../scripts/blocks-controllers/course-catalog-controller.js';
+import {
+  getfavoriteAllData,
+  removeFavoriteSearchEngine,
+  addToFavorite,
+} from '../../scripts/favorite-all/favorite-allDocEngine.js';
 
 const USER_API = '/bin/sciex/currentuserdetails';
 
+/**
+ * Fetches current user login status, email, and country code from API
+ * Returns [isLoggedIn, userEmail, countryCode] - all null/false if API fails
+ */
 async function checkLoginStatus() {
   try {
-    const userResp = await fetch(USER_API, { credentials: 'include' });
+    const userResp = await fetch(USER_API);
 
     if (!userResp.ok) {
       throw new Error(`User API failed: ${userResp.status}`);
     }
 
     const user = await userResp.json();
-    return [user?.loggedIn === true, user?.email];
+    return [user?.loggedIn === true, user?.email, user?.countryCode];
   } catch (e) {
     console.warn('Course catalog detail: treating user as logged out', e);
-    return [false, null];
+    return [false, null, null];
   }
 }
 
 export default async function decorate(block) {
   const children = Array.from(block.children);
-  if (children.length < 10) return;
+  if (children.length < 13) return;
   const courseId = children[0]?.textContent?.trim();
   const courseTitle = children[1]?.textContent?.trim();
   const courseUrl = children[2]?.textContent?.trim();
@@ -35,32 +44,34 @@ export default async function decorate(block) {
   const courseLevel = children[9]?.textContent?.trim();
   const relatedResources = children[10]?.textContent?.trim();
   const isFree = children[11]?.textContent?.trim();
-  console.log('freeeeeeeeeeeee', isFree);
-  console.log('id', courseId, relatedResources, isFree);
+  const isInEcommerce = children[12]?.textContent?.trim();
 
-  // Check login status and fetch available course sessions if logged in
-  const [isLoggedIn, userEmail] = await checkLoginStatus();
-
-  // Determine cost display based on login status and free status
+  // Fetch user authentication info and allowed countries for ecommerce
+  const [isLoggedIn, userEmail, countryCode] = await checkLoginStatus();
+  const allowedCountryCode = ["us", "gb", "de", "ca", "cz", "nl", "it", "pt", "es"]
+  
+  // Initialize cost and catalog data
   let costDisplay = '';
   let costClassName = '';
+  let catalogData = null;
 
+  // Fetch pricing data from API if user is logged in
   if (isLoggedIn && userEmail && courseId) {
-    // Fetch cost from API if logged in
-    const catalogData = await getCourseCatalogData(userEmail, courseId);
-    if (catalogData && catalogData.cost && catalogData.cost.PriceBookEntry) {
-      const unitPrice = catalogData.cost.PriceBookEntry.UnitPrice;
-      costDisplay = `$${unitPrice}`;
-    }
+    catalogData = await getCourseCatalogData(userEmail, courseId);
+  }
+
+  // Display pricing: show API price if available, otherwise show Free or Login prompt
+  if (catalogData && catalogData.cost && catalogData.cost.PriceBookEntry) {
+    const unitPrice = catalogData.cost.PriceBookEntry.UnitPrice;
+    costDisplay = `$${unitPrice}`;
   } else {
-    // Not logged in - show Free or Login for price
     costDisplay = isFree === 'true' ? 'Free' : 'Login for price';
     costClassName = 'cost-not-logged-in';
   }
 
-  // Convert "78.5%" → 3.9 (out of 5)
   let numericRating = 0;
 
+  // Convert percentage rating to 5-star scale
   if (courseRating) {
     const percent = parseFloat(courseRating.replace('%', '').trim());
     numericRating = ((percent / 100) * 5).toFixed(1);
@@ -96,13 +107,13 @@ export default async function decorate(block) {
       <div class="rating">Rating:</div>
     </div>
 
-   <div class="course-header-social">
+    <div class="course-header-social">
       <span class="favorite-icon" aria-label="Favorite">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 22"
-          width="20"
-          height="20"
+          width="30"
+          height="30"
           fill="none"
           stroke="#000"
           stroke-width="1.5"
@@ -125,7 +136,7 @@ export default async function decorate(block) {
   descriptionContainer.classList.add('description-container');
   descriptionContainer.innerHTML = description;
 
-  // ===== Convert "Follow on courses" UL → TABLE =====
+  // Transform "Follow on courses"  into a formatted table
   const items = descriptionContainer.querySelectorAll('li');
 
   items.forEach((li) => {
@@ -138,21 +149,18 @@ export default async function decorate(block) {
         const table = document.createElement('table');
         table.classList.add('course-table');
 
-        // ===== HEADER ROW =====
+        // Create table header with "No" and "Course info" columns
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
-
         const th1 = document.createElement('th');
         th1.textContent = 'No';
-
         const th2 = document.createElement('th');
         th2.textContent = 'Course info';
-
         headerRow.append(th1, th2);
         thead.appendChild(headerRow);
         table.appendChild(thead);
 
-        // ===== BODY =====
+        // Populate table body with course codes and descriptions
         const tbody = document.createElement('tbody');
 
         Array.from(ul.children).forEach((childLi) => {
@@ -191,6 +199,77 @@ export default async function decorate(block) {
     }
   });
 
+  const enrollmentContainer = document.createElement('div');
+  enrollmentContainer.classList.add('enrollment-container');
+
+  const enrollmentHeading = document.createElement('h3');
+  enrollmentHeading.className = 'enrollment-title';
+  enrollmentHeading.textContent = 'Enrollment';
+  enrollmentContainer.appendChild(enrollmentHeading);
+  const tableContainer = document.createElement('div');
+  tableContainer.className = 'enrollment-table-container';
+
+  const enrollmentTable = document.createElement('table');
+  enrollmentTable.classList.add('enrollment-table');
+  const enrollmentThead = document.createElement('thead');
+  enrollmentThead.innerHTML = `
+    <tr>  
+      <th>Session available</th>
+      <th>Number of open spaces</th>
+      <th></th>
+    </tr>
+    `
+
+  const enrollmentBody = document.createElement('tbody');
+
+  // Display enrollment sessions if user is logged in and sessions exist
+  if (catalogData && catalogData.enrolment && catalogData.enrolment.length > 0) {
+    enrollmentTable.appendChild(enrollmentThead);
+    catalogData.enrolment.forEach((enrollment) => {
+      const tr = document.createElement('tr');
+
+      const tdName = document.createElement('td');
+      tdName.textContent = enrollment.LMSSession?.Name;
+
+      const tdSeats = document.createElement('td');
+      tdSeats.textContent = `${enrollment.seatsRemaining} Seats remaining` || 0;
+
+      // Build "Enrollment's buynow" link with course and session details
+      const baseUrl = "https://sciex.com/form-pages/product-request";
+      const requestType = "quote";
+      const solution = "training";
+      const location = enrollment.LMSSession?.Name;
+      const product = `${catalogData.cost.PriceBookEntry.Name} - ${location}`;
+
+      const url = `${baseUrl}?requesttype=${requestType}&solution=${solution}&product=${encodeURIComponent(product)}&UTM_Content=${encodeURIComponent(product)}`;
+
+      const buyButton = document.createElement('td');
+      buyButton.innerHTML = `
+            <a href="${url}" target="_blank" class="btn primary enroll-buy-now">
+              Buy now
+            </a>
+          `;
+      tr.append(tdName, tdSeats, buyButton);
+      enrollmentBody.appendChild(tr);
+    });
+    enrollmentTable.appendChild(enrollmentBody);
+    tableContainer.appendChild(enrollmentTable);
+    enrollmentContainer.appendChild(tableContainer);
+  } else {
+    // Show message if no enrollment sessions available (not logged in or no sessions)
+    const enrollBanner = document.createElement('div');
+    enrollBanner.className = 'enroll-banner';
+    enrollBanner.innerHTML = `
+    <div class="enroll-banner-content">
+      <p>Currently there are no active sessions to display.</p>
+       <p> Please <a href="/about-us/contact-us" class="enroll-contact-link">contact us</a> if you are interested in taking this course.</p>
+       </div>
+    `;
+    enrollmentContainer.appendChild(enrollBanner);
+
+  }
+
+
   const relatedContainer = document.createElement('div');
   relatedContainer.classList.add('related-container');
 
@@ -217,63 +296,98 @@ export default async function decorate(block) {
         linksWrapper.appendChild(link);
       }
     });
+    relatedContainer.appendChild(linksWrapper);
   }
-  relatedContainer.appendChild(linksWrapper);
   const exploreBtn = document.createElement('a');
   exploreBtn.href = '/explore-more-courses';
   exploreBtn.target = '_blank';
-  exploreBtn.className = 'btn secondary related-explore-btn';
+  exploreBtn.className = 'btn secondary explore-more-btn';
   exploreBtn.textContent = 'Explore more courses';
 
   // icon
   exploreBtn.append(span({ class: 'icon icon-arrow-blue' }));
   // append buttons
   decorateIcons(exploreBtn);
-  relatedContainer.appendChild(exploreBtn);
 
+  const supportNetworkContainer = document.createElement('div');
+  supportNetworkContainer.className = 'support-network-container';
+
+
+  supportNetworkContainer.innerHTML = `
+  <div class="support-content">
+    <div class="support-text">
+      <div class="support-title">SCIEX Now support network</div>
+      <div class="support-subtitle">The destination for all your support needs.</div>
+    </div>
+    <div class="support-actions">   
+    </div>
+  </div>
+`;
+
+  const supportActionRow = supportNetworkContainer.querySelector('.support-actions');
+
+  // --- Primary button ---
+  const resourceHubBtn = document.createElement('a');
+  resourceHubBtn.href = '/resource-hub';
+  resourceHubBtn.target = '_blank';
+  resourceHubBtn.className = 'btn primary resource-hub-btn';
+  resourceHubBtn.textContent = 'Resource hub';
+
+  // icon (your required pattern)
+  resourceHubBtn.append(span({ class: 'icon icon-arrow' }));
+
+  // --- Secondary button ---
+  const contactSupportBtn = document.createElement('a');
+  contactSupportBtn.href = '/support/request-support';
+  contactSupportBtn.target = '_blank';
+  contactSupportBtn.className = 'btn secondary contact-support-btn';
+  contactSupportBtn.textContent = 'Contact support';
+
+  // icon
+  contactSupportBtn.append(span({ class: 'icon icon-arrow' }));
+  // append buttons
+  supportActionRow.append(resourceHubBtn, contactSupportBtn);
+  decorateIcons(supportActionRow);
+
+
+
+  descriptionContainer.appendChild(enrollmentContainer);
   descriptionContainer.appendChild(relatedContainer);
+  descriptionContainer.appendChild(exploreBtn);
 
   // ===== RIGHT (COURSE DETAILS) =====
   const courseDetailsContainer = document.createElement('div');
   courseDetailsContainer.className = 'course-details-container';
 
+  // Build course detail rows (only display fields with values)
+  const details = [
+    { key: 'Cost', value: costDisplay },
+    { key: 'Duration', value: duration },
+    { key: 'Region', value: region },
+    { key: 'Language', value: language },
+    { key: 'Type', value: courseType },
+    { key: 'Course Level', value: courseLevel }
+  ];
+
+  // Filter out empty values and generate HTML for each detail row
+  const rowsHTML = details
+    .filter(item => item.value)
+    .map(item => `
+    <div class="course-detail-row">
+      <span class="course-detail-key">${item.key}:</span>
+      <span class="course-detail-value">${item.value}</span>
+    </div>
+  `)
+    .join('');
+
   courseDetailsContainer.innerHTML = `
   <h3 class="course-details-title">Course details</h3>
   <div class="course-detail-info">
-
-  <div class="course-detail-row">
-    <span class="course-detail-key">Cost:</span>
-    <span class="course-detail-value"></span>
+    ${rowsHTML}
   </div>
-
-  <div class="course-detail-row">
-    <span class="course-detail-key">Duration:</span>
-    <span class="course-detail-value">${duration}</span>
-  </div>
-
-  <div class="course-detail-row">
-    <span class="course-detail-key">Region:</span>
-    <span class="course-detail-value">${region}</span>
-  </div>
-
-  <div class="course-detail-row">
-    <span class="course-detail-key">Language:</span>
-    <span class="course-detail-value">${language}</span>
-  </div>
-
-  <div class="course-detail-row">
-    <span class="course-detail-key">Type:</span>
-    <span class="course-detail-value">${courseType}</span>
-  </div>
-
-  <div class="course-detail-row">
-    <span class="course-detail-key">Course Level:</span>
-    <span class="course-detail-value">${courseLevel}</span>
-  </div>
-  </div>
-  <div class="course-action-row"></div> 
+  <div class="course-action-row"></div>
 `;
-  // Update cost display in the course details
+  // Update cost value with login link if user needs to authenticate
   const costValueSpan = courseDetailsContainer.querySelector('.course-detail-value');
   if (costValueSpan) {
     if (costDisplay === 'Login for price') {
@@ -288,37 +402,111 @@ export default async function decorate(block) {
 
   const actionRow = courseDetailsContainer.querySelector('.course-action-row');
 
-  // --- Primary button ---
+  // Determine primary button: "Buy Now" if ecommerce-enabled, 
+  // allowed country, and price available; otherwise "Get a Quote"
+  const showBuyNow = isInEcommerce && countryCode && 
+           allowedCountryCode.includes(countryCode.toLowerCase()) && 
+           costDisplay;
+  
+  const buttonText = showBuyNow ? 'Buy Now' : 'Get a Quote';
+  
+  // Build button href: direct to course URL for Buy Now, 
+  // or construct quote form URL for Get a Quote
+  let buttonHref = courseUrl;
+  if (!showBuyNow) {
+    const baseUrl = "https://sciex.com/form-pages/product-request";
+    const requestType = "quote";
+    const solution = "training";
+    const title = courseTitle;
+    buttonHref = `${baseUrl}?requesttype=${requestType}&solution=${solution}&product=${encodeURIComponent(title)}&UTM_Content=${encodeURIComponent(title)}`;
+  }
+
+  // Create primary action button
   const takeCourseBtn = document.createElement('a');
-  takeCourseBtn.href = courseUrl;
+  takeCourseBtn.href = buttonHref;
   takeCourseBtn.target = '_blank';
   takeCourseBtn.className = 'btn primary';
-  takeCourseBtn.textContent = 'Take course';
+  takeCourseBtn.textContent = buttonText;
 
-  // icon (your required pattern)
   takeCourseBtn.append(span({ class: 'icon icon-arrow' }));
 
-  // --- Secondary button ---
+  // Create secondary button for Learning Hub access
   const quoteBtn = document.createElement('a');
-  quoteBtn.href = '/my-learning-hub';
+  quoteBtn.href = 'https://training.sciex.com';
   quoteBtn.target = '_blank';
   quoteBtn.className = 'btn secondary';
-  quoteBtn.textContent = 'Request a quote';
-
-  // icon
+  quoteBtn.textContent = 'My Learning Hub';
   quoteBtn.append(span({ class: 'icon icon-arrow-blue' }));
-  // append buttons
+  
+  // Add both buttons to action row
   actionRow.append(takeCourseBtn, quoteBtn);
   decorateIcons(actionRow);
 
-  // ===== MAIN LAYOUT WRAPPER =====
+  // Assemble main layout: header, two-column body, and support section
   const layout = document.createElement('div');
   layout.className = 'course-layout';
-
   layout.append(descriptionContainer, courseDetailsContainer);
+  
   const mainLayout = document.createElement('div');
   mainLayout.className = 'course-catalog-detail-main-layout';
-  mainLayout.append(courseHeaderContainer, layout);
+  mainLayout.append(courseHeaderContainer, layout, supportNetworkContainer);
   block.textContent = '';
   block.append(mainLayout);
+
+  // Set up favorite/bookmark functionality
+  const favoriteIcon = courseHeaderContainer.querySelector('.favorite-icon');
+  if (favoriteIcon) {
+    // Load and display current favorite status
+    const checkAndSetFavoriteStatus = async () => {
+      try {
+        const favoriteData = await getfavoriteAllData();
+        if (favoriteData) {
+          const isFavorited = favoriteData.some(
+            (fav) => fav.path === courseUrl,
+          );
+          if (isFavorited) {
+            favoriteIcon.classList.add('favorited');
+          }
+        }
+      } catch (error) {
+        console.error('Error checking favorite status:', error);
+      }
+    };
+
+    await checkAndSetFavoriteStatus();
+
+    // Toggle favorite status on icon click
+    favoriteIcon.addEventListener('click', async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const isFavorited = favoriteIcon.classList.contains('favorited');
+
+      try {
+        if (isFavorited) {
+          // Remove from favorites
+          favoriteIcon.classList.remove('favorited');
+          const res = await removeFavoriteSearchEngine(courseUrl);
+          if (!res.status === 200) {
+            favoriteIcon.classList.add('favorited');
+          }
+        } else {
+          // Add to favorites
+          favoriteIcon.classList.add('favorited');
+          const res = await addToFavorite(courseUrl);
+          if (!res.status === 200 || !res.status === 201) {
+            favoriteIcon.classList.remove('favorited');
+          }
+        }
+      } catch (error) {
+        console.error('Error updating favorite:', error);
+        // Revert UI if operation fails
+        if (isFavorited) {
+          favoriteIcon.classList.add('favorited');
+        } else {
+          favoriteIcon.classList.remove('favorited');
+        }
+      }
+    });
+  }
 }
