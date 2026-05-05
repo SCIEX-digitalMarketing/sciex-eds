@@ -403,7 +403,10 @@ export default async function decorate(block) {
   const actionRow = courseDetailsContainer.querySelector('.course-action-row');
 
   // Determine primary button: "Buy Now" if ecommerce-enabled, allowed country, and price available; otherwise "Get a Quote"
-  const showBuyNow = isInEcommerce && countryCode && allowedCountryCode.includes(countryCode.toLowerCase()) && costDisplay;
+  const showBuyNow = isInEcommerce && countryCode && 
+           allowedCountryCode.includes(countryCode.toLowerCase()) && 
+           costDisplay;
+  
   const buttonText = showBuyNow ? 'Buy Now' : 'Get a Quote';
   
   // Build button href: direct to course URL for Buy Now, or construct quote form URL for Get a Quote
