@@ -11,17 +11,17 @@ const USER_API = '/bin/sciex/currentuserdetails';
 
 async function checkLoginStatus() {
   try {
-    const userResp = await fetch(USER_API, { credentials: 'include' });
+    const userResp = await fetch(USER_API);
 
     if (!userResp.ok) {
       throw new Error(`User API failed: ${userResp.status}`);
     }
 
     const user = await userResp.json();
-    return [user?.loggedIn === true, user?.email];
+    return [user?.loggedIn === true, user?.email, user?.countryCode];
   } catch (e) {
     console.warn('Course catalog detail: treating user as logged out', e);
-    return [false, null];
+    return [false, null, null];
   }
 }
 
@@ -48,21 +48,22 @@ export default async function decorate(block) {
   // Determine cost display based on login status and free status
   let costDisplay = '';
   let costClassName = '';
+  let catalogData = null;
 
   if (isLoggedIn && userEmail && courseId) {
-    // Fetch cost from API if logged in
-    const catalogData = await getCourseCatalogData(userEmail, courseId);
-    if (catalogData && catalogData.cost && catalogData.cost.PriceBookEntry) {
-      const unitPrice = catalogData.cost.PriceBookEntry.UnitPrice;
-      costDisplay = `$${unitPrice}`;
-    }
-  } else {
+    catalogData = await getCourseCatalogData(userEmail, courseId);
+  }
+
+  if (catalogData && catalogData.cost && catalogData.cost.PriceBookEntry) {
+    const unitPrice = catalogData.cost.PriceBookEntry.UnitPrice;
+    costDisplay = `$${unitPrice}`;
+  }
+  else {
     // Not logged in - show Free or Login for price
     costDisplay = isFree === 'true' ? 'Free' : 'Login for price';
     costClassName = 'cost-not-logged-in';
   }
 
-  // Convert "78.5%" → 3.9 (out of 5)
   let numericRating = 0;
 
   if (courseRating) {
@@ -100,7 +101,7 @@ export default async function decorate(block) {
       <div class="rating">Rating:</div>
     </div>
 
-   <div class="course-header-social">
+    <div class="course-header-social">
       <span class="favorite-icon" aria-label="Favorite">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -218,45 +219,42 @@ export default async function decorate(block) {
 
   const enrollmentBody = document.createElement('tbody');
 
-  if (isLoggedIn && userEmail && courseId) {
-    const catalogData = await getCourseCatalogData(userEmail, courseId);
-    if (catalogData && catalogData.enrolment && catalogData.enrolment.length > 0) {
-      enrollmentTable.appendChild(enrollmentThead);
-      catalogData.enrolment.forEach((enrollment) => {
-        const tr = document.createElement('tr');
+  if (catalogData && catalogData.enrolment && catalogData.enrolment.length > 0) {
+    enrollmentTable.appendChild(enrollmentThead);
+    catalogData.enrolment.forEach((enrollment) => {
+      const tr = document.createElement('tr');
 
-        const tdName = document.createElement('td');
-        tdName.textContent = enrollment.LMSSession?.Name || 'N/A';
+      const tdName = document.createElement('td');
+      tdName.textContent = enrollment.LMSSession?.Name;
 
-        const tdSeats = document.createElement('td');
-        tdSeats.textContent = `${enrollment.seatsRemaining} Seats remaining` || 0;
+      const tdSeats = document.createElement('td');
+      tdSeats.textContent = `${enrollment.seatsRemaining} Seats remaining` || 0;
 
-        const baseUrl = "https://sciex.com/form-pages/product-request";
+      const baseUrl = "https://sciex.com/form-pages/product-request";
 
-        const requestType = "quote";
-        const solution = "training";
+      const requestType = "quote";
+      const solution = "training";
 
-        const location = enrollment.LMSSession?.Name || 'N/A'; // dynamic (or Framingham)
+      const location = enrollment.LMSSession?.Name ; // dynamic (or Framingham)
 
-        const product = `${catalogData.cost.PriceBookEntry.Name} - ${location}`;
+      const product = `${catalogData.cost.PriceBookEntry.Name} - ${location}`;
 
-        const url = `${baseUrl}?requesttype=${requestType}&solution=${solution}&product=${encodeURIComponent(product)}&UTM_Content=${encodeURIComponent(product)}`;
+      const url = `${baseUrl}?requesttype=${requestType}&solution=${solution}&product=${encodeURIComponent(product)}&UTM_Content=${encodeURIComponent(product)}`;
 
-        const buyButton = document.createElement('td');
-        buyButton.innerHTML = `
+      const buyButton = document.createElement('td');
+      buyButton.innerHTML = `
             <a href="${url}" target="_blank" class="btn primary enroll-buy-now">
               Buy now
             </a>
           `;
-        tr.append(tdName, tdSeats, buyButton);
-        enrollmentBody.appendChild(tr);
-      });
-      enrollmentTable.appendChild(enrollmentBody);
-      tableContainer.appendChild(enrollmentTable);
-      enrollmentContainer.appendChild(tableContainer);
-    }
-
-  } else {
+      tr.append(tdName, tdSeats, buyButton);
+      enrollmentBody.appendChild(tr);
+    });
+    enrollmentTable.appendChild(enrollmentBody);
+    tableContainer.appendChild(enrollmentTable);
+    enrollmentContainer.appendChild(tableContainer);
+  }
+  else {
     // Banner for not logged in users and without enrollment course sessions
     const enrollBanner = document.createElement('div');
     enrollBanner.className = 'enroll-banner';
