@@ -262,7 +262,7 @@ export default async function decorate(block) {
     enrollBanner.innerHTML = `
     <div class="enroll-banner-content">
       <p>Currently there are no active sessions to display.</p>
-       <p> Please <a href="/contact-us" class="enroll-contact-link">contact us</a> if you are interested in taking this course.</p>
+       <p> Please <a href="/about-us/contact-us" class="enroll-contact-link">contact us</a> if you are interested in taking this course.</p>
        </div>
     `;
     enrollmentContainer.appendChild(enrollBanner);
@@ -338,7 +338,7 @@ export default async function decorate(block) {
 
   // --- Secondary button ---
   const contactSupportBtn = document.createElement('a');
-  contactSupportBtn.href = '/contact-support';
+  contactSupportBtn.href = '/support/request-support';
   contactSupportBtn.target = '_blank';
   contactSupportBtn.className = 'btn secondary contact-support-btn';
   contactSupportBtn.textContent = 'Contact support';
@@ -405,7 +405,16 @@ export default async function decorate(block) {
   // Determine primary button: "Buy Now" if ecommerce-enabled, allowed country, and price available; otherwise "Get a Quote"
   const showBuyNow = isInEcommerce && countryCode && allowedCountryCode.includes(countryCode.toLowerCase()) && costDisplay;
   const buttonText = showBuyNow ? 'Buy Now' : 'Get a Quote';
-  const buttonHref = showBuyNow ? courseUrl : '/form-pages/product-request';
+  
+  // Build button href: direct to course URL for Buy Now, or construct quote form URL for Get a Quote
+  let buttonHref = courseUrl;
+  if (!showBuyNow) {
+    const baseUrl = "https://sciex.com/form-pages/product-request";
+    const requestType = "quote";
+    const solution = "training";
+    const title = courseTitle;
+    buttonHref = `${baseUrl}?requesttype=${requestType}&solution=${solution}&product=${encodeURIComponent(title)}&UTM_Content=${encodeURIComponent(title)}`;
+  }
 
   // Create primary action button
   const takeCourseBtn = document.createElement('a');
