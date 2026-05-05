@@ -9,6 +9,10 @@ import {
 
 const USER_API = '/bin/sciex/currentuserdetails';
 
+/**
+ * Fetches current user login status, email, and country code from API
+ * Returns [isLoggedIn, userEmail, countryCode] - all null/false if API fails
+ */
 async function checkLoginStatus() {
   try {
     const userResp = await fetch(USER_API);
@@ -42,30 +46,32 @@ export default async function decorate(block) {
   const isFree = children[11]?.textContent?.trim();
   const isInEcommerce = children[12]?.textContent?.trim();
 
-  // Check login status and fetch available course sessions if logged in
+  // Fetch user authentication info and allowed countries for ecommerce
   const [isLoggedIn, userEmail, countryCode] = await checkLoginStatus();
   const allowedCountryCode = ["us", "gb", "de", "ca", "cz", "nl", "it", "pt", "es"]
-  // Determine cost display based on login status and free status
+  
+  // Initialize cost and catalog data
   let costDisplay = '';
   let costClassName = '';
   let catalogData = null;
 
+  // Fetch pricing data from API if user is logged in
   if (isLoggedIn && userEmail && courseId) {
     catalogData = await getCourseCatalogData(userEmail, courseId);
   }
 
+  // Display pricing: show API price if available, otherwise show Free or Login prompt
   if (catalogData && catalogData.cost && catalogData.cost.PriceBookEntry) {
     const unitPrice = catalogData.cost.PriceBookEntry.UnitPrice;
     costDisplay = `$${unitPrice}`;
-  }
-  else {
-    // Not logged in - show Free or Login for price
+  } else {
     costDisplay = isFree === 'true' ? 'Free' : 'Login for price';
     costClassName = 'cost-not-logged-in';
   }
 
   let numericRating = 0;
 
+  // Convert percentage rating to 5-star scale
   if (courseRating) {
     const percent = parseFloat(courseRating.replace('%', '').trim());
     numericRating = ((percent / 100) * 5).toFixed(1);
@@ -130,7 +136,7 @@ export default async function decorate(block) {
   descriptionContainer.classList.add('description-container');
   descriptionContainer.innerHTML = description;
 
-  // ===== Convert "Follow on courses" UL → TABLE =====
+  // Transform "Follow on courses"  into a formatted table
   const items = descriptionContainer.querySelectorAll('li');
 
   items.forEach((li) => {
@@ -143,21 +149,18 @@ export default async function decorate(block) {
         const table = document.createElement('table');
         table.classList.add('course-table');
 
-        // ===== HEADER ROW =====
+        // Create table header with "No" and "Course info" columns
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
-
         const th1 = document.createElement('th');
         th1.textContent = 'No';
-
         const th2 = document.createElement('th');
         th2.textContent = 'Course info';
-
         headerRow.append(th1, th2);
         thead.appendChild(headerRow);
         table.appendChild(thead);
 
-        // ===== BODY =====
+        // Populate table body with course codes and descriptions
         const tbody = document.createElement('tbody');
 
         Array.from(ul.children).forEach((childLi) => {
@@ -219,6 +222,7 @@ export default async function decorate(block) {
 
   const enrollmentBody = document.createElement('tbody');
 
+  // Display enrollment sessions if user is logged in and sessions exist
   if (catalogData && catalogData.enrolment && catalogData.enrolment.length > 0) {
     enrollmentTable.appendChild(enrollmentThead);
     catalogData.enrolment.forEach((enrollment) => {
@@ -230,13 +234,11 @@ export default async function decorate(block) {
       const tdSeats = document.createElement('td');
       tdSeats.textContent = `${enrollment.seatsRemaining} Seats remaining` || 0;
 
+      // Build "Enrollment's buynow" link with course and session details
       const baseUrl = "https://sciex.com/form-pages/product-request";
-
       const requestType = "quote";
       const solution = "training";
-
-      const location = enrollment.LMSSession?.Name ; // dynamic (or Framingham)
-
+      const location = enrollment.LMSSession?.Name;
       const product = `${catalogData.cost.PriceBookEntry.Name} - ${location}`;
 
       const url = `${baseUrl}?requesttype=${requestType}&solution=${solution}&product=${encodeURIComponent(product)}&UTM_Content=${encodeURIComponent(product)}`;
@@ -253,9 +255,8 @@ export default async function decorate(block) {
     enrollmentTable.appendChild(enrollmentBody);
     tableContainer.appendChild(enrollmentTable);
     enrollmentContainer.appendChild(tableContainer);
-  }
-  else {
-    // Banner for not logged in users and without enrollment course sessions
+  } else {
+    // Show message if no enrollment sessions available (not logged in or no sessions)
     const enrollBanner = document.createElement('div');
     enrollBanner.className = 'enroll-banner';
     enrollBanner.innerHTML = `
@@ -358,6 +359,7 @@ export default async function decorate(block) {
   const courseDetailsContainer = document.createElement('div');
   courseDetailsContainer.className = 'course-details-container';
 
+  // Build course detail rows (only display fields with values)
   const details = [
     { key: 'Cost', value: costDisplay },
     { key: 'Duration', value: duration },
@@ -367,8 +369,9 @@ export default async function decorate(block) {
     { key: 'Course Level', value: courseLevel }
   ];
 
+  // Filter out empty values and generate HTML for each detail row
   const rowsHTML = details
-    .filter(item => item.value) // removes empty/null/undefined
+    .filter(item => item.value)
     .map(item => `
     <div class="course-detail-row">
       <span class="course-detail-key">${item.key}:</span>
@@ -384,7 +387,7 @@ export default async function decorate(block) {
   </div>
   <div class="course-action-row"></div>
 `;
-  // Update cost display in the course details
+  // Update cost value with login link if user needs to authenticate
   const costValueSpan = courseDetailsContainer.querySelector('.course-detail-value');
   if (costValueSpan) {
     if (costDisplay === 'Login for price') {
@@ -399,49 +402,47 @@ export default async function decorate(block) {
 
   const actionRow = courseDetailsContainer.querySelector('.course-action-row');
 
-  // Determine button text and href based on conditions
+  // Determine primary button: "Buy Now" if ecommerce-enabled, allowed country, and price available; otherwise "Get a Quote"
   const showBuyNow = isInEcommerce && countryCode && allowedCountryCode.includes(countryCode.toLowerCase()) && costDisplay;
   const buttonText = showBuyNow ? 'Buy Now' : 'Get a Quote';
   const buttonHref = showBuyNow ? courseUrl : '/form-pages/product-request';
 
-  // --- Primary button ---
+  // Create primary action button
   const takeCourseBtn = document.createElement('a');
   takeCourseBtn.href = buttonHref;
   takeCourseBtn.target = '_blank';
   takeCourseBtn.className = 'btn primary';
   takeCourseBtn.textContent = buttonText;
 
-  // icon (your required pattern)
   takeCourseBtn.append(span({ class: 'icon icon-arrow' }));
 
-  // --- Secondary button ---
+  // Create secondary button for Learning Hub access
   const quoteBtn = document.createElement('a');
   quoteBtn.href = 'https://training.sciex.com';
   quoteBtn.target = '_blank';
   quoteBtn.className = 'btn secondary';
   quoteBtn.textContent = 'My Learning Hub';
-
-  // icon
   quoteBtn.append(span({ class: 'icon icon-arrow-blue' }));
-  // append buttons
+  
+  // Add both buttons to action row
   actionRow.append(takeCourseBtn, quoteBtn);
   decorateIcons(actionRow);
 
-  // ===== MAIN LAYOUT WRAPPER =====
+  // Assemble main layout: header, two-column body, and support section
   const layout = document.createElement('div');
   layout.className = 'course-layout';
-
   layout.append(descriptionContainer, courseDetailsContainer);
+  
   const mainLayout = document.createElement('div');
   mainLayout.className = 'course-catalog-detail-main-layout';
   mainLayout.append(courseHeaderContainer, layout, supportNetworkContainer);
   block.textContent = '';
   block.append(mainLayout);
 
-  // ===== FAVORITE ICON HANDLER =====
+  // Set up favorite/bookmark functionality
   const favoriteIcon = courseHeaderContainer.querySelector('.favorite-icon');
   if (favoriteIcon) {
-    // Check if the course is already favorited
+    // Load and display current favorite status
     const checkAndSetFavoriteStatus = async () => {
       try {
         const favoriteData = await getfavoriteAllData();
@@ -460,6 +461,7 @@ export default async function decorate(block) {
 
     await checkAndSetFavoriteStatus();
 
+    // Toggle favorite status on icon click
     favoriteIcon.addEventListener('click', async (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -468,13 +470,14 @@ export default async function decorate(block) {
 
       try {
         if (isFavorited) {
+          // Remove from favorites
           favoriteIcon.classList.remove('favorited');
           const res = await removeFavoriteSearchEngine(courseUrl);
-
           if (!res.status === 200) {
             favoriteIcon.classList.add('favorited');
           }
         } else {
+          // Add to favorites
           favoriteIcon.classList.add('favorited');
           const res = await addToFavorite(courseUrl);
           if (!res.status === 200 || !res.status === 201) {
@@ -483,7 +486,7 @@ export default async function decorate(block) {
         }
       } catch (error) {
         console.error('Error updating favorite:', error);
-        // Revert the class if there's an error
+        // Revert UI if operation fails
         if (isFavorited) {
           favoriteIcon.classList.add('favorited');
         } else {
