@@ -136,7 +136,9 @@ const renderSearchResults = () => {
     sortedResults.forEach((result) => {
       const isFavorite = isUserLoggedIn
         ? !!favoriteResultsList?.some(fav =>
-          fav?.pageData?.some(page => page?.path === result.printableUri)
+          fav?.pageData?.some(
+            page => page?.path === result.printableUri
+          )
         )
         : false;
       const urlSplit = result.printableUri.split("/");
