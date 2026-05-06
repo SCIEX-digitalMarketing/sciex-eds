@@ -153,7 +153,7 @@
   letter-spacing: 0.08px;
 }
 
-.cost-not-logged-in {
+.cost-not-logged-in,.cost-quote,.cost-unavailable {
   color: var(--Blue-700, #0068FA) !important;
 }
 

@@ -49,6 +49,10 @@ export default async function decorate(block) {
   // Fetch user authentication info and allowed countries for ecommerce
   const [isLoggedIn, userEmail, countryCode] = await checkLoginStatus();
   const allowedCountryCode = ["us", "gb", "de", "ca", "cz", "nl", "fr", "at", "be", "it", "pt", "es"];
+  
+  // Check if course is available in user's region
+  const isInRegion = countryCode && allowedCountryCode.includes(countryCode.toLowerCase());
+  
   // Country-specific store URLs for Buy Now button
   const storePathMap = {
     us: 'https://shop.sciex.com/',
@@ -76,12 +80,40 @@ export default async function decorate(block) {
   }
 
   // Display pricing: show API price if available, otherwise show Free or Login prompt
-  if (catalogData && catalogData.cost && catalogData.cost.PriceBookEntry) {
-    const unitPrice = catalogData.cost.PriceBookEntry.UnitPrice;
-    costDisplay = `$${unitPrice}`;
+  if (isLoggedIn) {
+    // Case: Not available in region
+    if (!isInRegion) {
+      costDisplay = 'Not available';
+      costClassName = 'cost-unavailable';
+    }
+
+    // Case: Price exists
+    else if (
+      catalogData &&
+      catalogData.cost &&
+      catalogData.cost.PriceBookEntry &&
+      catalogData.cost.PriceBookEntry.UnitPrice != null
+    ) {
+      const unitPrice = catalogData.cost.PriceBookEntry.UnitPrice;
+      costDisplay = `$${unitPrice}`;
+    }
+
+    // Case: No price → Get a Quote
+    else {
+      costDisplay = 'Get a Quote';
+      costClassName = 'cost-quote';
+      href = `https://sciex.com/form-pages/product-request?requesttype=quote&solution=training&product=${encodeURIComponent(courseTitle)}&UTM_Content=${encodeURIComponent(courseTitle)}`;
+    }
+
   } else {
-    costDisplay = isFree === 'true' ? 'Free' : 'Login for price';
-    costClassName = 'cost-not-logged-in';
+    // Not logged in
+    if (isFree === 'true') {
+      costDisplay = 'Free';
+      costClassName = 'cost-not-logged-in';
+    } else {
+      costDisplay = 'Login for price';
+      costClassName = 'cost-not-logged-in';
+    }
   }
 
   let numericRating = 0;
@@ -419,8 +451,7 @@ export default async function decorate(block) {
 
   // Determine primary button: "Buy Now" if ecommerce-enabled, 
   // allowed country, and price available; otherwise "Get a Quote"
-  const showBuyNow = isInEcommerce && countryCode &&
-    allowedCountryCode.includes(countryCode.toLowerCase()) &&
+  const showBuyNow = isInEcommerce && isInRegion &&
     costDisplay;
 
   const buttonText = showBuyNow ? 'Buy Now' : 'Get a Quote';
