@@ -41,7 +41,8 @@ export const addToFavorite = async (url) => {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const data = await response?.json();
+    const text = await response.text();
+    const data = text ? JSON.parse(text) : null;
     console.log('datasss', data);
     return data;
   } catch (error) {
