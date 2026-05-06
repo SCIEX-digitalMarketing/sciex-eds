@@ -361,6 +361,8 @@ function orderFacetBasedOnSelection(selectedValue) {
     desiredOrder = [
       'contenttype-facet',
       'language-facet',
+      'categories-facet',
+      'subcategories-facet',
       'assettypes-facet',
       'applications-facet',
       'massspectrometerscategories-facet',
