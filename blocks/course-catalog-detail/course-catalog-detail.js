@@ -102,7 +102,6 @@ export default async function decorate(block) {
     else {
       costDisplay = 'Get a Quote';
       costClassName = 'cost-quote';
-      href = `https://sciex.com/form-pages/product-request?requesttype=quote&solution=training&product=${encodeURIComponent(courseTitle)}&UTM_Content=${encodeURIComponent(courseTitle)}`;
     }
 
   } else {
@@ -439,7 +438,12 @@ export default async function decorate(block) {
   if (costValueSpan) {
     if (costDisplay === 'Login for price') {
       costValueSpan.innerHTML = `<a href="https://devcs.sciex.com/bin/sciex/login" class="cost-login-link">${costDisplay}</a>`;
-    } else {
+    }
+    else if (costDisplay === 'Get a Quote') {
+      const quoteUrl = `https://sciex.com/form-pages/product-request?requesttype=quote&solution=training&product=${encodeURIComponent(courseTitle)}&UTM_Content=${encodeURIComponent(courseTitle)}`;
+      costValueSpan.innerHTML = `<a href="${quoteUrl}" target="_blank" class="cost-quote-link">${costDisplay}</a>`;
+    }
+     else {
       costValueSpan.textContent = costDisplay;
     }
     if (costClassName) {
