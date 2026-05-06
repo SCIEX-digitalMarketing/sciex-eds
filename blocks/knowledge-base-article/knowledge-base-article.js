@@ -258,6 +258,9 @@ export default function decorate(block) {
     if(!path.includes('/content/sciex-eds')) {
       path = '/content/sciex-eds' + path;
     }
+    if(path.endsWith('.html')) {
+      path = path.replace('.html', '');
+    }
     console.log('Article vote path :>> ', path);
     const res = await fetch(`/bin/sciex/knowledge?articleId=${kbaarticleId}&voteVal=${voteVal}&pagePath=${path}`);
     return res.json();
