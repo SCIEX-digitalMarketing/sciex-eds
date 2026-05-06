@@ -81,33 +81,33 @@ export default async function decorate(block) {
 
   // Display pricing: show API price if available, otherwise show Free or Login prompt
   if (isLoggedIn) {
-  // Case: Not available in region
-  if (!isInRegion) {
-    costDisplay = 'Not available';
-    costClassName = 'cost-unavailable';
-  } else if (
-    catalogData &&
-    catalogData.cost &&
-    catalogData.cost.PriceBookEntry &&
-    catalogData.cost.PriceBookEntry.UnitPrice != null
-  ) {
-    // Case: Price exists
-    const unitPrice = catalogData.cost.PriceBookEntry.UnitPrice;
-    costDisplay = `$${unitPrice}`;
+    // Case: Not available in region
+    if (!isInRegion) {
+      costDisplay = 'Not available';
+      costClassName = 'cost-unavailable';
+    } else if (
+      catalogData &&
+      catalogData.cost &&
+      catalogData.cost.PriceBookEntry &&
+      catalogData.cost.PriceBookEntry.UnitPrice != null
+    ) {
+      // Case: Price exists
+      const unitPrice = catalogData.cost.PriceBookEntry.UnitPrice;
+      costDisplay = `$${unitPrice}`;
+    } else {
+      // Case: No price → Get a Quote
+      costDisplay = 'Get a Quote';
+      costClassName = 'cost-quote';
+    }
+  } else if (isFree === 'true') {
+    // Not logged in + free
+    costDisplay = 'Free';
+    costClassName = 'cost-not-logged-in';
   } else {
-    // Case: No price → Get a Quote
-    costDisplay = 'Get a Quote';
-    costClassName = 'cost-quote';
+    // Not logged in + paid
+    costDisplay = 'Login for price';
+    costClassName = 'cost-not-logged-in';
   }
-} else if (isFree === 'true') {
-  // Not logged in + free
-  costDisplay = 'Free';
-  costClassName = 'cost-not-logged-in';
-} else {
-  // Not logged in + paid
-  costDisplay = 'Login for price';
-  costClassName = 'cost-not-logged-in';
-}
 
   let numericRating = 0;
 
@@ -437,7 +437,7 @@ export default async function decorate(block) {
       const quoteUrl = `https://sciex.com/form-pages/product-request?requesttype=quote&solution=training&product=${encodeURIComponent(courseTitle)}&UTM_Content=${encodeURIComponent(courseTitle)}`;
       costValueSpan.innerHTML = `<a href="${quoteUrl}" target="_blank" class="cost-quote-link">${costDisplay}</a>`;
     }
-     else {
+    else {
       costValueSpan.textContent = costDisplay;
     }
     if (costClassName) {
@@ -508,8 +508,10 @@ export default async function decorate(block) {
       try {
         const favoriteData = await getfavoriteAllData();
         if (favoriteData) {
-          const isFavorited = favoriteData.some(
-            (fav) => fav.path === courseUrl,
+          const isFavorited = !!favoriteData?.some(fav =>
+            fav?.pageData?.some(
+              page => page?.path === courseUrl
+            )
           );
           if (isFavorited) {
             favoriteIcon.classList.add('favorited');
