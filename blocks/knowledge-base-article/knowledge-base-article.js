@@ -1,4 +1,8 @@
 import '../../scripts/aem.js';
+import {
+  getfavoriteAllData,
+
+} from '../../scripts/favorite-all/favorite-allDocEngine.js';
 
 async function checkLoginStatus() {
   try {
@@ -38,16 +42,16 @@ const callFavoriteAPI = async (operation, url) => {
   }
 };
 export default function decorate(block) {
-  console.log(`Decorating Knowledge Base Article block>${block.outerHTML}`);
+  console.log(`Decorating Knowledge Base Article block${block.outerHTML}`);
   const children = Array.from(block.children);
-  console.log('KBA children :>> ', children);
+  console.log('Knowledge Base Article block children:', children.length);
   const versionId = children[0];
   const articleId = children[1]?.textContent?.trim() || '';
   const body = children[6];
   const title = children[4];
   const tagNames = children[13];
   const voteAvg = children[14] || 0;
-
+  console.log('voteAvg:', children[14]);
   const finalTags = [];
 
   // Ensure tagNames is a string
@@ -58,7 +62,6 @@ export default function decorate(block) {
   } else if (typeof tagNames === 'string') {
     tagString = tagNames;
   }
-  console.log('Parsed tagString :>> ', tagString);
   if (tagString) {
     tagString.split(';').forEach((group) => {
       const parts = group.split('-');
@@ -78,6 +81,10 @@ export default function decorate(block) {
           parent = 'trainingcoursetype';
         } else if (parent === 'Language') {
           parent = 'language';
+        } else if (parent === 'Category') {
+          parent = 'categories';
+        } else if (parent === 'Sub category') {
+          parent = 'subcategories';
         } else {
           parent = `${parent}categories`;
         }
@@ -93,7 +100,6 @@ export default function decorate(block) {
 
   // const currentUserHasVoted = children[15]?.textContent === 'true';
   const currentUserScore = children[16]?.textContent || 0;
-  console.log('currentUserScore :>> ', currentUserScore);
 
   const blockId = versionId?.textContent?.trim() || 'knowledge-base-article';
 
@@ -140,13 +146,33 @@ export default function decorate(block) {
       stroke-linejoin="round"/>
   </svg>
 `;
-
+  if (favoriteIcon) {
+    console.log('Favorite icon created successfully');
+    const checkAndSetFavoriteStatus = async () => {
+      try {
+        const favoriteData = await getfavoriteAllData();
+        console.log('Favorite data retrieved:', favoriteData);
+        if (favoriteData) {
+          const isFavorited = !!favoriteData?.some((fav) => fav?.pageData?.some(
+            (page) => page?.path === window.location.pathname,
+          ));
+          console.log('Is article favorited by user?', isFavorited);
+          if (isFavorited) {
+            const path = favoriteIcon.querySelector('path');
+            path.setAttribute('fill', '#acacac');
+            path.setAttribute('stroke', '#e60023');
+          }
+        }
+      } catch (error) {
+        console.error('Error checking favorite status:', error);
+      }
+    };
+    checkAndSetFavoriteStatus();
+  }
   favoriteIcon.addEventListener('click', () => {
     const path = favoriteIcon.querySelector('path');
     const isRed = path.getAttribute('fill') === '#e60023';
     const fullUrl = window.location.href;
-    console.log(fullUrl);
-
     if (isRed) {
       path.setAttribute('fill', '#ffffff');
       path.setAttribute('stroke', '#333333');
@@ -155,7 +181,6 @@ export default function decorate(block) {
     } else {
       path.setAttribute('fill', '#e60023');
       path.setAttribute('stroke', '#e60023');
-      console.log('Adding to favorites :>> ', fullUrl);
       callFavoriteAPI('add', fullUrl);
     }
   });
@@ -192,7 +217,6 @@ export default function decorate(block) {
   <path d="M11.4141 0L14.1082 8.2918H22.8267L15.7733 13.4164L18.4675 21.7082L11.4141 16.5836L4.36064 21.7082L7.05481 13.4164L0.00138474 8.2918H8.71989L11.4141 0Z" fill="#F2C94C"/>
 </svg>`;
     star.dataset.value = i;
-    console.log('voteAvg :>> ', voteAvg.textContent);
     const path = star.querySelector('path');
     if (voteAvg && i <= voteAvg.textContent) {
       path.setAttribute('fill', '#F2C94C');
@@ -225,7 +249,6 @@ export default function decorate(block) {
   let savedArticleRating = 0;
 
   function updateArticleStars(count) {
-    console.log('Updating stars to :>> ', count);
     const articleStars = articleStarsRow.querySelectorAll('.votestar');
     articleStars.forEach((star, index) => {
       const path = star.querySelector('path');
@@ -254,14 +277,12 @@ export default function decorate(block) {
   }
   async function getArticle(kbaarticleId, voteVal) {
     let path = window.location.pathname;
-    console.log('Current path :>> ', path);
-    if(!path.includes('/content/sciex-eds')) {
-      path = '/content/sciex-eds' + path;
+    if (!path.includes('/content/sciex-eds')) {
+      path = `/content/sciex-eds${path}`;
     }
-    if(path.endsWith('.html')) {
+    if (path.endsWith('.html')) {
       path = path.replace('.html', '');
     }
-    console.log('Article vote path :>> ', path);
     const res = await fetch(`/bin/sciex/knowledge?articleId=${kbaarticleId}&voteVal=${voteVal}&pagePath=${path}`);
     return res.json();
   }
@@ -270,7 +291,6 @@ export default function decorate(block) {
   voteStars.forEach((star, index) => {
     const ratingValue = index + 1;
     // ratingValue =currentUserScore;
-    // console.log('Initial ratingValue :>> ', ratingValue);
     star.addEventListener('mouseenter', () => {
       updateArticleStars(ratingValue);
     });
@@ -280,7 +300,6 @@ export default function decorate(block) {
       updateArticleStars(savedArticleRating);
       try {
         const response = await getArticle(articleId, ratingValue);
-        console.log('API response:', response);
 
         savedArticleRating = response?.currentUserScore || ratingValue;
       } catch (e) {
@@ -350,7 +369,7 @@ export default function decorate(block) {
     articleRatingBar.style.display = 'none';
   }
   const exploreBtn = document.createElement('a');
-  exploreBtn.href = '/resource-hub/knowledge-base-articles?type=knowledge';
+  exploreBtn.href = '/search-results?contentType=Knowledge base articles';
   exploreBtn.target = '_blank';
   exploreBtn.className = 'btn secondary related-explore-btn';
   exploreBtn.textContent = 'Explore more articles';
