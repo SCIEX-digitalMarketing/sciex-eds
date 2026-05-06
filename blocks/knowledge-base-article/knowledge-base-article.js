@@ -253,7 +253,11 @@ export default function decorate(block) {
     articleStarsRow.appendChild(articleStarItem);
   }
   async function getArticle(kbaarticleId, voteVal) {
-    const res = await fetch(`/bin/sciex/knowledge?articleId=${kbaarticleId}&voteVal=${voteVal}&pagePath=${window.location.pathname}`);
+    let path = window.location.pathname;
+    if (!window.location.pathname.includes('/content/sciex-eds')) {
+      path = `/content/sciex-eds${window.location.pathname}`;
+    }
+    const res = await fetch(`/bin/sciex/knowledge?articleId=${kbaarticleId}&voteVal=${voteVal}&pagePath=${path}`);
     return res.json();
   }
   const voteStars = articleStarsRow.querySelectorAll('.votestar');
