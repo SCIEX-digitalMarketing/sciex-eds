@@ -157,7 +157,7 @@
   color: var(--Blue-700, #0068FA) !important;
 }
 
-.cost-login-link {
+.cost-login-link, .cost-quote-link {
   text-decoration: none !important;
 }
 
