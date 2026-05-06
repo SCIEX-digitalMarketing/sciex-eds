@@ -7,7 +7,7 @@ export const getfavoriteAllData = async () => {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const data = await response.json();
+    const data = await response?.json();
     console.log('datasss', data);
     return data;
   } catch (error) {
@@ -24,7 +24,7 @@ export const removeFavoriteSearchEngine = async (url) => {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const data = await response.json();
+    const data = await response?.json();
     console.log('datasss', data);
     return data;
   } catch (error) {
@@ -41,7 +41,7 @@ export const addToFavorite = async (url) => {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const data = await response.json();
+    const data = await response?.json();
     console.log('datasss', data);
     return data;
   } catch (error) {

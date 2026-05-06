@@ -536,14 +536,14 @@ export default async function decorate(block) {
           // Remove from favorites
           favoriteIcon.classList.remove('favorited');
           const res = await removeFavoriteSearchEngine(courseUrl);
-          if (!res.status === 200) {
+          if (res?.message !== "The operation went successfully") {
             favoriteIcon.classList.add('favorited');
           }
         } else {
           // Add to favorites
           favoriteIcon.classList.add('favorited');
           const res = await addToFavorite(courseUrl);
-          if (!res.status === 200 || !res.status === 201) {
+          if (res?.message !== "The operation went successfully") {
             favoriteIcon.classList.remove('favorited');
           }
         }
