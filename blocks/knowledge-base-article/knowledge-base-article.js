@@ -1,4 +1,8 @@
 import '../../scripts/aem.js';
+import {
+  getfavoriteAllData,
+
+} from '../../scripts/favorite-all/favorite-allDocEngine.js';
 
 async function checkLoginStatus() {
   try {
@@ -38,14 +42,16 @@ const callFavoriteAPI = async (operation, url) => {
   }
 };
 export default function decorate(block) {
+  console.log(`Decorating Knowledge Base Article block${block.outerHTML}`);
   const children = Array.from(block.children);
+  console.log('Knowledge Base Article block children:', children.length);
   const versionId = children[0];
   const articleId = children[1]?.textContent?.trim() || '';
   const body = children[6];
   const title = children[4];
   const tagNames = children[13];
   const voteAvg = children[14] || 0;
-
+  console.log('voteAvg:', children[14]);
   const finalTags = [];
 
   // Ensure tagNames is a string
@@ -75,6 +81,10 @@ export default function decorate(block) {
           parent = 'trainingcoursetype';
         } else if (parent === 'Language') {
           parent = 'language';
+        } else if (parent === 'Category') {
+          parent = 'categories';
+        } else if (parent === 'Sub category') {
+          parent = 'subcategories';
         } else {
           parent = `${parent}categories`;
         }
@@ -136,7 +146,29 @@ export default function decorate(block) {
       stroke-linejoin="round"/>
   </svg>
 `;
-
+  if (favoriteIcon) {
+    console.log('Favorite icon created successfully');
+    const checkAndSetFavoriteStatus = async () => {
+      try {
+        const favoriteData = await getfavoriteAllData();
+        console.log('Favorite data retrieved:', favoriteData);
+        if (favoriteData) {
+          const isFavorited = !!favoriteData?.some((fav) => fav?.pageData?.some(
+            (page) => page?.path === window.location.pathname,
+          ));
+          console.log('Is article favorited by user?', isFavorited);
+          if (isFavorited) {
+            const path = favoriteIcon.querySelector('path');
+            path.setAttribute('fill', '#acacac');
+            path.setAttribute('stroke', '#e60023');
+          }
+        }
+      } catch (error) {
+        console.error('Error checking favorite status:', error);
+      }
+    };
+    checkAndSetFavoriteStatus();
+  }
   favoriteIcon.addEventListener('click', () => {
     const path = favoriteIcon.querySelector('path');
     const isRed = path.getAttribute('fill') === '#e60023';
@@ -245,10 +277,10 @@ export default function decorate(block) {
   }
   async function getArticle(kbaarticleId, voteVal) {
     let path = window.location.pathname;
-    if(!path.includes('/content/sciex-eds')) {
-      path = '/content/sciex-eds' + path;
+    if (!path.includes('/content/sciex-eds')) {
+      path = `/content/sciex-eds${path}`;
     }
-    if(path.endsWith('.html')) {
+    if (path.endsWith('.html')) {
       path = path.replace('.html', '');
     }
     const res = await fetch(`/bin/sciex/knowledge?articleId=${kbaarticleId}&voteVal=${voteVal}&pagePath=${path}`);
@@ -337,7 +369,7 @@ export default function decorate(block) {
     articleRatingBar.style.display = 'none';
   }
   const exploreBtn = document.createElement('a');
-  exploreBtn.href = '/resource-hub/knowledge-base-articles?type=knowledge';
+  exploreBtn.href = '/search-results?contentType=Knowledge base articles';
   exploreBtn.target = '_blank';
   exploreBtn.className = 'btn secondary related-explore-btn';
   exploreBtn.textContent = 'Explore more articles';
