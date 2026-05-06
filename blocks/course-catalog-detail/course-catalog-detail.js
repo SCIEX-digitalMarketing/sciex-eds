@@ -81,39 +81,33 @@ export default async function decorate(block) {
 
   // Display pricing: show API price if available, otherwise show Free or Login prompt
   if (isLoggedIn) {
-    // Case: Not available in region
-    if (!isInRegion) {
-      costDisplay = 'Not available';
-      costClassName = 'cost-unavailable';
-    }
-
+  // Case: Not available in region
+  if (!isInRegion) {
+    costDisplay = 'Not available';
+    costClassName = 'cost-unavailable';
+  } else if (
+    catalogData &&
+    catalogData.cost &&
+    catalogData.cost.PriceBookEntry &&
+    catalogData.cost.PriceBookEntry.UnitPrice != null
+  ) {
     // Case: Price exists
-    else if (
-      catalogData &&
-      catalogData.cost &&
-      catalogData.cost.PriceBookEntry &&
-      catalogData.cost.PriceBookEntry.UnitPrice != null
-    ) {
-      const unitPrice = catalogData.cost.PriceBookEntry.UnitPrice;
-      costDisplay = `$${unitPrice}`;
-    }
-
-    // Case: No price → Get a Quote
-    else {
-      costDisplay = 'Get a Quote';
-      costClassName = 'cost-quote';
-    }
-
+    const unitPrice = catalogData.cost.PriceBookEntry.UnitPrice;
+    costDisplay = `$${unitPrice}`;
   } else {
-    // Not logged in
-    if (isFree === 'true') {
-      costDisplay = 'Free';
-      costClassName = 'cost-not-logged-in';
-    } else {
-      costDisplay = 'Login for price';
-      costClassName = 'cost-not-logged-in';
-    }
+    // Case: No price → Get a Quote
+    costDisplay = 'Get a Quote';
+    costClassName = 'cost-quote';
   }
+} else if (isFree === 'true') {
+  // Not logged in + free
+  costDisplay = 'Free';
+  costClassName = 'cost-not-logged-in';
+} else {
+  // Not logged in + paid
+  costDisplay = 'Login for price';
+  costClassName = 'cost-not-logged-in';
+}
 
   let numericRating = 0;
 
