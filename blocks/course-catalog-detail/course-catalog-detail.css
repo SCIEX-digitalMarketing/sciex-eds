@@ -317,6 +317,7 @@
 
 .favorite-icon {
   cursor: pointer;
+  display: inline-flex;
 }
 
 .favorite-icon svg {
