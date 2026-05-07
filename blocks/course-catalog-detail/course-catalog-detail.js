@@ -31,7 +31,7 @@ async function checkLoginStatus() {
 
 export default async function decorate(block) {
   const children = Array.from(block.children);
-  if (children.length < 13) return;
+  if (children.length < 14) return;
   const courseId = children[0]?.textContent?.trim();
   const courseTitle = children[1]?.textContent?.trim();
   const courseUrl = children[2]?.textContent?.trim();
@@ -45,14 +45,15 @@ export default async function decorate(block) {
   const relatedResources = children[10]?.textContent?.trim();
   const isFree = children[11]?.textContent?.trim();
   const isInEcommerce = children[12]?.textContent?.trim();
+  const trainingType = children[13]?.textContent?.trim();
 
   // Fetch user authentication info and allowed countries for ecommerce
   const [isLoggedIn, userEmail, countryCode] = await checkLoginStatus();
   const allowedCountryCode = ["us", "gb", "de", "ca", "cz", "nl", "fr", "at", "be", "it", "pt", "es"];
-  
+
   // Check if course is available in user's region
   const isInRegion = countryCode && allowedCountryCode.includes(countryCode.toLowerCase());
-  
+
   // Country-specific store URLs for Buy Now button
   const storePathMap = {
     us: 'https://shop.sciex.com/',
@@ -148,20 +149,10 @@ export default async function decorate(block) {
     </div>
 
     <div class="course-header-social">
-      <span class="favorite-icon" aria-label="Favorite">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 22"
-          width="30"
-          height="30"
-          fill="none"
-          stroke="#000"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M21.1412 11.2293L11.7662 20.5143L2.39125 11.2293C1.77288 10.6275 1.2858 9.90428 0.96068 9.10505C0.635562 8.30583 0.479448 7.44795 0.502167 6.58543C0.524887 5.7229 0.725949 4.87443 1.09269 4.09343C1.45944 3.31243 1.98391 2.61583 2.6331 2.04748C3.28229 1.47914 4.04213 1.05137 4.86476 0.79111C5.68739 0.53085 6.555 0.443739 7.41296 0.535261C8.27091 0.626783 9.10062 0.894955 9.84984 1.32289C10.5991 1.75083 11.2516 2.32926 11.7662 3.02176C12.2832 2.33429 12.9364 1.76091 13.6851 1.33752C14.4338 0.91412 15.2619 0.649821 16.1174 0.561159C16.973 0.472497 17.8376 0.561382 18.6572 0.822249C19.4768 1.08312 20.2338 1.51035 20.8807 2.07721C21.5276 2.64408 22.0505 3.33836 22.4168 4.11662C22.783 4.89488 22.9847 5.74036 23.0091 6.60014C23.0336 7.45993 22.8803 8.3155 22.5589 9.11332C22.2375 9.91114 21.7549 10.634 21.1412 11.2368" />
-        </svg>
+      <span class="favorite-icon" aria-label="Favorite">      
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+          <path d="M22.75 4.5V24.7344L15.3652 16.8584L15 16.4688L14.6348 16.8584L7.25 24.7344V4.5H22.75Z" />
+       </svg>
       </span>  
     </div>
   </div>
@@ -339,7 +330,14 @@ export default async function decorate(block) {
     relatedContainer.appendChild(linksWrapper);
   }
   const exploreBtn = document.createElement('a');
-  exploreBtn.href = '/explore-more-courses';
+  let exploreUrl = '/resource-hub';
+  if (trainingType === 'instructor-led-training') {
+    exploreUrl = '/resource-hub/instructor-led-training?type=instructor';
+  }
+  else if (trainingType === 'self-paced-learning') {
+    exploreUrl = '/resource-hub/self-paced-learning?type=self-paced';
+  }
+  exploreBtn.href = exploreUrl;
   exploreBtn.target = '_blank';
   exploreBtn.className = 'btn secondary explore-more-btn';
   exploreBtn.textContent = 'Explore more courses';
