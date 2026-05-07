@@ -7,8 +7,7 @@ export const getfavoriteAllData = async () => {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const text = await response?.text();
-    const data = text ? JSON.parse(text) : null;
+    const data = await response.json();
     console.log('datasss', data);
     return data;
   } catch (error) {
