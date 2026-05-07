@@ -99,7 +99,7 @@ export default function decorate(block) {
   }
   let savedArticleRating = 0;
   // const currentUserHasVoted = children[15]?.textContent === 'true';
-  const currentUserScore = children[16]?.textContent || 0;
+  let currentUserScore = children[16]?.textContent || 0;
 
   const blockId = versionId?.textContent?.trim() || 'knowledge-base-article';
 
@@ -136,16 +136,9 @@ export default function decorate(block) {
 
   // svg icon
   favoriteIcon.innerHTML = `
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 22">
-    <path
-      d="M21.1412 11.2293L11.7662 20.5143L2.39125 11.2293C1.77288 10.6275 1.2858 9.90428 0.96068 9.10505C0.635562 8.30583 0.479448 7.44795 0.502167 6.58543C0.524887 5.7229 0.725949 4.87443 1.09269 4.09343C1.45944 3.31243 1.98391 2.61583 2.6331 2.04748C3.28229 1.47914 4.04213 1.05137 4.86476 0.79111C5.68739 0.53085 6.555 0.443739 7.41296 0.535261C8.27091 0.626783 9.10062 0.894955 9.84984 1.32289C10.5991 1.75083 11.2516 2.32926 11.7662 3.02176C12.2832 2.33429 12.9364 1.76091 13.6851 1.33752C14.4338 0.91412 15.2619 0.649821 16.1174 0.561159C16.973 0.472497 17.8376 0.561382 18.6572 0.822249C19.4768 1.08312 20.2338 1.51035 20.8807 2.07721C21.5276 2.64408 22.0505 3.33836 22.4168 4.11662C22.783 4.89488 22.9847 5.74036 23.0091 6.60014C23.0336 7.45993 22.8803 8.3155 22.5589 9.11332C22.2375 9.91114 21.7549 10.634 21.1412 11.2368"
-      fill="#ffffff"
-      stroke="#333333"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"/>
-  </svg>
-`;
+    <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 30 30" fill="none">
+          <path d="M22.75 4.5V24.7344L15.3652 16.8584L15 16.4688L14.6348 16.8584L7.25 24.7344V4.5H22.75Z" />
+       </svg>`;
   if (favoriteIcon) {
     console.log('Favorite icon created successfully');
     const checkAndSetFavoriteStatus = async () => {
@@ -159,8 +152,8 @@ export default function decorate(block) {
           console.log('Is article favorited by user?', isFavorited);
           if (isFavorited) {
             const path = favoriteIcon.querySelector('path');
-            path.setAttribute('fill', '#acacac');
-            path.setAttribute('stroke', '#e60023');
+            path.setAttribute('fill', '#1C7AFF');
+            path.setAttribute('stroke', '#1C7AFF');
           }
         }
       } catch (error) {
@@ -171,16 +164,16 @@ export default function decorate(block) {
   }
   favoriteIcon.addEventListener('click', () => {
     const path = favoriteIcon.querySelector('path');
-    const isRed = path.getAttribute('fill') === '#e60023';
+    const isRed = path.getAttribute('fill') === '#1C7AFF';
     const fullUrl = window.location.href;
     if (isRed) {
-      path.setAttribute('fill', '#ffffff');
-      path.setAttribute('stroke', '#333333');
-      path.setAttribute('stroke-width', '1.5');
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', '#000');
+      path.setAttribute('transition', 'stroke 0.3s ease, fill 0.3s ease');
       callFavoriteAPI('remove', fullUrl);
     } else {
-      path.setAttribute('fill', '#e60023');
-      path.setAttribute('stroke', '#e60023');
+      path.setAttribute('fill', '#1C7AFF');
+      path.setAttribute('stroke', '#1C7AFF');
       callFavoriteAPI('add', fullUrl);
     }
   });
@@ -193,27 +186,6 @@ export default function decorate(block) {
   const statusWrapper = document.createElement('div');
   statusWrapper.className = 'status-wrapper';
 
-  // =========================
-  // Salesforce request - average vote display
-  // =========================
-
-  async function getVotes(kbaarticleId) {
-  const res = await fetch(`/bin/sciex/kba/rating?articleId=${kbaarticleId}`);
-    return res.json();
-  }
-
-  async function loadVotes() {
-    const initialVotes = await getVotes(articleId);
-
-    console.log('Initial votes data:', initialVotes);
-
-    voteAvg = initialVotes?.voteAvg || 0;
-    savedArticleRating = initialVotes?.currentUserScore || 0;
-  }
-
-  loadVotes();
-  console.log('Initial average vote:', voteAvg);
-  console.log('Initial user score:', currentUserScore);
   // =========================
   // Rating UI
   // =========================
@@ -281,6 +253,49 @@ export default function decorate(block) {
     });
   }
 
+  // =========================
+  // Salesforce request - average vote display
+  // =========================
+
+  async function getVotes(kbaarticleId) {
+    const res = await fetch(`/bin/sciex/kba/rating?articleId=${kbaarticleId}`);
+    return res.json();
+  }
+  async function loadVotes() {
+    try {
+      const initialVotes = await getVotes(articleId);
+
+      console.log('Initial votes data:', initialVotes);
+
+      voteAvg = Number(initialVotes?.voteAvg) || 0;
+      currentUserScore = Number(initialVotes?.currentUserScore) || 0;
+      savedArticleRating = currentUserScore;
+
+      console.log('Initial average vote:', voteAvg);
+      console.log('Initial user score:', currentUserScore);
+
+      // Update top rating stars
+      const topStars = starsContainer.querySelectorAll('.star');
+
+      topStars.forEach((star, index) => {
+        const path = star.querySelector('path');
+
+        if (index < voteAvg) {
+          path.setAttribute('fill', '#F2C94C');
+        } else {
+          path.setAttribute('fill', '#8A8A8A');
+        }
+      });
+
+      // Update user voting stars
+      updateArticleStars(currentUserScore);
+    } catch (e) {
+      console.error('Failed loading votes:', e);
+    }
+  }
+
+  loadVotes();
+  /// =========================
   for (let i = 1; i <= 5; i += 1) {
     const articleStarItem = document.createElement('span');
     articleStarItem.className = 'votestar';
