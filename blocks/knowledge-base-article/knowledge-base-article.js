@@ -198,17 +198,22 @@ export default function decorate(block) {
   // =========================
 
   async function getVotes(kbaarticleId) {
-    const res = await fetch(`/bin/sciex/kba/rating?articleId=${kbaarticleId}`);
+  const res = await fetch(`/bin/sciex/kba/rating?articleId=${kbaarticleId}`);
     return res.json();
   }
 
-  const initialVotes = getVotes(articleId);
+  async function loadVotes() {
+    const initialVotes = await getVotes(articleId);
 
-  console.log('Initial votes data:', initialVotes);
+    console.log('Initial votes data:', initialVotes);
 
-  voteAvg = initialVotes?.voteAvg || 0;
-  savedArticleRating = initialVotes?.currentUserScore || 0;
+    voteAvg = initialVotes?.voteAvg || 0;
+    savedArticleRating = initialVotes?.currentUserScore || 0;
+  }
 
+  loadVotes();
+  console.log('Initial average vote:', voteAvg);
+  console.log('Initial user score:', currentUserScore);
   // =========================
   // Rating UI
   // =========================
