@@ -326,8 +326,8 @@
 }
 
 .favorite-icon.favorited svg {
-  stroke: #E63946;
-  fill: #E63946;
+  stroke: #1C7AFF;
+  fill: #1C7AFF;
 }
 
 @media (max-width: 768px) {
