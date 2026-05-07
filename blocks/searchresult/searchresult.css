@@ -620,8 +620,8 @@
 }
 /* Favorited state */
 .favorite-icon.favorited svg path {
-    fill: #e60023;    
-    stroke: #e60023;   
+    stroke: #1C7AFF;
+    fill: #1C7AFF;  
 }
 /* Media Queries for Responsiveness */
 @media (max-width: 1024px) { 

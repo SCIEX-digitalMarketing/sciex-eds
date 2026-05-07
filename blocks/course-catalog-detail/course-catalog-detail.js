@@ -150,7 +150,7 @@ export default async function decorate(block) {
 
     <div class="course-header-social">
       <span class="favorite-icon" aria-label="Favorite">      
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 30 30" fill="none">
           <path d="M22.75 4.5V24.7344L15.3652 16.8584L15 16.4688L14.6348 16.8584L7.25 24.7344V4.5H22.75Z" />
        </svg>
       </span>  
@@ -330,12 +330,12 @@ export default async function decorate(block) {
     relatedContainer.appendChild(linksWrapper);
   }
   const exploreBtn = document.createElement('a');
-  let exploreUrl = '/resource-hub';
+  let exploreUrl = '/search-results?contentType=Training&facetId=trainingcoursetype';
   if (trainingType === 'instructor-led-training') {
-    exploreUrl = '/resource-hub/instructor-led-training?type=instructor';
+    exploreUrl = '/search-results?contentType=Training&facetId=trainingcoursetype&value=Instructor%20led%20training';
   }
   else if (trainingType === 'self-paced-learning') {
-    exploreUrl = '/resource-hub/self-paced-learning?type=self-paced';
+    exploreUrl = '/search-results?contentType=Training&facetId=trainingcoursetype&value=Self%20paced%20learning';
   }
   exploreBtn.href = exploreUrl;
   exploreBtn.target = '_blank';
