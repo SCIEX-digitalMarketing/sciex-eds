@@ -50,7 +50,7 @@ export default function decorate(block) {
   const body = children[6];
   const title = children[4];
   const tagNames = children[13];
-  const voteAvg = children[14] || 0;
+  let voteAvg = children[14] || 0;
   console.log('voteAvg:', children[14]);
   const finalTags = [];
 
@@ -97,7 +97,7 @@ export default function decorate(block) {
       }
     });
   }
-
+  let savedArticleRating = 0;
   // const currentUserHasVoted = children[15]?.textContent === 'true';
   const currentUserScore = children[16]?.textContent || 0;
 
@@ -193,9 +193,21 @@ export default function decorate(block) {
   const statusWrapper = document.createElement('div');
   statusWrapper.className = 'status-wrapper';
 
-  /* const published = document.createElement('span');
-  published.className = 'status';
-  published.textContent = `Published Date : ${createdDate?.textContent || ''}`; */
+  // =========================
+  // Salesforce request - average vote display
+  // =========================
+
+  async function getVotes(kbaarticleId) {
+    const res = await fetch(`/bin/sciex/kba/rating?articleId=${kbaarticleId}`);
+    return res.json();
+  }
+
+  const initialVotes = getVotes(articleId);
+
+  console.log('Initial votes data:', initialVotes);
+
+  voteAvg = initialVotes?.voteAvg || 0;
+  savedArticleRating = initialVotes?.currentUserScore || 0;
 
   // =========================
   // Rating UI
@@ -245,8 +257,6 @@ export default function decorate(block) {
 
   const articleStarsRow = document.createElement('div');
   articleStarsRow.className = 'votestars-container';
-
-  let savedArticleRating = 0;
 
   function updateArticleStars(count) {
     const articleStars = articleStarsRow.querySelectorAll('.votestar');
