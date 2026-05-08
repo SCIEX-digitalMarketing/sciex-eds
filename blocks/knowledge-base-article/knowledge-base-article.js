@@ -42,16 +42,13 @@ const callFavoriteAPI = async (operation, url) => {
   }
 };
 export default function decorate(block) {
-  console.log(`Decorating Knowledge Base Article block${block.outerHTML}`);
   const children = Array.from(block.children);
-  console.log('Knowledge Base Article block children:', children.length);
   const versionId = children[0];
   const articleId = children[1]?.textContent?.trim() || '';
   const body = children[6];
   const title = children[4];
   const tagNames = children[13];
   let voteAvg = children[14] || 0;
-  console.log('voteAvg:', children[14]);
   const finalTags = [];
 
   // Ensure tagNames is a string
@@ -140,14 +137,13 @@ export default function decorate(block) {
           <path d="M22.75 4.5V24.7344L15.3652 16.8584L15 16.4688L14.6348 16.8584L7.25 24.7344V4.5H22.75Z" />
        </svg>`;
   if (favoriteIcon) {
-    console.log('Favorite icon created successfully');
     const checkAndSetFavoriteStatus = async () => {
       try {
         const favoriteData = await getfavoriteAllData();
-        console.log('Favorite data retrieved:', favoriteData);
+
         if (favoriteData) {
           const isFavorited = !!favoriteData?.some((fav) => fav?.pageData?.some(
-            (page) => page?.path === window.location.pathname,
+            (page) => page?.path === window.location.href,
           ));
           console.log('Is article favorited by user?', isFavorited);
           if (isFavorited) {
@@ -265,14 +261,10 @@ export default function decorate(block) {
     try {
       const initialVotes = await getVotes(articleId);
 
-      console.log('Initial votes data:', initialVotes);
-
       voteAvg = Number(initialVotes?.voteAvg) || 0;
       currentUserScore = Number(initialVotes?.currentUserScore) || 0;
       savedArticleRating = currentUserScore;
 
-      console.log('Initial average vote:', voteAvg);
-      console.log('Initial user score:', currentUserScore);
 
       // Update top rating stars
       const topStars = starsContainer.querySelectorAll('.star');
