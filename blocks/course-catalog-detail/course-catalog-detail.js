@@ -97,7 +97,7 @@ export default async function decorate(block) {
       costDisplay = `$${unitPrice}`;
     } else {
       // Case: No price → Get a Quote
-      costDisplay = 'Get a Quote';
+      costDisplay = 'Get a quote';
       costClassName = 'cost-quote';
     }
   } else if (isFree === 'true') {
@@ -226,6 +226,18 @@ export default async function decorate(block) {
         table.appendChild(tbody);
 
         li.replaceChild(table, ul);
+      }
+    }
+
+    if (strong && strong.textContent.includes('Overview')) {
+      if (li) {
+        li.classList.add('Overviews-desc');
+      }
+
+      const ul = li.closest('ul'); 
+
+      if (ul) {
+        ul.classList.add('top-ul-wrap-course');
       }
     }
   });
@@ -431,7 +443,7 @@ export default async function decorate(block) {
     if (costDisplay === 'Login for price') {
       costValueSpan.innerHTML = `<a href="https://devcs.sciex.com/bin/sciex/login" class="cost-login-link">${costDisplay}</a>`;
     }
-    else if (costDisplay === 'Get a Quote') {
+    else if (costDisplay === 'Get a quote') {
       const quoteUrl = `https://sciex.com/form-pages/product-request?requesttype=quote&solution=training&product=${encodeURIComponent(courseTitle)}&UTM_Content=${encodeURIComponent(courseTitle)}`;
       costValueSpan.innerHTML = `<a href="${quoteUrl}" target="_blank" class="cost-quote-link">${costDisplay}</a>`;
     }
@@ -448,7 +460,7 @@ export default async function decorate(block) {
   // Determine primary button: "Buy Now" if ecommerce-enabled, 
   // allowed country, and price available; otherwise "Get a Quote"
   const showBuyNow = isInEcommerce === "true" && isInRegion === true && costDisplay.includes("$");
-  const buttonText = showBuyNow ? 'Buy Now' : 'Get a Quote';
+  const buttonText = showBuyNow ? 'Buy now' : 'Get a quote';
 
   // Build button href: use country-specific store URL for Buy Now, 
   // or construct quote form URL for Get a Quote
