@@ -11,6 +11,8 @@
   justify-content: space-between;
   padding-top: 24px;
   padding-bottom: 24px;
+  gap: 10px;
+  align-items: baseline;
 }
 
 .course-header-border {
@@ -350,6 +352,7 @@
   .course-header-row {
     flex-direction: column;
     gap: 16px;
+    align-items: flex-end;
   }
 
   .course-header-social {
