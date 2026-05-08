@@ -264,9 +264,16 @@ export default async function decorate(block) {
     `
 
   const enrollmentBody = document.createElement('tbody');
-
+const showEnrollment =
+  catalogData?.cost?.PriceBookEntry?.ProductCode &&
+  catalogData?.cost?.PriceBookEntry?.ProductCode !== '' &&
+  isInEcommerce === "true" &&
+  isInRegion === true &&
+  costDisplay.includes("$") &&
+  catalogData?.enrolment &&
+  catalogData?.enrolment.length > 0;
   // Display enrollment sessions if user is logged in and sessions exist
-  if (catalogData && catalogData.enrolment && catalogData.enrolment.length > 0) {
+  if (showEnrollment) {
     enrollmentTable.appendChild(enrollmentThead);
     catalogData.enrolment.forEach((enrollment) => {
       const tr = document.createElement('tr');
