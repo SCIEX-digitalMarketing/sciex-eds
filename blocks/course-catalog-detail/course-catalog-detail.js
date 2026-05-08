@@ -84,7 +84,7 @@ export default async function decorate(block) {
   if (isLoggedIn) {
     // Case: Not available in region
     if (!isInRegion) {
-      costDisplay = 'Not available';
+      costDisplay = 'Not available in your region';
       costClassName = 'cost-unavailable';
     } else if (
       catalogData &&
@@ -447,9 +447,7 @@ export default async function decorate(block) {
 
   // Determine primary button: "Buy Now" if ecommerce-enabled, 
   // allowed country, and price available; otherwise "Get a Quote"
-  const showBuyNow = isInEcommerce && isInRegion &&
-    costDisplay;
-
+  const showBuyNow = isInEcommerce === "true" && isInRegion === true && costDisplay.includes("$");
   const buttonText = showBuyNow ? 'Buy Now' : 'Get a Quote';
 
   // Build button href: use country-specific store URL for Buy Now, 
