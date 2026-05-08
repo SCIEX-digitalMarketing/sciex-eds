@@ -281,7 +281,7 @@ export default async function decorate(block) {
       let enrollmentUrl='#';
       if (catalogData?.cost?.PriceBookEntry?.ProductCode) {
         const countryCodeLower = countryCode.toLowerCase();
-        const baseUrl = storePathMap[region.toLowerCase()];
+        const baseUrl = storePathMap[countryCodeLower];
         const productCode = catalogData.cost.PriceBookEntry.ProductCode;
         
         if (baseUrl) {
