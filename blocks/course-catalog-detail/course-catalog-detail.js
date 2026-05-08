@@ -49,25 +49,25 @@ export default async function decorate(block) {
 
   // Fetch user authentication info and allowed countries for ecommerce
   const [isLoggedIn, userEmail, countryCode] = await checkLoginStatus();
-  const allowedCountryCode = ["us", "gb", "de", "ca", "cz", "nl", "fr", "at", "be", "it", "pt", "es"];
+  const allowedCountryCode = ["us","uk", "gb", "de", "ca", "cz", "nl", "fr", "at", "be", "it", "pt", "es"];
 
   // Check if course is available in user's region
   const isInRegion = countryCode && allowedCountryCode.includes(countryCode.toLowerCase());
 
   // Country-specific store URLs for Buy Now button
   const storePathMap = {
-    us: 'https://shop.sciex.com/',
-    gb: 'https://shop.sciex.com/uk/en.html',
-    de: 'https://shop.sciex.com/eu/en.html',
-    ca: 'https://shop.sciex.com/ca/en.html',
-    cz: 'https://shop.sciex.com/',
-    nl: 'https://shop.sciex.com/eu/en.html',
-    fr: 'https://shop.sciex.com/eu/en.html',
-    at: 'https://shop.sciex.com/eu/en.html',
-    be: 'https://shop.sciex.com/eu/en.html',
-    it: 'https://shop.sciex.com/eu/en.html',
-    pt: 'https://shop.sciex.com/eu/en.html',
-    es: 'https://shop.sciex.com/eu/en.html',
+    us: 'https://shop.sciex.com/us/en/products/sku/',
+    uk: 'https://shop.sciex.com/uk/en/products/sku/',
+    de: 'https://shop.sciex.com/eu/en/products/sku/',
+    ca: 'https://shop.sciex.com/ca/en/products/sku/',
+    cz: 'https://shop.sciex.com/us/en/products/sku/',
+    nl: 'https://shop.sciex.com/eu/en/products/sku/',
+    fr: 'https://shop.sciex.com/eu/en/products/sku/',
+    at: 'https://shop.sciex.com/eu/en/products/sku/',
+    be: 'https://shop.sciex.com/eu/en/products/sku/',
+    it: 'https://shop.sciex.com/eu/en/products/sku/',
+    pt: 'https://shop.sciex.com/eu/en/products/sku/',
+    es: 'https://shop.sciex.com/eu/en/products/sku/',
   }
 
   // Initialize cost and catalog data
@@ -84,7 +84,7 @@ export default async function decorate(block) {
   if (isLoggedIn) {
     // Case: Not available in region
     if (!isInRegion) {
-      costDisplay = 'Not available';
+      costDisplay = 'Not available in your region';
       costClassName = 'cost-unavailable';
     } else if (
       catalogData &&
@@ -97,7 +97,7 @@ export default async function decorate(block) {
       costDisplay = `$${unitPrice}`;
     } else {
       // Case: No price → Get a Quote
-      costDisplay = 'Get a Quote';
+      costDisplay = 'Get a quote';
       costClassName = 'cost-quote';
     }
   } else if (isFree === 'true') {
@@ -228,6 +228,18 @@ export default async function decorate(block) {
         li.replaceChild(table, ul);
       }
     }
+
+    if (strong && strong.textContent.includes('Overview')) {
+      if (li) {
+        li.classList.add('Overviews-desc');
+      }
+
+      const ul = li.closest('ul'); 
+
+      if (ul) {
+        ul.classList.add('top-ul-wrap-course');
+      }
+    }
   });
 
   const enrollmentContainer = document.createElement('div');
@@ -252,9 +264,16 @@ export default async function decorate(block) {
     `
 
   const enrollmentBody = document.createElement('tbody');
-
+const showEnrollment =
+  catalogData?.cost?.PriceBookEntry?.ProductCode &&
+  catalogData?.cost?.PriceBookEntry?.ProductCode !== '' &&
+  isInEcommerce === "true" &&
+  isInRegion === true &&
+  costDisplay.includes("$") &&
+  catalogData?.enrolment &&
+  catalogData?.enrolment.length > 0;
   // Display enrollment sessions if user is logged in and sessions exist
-  if (catalogData && catalogData.enrolment && catalogData.enrolment.length > 0) {
+  if (showEnrollment) {
     enrollmentTable.appendChild(enrollmentThead);
     catalogData.enrolment.forEach((enrollment) => {
       const tr = document.createElement('tr');
@@ -265,18 +284,24 @@ export default async function decorate(block) {
       const tdSeats = document.createElement('td');
       tdSeats.textContent = `${enrollment.seatsRemaining} Seats remaining` || 0;
 
-      // Build "Enrollment's buynow" link with course and session details
-      const baseUrl = "https://sciex.com/form-pages/product-request";
-      const requestType = "quote";
-      const solution = "training";
-      const location = enrollment.LMSSession?.Name;
-      const product = `${catalogData.cost.PriceBookEntry.Name} - ${location}`;
-
-      const url = `${baseUrl}?requesttype=${requestType}&solution=${solution}&product=${encodeURIComponent(product)}&UTM_Content=${encodeURIComponent(product)}`;
+      // Build "Enrollment's buynow" link using ProductCode and country-specific store URL
+      let enrollmentUrl='#';
+      if (catalogData?.cost?.PriceBookEntry?.ProductCode) {
+        const countryCodeLower = countryCode.toLowerCase();
+        const baseUrl = storePathMap[countryCodeLower];
+        const productCode = catalogData.cost.PriceBookEntry.ProductCode;
+        
+        if (baseUrl) {
+          enrollmentUrl = `${baseUrl}${productCode}-sciex.html`;
+        } else {
+          // Fallback to US store
+          enrollmentUrl = `${storePathMap.us}${productCode}-sciex.html`;
+        }
+      } 
 
       const buyButton = document.createElement('td');
       buyButton.innerHTML = `
-            <a href="${url}" target="_blank" class="btn primary enroll-buy-now">
+            <a href="${enrollmentUrl}" target="_blank" class="btn primary enroll-buy-now">
               Buy now
             </a>
           `;
@@ -431,7 +456,7 @@ export default async function decorate(block) {
     if (costDisplay === 'Login for price') {
       costValueSpan.innerHTML = `<a href="https://devcs.sciex.com/bin/sciex/login" class="cost-login-link">${costDisplay}</a>`;
     }
-    else if (costDisplay === 'Get a Quote') {
+    else if (costDisplay === 'Get a quote') {
       const quoteUrl = `https://sciex.com/form-pages/product-request?requesttype=quote&solution=training&product=${encodeURIComponent(courseTitle)}&UTM_Content=${encodeURIComponent(courseTitle)}`;
       costValueSpan.innerHTML = `<a href="${quoteUrl}" target="_blank" class="cost-quote-link">${costDisplay}</a>`;
     }
@@ -447,17 +472,23 @@ export default async function decorate(block) {
 
   // Determine primary button: "Buy Now" if ecommerce-enabled, 
   // allowed country, and price available; otherwise "Get a Quote"
-  const showBuyNow = isInEcommerce && isInRegion &&
-    costDisplay;
+  const showBuyNow = catalogData?.cost?.PriceBookEntry?.ProductCode && catalogData?.cost?.PriceBookEntry?.ProductCode !== '' && isInEcommerce === "true" && isInRegion === true && costDisplay.includes("$");
+  const buttonText = showBuyNow ? 'Buy now' : 'Get a quote';
 
-  const buttonText = showBuyNow ? 'Buy Now' : 'Get a Quote';
-
-  // Build button href: use country-specific store URL for Buy Now, 
+  // Build button href: use country-specific store URL with ProductCode for Buy Now, 
   // or construct quote form URL for Get a Quote
   let buttonHref;
   if (showBuyNow) {
     const countryCodeLower = countryCode.toLowerCase();
-    buttonHref = storePathMap[countryCodeLower];
+    const baseUrl = storePathMap[countryCodeLower];
+    const productCode = catalogData.cost.PriceBookEntry.ProductCode;
+    
+    if (baseUrl) {
+      buttonHref = `${baseUrl}${productCode}-sciex.html`;
+    } else {
+      // Fallback to US store
+      buttonHref = `${storePathMap.us}${productCode}-sciex.html`;
+    }
   } else {
     const baseUrl = "https://sciex.com/form-pages/product-request";
     const requestType = "quote";
