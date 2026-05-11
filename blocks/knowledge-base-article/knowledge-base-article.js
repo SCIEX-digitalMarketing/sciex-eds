@@ -70,7 +70,7 @@ export default function decorate(block) {
           parent = 'applications';
         } else if (parent === 'Mass spectrometry') {
           parent = 'massspectrometerscategories';
-        } else if (parent === 'Liquid chromatography') {
+        } else if (parent === 'Liquid chromatography' || parent === 'NanoLC' || parent === 'MicroLC' || parent === 'Standard Flow LC') {
           parent = 'hplcandceproductscategories';
         } else if (parent === 'Biomedical and omics research') {
           parent = 'lifescienceresearchcategories';
@@ -264,7 +264,6 @@ export default function decorate(block) {
       voteAvg = Number(initialVotes?.voteAvg) || 0;
       currentUserScore = Number(initialVotes?.currentUserScore) || 0;
       savedArticleRating = currentUserScore;
-
 
       // Update top rating stars
       const topStars = starsContainer.querySelectorAll('.star');
