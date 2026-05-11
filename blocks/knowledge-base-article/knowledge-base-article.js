@@ -175,7 +175,9 @@ export default function decorate(block) {
   });
 
   itemIcons.appendChild(favoriteIcon);
-
+  if (!isUserLoggedIn) {
+    favoriteIcon.style.display = 'none';
+  }
   // NEW: append heading + icon in same row
   titleRow.append(heading, itemIcons);
 
