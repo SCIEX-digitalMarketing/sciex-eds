@@ -528,8 +528,7 @@ const showEnrollment =
   mainLayout.append(courseHeaderContainer, layout, supportNetworkContainer);
   block.textContent = '';
   block.append(mainLayout);
-  // const fullUrl = window.location.href;
-  const fullUrl='https://devcs.sciex.com/support/training/course-catalog/2-day-lc-ms-method-validation-at-sciex'
+  const fullUrl = window.location.href;
   // Set up favorite/bookmark functionality
   const favoriteIcon = courseHeaderContainer.querySelector('.favorite-icon');
   if (favoriteIcon) {
