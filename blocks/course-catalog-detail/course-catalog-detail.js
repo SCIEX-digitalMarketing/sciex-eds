@@ -34,7 +34,7 @@ export default async function decorate(block) {
   if (children.length < 14) return;
   const courseId = children[0]?.textContent?.trim();
   const courseTitle = children[1]?.textContent?.trim();
-  // const courseUrl = children[2]?.textContent?.trim();
+  const courseUrl = children[2]?.textContent?.trim();
   const courseRating = children[3]?.textContent?.trim();
   const description = children[4]?.innerHTML?.trim();
   const duration = children[5]?.textContent?.trim();
@@ -528,7 +528,7 @@ const showEnrollment =
   mainLayout.append(courseHeaderContainer, layout, supportNetworkContainer);
   block.textContent = '';
   block.append(mainLayout);
-  const fullUrl = window.location.href;
+  const fullUrl = courseType === 'Free Online' ? courseUrl : window.location.href;
   // Set up favorite/bookmark functionality
   const favoriteIcon = courseHeaderContainer.querySelector('.favorite-icon');
 
