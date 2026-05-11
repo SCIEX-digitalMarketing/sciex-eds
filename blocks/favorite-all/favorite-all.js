@@ -170,6 +170,7 @@ export function showResourceHubButton(block) {
   resourceHubButton.textContent = 'Back to resource hub';
   resourceHubButton.style.cursor = 'pointer';
   resourceHubButton.href = '/resource-hub';
+  resourceHubButton.target = '_blank';
   resourceHubButton.innerHTML = `
     <span>Back to resource hub</span>
     <img src="/icons/right-arrow.svg" alt="arrow" />
