@@ -357,7 +357,7 @@ function orderFacetBasedOnSelection(selectedValue) {
       'year-facet'
     ];
     orderFacetChildren('facets', desiredOrder);
-  } else if (selectedValue === 'Resource library' || selectedValue === 'Knowledge base articles' || selectedValue === 'SCIEX How' || selectedValue === 'Technical Notes') {
+  } else if (selectedValue === 'Resource library' || selectedValue === 'Knowledge base articles' || selectedValue === 'SCIEX How' || selectedValue === 'Technical notes') {
     desiredOrder = [
       'contenttype-facet',
       'language-facet',
