@@ -531,6 +531,12 @@ const showEnrollment =
   const fullUrl = window.location.href;
   // Set up favorite/bookmark functionality
   const favoriteIcon = courseHeaderContainer.querySelector('.favorite-icon');
+
+  if (!isLoggedIn) {
+    const courseHeaderSocial = courseHeaderContainer.querySelector('.course-header-social');
+    courseHeaderSocial.style.display = 'none';
+  }
+
   if (favoriteIcon) {
     // Load and display current favorite status
     const checkAndSetFavoriteStatus = async () => {
