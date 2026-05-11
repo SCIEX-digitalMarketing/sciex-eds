@@ -162,7 +162,7 @@ function initDependentFacet(dependentFacet, parentFacets) {
     'trainingtopiccategories': ['Training'],
     'trainingtypecategories': ['Training'],
     'trainingcoursetype': ['Training'],
-    'assettypes': ['Resource library', 'Customer documents'],
+    'assettypes': ['Resource library', 'Customer documents','User guides'],
     'instrumentfamily': ['Regulatory documents'],
     'languagecountry': ['Regulatory documents'],
     'language': ['Customer documents', 'Training', 'Resource library', 'Knowledge base articles', 'SCIEX How', 'Technical notes'],

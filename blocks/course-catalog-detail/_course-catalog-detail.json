@@ -97,6 +97,11 @@
           "name": "isInEcommerce",
           "label": "In Ecommerce",
           "valueType": "boolean"
+        },{
+          "component": "text",
+          "name": "trainingType",
+          "label": "Training Type",
+          "valueType": "string"
         }
       ]
     }
