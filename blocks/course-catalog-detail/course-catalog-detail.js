@@ -34,7 +34,7 @@ export default async function decorate(block) {
   if (children.length < 14) return;
   const courseId = children[0]?.textContent?.trim();
   const courseTitle = children[1]?.textContent?.trim();
-  const courseUrl = children[2]?.textContent?.trim();
+  // const courseUrl = children[2]?.textContent?.trim();
   const courseRating = children[3]?.textContent?.trim();
   const description = children[4]?.innerHTML?.trim();
   const duration = children[5]?.textContent?.trim();
@@ -528,7 +528,7 @@ const showEnrollment =
   mainLayout.append(courseHeaderContainer, layout, supportNetworkContainer);
   block.textContent = '';
   block.append(mainLayout);
-
+  const fullUrl = window.location.href;
   // Set up favorite/bookmark functionality
   const favoriteIcon = courseHeaderContainer.querySelector('.favorite-icon');
   if (favoriteIcon) {
@@ -539,7 +539,7 @@ const showEnrollment =
         if (favoriteData) {
           const isFavorited = !!favoriteData?.some(fav =>
             fav?.pageData?.some(
-              page => page?.path === courseUrl
+              page => page?.path === fullUrl
             )
           );
           if (isFavorited) {
@@ -564,14 +564,14 @@ const showEnrollment =
         if (isFavorited) {
           // Remove from favorites
           favoriteIcon.classList.remove('favorited');
-          const res = await removeFavoriteSearchEngine(courseUrl);
+          const res = await removeFavoriteSearchEngine(fullUrl);
           if (res?.message !== "The operation went successfully") {
             favoriteIcon.classList.add('favorited');
           }
         } else {
           // Add to favorites
           favoriteIcon.classList.add('favorited');
-          const res = await addToFavorite(courseUrl);
+          const res = await addToFavorite(fullUrl);
           if (res?.message !== "The operation went successfully") {
             favoriteIcon.classList.remove('favorited');
           }
