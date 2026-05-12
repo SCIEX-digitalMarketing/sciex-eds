@@ -10,7 +10,7 @@ const CATEGORY_MAP = [
   },
   {
     key: 'tech-notes',
-    title: 'Tech notes',
+    title: 'Technical notes',
     icon: 'tech-notes',
     match: (p) => p.includes('/tech-notes/'),
   },

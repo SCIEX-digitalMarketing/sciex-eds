@@ -1430,11 +1430,11 @@ function createMegaMenuThirdLevel(child) {
 
   // First part preparation
   const firstpartdiv = div({
-    class: 'tw-w-3/12 submenu-links tw-border-r tw-relative tw-pr-24',
+    class: 'tw-w-3/12 submenu-links tw-border-r tw-relative tw-pr-24 tw-self-start',
   });
 
   const secondPartdiv = div({
-    class: 'tw-w-6/12 submenu-content tw-px-32 tw-pr-40 tw-border-r',
+    class: 'tw-w-6/12 submenu-content tw-px-32 tw-pr-40 tw-border-r tw-self-start',
   });
   const wrapdiv = div({ class: 'tw-flex tw-flex-wrap tw-h-fit' });
   const viewAllTag = document.createElement('a');
@@ -1606,10 +1606,10 @@ function createMegaMenuThirdLevel(child) {
             createViewallTag(list, viewAllTag);
           }
         }
-      }
+      } 
     });
   } else if (sections.length > 0 && isSubItems) {
-    secondPartdiv.className = 'tw-w-9/12 submenu-content tw-px-32 tw-pr-40';
+    secondPartdiv.className = 'tw-w-9/12 submenu-content tw-px-32 tw-pr-40 tw-self-start';
     wrapdiv.className = 'tw-flex tw-flex-wrap tw-h-fit';
     sections.forEach((section, index) => {
       if (index === 0) {
