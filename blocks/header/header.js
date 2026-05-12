@@ -204,7 +204,7 @@ function createGlobalSearch() {
     "Products and services":"Products and services",
     "Regulatory documents":"Regulatory documents",
     "SCIEX How":"SCIEX How",
-    "Technical Notes":"Technical Notes",
+    "Technical notes":"Technical notes",
     "Training":"Training",
     "User guides":"User guides",
   };

@@ -229,10 +229,10 @@ buckets['instructor'] = [];
       title = categoryConfig.title;
       icon = categoryConfig.icon;
     }else if (typeKey === 'self-paced') {
-      title = 'Self-Paced Learning';
+      title = 'Self paced learning';
       icon = 'self-paced';
     } else if (typeKey === 'instructor') {
-      title = 'Instructor-Led Training';
+      title = 'Instructor led Training';
       icon = 'instructor';
     } else {
       title = humanizeType(typeKey);

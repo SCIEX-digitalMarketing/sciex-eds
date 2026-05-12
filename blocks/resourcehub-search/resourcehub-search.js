@@ -179,11 +179,12 @@ export default async function decorate(block) {
   const menuItems = {
     All: 'All',
     'Knowledge base articles': 'Knowledge base articles',
-    'Self-paced learning': 'Training',
+    'Self paced learning': 'Training',
     'Instructor led training': 'Training',
-    'Technical notes': 'Technical Notes',
+    'Technical notes': 'Technical notes',
     'Regulatory documents': 'Regulatory documents',
-    'User guides': 'Customer documents',
+    'User guides': 'User guides',
+
   };
   let selectedContentType = 'All';
   let selectedfacet = '';
@@ -207,12 +208,11 @@ export default async function decorate(block) {
       dropdownContent.style.display = 'none';
       selectedContentType = value;
       selectedfacet = key;
-      if (key === 'Knowledge base articles' || key === 'Technical notes' || key === 'Regulatory documents') {
-        queryString = `&facetId=assetype&value=${selectedfacet}`;
-      } else if (key === 'User guides') {
-        queryString = `&facetId=assetype&value=${selectedContentType}`;
-      } else if (key === 'self paced learning' || key === 'Instructor led traning') {
-        queryString = '';
+      if (
+        key === 'self paced learning'
+        || key === 'Instructor led training'
+      ) {
+        queryString = `&facetId=trainingcoursetype&value=${selectedfacet}`;
       } else {
         queryString = '';
       }
@@ -256,6 +256,8 @@ export default async function decorate(block) {
       standaloneSearchBoxController.updateRedirectUrl(`/search-results?term=${searchBox.value}&contentType=${selectedContentType}${queryString}`);
       standaloneSearchBoxController.submit();
     } else {
+      standaloneSearchBoxController.updateRedirectUrl(`/search-results?contentType=${selectedContentType}${queryString}`);
+
       standaloneSearchBoxController.submit();
     }
     event.stopPropagation();
