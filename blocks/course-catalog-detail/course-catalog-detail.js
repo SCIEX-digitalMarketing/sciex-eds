@@ -271,7 +271,8 @@ export default async function decorate(block) {
     'instructor led'
   ];
   const isValidEnrollmentCourseType =
-     validEnrollmentCourseType.includes(courseType.toLowerCase()) || validEnrollmentCourseType.includes(trainingType.toLowerCase());
+     validEnrollmentCourseType.includes(courseType.toLowerCase()) ||
+      validEnrollmentCourseType.includes(trainingType.toLowerCase());
   const showEnrollment =
     isValidEnrollmentCourseType &&
   catalogData?.cost?.PriceBookEntry?.ProductCode &&
