@@ -131,7 +131,7 @@ export default async function decorate(block) {
   if (currentPageTitle === 'My favorite') {
     const resourceHubEl = document.createElement('a');
     resourceHubEl.href = '/resource-hub';
-    resourceHubEl.innerText = 'Resource Hub';
+    resourceHubEl.innerText = 'Resource hub';
     resourceHubEl.classList.add('breadcrumb-resource-link');
     breadcrumbHtmlParts.push(resourceHubEl.outerHTML);
   }
