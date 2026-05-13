@@ -990,12 +990,6 @@
       },
       {
         "component": "text",
-        "name": "language",
-        "label": "Language",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
         "name": "courseType",
         "label": "Course Type",
         "valueType": "string"
