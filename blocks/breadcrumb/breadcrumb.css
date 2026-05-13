@@ -13,7 +13,10 @@ main > .section > div {
     grid-column: 1 / span 2;
   }
 }
-
+.breadcrumb-link{
+  display: inline-flex;
+  align-items: baseline;
+}
 .breadcrumb-wrapper nav {
   display: flex;
   align-items: center;
@@ -40,7 +43,7 @@ main > .section > div {
 }
 
 .breadcrumb > nav a {
-  text-decoration: none;
+  text-decoration: none !important;
   color: black;
   transition: color 0.3s, text-decoration 0.3s;
 }

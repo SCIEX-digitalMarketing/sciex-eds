@@ -125,8 +125,19 @@ export default async function decorate(block) {
     breadcrumbHtmlParts.push(createLink(ancestorItem).outerHTML);
   });
 
+  const currentPageTitle = document.querySelector('title')?.innerText || 'Current Page';
+  
+  // If current page is "Favorite All", show "Resource Hub" first, then "Favorite All"
+  if (currentPageTitle === 'My favorite') {
+    const resourceHubEl = document.createElement('a');
+    resourceHubEl.href = '/resource-hub';
+    resourceHubEl.innerText = 'Resource Hub';
+    resourceHubEl.classList.add('breadcrumb-resource-link');
+    breadcrumbHtmlParts.push(resourceHubEl.outerHTML);
+  }
+
   const currentPageEl = document.createElement('span');
-  currentPageEl.innerText = document.querySelector('title')?.innerText || 'Current Page';
+  currentPageEl.innerText = currentPageTitle;
   currentPageEl.style.fontWeight = 'bold';
   currentPageEl.style.color = 'black';
   currentPageEl.setAttribute('aria-current', 'page');
