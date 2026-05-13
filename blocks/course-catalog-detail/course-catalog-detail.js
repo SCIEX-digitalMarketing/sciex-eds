@@ -22,10 +22,10 @@ async function checkLoginStatus() {
     }
 
     const user = await userResp.json();
-    return [user?.loggedIn === true, user?.email, user?.countryCode];
+    return [user?.loggedIn === true, user?.email, user?.countryCode, user?.premiumContentEligible];
   } catch (e) {
     console.warn('Course catalog detail: treating user as logged out', e);
-    return [false, null, null];
+    return [false, null, null,null];
   }
 }
 
@@ -48,7 +48,7 @@ export default async function decorate(block) {
   const categoriesTags = children[13]?.textContent?.trim();
 
   // Fetch user authentication info and allowed countries for ecommerce
-  const [isLoggedIn, userEmail, countryCode] = await checkLoginStatus();
+  const [isLoggedIn, userEmail, countryCode,premiumContentEligible] = await checkLoginStatus();
   const allowedCountryCode = ["us","uk", "gb", "de", "ca", "cz", "nl", "fr", "at", "be", "it", "pt", "es"];
 
   // Check if course is available in user's region
@@ -278,7 +278,17 @@ export default async function decorate(block) {
     `
 
   const enrollmentBody = document.createElement('tbody');
-const showEnrollment =
+  const validEnrollmentCourseType = [   
+    'at sciex',
+    'instructor-led-training',
+    'instructor led virtual',
+    'instructor led'
+  ];
+  const isValidEnrollmentCourseType =
+     validEnrollmentCourseType.includes(courseType.toLowerCase()) ||
+      validEnrollmentCourseType.includes(trainingType.toLowerCase());
+  const showEnrollment =
+    isValidEnrollmentCourseType &&
   catalogData?.cost?.PriceBookEntry?.ProductCode &&
   catalogData?.cost?.PriceBookEntry?.ProductCode !== '' &&
   isInEcommerce === "true" &&
@@ -487,12 +497,30 @@ const showEnrollment =
   // Determine primary button: "Buy Now" if ecommerce-enabled, 
   // allowed country, and price available; otherwise "Get a Quote"
   const showBuyNow = catalogData?.cost?.PriceBookEntry?.ProductCode && catalogData?.cost?.PriceBookEntry?.ProductCode !== '' && isInEcommerce === "true" && isInRegion === true && costDisplay.includes("$");
-  const buttonText = showBuyNow ? 'Buy now' : 'Get a quote';
+  let buttonText = '';
+  if (courseType.toLowerCase() === 'premium') {
+    if (premiumContentEligible==='true') {
+      buttonText = 'View course';
+    }
+    else {
+      buttonText = 'Learn more'
+    }
+  }else{
+    buttonText = showBuyNow ? 'Buy now' : 'Get a quote';
+  }
+
 
   // Build button href: use country-specific store URL with ProductCode for Buy Now, 
   // or construct quote form URL for Get a Quote
   let buttonHref;
-  if (showBuyNow) {
+  if(courseType.toLowerCase() === 'premium'){
+    if (premiumContentEligible === 'true') {
+      buttonHref = courseUrl
+    }
+    else {
+      buttonHref = 'https://sciex.com/support/software-support/premium-access-content'
+    }
+  } else if (showBuyNow) {
     const countryCodeLower = countryCode.toLowerCase();
     const baseUrl = storePathMap[countryCodeLower];
     const productCode = catalogData.cost.PriceBookEntry.ProductCode;

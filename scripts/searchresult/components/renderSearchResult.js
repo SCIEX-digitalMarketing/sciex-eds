@@ -17,7 +17,8 @@ const favIconAllowedTags = [
   "training",
   "training.sciex.com",
   "customer-docs",
-  "eula"
+  "eula",
+  "sciexhow"
 ];
 async function checkLoginStatus() {
   try {
