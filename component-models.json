@@ -1029,6 +1029,13 @@
         "name": "trainingType",
         "label": "Training Type",
         "valueType": "string"
+      },
+      {
+        "component": "aem-tag",
+        "valueType": "string",
+        "name": "categories",
+        "label": "course Tags ",
+        "value": ""
       }
     ]
   },
