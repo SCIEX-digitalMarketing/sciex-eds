@@ -109,16 +109,14 @@ export default async function decorate(block) {
       // Case: Price exists
       const unitPrice = catalogData.cost.PriceBookEntry.UnitPrice;
       costDisplay = `$${unitPrice}`;
+    } else if (isFree === 'true') {
+      // Free course
+      costDisplay = 'Free';
+      costClassName = 'cost-free';
     } else {
-      // If course is free, show "Free"; otherwise show "Get a quote"
-      if(isFree === 'true') {
-        costDisplay = 'Free';
-        costClassName = 'cost-free';
-      }
-      else{
+      //show "Get a quote"      
       costDisplay = 'Get a quote';
       costClassName = 'cost-quote';
-      }      
     }
   } else if (isFree === 'true') {
     // Not logged in + free
