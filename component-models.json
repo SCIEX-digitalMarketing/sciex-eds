@@ -990,12 +990,6 @@
       },
       {
         "component": "text",
-        "name": "language",
-        "label": "Language",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
         "name": "courseType",
         "label": "Course Type",
         "valueType": "string"
@@ -1029,6 +1023,13 @@
         "name": "trainingType",
         "label": "Training Type",
         "valueType": "string"
+      },
+      {
+        "component": "aem-tag",
+        "valueType": "string",
+        "name": "categories",
+        "label": "course Tags ",
+        "value": ""
       }
     ]
   },

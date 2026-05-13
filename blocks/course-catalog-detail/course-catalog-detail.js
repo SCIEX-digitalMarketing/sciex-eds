@@ -39,13 +39,13 @@ export default async function decorate(block) {
   const description = children[4]?.innerHTML?.trim();
   const duration = children[5]?.textContent?.trim();
   const region = children[6]?.textContent?.trim();
-  const language = children[7]?.textContent?.trim();
-  const courseType = children[8]?.textContent?.trim();
-  const courseLevel = children[9]?.textContent?.trim();
-  const relatedResources = children[10]?.textContent?.trim();
-  const isFree = children[11]?.textContent?.trim();
-  const isInEcommerce = children[12]?.textContent?.trim();
-  const trainingType = children[13]?.textContent?.trim();
+  const courseType = children[7]?.textContent?.trim();
+  const courseLevel = children[8]?.textContent?.trim();
+  const relatedResources = children[9]?.textContent?.trim();
+  const isFree = children[10]?.textContent?.trim();
+  const isInEcommerce = children[11]?.textContent?.trim();
+  const trainingType = children[12]?.textContent?.trim();
+  const categoriesTags = children[13]?.textContent?.trim();
 
   // Fetch user authentication info and allowed countries for ecommerce
   const [isLoggedIn, userEmail, countryCode,premiumContentEligible] = await checkLoginStatus();
@@ -53,6 +53,20 @@ export default async function decorate(block) {
 
   // Check if course is available in user's region
   const isInRegion = countryCode && allowedCountryCode.includes(countryCode.toLowerCase());
+
+  const tagsLanguage = categoriesTags
+  ? categoriesTags
+      .split(',')
+      .map(tag => tag.trim())
+      .filter(tag => tag.startsWith('sciex:language/'))
+      .map(tag => {
+        const value = tag.replace('sciex:language/', '');
+        return value
+          .split('-')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
+      })
+  : [];
 
   // Country-specific store URLs for Buy Now button
   const storePathMap = {
@@ -437,7 +451,7 @@ export default async function decorate(block) {
     { key: 'Cost', value: costDisplay },
     { key: 'Duration', value: duration },
     { key: 'Region', value: region },
-    { key: 'Language', value: language },
+    { key: 'Language', value: tagsLanguage },
     { key: 'Type', value: courseType },
     { key: 'Course Level', value: courseLevel }
   ];
