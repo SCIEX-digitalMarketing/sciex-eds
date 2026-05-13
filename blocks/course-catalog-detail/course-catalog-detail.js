@@ -109,15 +109,19 @@ export default async function decorate(block) {
       // Case: Price exists
       const unitPrice = catalogData.cost.PriceBookEntry.UnitPrice;
       costDisplay = `$${unitPrice}`;
+    } else if (isFree === 'true') {
+      // Free course
+      costDisplay = 'Free';
+      costClassName = 'cost-free';
     } else {
-      // Case: No price → Get a Quote
+      //show "Get a quote"      
       costDisplay = 'Get a quote';
       costClassName = 'cost-quote';
     }
   } else if (isFree === 'true') {
     // Not logged in + free
     costDisplay = 'Free';
-    costClassName = 'cost-not-logged-in';
+    costClassName = 'cost-free';
   } else {
     // Not logged in + paid
     costDisplay = 'Login for price';
@@ -255,7 +259,16 @@ export default async function decorate(block) {
       }
     }
   });
-
+  const validEnrollmentCourseType = [
+    'at sciex',
+    'instructor-led-training',
+    'instructor led virtual',
+    'instructor led',
+  ];
+  const isValidEnrollmentCourseType =
+    validEnrollmentCourseType.includes(courseType.toLowerCase()) ||
+    validEnrollmentCourseType.includes(trainingType.toLowerCase());
+  if (isValidEnrollmentCourseType ) {
   const enrollmentContainer = document.createElement('div');
   enrollmentContainer.classList.add('enrollment-container');
 
@@ -278,22 +291,9 @@ export default async function decorate(block) {
     `
 
   const enrollmentBody = document.createElement('tbody');
-  const validEnrollmentCourseType = [   
-    'at sciex',
-    'instructor-led-training',
-    'instructor led virtual',
-    'instructor led'
-  ];
-  const isValidEnrollmentCourseType =
-     validEnrollmentCourseType.includes(courseType.toLowerCase()) ||
-      validEnrollmentCourseType.includes(trainingType.toLowerCase());
-  const showEnrollment =
-    isValidEnrollmentCourseType &&
+    const showEnrollment =
   catalogData?.cost?.PriceBookEntry?.ProductCode &&
   catalogData?.cost?.PriceBookEntry?.ProductCode !== '' &&
-  isInEcommerce === "true" &&
-  isInRegion === true &&
-  costDisplay.includes("$") &&
   catalogData?.enrolment &&
   catalogData?.enrolment.length > 0;
   // Display enrollment sessions if user is logged in and sessions exist
@@ -348,7 +348,8 @@ export default async function decorate(block) {
     enrollmentContainer.appendChild(enrollBanner);
 
   }
-
+    descriptionContainer.appendChild(enrollmentContainer);
+  }
 
   const relatedContainer = document.createElement('div');
   relatedContainer.classList.add('related-container');
@@ -438,7 +439,6 @@ export default async function decorate(block) {
 
 
 
-  descriptionContainer.appendChild(enrollmentContainer);
   descriptionContainer.appendChild(relatedContainer);
   descriptionContainer.appendChild(exploreBtn);
 
