@@ -138,7 +138,7 @@ const renderSearchResults = () => {
       const isFavorite = isUserLoggedIn
         ? !!favoriteResultsList?.some(fav =>
           fav?.pageData?.some(
-            page => page?.path === result.printableUri
+            page => page?.path === result.printableUri || page?.path === result?.raw?.courseurl
           )
         )
         : false;
