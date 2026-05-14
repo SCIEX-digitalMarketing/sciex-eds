@@ -142,9 +142,15 @@ export default function decorate(block) {
         const favoriteData = await getfavoriteAllData();
 
         if (favoriteData) {
-          const isFavorited = !!favoriteData?.some((fav) => fav?.pageData?.some(
-            (page) => page?.path === window.location.href,
-          ));
+          const isFavorited = !!favoriteData?.some((fav) => fav?.pageData?.some((page) => {
+            const path = page?.path || '';
+            // Full URL
+            if (path.startsWith('http')) {
+              return path === window.location.href;
+            }
+            // Relative path
+            return path === window.location.pathname;
+          }));
           console.log('Is article favorited by user?', isFavorited);
           if (isFavorited) {
             const path = favoriteIcon.querySelector('path');
