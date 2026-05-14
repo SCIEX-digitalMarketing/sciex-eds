@@ -31,7 +31,7 @@ export const searchBoxController = buildSearchBox(searchEngine, {
 
 export const headlessResultsList = buildResultList(searchEngine, {
   options: {
-    fieldsToInclude: ['ogimage', 'description', 'productpartnumber', 'lotnumber', 'kitpartnumber', 'duration', 'levelcategories', 'coursetypecategories', 'isnewcourse', 'rating'],
+    fieldsToInclude: ['ogimage', 'description', 'productpartnumber', 'lotnumber', 'kitpartnumber', 'duration', 'levelcategories', 'coursetypecategories', 'isnewcourse', 'rating', 'courseUrl', 'trainingcoursetype'],
   },
 });
 

@@ -184,13 +184,13 @@ const renderSearchResults = () => {
       const resultItem = document.createElement('div');
       resultItem.className = 'result-item';
       resultItem.innerHTML = `
-          <div class="item-details"> 
-            ${result.raw.isnewcourse || result.raw.coursetypecategories
-          ? `<div class="tag-container">
-                ${result.raw.coursetypecategories?.toString() === 'Premium online' ? '<span class="tag premium">Premium</span>' : ''}
-                ${result.raw.isnewcourse ? '<span class="tag new">New</span>' : ''}
-              </div> ` : ''
-        }
+                  <div class="item-details">
+          ${result.raw.isnewcourse || result.raw.coursetypecategories ? `
+            <div class="tag-container">
+              ${result.raw.coursetypecategories?.toString() === 'Premium online' || result.raw.coursetypecategories?.toString() === 'Premium eLearning' ? '<span class="tag premium">Premium</span>' : ''}
+              ${result.raw.isnewcourse ? '<span class="tag new">New</span>' : ''}
+            </div>
+          ` : ''}
             <h3>${result.title || 'No Title Available'}</h3>
             ${result.raw.description
           ? `<p class="description">${result.raw.description}</p> `
