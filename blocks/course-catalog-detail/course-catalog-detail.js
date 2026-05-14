@@ -468,7 +468,7 @@ export default async function decorate(block) {
           Array.isArray(item.value)
             ? item.value.join(', ')
             : typeof item.value === 'string'
-              ? item.value.split(',').map(v => v.trim()).join(', ')
+              ? item.value.split(',').join(', ')
               : item.value
         }
       </span>    
