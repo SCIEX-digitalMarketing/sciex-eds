@@ -587,8 +587,7 @@ const rowsHTML = details
   mainLayout.append(courseHeaderContainer, layout, supportNetworkContainer);
   block.textContent = '';
   block.append(mainLayout);
-  const fullUrl = courseType.toLowerCase() === 'free online' ? courseUrl : window.location.href;
-  const favApiUrl= courseType.toLowerCase() !== 'free online' ? fullUrl+"?trainingType="+encodeURIComponent(trainingType) : fullUrl+"?trainingType="+encodeURIComponent(trainingType)+"&courseUrl="+(courseUrl);
+  const fullUrl =  window.location.href;
   // Set up favorite/bookmark functionality
   const favoriteIcon = courseHeaderContainer.querySelector('.favorite-icon');
 
@@ -630,14 +629,14 @@ const rowsHTML = details
         if (isFavorited) {
           // Remove from favorites
           favoriteIcon.classList.remove('favorited');
-          const res = await removeFavoriteSearchEngine(favApiUrl);
+          const res = await removeFavoriteSearchEngine(fullUrl);
           if (res?.message !== "The operation went successfully") {
             favoriteIcon.classList.add('favorited');
           }
         } else {
           // Add to favorites
           favoriteIcon.classList.add('favorited');
-          const res = await addToFavorite(favApiUrl);
+          const res = await addToFavorite(fullUrl);
           if (res?.message !== "The operation went successfully") {
             favoriteIcon.classList.remove('favorited');
           }
