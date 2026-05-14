@@ -236,7 +236,10 @@ const renderSearchResults = () => {
           if (favIcon.classList.contains('is-loading')) return;
           favIcon.classList.add('is-loading');
 
-          const pageUrl = result.printableUri;
+          let pageUrl = result.printableUri;
+          if(pageUrl.startsWith('https://training.sciex.com')) {
+            pageUrl = result?.raw?.courseurl ;
+          }
           const isFavorited = favIcon.classList.contains('favorited');
 
           try {

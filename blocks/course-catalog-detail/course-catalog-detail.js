@@ -107,8 +107,9 @@ export default async function decorate(block) {
       catalogData.cost.PriceBookEntry.UnitPrice != null
     ) {
       // Case: Price exists
-      const unitPrice = catalogData.cost.PriceBookEntry.UnitPrice;
-      costDisplay = `$${unitPrice}`;
+      const unitPrice = catalogData.cost.PriceBookEntry.UnitPrice.toFixed(2);
+      const CurrencyIsoCode = catalogData.cost.PriceBookEntry?.CurrencyIsoCode;
+      costDisplay = `${unitPrice} ${CurrencyIsoCode}`;
     } else if (isFree === 'true') {
       // Free course
       costDisplay = 'Free';
@@ -457,15 +458,31 @@ export default async function decorate(block) {
   ];
 
   // Filter out empty values and generate HTML for each detail row
-  const rowsHTML = details
-    .filter(item => item.value)
-    .map(item => `
-    <div class="course-detail-row">
-      <span class="course-detail-key">${item.key}:</span>
-      <span class="course-detail-value">${item.value}</span>
-    </div>
-  `)
-    .join('');
+const rowsHTML = details
+  .filter(
+    (item) =>
+      item.value &&
+      (Array.isArray(item.value) ? item.value.length > 0 : true),
+  )
+  .map((item) => {
+    let formattedValue = item.value;
+
+    if (Array.isArray(item.value)) {
+      formattedValue = item.value.join(', ');
+    } else if (typeof item.value === 'string') {
+      formattedValue = item.value.split(',').join(', ');
+    }
+
+    return `
+      <div class="course-detail-row">
+        <span class="course-detail-key">${item.key}:</span>
+        <span class="course-detail-value">
+          ${formattedValue}
+        </span>
+      </div>
+    `;
+  })
+  .join('');
 
   courseDetailsContainer.innerHTML = `
   <h3 class="course-details-title">Course details</h3>
@@ -496,10 +513,10 @@ export default async function decorate(block) {
 
   // Determine primary button: "Buy Now" if ecommerce-enabled, 
   // allowed country, and price available; otherwise "Get a Quote"
-  const showBuyNow = catalogData?.cost?.PriceBookEntry?.ProductCode && catalogData?.cost?.PriceBookEntry?.ProductCode !== '' && isInEcommerce === "true" && isInRegion === true && costDisplay.includes("$");
+  const showBuyNow = catalogData?.cost?.PriceBookEntry?.ProductCode && catalogData?.cost?.PriceBookEntry?.ProductCode !== '' && isInEcommerce === "true" && isInRegion === true && !costDisplay.includes("Get a quote") ;
   let buttonText = '';
-  if (courseType.toLowerCase() === 'premium') {
-    if (premiumContentEligible==='true') {
+  if (courseType.toLowerCase() === 'premium' || courseType.toLowerCase() === 'free online') {
+    if (premiumContentEligible==='true' || courseType.toLowerCase() === 'free online') {
       buttonText = 'View course';
     }
     else {
@@ -513,8 +530,8 @@ export default async function decorate(block) {
   // Build button href: use country-specific store URL with ProductCode for Buy Now, 
   // or construct quote form URL for Get a Quote
   let buttonHref;
-  if(courseType.toLowerCase() === 'premium'){
-    if (premiumContentEligible === 'true') {
+  if(courseType.toLowerCase() === 'premium' || courseType.toLowerCase() === 'free online'){
+    if (premiumContentEligible === 'true' || courseType.toLowerCase() === 'free online') {
       buttonHref = courseUrl
     }
     else {
@@ -570,7 +587,7 @@ export default async function decorate(block) {
   mainLayout.append(courseHeaderContainer, layout, supportNetworkContainer);
   block.textContent = '';
   block.append(mainLayout);
-  const fullUrl = courseType === 'Free Online' ? courseUrl : window.location.href;
+  const fullUrl =  window.location.href;
   // Set up favorite/bookmark functionality
   const favoriteIcon = courseHeaderContainer.querySelector('.favorite-icon');
 
