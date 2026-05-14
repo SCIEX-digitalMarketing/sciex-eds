@@ -107,8 +107,9 @@ export default async function decorate(block) {
       catalogData.cost.PriceBookEntry.UnitPrice != null
     ) {
       // Case: Price exists
-      const unitPrice = catalogData.cost.PriceBookEntry.UnitPrice;
-      costDisplay = `$${unitPrice}`;
+      const unitPrice = catalogData.cost.PriceBookEntry.UnitPrice.toFixed(2);
+      const CurrencyIsoCode = catalogData.cost.PriceBookEntry?.CurrencyIsoCode;
+      costDisplay = `${unitPrice} ${CurrencyIsoCode}`;
     } else if (isFree === 'true') {
       // Free course
       costDisplay = 'Free';
@@ -458,11 +459,19 @@ export default async function decorate(block) {
 
   // Filter out empty values and generate HTML for each detail row
   const rowsHTML = details
-    .filter(item => item.value)
+    .filter(item => item.value && (Array.isArray(item.value) ? item.value.length > 0 : true))
     .map(item => `
     <div class="course-detail-row">
       <span class="course-detail-key">${item.key}:</span>
-      <span class="course-detail-value">${item.value}</span>
+      <span class="course-detail-value">
+        ${
+          Array.isArray(item.value)
+            ? item.value.join(', ')
+            : typeof item.value === 'string'
+              ? item.value.split(',').map(v => v.trim()).join(', ')
+              : item.value
+        }
+      </span>    
     </div>
   `)
     .join('');
@@ -496,10 +505,10 @@ export default async function decorate(block) {
 
   // Determine primary button: "Buy Now" if ecommerce-enabled, 
   // allowed country, and price available; otherwise "Get a Quote"
-  const showBuyNow = catalogData?.cost?.PriceBookEntry?.ProductCode && catalogData?.cost?.PriceBookEntry?.ProductCode !== '' && isInEcommerce === "true" && isInRegion === true && costDisplay.includes("$");
+  const showBuyNow = catalogData?.cost?.PriceBookEntry?.ProductCode && catalogData?.cost?.PriceBookEntry?.ProductCode !== '' && isInEcommerce === "true" && isInRegion === true && !costDisplay.includes("Get a quote") ;
   let buttonText = '';
-  if (courseType.toLowerCase() === 'premium') {
-    if (premiumContentEligible==='true') {
+  if (courseType.toLowerCase() === 'premium' || courseType.toLowerCase() === 'free online') {
+    if (premiumContentEligible==='true' || courseType.toLowerCase() === 'free online') {
       buttonText = 'View course';
     }
     else {
@@ -513,8 +522,8 @@ export default async function decorate(block) {
   // Build button href: use country-specific store URL with ProductCode for Buy Now, 
   // or construct quote form URL for Get a Quote
   let buttonHref;
-  if(courseType.toLowerCase() === 'premium'){
-    if (premiumContentEligible === 'true') {
+  if(courseType.toLowerCase() === 'premium' || courseType.toLowerCase() === 'free online'){
+    if (premiumContentEligible === 'true' || courseType.toLowerCase() === 'free online') {
       buttonHref = courseUrl
     }
     else {
