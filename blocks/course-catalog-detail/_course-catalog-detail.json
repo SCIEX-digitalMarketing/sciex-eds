@@ -58,7 +58,7 @@
         },
         {
           "component": "text",
-          "name": "region",
+          "name": "regiontags",
           "label": "Region",
           "valueType": "string"
         },
