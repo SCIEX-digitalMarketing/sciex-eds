@@ -238,7 +238,7 @@ const renderSearchResults = () => {
 
           let pageUrl = result.printableUri;
           if(pageUrl.startsWith('https://training.sciex.com')) {
-            pageUrl = result?.raw?.courseUrl ;
+            pageUrl = result?.raw?.courseurl ;
           }
           const isFavorited = favIcon.classList.contains('favorited');
 
