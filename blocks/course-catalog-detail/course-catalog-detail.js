@@ -580,8 +580,7 @@ export default async function decorate(block) {
   block.textContent = '';
   block.append(mainLayout);
   const fullUrl = courseType.toLowerCase() === 'free online' ? courseUrl : window.location.href;
-  // const favApiUrl= courseType.toLowerCase() !== 'free online' ? fullUrl+"?trainingType="+trainingType : fullUrl+"?trainingType="+trainingType+"&courseUrl="+encodeURIComponent(courseUrl);
-  const favApiUrl = 'https://devcs.sciex.com/support/training/course-catalog/4-day-introduction-to-triple-quad-virtual-en?courseUrl=https://devcs.sciex.com/support/training/course-catalog/3-day-transition-to-sciex-os-for-sciex-triple-quad-and-qtrap-systems-virtual-en&trainingType=Instructor-led-training'
+  const favApiUrl= courseType.toLowerCase() !== 'free online' ? fullUrl+"?trainingType="+encodeURIComponent(trainingType) : fullUrl+"?trainingType="+encodeURIComponent(trainingType)+"&courseUrl="+(courseUrl);
   // Set up favorite/bookmark functionality
   const favoriteIcon = courseHeaderContainer.querySelector('.favorite-icon');
 
