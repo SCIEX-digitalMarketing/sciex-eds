@@ -458,23 +458,31 @@ export default async function decorate(block) {
   ];
 
   // Filter out empty values and generate HTML for each detail row
-  const rowsHTML = details
-    .filter(item => item.value && (Array.isArray(item.value) ? item.value.length > 0 : true))
-    .map(item => `
-    <div class="course-detail-row">
-      <span class="course-detail-key">${item.key}:</span>
-      <span class="course-detail-value">
-        ${
-          Array.isArray(item.value)
-            ? item.value.join(', ')
-            : typeof item.value === 'string'
-              ? item.value.split(',').join(', ')
-              : item.value
-        }
-      </span>    
-    </div>
-  `)
-    .join('');
+const rowsHTML = details
+  .filter(
+    (item) =>
+      item.value &&
+      (Array.isArray(item.value) ? item.value.length > 0 : true),
+  )
+  .map((item) => {
+    let formattedValue = item.value;
+
+    if (Array.isArray(item.value)) {
+      formattedValue = item.value.join(', ');
+    } else if (typeof item.value === 'string') {
+      formattedValue = item.value.split(',').join(', ');
+    }
+
+    return `
+      <div class="course-detail-row">
+        <span class="course-detail-key">${item.key}:</span>
+        <span class="course-detail-value">
+          ${formattedValue}
+        </span>
+      </div>
+    `;
+  })
+  .join('');
 
   courseDetailsContainer.innerHTML = `
   <h3 class="course-details-title">Course details</h3>
