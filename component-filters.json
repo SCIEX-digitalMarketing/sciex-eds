@@ -63,7 +63,9 @@
       "sciex-headquarters",
       "image-varient",
       "sciex-columns",
-      "sciex-border"
+      "knowledge-base-article",
+      "sciex-border",
+      "course-catalog-detail"
     ]
   },
   {
@@ -110,6 +112,12 @@
       "speaker-details",
       "events-details",
       "events-register-form"
+    ]
+  },
+  {
+    "id": "featured-key-workflows",
+    "components": [
+      "workflow-item"
     ]
   },
   {

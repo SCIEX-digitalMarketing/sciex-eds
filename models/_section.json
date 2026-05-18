@@ -127,7 +127,9 @@
          "sciex-headquarters",
          "image-varient",
          "sciex-columns",
-         "sciex-border"
+         "knowledge-base-article",
+         "sciex-border",
+         "course-catalog-detail"
       ]
     }
   ]

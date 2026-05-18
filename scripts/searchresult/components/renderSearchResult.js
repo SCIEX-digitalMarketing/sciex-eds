@@ -2,6 +2,96 @@ import {
   headlessResultsList,
   handleResultClick,
 } from '../controller/controllers.js';
+import { i18n } from '../../translation.js';
+import getFavoriteResultsList from '../../favorite-all/favorite-all-controller/favorite-allDocController.js';
+
+const lang = document.documentElement.lang || 'en';
+const strings = i18n[lang] || i18n.en;
+let favoriteResultsList = [];
+
+const USER_API = '/bin/sciex/currentuserdetails';
+const favIconAllowedTags = [
+  'knowledge-base-articles',
+  'tech-notes',
+  'regulatory-docs',
+  'training',
+  'training.sciex.com',
+  'customer-docs',
+  'eula',
+  'sciexhow',
+];
+async function checkLoginStatus() {
+  try {
+    const userResp = await fetch(USER_API, { credentials: 'include' });
+
+    if (!userResp.ok) {
+      throw new Error(`User API failed: ${userResp.status}`);
+    }
+
+    const user = await userResp.json();
+    return user?.loggedIn === true;
+  } catch (e) {
+    console.warn('Treating user as logged out', e);
+    return false;
+  }
+}
+
+const getCleanPrintableUri = (uri) => {
+  try {
+    const decodedUri = uri.replace(/&amp;/gi, '&');
+
+    const url = new URL(decodedUri, window.location.origin);
+    url.searchParams.delete('course');
+    url.searchParams.delete('courseType');
+    return url.origin + url.pathname + url.search + url.hash;
+  } catch (e) {
+    return uri.split('?')[0];
+  }
+};
+
+const isUserLoggedIn = await checkLoginStatus();
+
+if (isUserLoggedIn) {
+  favoriteResultsList = await getFavoriteResultsList();
+}
+const callFavoriteAPI = async (params) => {
+  try {
+    const query = new URLSearchParams(params).toString();
+
+    const response = await fetch(`/bin/sciex/favoritecontent?${query}`, {
+      method: 'GET', // ✅ Backend expects GET
+      credentials: 'include',
+    });
+
+    const text = await response.text(); // servlet returns JSON string
+    let data = {};
+
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      console.error('Invalid JSON from favorite API:', text);
+    }
+
+    return {
+      success: response.ok,
+      status: response.status,
+      data,
+    };
+  } catch (error) {
+    console.error('Favorite API error:', error);
+    return { success: false, status: 0, data: null };
+  }
+};
+
+export const addToFavorite = (url) => callFavoriteAPI({
+  operation: 'add',
+  url,
+});
+
+export const removeToFavorite = (url) => callFavoriteAPI({
+  operation: 'remove',
+  url,
+});
 
 const renderSearchResults = () => {
   const resultsElement = document.getElementById('coveo-results');
@@ -44,6 +134,14 @@ const renderSearchResults = () => {
       querySortSection.removeAttribute('style');
     }
     sortedResults.forEach((result) => {
+      const isFavorite = isUserLoggedIn
+        ? !!favoriteResultsList?.some((fav) => fav?.pageData?.some(
+          (page) => page?.path === result.printableUri || page?.path === result?.raw?.courseurl,
+        ))
+        : false;
+      const urlSplit = result.printableUri.split('/');
+      const isItemAllowed = urlSplit.some((segment) => favIconAllowedTags.includes(segment));
+
       const regulatoryInfo = document.createElement('div');
       regulatoryInfo.className = 'regulatory-info';
       const partNumber = result.raw.productpartnumber ? `Part Number : ${result.raw.productpartnumber} | ` : '';
@@ -76,31 +174,95 @@ const renderSearchResults = () => {
 
       const rating = result?.raw?.rating ?? 0;
       Array.from(stars).slice(0, rating).forEach((star) => star.classList.add('filled'));
+      const cleanPrintableUri = result.printableUri?.startsWith('https://training.sciex.com')
+        ? getCleanPrintableUri(result.printableUri)
+        : result.printableUri;
 
       const resultItem = document.createElement('div');
       resultItem.className = 'result-item';
       resultItem.innerHTML = `
-          <div class="item-details"> 
-            ${result.raw.isnewcourse || result.raw.coursetypecategories
-    ? `<div class="tag-container">
-                ${result.raw.coursetypecategories.toString() === 'Premium online' ? '<span class="tag premium">Premium</span>' : ''}
-                ${result.raw.isnewcourse ? '<span class="tag new">New</span>' : ''}
-              </div> ` : ''
-}
+                  <div class="item-details">
+          ${result.raw.isnewcourse || result.raw.coursetypecategories ? `
+            <div class="tag-container">
+        ${result.raw.coursetypecategories?.some((cat) => cat === 'Premium online' || cat === 'Premium eLearning') ? '<span class="tag premium">Premium</span>' : ''}
+        ${result.raw.isnewcourse ? '<span class="tag new">New</span>' : ''}
+      </div>
+          ` : ''}
             <h3>${result.title || 'No Title Available'}</h3>
-            ${
-  result.raw.description
+            ${result.raw.description
     ? `<p class="description">${result.raw.description}</p> `
     : `<p class="description">${result.Excerpt}</p>`
 }
-            ${
-  result.raw.ogimage
+            ${result.raw.ogimage
     ? `<img src="${result.raw.ogimage}" alt="ogimage" width="200" height="200">`
     : ''
 }
-          </div>
-          <a class="view-details-btn" target="_blank" href="${result.printableUri}">View</a>
+        </div>
+        <div class="action-section">
+  ${isUserLoggedIn && isItemAllowed ? `
+    <div class="item-icons">
+          <span class="favorite-icon" aria-label="Favorite">
+            <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 30 30" fill="none">
+              <path d="M22.75 4.5V24.7344L15.3652 16.8584L15 16.4688L14.6348 16.8584L7.25 24.7344V4.5H22.75Z" />
+            </svg>
+          </span>
+    </div>
+  ` : ''}
+  <a class="view-details-btn" target="_blank"
+     href="${cleanPrintableUri}">
+     ${strings.view}
+  </a>
+</div>
+
         `;
+
+      // Paste the share icon above line 157
+      // <img src="/icons/share.svg" alt="Share" class="share-icon" />
+
+      const favIcon = resultItem.querySelector('.favorite-icon');
+      if (isUserLoggedIn && favIcon) {
+        if (isFavorite) {
+          favIcon.classList.add('favorited');
+        }
+
+        favIcon.addEventListener('click', async (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+
+          if (favIcon.classList.contains('is-loading')) return;
+          favIcon.classList.add('is-loading');
+
+          let pageUrl = result.printableUri;
+          if (pageUrl.startsWith('https://training.sciex.com')) {
+            pageUrl = result?.raw?.courseurl;
+          }
+          const isFavorited = favIcon.classList.contains('favorited');
+
+          try {
+            if (isFavorited) {
+              favIcon.classList.remove('favorited');
+              const res = await removeToFavorite(pageUrl);
+
+              if (!res.success) {
+                favIcon.classList.add('favorited');
+              } else {
+                favoriteResultsList = await getFavoriteResultsList();
+              }
+            } else {
+              favIcon.classList.add('favorited');
+              const res = await addToFavorite(pageUrl);
+
+              if (!res.success) {
+                favIcon.classList.remove('favorited');
+              } else {
+                favoriteResultsList = await getFavoriteResultsList();
+              }
+            }
+          } finally {
+            favIcon.classList.remove('is-loading');
+          }
+        });
+      }
 
       const viewDetailsBtn = resultItem.querySelector('.view-details-btn');
       viewDetailsBtn.addEventListener('click', () => {

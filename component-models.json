@@ -844,6 +844,96 @@
     ]
   },
   {
+    "id": "course-catalog-detail",
+    "fields": [
+      {
+        "component": "text",
+        "name": "catalogID",
+        "label": "Catalog ID",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Course Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "url",
+        "label": "Course URL",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "rating",
+        "label": "Course Rating",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "duration",
+        "label": "Duration",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "regiontags",
+        "label": "Region",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "courseType",
+        "label": "Course Type",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "courseLevel",
+        "label": "Course Level",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "relatedResources",
+        "label": "Related Resources",
+        "valueType": "string"
+      },
+      {
+        "component": "boolean",
+        "name": "isfree",
+        "label": "Is Free",
+        "valueType": "boolean"
+      },
+      {
+        "component": "boolean",
+        "name": "isInEcommerce",
+        "label": "In Ecommerce",
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "name": "trainingType",
+        "label": "Training Type",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-tag",
+        "valueType": "string",
+        "name": "categories",
+        "label": "course Tags ",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "coursecatalog",
     "fields": [
       {
@@ -1356,6 +1446,53 @@
         "value": "",
         "label": "Coveo Search Engine Access Token",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "featured-key-workflows",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      }
+    ]
+  },
+  {
+    "id": "workflow-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "categoryName",
+        "label": "Category Name"
+      },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt Text",
+        "value": "workflow image"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "enterTheLinks",
+        "label": "Enter the links"
+      },
+      {
+        "component": "boolean",
+        "name": "openLinkInNewTab",
+        "label": "Open link in new tab",
+        "value": false,
+        "valueType": "boolean"
       }
     ]
   },
@@ -2084,6 +2221,142 @@
         "label": "Height (px)",
         "valueType": "number",
         "description": "Enter height in px ,the default value is auto"
+      }
+    ]
+  },
+  {
+    "id": "knowledge-base-article",
+    "fields": [
+      {
+        "component": "text",
+        "name": "versionId",
+        "label": "Version ID",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "knowledgeArticleId",
+        "label": "Knowledge Article ID",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "articleId",
+        "label": "Article ID",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "urlName",
+        "label": "URL Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "textarea",
+        "name": "summary",
+        "label": "Summary",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "body",
+        "label": "Body",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "publishStatus",
+        "label": "Publish Status",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Online",
+            "value": "Online"
+          },
+          {
+            "name": "Draft",
+            "value": "Draft"
+          },
+          {
+            "name": "Archived",
+            "value": "Archived"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "syncStatus",
+        "label": "Sync Status",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "New",
+            "value": "New"
+          },
+          {
+            "name": "Updated",
+            "value": "Updated"
+          },
+          {
+            "name": "Synced",
+            "value": "Synced"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "name": "language",
+        "label": "Language",
+        "valueType": "string"
+      },
+      {
+        "component": "date",
+        "name": "createdDate",
+        "label": "Created Date",
+        "valueType": "string"
+      },
+      {
+        "component": "checkbox",
+        "name": "entitledContent",
+        "label": "Entitled Content",
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "name": "articleType",
+        "label": "Article Type",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "tagNames",
+        "label": "Tag Names",
+        "valueType": "string"
+      },
+      {
+        "component": "number",
+        "name": "voteAvg",
+        "label": "Average Vote",
+        "valueType": "number"
+      },
+      {
+        "component": "checkbox",
+        "name": "currentUserHasVoted",
+        "label": "Current User Has Voted",
+        "valueType": "boolean",
+        "value": false
+      },
+      {
+        "component": "number",
+        "name": "currentUserScore",
+        "label": "Current User Score",
+        "valueType": "number"
       }
     ]
   },
