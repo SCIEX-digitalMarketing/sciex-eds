@@ -61,6 +61,13 @@
           "value": "",
           "label": "Coveo Search Engine Access Token",
           "valueType": "string"
+        },
+        {
+          "component": "richtext",
+          "name": "contentTypeHeadings",
+          "value": "",
+          "label": "Content-Type Headings",
+          "valueType": "string"
         }
       ]
     }

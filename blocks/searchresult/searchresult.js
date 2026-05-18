@@ -397,7 +397,8 @@ export default async function decorate(block) {
 
   const pageUrl = new URL(window.location.href);
   let query;
-
+  const children = Array.from(block.children);
+  const contentTypeHeading = children[6]?.textContent?.trim();
   try {
     if (pageUrl.search) {
       const params = new URLSearchParams(pageUrl.search);
