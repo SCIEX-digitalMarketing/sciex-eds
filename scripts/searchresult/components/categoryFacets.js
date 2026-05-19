@@ -93,7 +93,7 @@ function createToggleButtons(facetItemsContainer, facetController) {
   }
 }
 
-function renderFacet(facetElementId, facetController, headerText) {
+function renderFacet(facetElementId, facetController, headerText, contentTypeHeading) {
   const facetId = facetController.state.facetId;
   const facetElement = document.getElementById(facetElementId);
   const shouldHaveInput = ['massspectrometerscategories', 'softwarecategories', 'language', 'instrumentfamily'].includes(facetId);
@@ -168,7 +168,8 @@ function renderFacet(facetElementId, facetController, headerText) {
   const facetItemsContainer = document.createElement('div');
   facetItemsContainer.className = 'facet-items-container';
   facetElement.appendChild(facetItemsContainer);
-
+  const contentTypeHeadingContainer = document.getElementById('content-type-heading-container');
+ 
   const values = facetController.state.values;
   const searchValues = facetController.state.facetSearch?.values || [];
 
@@ -181,6 +182,11 @@ function renderFacet(facetElementId, facetController, headerText) {
 
   if (!isSearch) {
     values.forEach(value => {
+      if(facetId === 'contenttype' && value.state === "selected"){
+        contentTypeHeadingContainer.textContent = value.value;
+      }else if(value.value=== contentTypeHeadingContainer.textContent){
+        contentTypeHeadingContainer.textContent = '';
+      }
       if (facetId === 'applications' && value.value === 'Application') return;
 
       let displayText = value.value
@@ -456,7 +462,7 @@ function orderContentTypeFacets(facetId,facetItemsContainer){
   }
 }
 
-function createFacetRender(facetController, facetElementId, headerText) {
+function createFacetRender(facetController, facetElementId, headerText, contentTypeHeading) {
   let isValues = false;
   const { values } = facetController.state;
   if(values.length > 0) {
@@ -468,7 +474,7 @@ function createFacetRender(facetController, facetElementId, headerText) {
     ele.remove();
   }
   createFacetDiv(facetElementId);
-  renderFacet(id, facetController, headerText); 
+  renderFacet(id, facetController, headerText, contentTypeHeading); 
 }
 
 function createFacetDiv(id) {
@@ -481,13 +487,14 @@ function createFacetDiv(id) {
   } 
 }
 
-export function callCreateFacet() {
-  createFacetRender(contentTypeFacetController, "contenttype", strings.contentType);
+export function callCreateFacet(contentTypeHeading) {
+  console.log('Calling createFacetRender for content type facet with heading:', contentTypeHeading);
+  createFacetRender(contentTypeFacetController, "contenttype", strings.contentType,contentTypeHeading);
 
   let lang = document.documentElement.lang;
 
   if (lang === 'ja' || lang === 'zh-cn') {
-    createFacetRender(languageFacetController, "language", strings.language);
+    createFacetRender(languageFacetController, "language", strings.language,contentTypeHeading);
   }
   const facetController = allFacetController;
 
@@ -530,7 +537,7 @@ export function callCreateFacet() {
       }
     }
     if (val.state.values.length) {
-      createFacetRender(val, item, facetsId[item]);
+      createFacetRender(val, item, facetsId[item], contentTypeHeading);
     }
   }
 }
