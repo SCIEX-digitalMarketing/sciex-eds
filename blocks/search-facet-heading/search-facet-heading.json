@@ -34,6 +34,18 @@
     ],
     "models": [
         {
+            "id": "search-facet-heading",
+            "fields": [
+                {
+                    "component": "text",
+                    "valueType": "string",
+                    "name": "heading",
+                    "label": "Heading",
+                    "value": ""
+                }
+            ]
+        },
+        {
             "id": "search-facet-heading-item",
             "fields": [
                 {
