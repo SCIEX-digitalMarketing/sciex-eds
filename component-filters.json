@@ -249,6 +249,12 @@
     ]
   },
   {
+    "id": "search-facet-heading",
+    "components": [
+      "search-facet-heading-item"
+    ]
+  },
+  {
     "id": "speakers",
     "components": [
       "speaker-details"
