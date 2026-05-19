@@ -3938,13 +3938,8 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "link",
-        "label": "Link"
-      },
-      {
-        "component": "aem-content",
-        "name": "links",
-        "label": "Links"
+        "name": "buttonLink",
+        "label": "Button Link"
       }
     ]
   },
