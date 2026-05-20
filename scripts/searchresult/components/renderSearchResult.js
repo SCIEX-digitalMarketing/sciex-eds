@@ -190,9 +190,9 @@ const renderSearchResults = () => {
           ` : ''}
             <h3>${result.title || 'No Title Available'}</h3>
             ${result.raw.description
-    ? `<p class="description">${result.raw.description}</p> `
-    : `<p class="description">${result.Excerpt}</p>`
-}
+          ? `<div class="description">${result.raw.description}</div> `
+          : `<div class="description">${result.Excerpt}</div>`
+        }
             ${result.raw.ogimage
     ? `<img src="${result.raw.ogimage}" alt="ogimage" width="200" height="200">`
     : ''
@@ -218,6 +218,60 @@ const renderSearchResults = () => {
 
       // Paste the share icon above line 157
       // <img src="/icons/share.svg" alt="Share" class="share-icon" />
+       const descriptionElement = resultItem.querySelector('.description');
+      const itemDetails = resultItem.querySelector('.item-details');
+
+       if (descriptionElement) {
+        descriptionElement.style.maxHeight = '3em';
+        descriptionElement.style.overflow = 'hidden';
+        descriptionElement.style.textOverflow = 'ellipsis';
+        descriptionElement.style.display = '-webkit-box';
+        descriptionElement.style.webkitBoxOrient = 'vertical';
+
+        const showMoreBtn = document.createElement('button');
+        showMoreBtn.className = 'show-more-btn-des';
+
+        const showMoreText = '<span class="show-more-text">Read More</span>';
+        showMoreBtn.innerHTML = showMoreText;
+        showMoreBtn.style.display = 'none';
+
+        const showMoreIcon = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M2 8L14 8" stroke="#0068FA"/>
+            <path d="M8 2L8 14" stroke="#0068FA"/>
+          </svg>
+        `;
+        showMoreBtn.innerHTML += showMoreIcon;
+
+        const checkOverflow = () => {
+          if (descriptionElement.scrollHeight > descriptionElement.clientHeight) {
+            showMoreBtn.style.display = 'inline-flex';
+          }
+        };
+
+        const resizeObserver = new ResizeObserver(() => {
+          checkOverflow();
+        });
+        resizeObserver.observe(descriptionElement);
+
+        checkOverflow();
+        showMoreBtn.addEventListener('click', () => {
+          
+          const isExpanded = descriptionElement.style.maxHeight === 'none';
+          descriptionElement.style.maxHeight = isExpanded ? '3em' : 'none';
+          descriptionElement.style.webkitLineClamp = isExpanded ? '3' : 'none';
+          showMoreBtn.innerHTML = isExpanded
+            ? `<span class="show-more-text">Read More</span>${showMoreIcon}`
+            : `
+              <span class="show-more-text">Read Less</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="21" viewBox="0 0 16 21" fill="none">
+                <path d="M2 8L14 8" stroke="#0068FA"/>
+              </svg>
+            `;
+        });
+
+        itemDetails.appendChild(showMoreBtn);
+      }
 
       const favIcon = resultItem.querySelector('.favorite-icon');
       if (isUserLoggedIn && favIcon) {
