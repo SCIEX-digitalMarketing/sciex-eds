@@ -47,6 +47,9 @@ export default async function decorate(block) {
   const trainingType = children[12]?.textContent?.trim();
   const categoriesTags = children[13]?.textContent?.trim();
 
+const hasInstructorLedVirtual = categoriesTags
+  ?.split(',')
+  .includes('sciex:coursecatalog/course-type/instructor-led-virtual');
   // Fetch user authentication info and allowed countries for ecommerce
   const [isLoggedIn, userEmail, countryCode,premiumContentEligible] = await checkLoginStatus();
   const allowedCountryCode = ["us","uk", "gb", "de", "ca", "cz", "nl", "fr", "at", "be", "it", "pt", "es"];
@@ -262,13 +265,10 @@ export default async function decorate(block) {
   });
   const validEnrollmentCourseType = [
     'at sciex',
-    'instructor-led-training',
-    'instructor led virtual',
-    'instructor led',
+    'virtual'
   ];
   const isValidEnrollmentCourseType =
-    validEnrollmentCourseType.includes(courseType.toLowerCase()) ||
-    validEnrollmentCourseType.includes(trainingType.toLowerCase());
+    validEnrollmentCourseType.includes(courseType.toLowerCase()) || hasInstructorLedVirtual;
   if (isValidEnrollmentCourseType ) {
   const enrollmentContainer = document.createElement('div');
   enrollmentContainer.classList.add('enrollment-container');
