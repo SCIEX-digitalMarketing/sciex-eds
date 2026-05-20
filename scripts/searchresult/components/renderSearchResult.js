@@ -265,10 +265,12 @@ const renderSearchResults = () => {
           descriptionElement.style.webkitLineClamp = isExpanded ? '3' : 'none';
           showMoreBtn.innerHTML = isExpanded
             ? `<span class="show-more-text">Read More</span>${showMoreIcon}`
-            : '<span class="show-more-text">Read Less</span> ' + `        
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="21" viewBox="0 0 16 21" fill="none">
-                  <path d="M2 8L14 8" stroke="#0068FA"/>
-                </svg>`;
+            : `
+              <span class="show-more-text">Read Less</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="21" viewBox="0 0 16 21" fill="none">
+                <path d="M2 8L14 8" stroke="#0068FA"/>
+              </svg>
+            `;
         });
 
         itemDetails.appendChild(showMoreBtn);

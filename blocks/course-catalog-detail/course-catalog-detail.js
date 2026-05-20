@@ -268,7 +268,8 @@ const hasInstructorLedVirtual = categoriesTags
     'virtual'
   ];
   const isValidEnrollmentCourseType =
-    validEnrollmentCourseType.includes(courseType.toLowerCase()) || hasInstructorLedVirtual;
+  validEnrollmentCourseType.includes(courseType?.toLowerCase()) ||
+   hasInstructorLedVirtual;
   if (isValidEnrollmentCourseType ) {
   const enrollmentContainer = document.createElement('div');
   enrollmentContainer.classList.add('enrollment-container');
