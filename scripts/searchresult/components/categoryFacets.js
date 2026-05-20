@@ -168,7 +168,7 @@ function renderFacet(facetElementId, facetController, headerText, contentTypeHea
   const facetItemsContainer = document.createElement('div');
   facetItemsContainer.className = 'facet-items-container';
   facetElement.appendChild(facetItemsContainer);
-  const contentTypeHeadingContainer = document.getElementById('content-type-heading-container');
+  // const contentTypeHeadingContainer = document.getElementById('content-type-heading-container');
  
   const values = facetController.state.values;
   const searchValues = facetController.state.facetSearch?.values || [];
@@ -183,9 +183,16 @@ function renderFacet(facetElementId, facetController, headerText, contentTypeHea
   if (!isSearch) {
     values.forEach(value => {
       if(facetId === 'contenttype' && value.state === "selected"){
-        contentTypeHeadingContainer.textContent = value.value;
-      }else if(value.value=== contentTypeHeadingContainer.textContent){
-        contentTypeHeadingContainer.textContent = '';
+        const searchFacetHeading = document.getElementById(`search-facet-heading-${value.value.toLowerCase()}`);
+        console.log('Found search facet heading element:',value.value.toLowerCase(), searchFacetHeading);
+        if (searchFacetHeading ) {
+            searchFacetHeading.style.setProperty('display', 'block');
+        }
+      }else if(facetId === 'contenttype' && value.state !== "selected"){
+        const searchFacetHeading = document.getElementById(`search-facet-heading-${value.value.toLowerCase()}`);
+        if (searchFacetHeading ) {
+          searchFacetHeading.style.setProperty('display', 'none', 'important');
+        }
       }
       if (facetId === 'applications' && value.value === 'Application') return;
 

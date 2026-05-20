@@ -1,0 +1,20 @@
+.search-facet-heading.block{
+    display: flex;
+    flex-direction: column;
+}
+.search-facet-heading{
+    display: flex !important;
+    gap: 30px;
+}
+
+.search-facet-heading-content{
+    display: flex;
+    gap: 30px;
+}
+.search-facet-heading-image{
+    width: 50%;
+    height: 100%;
+}
+.search-facet-heading-description{
+    width: 60%;
+}
