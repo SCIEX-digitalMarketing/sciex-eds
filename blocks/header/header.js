@@ -204,7 +204,7 @@ function createGlobalSearch() {
     "Products and services":"Products and services",
     "Regulatory documents":"Regulatory documents",
     "SCIEX How":"SCIEX How",
-    "Technical Notes":"Technical Notes",
+    "Technical notes":"Technical notes",
     "Training":"Training",
     "User guides":"User guides",
   };
@@ -635,16 +635,9 @@ function createMainHeader(section) {
               anchorElement.href = myprofile;
               anchorElement.classList.add('myprofile-div');
             } else if (key === 'My favorite resources') {
-              const icon = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <g clip-path="url(#clip0_137_8489)">
-                  <path d="M15.73 9.25324L15.9637 9.01854C17.5651 7.41 17.5651 4.802 15.9637 3.19346C14.3622 1.58493 11.7657 1.58493 10.1642 3.19346L9.00004 4.3628L7.83584 3.19346C6.23437 1.58493 3.63787 1.58493 2.03643 3.19346C0.434959 4.802 0.434959 7.41 2.03643 9.01854L9.00004 16.0129L14.7962 10.2168" stroke="#020200" stroke-width="1.125" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                </g>
-                <defs>
-                  <clipPath id="clip0_137_8489">
-                    <rect width="18" height="18" fill="white"/>
-                  </clipPath>
-                </defs>
-              </svg>`;
+              const icon = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 30 30" fill="none" stroke = "black" stroke-width="1.5" >
+          <path d="M22.75 4.5V24.7344L15.3652 16.8584L15 16.4688L14.6348 16.8584L7.25 24.7344V4.5H22.75Z" />
+            </svg>`;
               anchorElement.innerHTML = `${icon} ${key}`;
               anchorElement.href = myFavoriteResources;
               anchorElement.classList.add('myprofile-div');
@@ -1437,11 +1430,11 @@ function createMegaMenuThirdLevel(child) {
 
   // First part preparation
   const firstpartdiv = div({
-    class: 'tw-w-3/12 submenu-links tw-border-r tw-relative tw-pr-24',
+    class: 'tw-w-3/12 submenu-links tw-border-r tw-relative tw-pr-24 tw-self-start',
   });
 
   const secondPartdiv = div({
-    class: 'tw-w-6/12 submenu-content tw-px-32 tw-pr-40 tw-border-r',
+    class: 'tw-w-6/12 submenu-content tw-px-32 tw-pr-40 tw-border-r tw-self-start',
   });
   const wrapdiv = div({ class: 'tw-flex tw-flex-wrap tw-h-fit' });
   const viewAllTag = document.createElement('a');
@@ -1613,10 +1606,10 @@ function createMegaMenuThirdLevel(child) {
             createViewallTag(list, viewAllTag);
           }
         }
-      }
+      } 
     });
   } else if (sections.length > 0 && isSubItems) {
-    secondPartdiv.className = 'tw-w-9/12 submenu-content tw-px-32 tw-pr-40';
+    secondPartdiv.className = 'tw-w-9/12 submenu-content tw-px-32 tw-pr-40 tw-self-start';
     wrapdiv.className = 'tw-flex tw-flex-wrap tw-h-fit';
     sections.forEach((section, index) => {
       if (index === 0) {

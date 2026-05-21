@@ -984,14 +984,8 @@
       },
       {
         "component": "text",
-        "name": "region",
+        "name": "regiontags",
         "label": "Region",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "language",
-        "label": "Language",
         "valueType": "string"
       },
       {
@@ -1017,6 +1011,25 @@
         "name": "isfree",
         "label": "Is Free",
         "valueType": "boolean"
+      },
+      {
+        "component": "boolean",
+        "name": "isInEcommerce",
+        "label": "In Ecommerce",
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "name": "trainingType",
+        "label": "Training Type",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-tag",
+        "valueType": "string",
+        "name": "categories",
+        "label": "course Tags ",
+        "value": ""
       }
     ]
   },

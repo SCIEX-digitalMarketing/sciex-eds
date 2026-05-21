@@ -106,6 +106,8 @@ export const renderFacetBreadcurm = () => {
     trainingtopiccategories: strings.trainingTopic,
     trainingtypecategories: strings.trainingType,
     trainingcoursetype: strings.trainingCourseType,
+    categories :strings.categories,
+    subcategories: strings.subcategories,
     assettypes: strings.assetType,
     instrumentfamily: strings.instrumentFamily,
     languagecountry: strings.languageCountry,

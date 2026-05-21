@@ -357,10 +357,12 @@ function orderFacetBasedOnSelection(selectedValue) {
       'year-facet'
     ];
     orderFacetChildren('facets', desiredOrder);
-  } else if (selectedValue === 'Resource library' || selectedValue === 'Knowledge base articles' || selectedValue === 'SCIEX How' || selectedValue === 'Technical Notes') {
+  } else if (selectedValue === 'Resource library' || selectedValue === 'Knowledge base articles' || selectedValue === 'SCIEX How' || selectedValue === 'Technical notes') {
     desiredOrder = [
       'contenttype-facet',
       'language-facet',
+      'categories-facet',
+      'subcategories-facet',
       'assettypes-facet',
       'applications-facet',
       'massspectrometerscategories-facet',
@@ -382,6 +384,8 @@ function orderFacetBasedOnSelection(selectedValue) {
       'techniquescategories-facet',
       'trainingtypecategories-facet',
       'trainingcoursetype-facet',
+      'categories-facet',
+      'subcategories-facet',
       'levelcategories-facet',
       'certificatetypecategories-facet',
       'massspectrometerscategories-facet',
@@ -501,6 +505,8 @@ export function callCreateFacet() {
     'trainingtopiccategories': strings.trainingTopic,
     'trainingtypecategories': strings.trainingType,
     'trainingcoursetype': strings.trainingCourseType,
+    'categories': strings.categories,
+    'subcategories': strings.subcategories,
     'assettypes': strings.assetType,
     'languagecountry': strings.languageCountry,
     'year': strings.year,

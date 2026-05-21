@@ -17,7 +17,8 @@ const favIconAllowedTags = [
   "training",
   "training.sciex.com",
   "customer-docs",
-  "eula"
+  "eula",
+  "sciexhow"
 ];
 async function checkLoginStatus() {
   try {
@@ -135,12 +136,14 @@ const renderSearchResults = () => {
     }
     sortedResults.forEach((result) => {
       const isFavorite = isUserLoggedIn
-        ? favoriteResultsList.some((fav) => fav.pageData.some(
-          (page) => page.path === result.printableUri,
-        ))
+        ? !!favoriteResultsList?.some(fav =>
+          fav?.pageData?.some(
+            page => page?.path === result.printableUri || page?.path === result?.raw?.courseurl
+          )
+        )
         : false;
-       const urlSplit = result.printableUri.split("/");
-       const isItemAllowed = urlSplit.some(segment => favIconAllowedTags.includes(segment));
+      const urlSplit = result.printableUri.split("/");
+      const isItemAllowed = urlSplit.some(segment => favIconAllowedTags.includes(segment));
 
       const regulatoryInfo = document.createElement('div');
       regulatoryInfo.className = 'regulatory-info';
@@ -175,19 +178,19 @@ const renderSearchResults = () => {
       const rating = result?.raw?.rating ?? 0;
       Array.from(stars).slice(0, rating).forEach((star) => star.classList.add('filled'));
       const cleanPrintableUri = result.printableUri?.startsWith('https://training.sciex.com')
-      ? getCleanPrintableUri(result.printableUri)
-      : result.printableUri;
+        ? getCleanPrintableUri(result.printableUri)
+        : result.printableUri;
 
       const resultItem = document.createElement('div');
       resultItem.className = 'result-item';
       resultItem.innerHTML = `
-          <div class="item-details"> 
-            ${result.raw.isnewcourse || result.raw.coursetypecategories
-    ? `<div class="tag-container">
-                ${result.raw.coursetypecategories?.toString() === 'Premium online' ? '<span class="tag premium">Premium</span>' : ''}
-                ${result.raw.isnewcourse ? '<span class="tag new">New</span>' : ''}
-              </div> ` : ''
-}
+                  <div class="item-details">
+          ${result.raw.isnewcourse || result.raw.coursetypecategories ? `
+            <div class="tag-container">
+        ${result.raw.coursetypecategories?.some(cat => cat === 'Premium online' || cat === 'Premium eLearning') ? '<span class="tag premium">Premium</span>' : ''}
+        ${result.raw.isnewcourse ? '<span class="tag new">New</span>' : ''}
+      </div>
+          ` : ''}
             <h3>${result.title || 'No Title Available'}</h3>
             ${result.raw.description
           ? `<div class="description">${result.raw.description}</div> `
@@ -202,10 +205,9 @@ const renderSearchResults = () => {
   ${isUserLoggedIn && isItemAllowed ? `
     <div class="item-icons">
           <span class="favorite-icon" aria-label="Favorite">
-                    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 22">
-                        <path d="M21.1412 11.2293L11.7662 20.5143L2.39125 11.2293C1.77288 10.6275 1.2858 9.90428 0.96068 9.10505C0.635562 8.30583 0.479448 7.44795 0.502167 6.58543C0.524887 5.7229 0.725949 4.87443 1.09269 4.09343C1.45944 3.31243 1.98391 2.61583 2.6331 2.04748C3.28229 1.47914 4.04213 1.05137 4.86476 0.79111C5.68739 0.53085 6.555 0.443739 7.41296 0.535261C8.27091 0.626783 9.10062 0.894955 9.84984 1.32289C10.5991 1.75083 11.2516 2.32926 11.7662 3.02176C12.2832 2.33429 12.9364 1.76091 13.6851 1.33752C14.4338 0.91412 15.2619 0.649821 16.1174 0.561159C16.973 0.472497 17.8376 0.561382 18.6572 0.822249C19.4768 1.08312 20.2338 1.51035 20.8807 2.07721C21.5276 2.64408 22.0505 3.33836 22.4168 4.11662C22.783 4.89488 22.9847 5.74036 23.0091 6.60014C23.0336 7.45993 22.8803 8.3155 22.5589 9.11332C22.2375 9.91114 21.7549 10.634 21.1412 11.2368"
-                          stroke-linecap="round" stroke-linejoin="round"/>
-                     </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 30 30" fill="none">
+              <path d="M22.75 4.5V24.7344L15.3652 16.8584L15 16.4688L14.6348 16.8584L7.25 24.7344V4.5H22.75Z" />
+            </svg>
           </span>
     </div>
   ` : ''}
@@ -276,11 +278,11 @@ const renderSearchResults = () => {
 
       const favIcon = resultItem.querySelector('.favorite-icon');
       if (isUserLoggedIn && favIcon) {
-      
+
         if (isFavorite) {
           favIcon.classList.add('favorited');
         }
-        
+
         favIcon.addEventListener('click', async (e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -288,7 +290,10 @@ const renderSearchResults = () => {
           if (favIcon.classList.contains('is-loading')) return;
           favIcon.classList.add('is-loading');
 
-          const pageUrl = result.printableUri;
+          let pageUrl = result.printableUri;
+          if(pageUrl.startsWith('https://training.sciex.com')) {
+            pageUrl = result?.raw?.courseurl ;
+          }
           const isFavorited = favIcon.classList.contains('favorited');
 
           try {

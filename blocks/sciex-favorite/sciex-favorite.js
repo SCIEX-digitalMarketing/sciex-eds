@@ -10,7 +10,7 @@ const CATEGORY_MAP = [
   },
   {
     key: 'tech-notes',
-    title: 'Tech notes',
+    title: 'Technical notes',
     icon: 'tech-notes',
     match: (p) => p.includes('/tech-notes/'),
   },
@@ -28,32 +28,9 @@ const CATEGORY_MAP = [
   },
 ];
 
-function getTrainingTypeFromUrl(path) {
-  try {
-    const urlObj = new URL(path, window.location.origin);
-    const courseType = urlObj.searchParams.get('courseType');
-
-    if (!courseType) return null;
-
-    const normalized = courseType.trim().toLowerCase();
-
-    if (normalized.includes('self') && normalized.includes('paced')) {
-      return 'self-paced';
-    }
-
-    if (normalized.includes('instructor') && normalized.includes('led')) {
-      return 'instructor';
-    }
-  } catch (e) {
-    console.warn('Invalid training URL:', path);
-  }
-
-  return null;
-}
-
 /**
  * Main initialization function for the Favorites accordion component.
- *  */
+ */
 export default async function decorate(block) {
   const id = block.children[0]?.textContent?.trim() || 'my-favorites';
   const title = block.children[1]?.textContent?.trim() || 'My favorite resources';
@@ -68,7 +45,7 @@ export default async function decorate(block) {
 
   const USER_API = '/bin/sciex/currentuserdetails';
   const FAVORITES_API = '/bin/sciex/favorite-all-content';
-    
+
   const viewAllUrlText = block.children[5]?.textContent?.trim() || "View all resources";
 
   const viewAllUrl = block.children[6]?.textContent?.trim() || '#';
@@ -101,13 +78,13 @@ export default async function decorate(block) {
   header.addEventListener('click', () => {
     const toggleBtn = header.querySelector('.accordion-toggle');
     const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
-  
+
     toggleBtn.setAttribute('aria-expanded', String(!expanded));
     header.classList.toggle('open', !expanded);
     content.classList.toggle('open', !expanded);
   });
   
-    
+
   if (!USER_API || !FAVORITES_API) {
     console.error('Favorites block: Missing API endpoints');
     return;
@@ -118,30 +95,30 @@ export default async function decorate(block) {
 
     try {
       const userResp = await fetch(USER_API, { credentials: 'include' });
-    
+
       if (!userResp.ok) {
         throw new Error(`User API failed: ${userResp.status}`);
       }
-    
+
       const user = await userResp.json();
       isLoggedIn = user?.loggedIn === true;
     } catch (e) {
       console.warn('Favorites block: treating user as logged out', e);
       isLoggedIn = false;
     }
-    
+
     if (!isLoggedIn) {
       renderLoggedOut(content, logoutText, loginUrl, createAccountUrl);
       return;
     }
-          
+
     const favResp = await fetch(FAVORITES_API, { credentials: 'include' });
     const favorites = await favResp.json();
     if (!Array.isArray(favorites)) {
       console.error('Favorites block: Invalid favorites response', favorites);
       return;
     }
-    
+
     renderFavorites(content, favorites, viewAllUrl, viewAllUrlText);
   } catch (e) {
     console.error('Favorites block error', e);
@@ -178,31 +155,38 @@ function renderFavorites(container, items, viewAllUrl, viewAllUrlText) {
   const buckets = {};
 
  // Initialize known categories
-CATEGORY_MAP.forEach((c) => {
-  buckets[c.key] = [];
-});
+  CATEGORY_MAP.forEach((c) => {
+    buckets[c.key] = [];
+  });
 
-// Initialize training categories explicitly
-buckets['self-paced'] = [];
-buckets['instructor'] = [];
+  // Initialize training categories explicitly
+  buckets['self-paced'] = [];
+  buckets['instructor'] = [];
 
-  // Bucket full objects instead of just path strings
-  items.forEach(({ path, title }) => {
-    // First check if it's training
-    const trainingType = getTrainingTypeFromUrl(path);
-    
-    if (trainingType && buckets[trainingType]) {
-      buckets[trainingType].push({ path, title });
-      return;
+  // Bucket items by trainingType (from response) or path-based category matching
+  items.forEach(({ path, title, trainingType }) => {
+    // Only use trainingType if the property exists and is a non-empty string
+    if (trainingType && typeof trainingType === 'string' && trainingType.trim()) {
+      const normalized = trainingType.trim().toLowerCase();
+
+      if (normalized === 'self-paced-learning') {
+        buckets['self-paced'].push({ path, title });
+        return;
+      }
+
+      if (normalized === 'instructor-led-training') {
+        buckets['instructor'].push({ path, title });
+        return;
+      }
     }
-  
-    // Otherwise use normal category matching
+
+    // Fall back to path-based category matching for non-training items
     const category = CATEGORY_MAP.find((c) => c.match(path));
     if (category) {
       buckets[category.key].push({ path, title });
     }
   });
-  
+
   const grid = document.createElement('div');
   grid.className = 'favorites-grid';
 
@@ -215,24 +199,24 @@ buckets['instructor'] = [];
     'self-paced',
     'instructor',
   ];
-  
+
   const typesToRender = allowedTypes || allTypes;
-  
+
   typesToRender.forEach((typeKey) => {
     const categoryConfig = CATEGORY_MAP.find((c) => c.key === typeKey);
 
     let title;
     let icon;
-    let paths = buckets[typeKey] || [];
+    const paths = buckets[typeKey] || [];
 
     if (categoryConfig) {
       title = categoryConfig.title;
       icon = categoryConfig.icon;
-    }else if (typeKey === 'self-paced') {
-      title = 'Self-Paced Learning';
+    } else if (typeKey === 'self-paced') {
+      title = 'Self-paced learning';
       icon = 'self-paced';
     } else if (typeKey === 'instructor') {
-      title = 'Instructor-Led Training';
+      title = 'Instructor led training';
       icon = 'instructor';
     } else {
       title = humanizeType(typeKey);
@@ -263,9 +247,7 @@ buckets['instructor'] = [];
         a.href = path;
         a.target = '_blank';
         a.rel = 'noopener noreferrer';
-        
-        a.textContent =
-          (title && title.trim()) || decodeTitleFromPath(path);
+        a.textContent = (title && title.trim()) || decodeTitleFromPath(path);
 
         li.appendChild(a);
         ul.appendChild(li);
@@ -304,8 +286,8 @@ buckets['instructor'] = [];
   }
 
   decorateIcons(container);
-}  
-  
+}
+
 /**
  * Converts a URL path into a readable title.
  * Example: "/support/abc-my-page.html" → "abc my page"
@@ -338,8 +320,8 @@ function getAllowedTypesFromURL() {
  * Useful when API returns paths that don't match CATEGORY_MAP.
  **/
 function humanizeType(type) {
-    return type
-      .replace(/[-_]/g, ' ')
-      .replace(/\b\w/g, (c) => c.toUpperCase());
-  }
+  return type
+    .replace(/[-_]/g, ' ')
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
   
