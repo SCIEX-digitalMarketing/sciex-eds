@@ -38,12 +38,8 @@ export default async function decorate(block) {
   console.log('freeeeeeeeeeeee', isFree);
   console.log('id', courseId, relatedResources, isFree);
 
-const hasInstructorLedVirtual = categoriesTags
-  ?.split(',')
-  .includes('sciex:coursecatalog/course-type/instructor-led-virtual');
-  // Fetch user authentication info and allowed countries for ecommerce
-  const [isLoggedIn, userEmail, countryCode,premiumContentEligible] = await checkLoginStatus();
-  const allowedCountryCode = ["us","uk", "gb", "de", "ca", "cz", "nl", "fr", "at", "be", "it", "pt", "es"];
+  // Check login status and fetch available course sessions if logged in
+  const [isLoggedIn, userEmail] = await checkLoginStatus();
 
   // Determine cost display based on login status and free status
   let costDisplay = '';
@@ -194,95 +190,6 @@ const hasInstructorLedVirtual = categoriesTags
       }
     }
   });
-  const validEnrollmentCourseType = [
-    'at sciex',
-    'virtual'
-  ];
-  const isValidEnrollmentCourseType =
-  validEnrollmentCourseType.includes(courseType?.toLowerCase()) ||
-   hasInstructorLedVirtual;
-  if (isValidEnrollmentCourseType ) {
-  const enrollmentContainer = document.createElement('div');
-  enrollmentContainer.classList.add('enrollment-container');
-
-  const enrollmentHeading = document.createElement('h3');
-  enrollmentHeading.className = 'enrollment-title';
-  enrollmentHeading.textContent = 'Enrollment';
-  enrollmentContainer.appendChild(enrollmentHeading);
-  const tableContainer = document.createElement('div');
-  tableContainer.className = 'enrollment-table-container';
-
-  const enrollmentTable = document.createElement('table');
-  enrollmentTable.classList.add('enrollment-table');
-  const enrollmentThead = document.createElement('thead');
-  enrollmentThead.innerHTML = `
-    <tr>  
-      <th>Session available</th>
-      <th>Number of open spaces</th>
-      <th></th>
-    </tr>
-    `
-
-  const enrollmentBody = document.createElement('tbody');
-    const showEnrollment =
-  catalogData?.cost?.PriceBookEntry?.ProductCode &&
-  catalogData?.cost?.PriceBookEntry?.ProductCode !== '' &&
-  catalogData?.enrolment &&
-  catalogData?.enrolment.length > 0;
-  // Display enrollment sessions if user is logged in and sessions exist
-  if (showEnrollment) {
-    enrollmentTable.appendChild(enrollmentThead);
-    catalogData.enrolment.forEach((enrollment) => {
-      const tr = document.createElement('tr');
-
-      const tdName = document.createElement('td');
-      tdName.textContent = enrollment.LMSSession?.Name;
-
-      const tdSeats = document.createElement('td');
-      tdSeats.textContent = `${enrollment.seatsRemaining} Seats remaining` || 0;
-
-      // Build "Enrollment's buynow" link using ProductCode and country-specific store URL
-      let enrollmentUrl='#';
-      if (catalogData?.cost?.PriceBookEntry?.ProductCode) {
-        const countryCodeLower = countryCode.toLowerCase();
-        const baseUrl = storePathMap[countryCodeLower];
-        const productCode = catalogData.cost.PriceBookEntry.ProductCode;
-        
-        if (baseUrl) {
-          enrollmentUrl = `${baseUrl}${productCode}-sciex.html`;
-        } else {
-          // Fallback to US store
-          enrollmentUrl = `${storePathMap.us}${productCode}-sciex.html`;
-        }
-      } 
-
-      const buyButton = document.createElement('td');
-      buyButton.innerHTML = `
-            <a href="${enrollmentUrl}" target="_blank" class="btn primary enroll-buy-now">
-              Buy now
-            </a>
-          `;
-      tr.append(tdName, tdSeats, buyButton);
-      enrollmentBody.appendChild(tr);
-    });
-    enrollmentTable.appendChild(enrollmentBody);
-    tableContainer.appendChild(enrollmentTable);
-    enrollmentContainer.appendChild(tableContainer);
-  } else {
-    // Show message if no enrollment sessions available (not logged in or no sessions)
-    const enrollBanner = document.createElement('div');
-    enrollBanner.className = 'enroll-banner';
-    enrollBanner.innerHTML = `
-    <div class="enroll-banner-content">
-      <p>Currently there are no active sessions to display.</p>
-       <p> Please <a href="/about-us/contact-us" class="enroll-contact-link">contact us</a> if you are interested in taking this course.</p>
-       </div>
-    `;
-    enrollmentContainer.appendChild(enrollBanner);
-
-  }
-    descriptionContainer.appendChild(enrollmentContainer);
-  }
 
   const relatedContainer = document.createElement('div');
   relatedContainer.classList.add('related-container');
