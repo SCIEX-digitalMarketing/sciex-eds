@@ -93,7 +93,7 @@ export default async function decorate(block) {
     language: strings.language,
     massspectrometerscategories: strings.massSpectrometry,
     capillaryelectrophoresiscategories: strings.capillaryElectrophoresis,
-    hplcandceproductscategories: strings.liquidChromoatography,
+    hplcandceproductscategories: strings.liquidChromatography,
     integratedsolutionscategories: strings.integratedSolutions,
     softwarecategories: strings.software,
   };

@@ -371,7 +371,7 @@ export function renderCourseCatalogFacet() {
     levelcategories: 'Training Level',
     certificatetypecategories: 'Certificate type',
     massspectrometerscategories: 'Mass spectrometry',
-    hplcandceproductscategories: 'Liquid chromoatography',
+    hplcandceproductscategories: 'Liquid chromatography',
     integratedsolutionscategories: 'Integrated solutions',
     softwarecategories: 'Software',
     region: 'Training location',
