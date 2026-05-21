@@ -37,13 +37,13 @@
           "name": "url",
           "label": "Course URL",
           "valueType": "string"
-        }, 
+        },
         {
           "component": "text",
           "name": "rating",
           "label": "Course Rating",
           "valueType": "string"
-        }, 
+        },
         {
           "component": "richtext",
           "name": "description",
@@ -58,14 +58,8 @@
         },
         {
           "component": "text",
-          "name": "region",
+          "name": "regiontags",
           "label": "Region",
-          "valueType": "string"
-        },
-        {
-          "component": "text",
-          "name": "language",
-          "label": "Language",
           "valueType": "string"
         },
         {
@@ -86,11 +80,29 @@
           "label": "Related Resources",
           "valueType": "string"
         },
-         {
+        {
           "component": "boolean",
           "name": "isfree",
           "label": "Is Free",
           "valueType": "boolean"
+        },
+        {
+          "component": "boolean",
+          "name": "isInEcommerce",
+          "label": "In Ecommerce",
+          "valueType": "boolean"
+        },{
+          "component": "text",
+          "name": "trainingType",
+          "label": "Training Type",
+          "valueType": "string"
+        },
+        {
+          "component": "aem-tag",
+          "valueType": "string",
+          "name": "categories",
+          "label": "course Tags ",
+          "value": ""
         }
       ]
     }

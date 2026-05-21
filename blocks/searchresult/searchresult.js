@@ -327,7 +327,7 @@ export default async function decorate(block) {
       const iteration = index + 1;
       if (iteration === 1) {
         lifeSciencesDiv.appendChild(section.querySelector('div'));
-        block.append(lifeSciencesDiv);
+        //block.append(lifeSciencesDiv);
       } else if (iteration === 2) {
         if (section.querySelector('picture')) {
           coveoNoResultsDiv.appendChild(section.querySelector('picture'));

@@ -1,4 +1,8 @@
 import '../../scripts/aem.js';
+import {
+  getfavoriteAllData,
+
+} from '../../scripts/favorite-all/favorite-allDocEngine.js';
 
 async function checkLoginStatus() {
   try {
@@ -38,16 +42,13 @@ const callFavoriteAPI = async (operation, url) => {
   }
 };
 export default function decorate(block) {
-  console.log(`Decorating Knowledge Base Article block>${block.outerHTML}`);
   const children = Array.from(block.children);
-  console.log('KBA children :>> ', children);
   const versionId = children[0];
   const articleId = children[1]?.textContent?.trim() || '';
   const body = children[6];
   const title = children[4];
   const tagNames = children[13];
-  const voteAvg = children[14] || 0;
-
+  let voteAvg = children[14] || 0;
   const finalTags = [];
 
   // Ensure tagNames is a string
@@ -58,7 +59,6 @@ export default function decorate(block) {
   } else if (typeof tagNames === 'string') {
     tagString = tagNames;
   }
-  console.log('Parsed tagString :>> ', tagString);
   if (tagString) {
     tagString.split(';').forEach((group) => {
       const parts = group.split('-');
@@ -70,7 +70,7 @@ export default function decorate(block) {
           parent = 'applications';
         } else if (parent === 'Mass spectrometry') {
           parent = 'massspectrometerscategories';
-        } else if (parent === 'Liquid chromatography') {
+        } else if (parent === 'Liquid chromatography' || parent === 'NanoLC' || parent === 'MicroLC' || parent === 'Standard Flow LC') {
           parent = 'hplcandceproductscategories';
         } else if (parent === 'Biomedical and omics research') {
           parent = 'lifescienceresearchcategories';
@@ -78,6 +78,10 @@ export default function decorate(block) {
           parent = 'trainingcoursetype';
         } else if (parent === 'Language') {
           parent = 'language';
+        } else if (parent === 'Category') {
+          parent = 'categories';
+        } else if (parent === 'Sub category') {
+          parent = 'subcategories';
         } else {
           parent = `${parent}categories`;
         }
@@ -90,10 +94,9 @@ export default function decorate(block) {
       }
     });
   }
-
+  let savedArticleRating = 0;
   // const currentUserHasVoted = children[15]?.textContent === 'true';
-  const currentUserScore = children[16]?.textContent || 0;
-  console.log('currentUserScore :>> ', currentUserScore);
+  let currentUserScore = children[16]?.textContent || 0;
 
   const blockId = versionId?.textContent?.trim() || 'knowledge-base-article';
 
@@ -130,47 +133,62 @@ export default function decorate(block) {
 
   // svg icon
   favoriteIcon.innerHTML = `
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 22">
-    <path
-      d="M21.1412 11.2293L11.7662 20.5143L2.39125 11.2293C1.77288 10.6275 1.2858 9.90428 0.96068 9.10505C0.635562 8.30583 0.479448 7.44795 0.502167 6.58543C0.524887 5.7229 0.725949 4.87443 1.09269 4.09343C1.45944 3.31243 1.98391 2.61583 2.6331 2.04748C3.28229 1.47914 4.04213 1.05137 4.86476 0.79111C5.68739 0.53085 6.555 0.443739 7.41296 0.535261C8.27091 0.626783 9.10062 0.894955 9.84984 1.32289C10.5991 1.75083 11.2516 2.32926 11.7662 3.02176C12.2832 2.33429 12.9364 1.76091 13.6851 1.33752C14.4338 0.91412 15.2619 0.649821 16.1174 0.561159C16.973 0.472497 17.8376 0.561382 18.6572 0.822249C19.4768 1.08312 20.2338 1.51035 20.8807 2.07721C21.5276 2.64408 22.0505 3.33836 22.4168 4.11662C22.783 4.89488 22.9847 5.74036 23.0091 6.60014C23.0336 7.45993 22.8803 8.3155 22.5589 9.11332C22.2375 9.91114 21.7549 10.634 21.1412 11.2368"
-      fill="#ffffff"
-      stroke="#333333"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"/>
-  </svg>
-`;
+    <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 30 30" fill="none">
+          <path d="M22.75 4.5V24.7344L15.3652 16.8584L15 16.4688L14.6348 16.8584L7.25 24.7344V4.5H22.75Z" />
+       </svg>`;
+  if (favoriteIcon) {
+    const checkAndSetFavoriteStatus = async () => {
+      try {
+        const favoriteData = await getfavoriteAllData();
 
+        if (favoriteData) {
+          const isFavorited = !!favoriteData?.some((fav) => fav?.pageData?.some((page) => {
+            const path = page?.path || '';
+            // Full URL
+            if (path.startsWith('http')) {
+              return path === window.location.href;
+            }
+            // Relative path
+            return path === window.location.pathname;
+          }));
+          console.log('Is article favorited by user?', isFavorited);
+          if (isFavorited) {
+            const path = favoriteIcon.querySelector('path');
+            path.setAttribute('fill', '#1C7AFF');
+            path.setAttribute('stroke', '#1C7AFF');
+          }
+        }
+      } catch (error) {
+        console.error('Error checking favorite status:', error);
+      }
+    };
+    checkAndSetFavoriteStatus();
+  }
   favoriteIcon.addEventListener('click', () => {
     const path = favoriteIcon.querySelector('path');
-    const isRed = path.getAttribute('fill') === '#e60023';
+    const isRed = path.getAttribute('fill') === '#1C7AFF';
     const fullUrl = window.location.href;
-    console.log(fullUrl);
-
     if (isRed) {
-      path.setAttribute('fill', '#ffffff');
-      path.setAttribute('stroke', '#333333');
-      path.setAttribute('stroke-width', '1.5');
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', '#000');
+      path.setAttribute('transition', 'stroke 0.3s ease, fill 0.3s ease');
       callFavoriteAPI('remove', fullUrl);
     } else {
-      path.setAttribute('fill', '#e60023');
-      path.setAttribute('stroke', '#e60023');
-      console.log('Adding to favorites :>> ', fullUrl);
+      path.setAttribute('fill', '#1C7AFF');
+      path.setAttribute('stroke', '#1C7AFF');
       callFavoriteAPI('add', fullUrl);
     }
   });
 
   itemIcons.appendChild(favoriteIcon);
-
+  if (!isUserLoggedIn) {
+    favoriteIcon.style.display = 'none';
+  }
   // NEW: append heading + icon in same row
   titleRow.append(heading, itemIcons);
 
   const statusWrapper = document.createElement('div');
   statusWrapper.className = 'status-wrapper';
-
-  /* const published = document.createElement('span');
-  published.className = 'status';
-  published.textContent = `Published Date : ${createdDate?.textContent || ''}`; */
 
   // =========================
   // Rating UI
@@ -192,7 +210,6 @@ export default function decorate(block) {
   <path d="M11.4141 0L14.1082 8.2918H22.8267L15.7733 13.4164L18.4675 21.7082L11.4141 16.5836L4.36064 21.7082L7.05481 13.4164L0.00138474 8.2918H8.71989L11.4141 0Z" fill="#F2C94C"/>
 </svg>`;
     star.dataset.value = i;
-    console.log('voteAvg :>> ', voteAvg.textContent);
     const path = star.querySelector('path');
     if (voteAvg && i <= voteAvg.textContent) {
       path.setAttribute('fill', '#F2C94C');
@@ -222,10 +239,7 @@ export default function decorate(block) {
   const articleStarsRow = document.createElement('div');
   articleStarsRow.className = 'votestars-container';
 
-  let savedArticleRating = 0;
-
   function updateArticleStars(count) {
-    console.log('Updating stars to :>> ', count);
     const articleStars = articleStarsRow.querySelectorAll('.votestar');
     articleStars.forEach((star, index) => {
       const path = star.querySelector('path');
@@ -243,6 +257,44 @@ export default function decorate(block) {
     });
   }
 
+  // =========================
+  // Salesforce request - average vote display
+  // =========================
+
+  async function getVotes(kbaarticleId) {
+    const res = await fetch(`/bin/sciex/kba/rating?articleId=${kbaarticleId}`);
+    return res.json();
+  }
+  async function loadVotes() {
+    try {
+      const initialVotes = await getVotes(articleId);
+
+      voteAvg = Number(initialVotes?.voteAvg) || 0;
+      currentUserScore = Number(initialVotes?.currentUserScore) || 0;
+      savedArticleRating = currentUserScore;
+
+      // Update top rating stars
+      const topStars = starsContainer.querySelectorAll('.star');
+
+      topStars.forEach((star, index) => {
+        const path = star.querySelector('path');
+
+        if (index < voteAvg) {
+          path.setAttribute('fill', '#F2C94C');
+        } else {
+          path.setAttribute('fill', '#8A8A8A');
+        }
+      });
+
+      // Update user voting stars
+      updateArticleStars(currentUserScore);
+    } catch (e) {
+      console.error('Failed loading votes:', e);
+    }
+  }
+
+  loadVotes();
+  /// =========================
   for (let i = 1; i <= 5; i += 1) {
     const articleStarItem = document.createElement('span');
     articleStarItem.className = 'votestar';
@@ -254,8 +306,11 @@ export default function decorate(block) {
   }
   async function getArticle(kbaarticleId, voteVal) {
     let path = window.location.pathname;
-    if (!window.location.pathname.includes('/content/sciex-eds')) {
-      path = `/content/sciex-eds${window.location.pathname}`;
+    if (!path.includes('/content/sciex-eds')) {
+      path = `/content/sciex-eds${path}`;
+    }
+    if (path.endsWith('.html')) {
+      path = path.replace('.html', '');
     }
     const res = await fetch(`/bin/sciex/knowledge?articleId=${kbaarticleId}&voteVal=${voteVal}&pagePath=${path}`);
     return res.json();
@@ -265,7 +320,6 @@ export default function decorate(block) {
   voteStars.forEach((star, index) => {
     const ratingValue = index + 1;
     // ratingValue =currentUserScore;
-    // console.log('Initial ratingValue :>> ', ratingValue);
     star.addEventListener('mouseenter', () => {
       updateArticleStars(ratingValue);
     });
@@ -275,7 +329,6 @@ export default function decorate(block) {
       updateArticleStars(savedArticleRating);
       try {
         const response = await getArticle(articleId, ratingValue);
-        console.log('API response:', response);
 
         savedArticleRating = response?.currentUserScore || ratingValue;
       } catch (e) {
@@ -345,7 +398,7 @@ export default function decorate(block) {
     articleRatingBar.style.display = 'none';
   }
   const exploreBtn = document.createElement('a');
-  exploreBtn.href = '/resource-hub/knowledge-base-articles?type=knowledge';
+  exploreBtn.href = '/search-results?contentType=Knowledge base articles';
   exploreBtn.target = '_blank';
   exploreBtn.className = 'btn secondary related-explore-btn';
   exploreBtn.textContent = 'Explore more articles';
