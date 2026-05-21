@@ -5,30 +5,26 @@ const pageTitleCache = new Map();
 
 /**
  * Fetches and returns the <title> text from the given URL.
+ * Uses an in-memory cache to avoid repeated network requests.
  *
- * @param {string} url
- * @returns {Promise<string>}
+ * @param {string} url - Absolute URL to fetch.
+ * @returns {Promise<string>} - The page title or empty string if not found.
  */
 const getPageTitle = async (url) => {
-  if (pageTitleCache.has(url)) {
-    return pageTitleCache.get(url);
-  }
+  if (pageTitleCache.has(url)) return pageTitleCache.get(url);
 
   try {
+    // Fetch the HTML content for the URL
     const response = await fetch(url);
-
     if (response.ok) {
       const htmlContainer = document.createElement('div');
       htmlContainer.innerHTML = await response.text();
 
-      const pageTitle =
-        htmlContainer.querySelector('meta[property="og:title"]')?.content
-        || htmlContainer.querySelector('title')?.innerText
-        || htmlContainer.querySelector('h1')?.innerText
-        || '';
+      // Read the <title> content; default to empty if missing
+      const pageTitle = htmlContainer.querySelector('title')?.innerText || '';
 
+      // Cache the title for subsequent requests
       pageTitleCache.set(url, pageTitle);
-
       return pageTitle;
     }
   } catch (error) {
@@ -39,56 +35,54 @@ const getPageTitle = async (url) => {
 };
 
 /**
- * Builds breadcrumb paths excluding current page.
+ * Builds a breadcrumb list of all path segments except the current page.
+ * For example, "/products/category/item" becomes:
+ *   - "/products.html"
+ *   - "/products/category.html"
+ * Each segment is resolved to its page title via getPageTitle.
  *
- * @param {string} pathname
- * @returns {Promise<Array>}
+ * @param {string} pathname - The current location pathname (e.g., window.location.pathname).
+ * @returns {Promise<Array<{ path: string, name: string, url: string }>>}
  */
 const getAllPathsExceptCurrent = async (pathname) => {
   const pathSegments = pathname.replace(/^\/|\/$/g, '').split('/');
 
   let accumulatedPath = '';
 
-  const fetchTitlePromises = pathSegments
-    .slice(0, -1)
-    .map(async (segment) => {
-      accumulatedPath = `${accumulatedPath}/${segment}`;
+  const fetchTitlePromises = pathSegments.slice(0, -1).map((segment) => {
+    accumulatedPath = `${accumulatedPath}/${segment}`;
+    const path = `${accumulatedPath}.html`;
+    const url = `${window.location.origin}${path}`;
 
-      const path = accumulatedPath;
-      const url = `${window.location.origin}${path}`;
-
-      const titleName = await getPageTitle(url);
-
-      return {
-        path,
-        name: titleName,
-        url,
-      };
-    });
+    return getPageTitle(url).then((titleName) => ({
+      path,
+      name: titleName,
+      url,
+    }));
+  });
 
   const results = await Promise.all(fetchTitlePromises);
 
+  // Filter out entries with missing titles, logging a warning to aid debugging
   return results.filter((entry) => {
-    if (!entry.name) {
-      console.warn(`Breadcrumb: No title found for ${entry.url}`);
-    }
-
+    if (!entry.name) console.warn(`Breadcrumb: No title found for ${entry.url}`);
     return entry.name;
   });
 };
 
 /**
- * Creates breadcrumb anchor element.
+ * Creates an anchor (<a>) element for a breadcrumb item.
+ * Renders a home icon if the name is "Home"; otherwise uses the text label.
  *
- * @param {Object} breadcrumbItem
+ * @param {{ path: string, name: string, url: string }} breadcrumbItem
  * @returns {HTMLAnchorElement}
  */
 const createLink = (breadcrumbItem) => {
   const linkEl = document.createElement('a');
-
   linkEl.href = breadcrumbItem.url;
 
   if (breadcrumbItem.name === 'Home') {
+    // Inline SVG for Home icon
     linkEl.innerHTML = `
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M3.33398 13V5.66667L8.00065 2L12.6673 5.66667V13H9.33398V8.66667H6.66732V13H3.33398Z" stroke="#707070"/>
@@ -98,14 +92,16 @@ const createLink = (breadcrumbItem) => {
   }
 
   linkEl.classList.add('breadcrumb-link');
-
   return linkEl;
 };
 
 /**
- * Decorates breadcrumb block.
+ * Decorates the provided block with a breadcrumb navigation based on the current location.
+ * Structure produced:
+ *   Home / Parent / Current Page
+ * Where separators are SVG arrows, and "Current Page" is marked with aria-current="page".
  *
- * @param {HTMLElement} block
+ * @param {HTMLElement} block - The container element to decorate.
  */
 export default async function decorate(block) {
   const breadcrumbNav = createElement('nav', '', {
@@ -113,10 +109,6 @@ export default async function decorate(block) {
   });
 
   block.innerHTML = '';
-
-  const currentPathname = window.location.pathname;
-
-  const isKbaPage = currentPathname.includes('/knowledge-base-articles');
 
   const homeLink = createLink({
     path: '',
@@ -126,81 +118,31 @@ export default async function decorate(block) {
 
   const breadcrumbHtmlParts = [homeLink.outerHTML];
 
-  /**
-   * STATIC KBA BREADCRUMBS
-   */
-  if (isKbaPage) {
-    const staticBreadcrumbs = [
-      {
-        name: 'Support',
-        url: `${window.location.origin}/support`,
-      },
-      {
-        name: 'Knowledgebase articles',
-        url: `${window.location.origin}/support/knowledge-base-articles`,
-      },
-    ];
-
-    staticBreadcrumbs.forEach((item) => {
-      breadcrumbHtmlParts.push(
-        createLink({
-          path: '',
-          name: item.name,
-          url: item.url,
-        }).outerHTML,
-      );
-    });
-  }
-
-  /**
-   * DYNAMIC CATEGORY / SUBCATEGORY
-   */
+  const currentPathname = window.location.pathname;
   const ancestorPaths = await getAllPathsExceptCurrent(currentPathname);
 
-  const filteredAncestors = isKbaPage
-    ? ancestorPaths.filter(
-      (item) => (
-        item.path !== '/support'
-          && item.path !== '/support/knowledge-base-articles'
-      ),
-    )
-    : ancestorPaths;
-
-  filteredAncestors.forEach((ancestorItem) => {
-    breadcrumbHtmlParts.push(
-      createLink(ancestorItem).outerHTML,
-    );
+  ancestorPaths.forEach((ancestorItem) => {
+    breadcrumbHtmlParts.push(createLink(ancestorItem).outerHTML);
   });
 
-  /**
-   * CURRENT PAGE
-   */
-  const currentPageTitle =
-    document.querySelector('title')?.innerText || 'Current Page';
-
-  // Special handling for Favorites page
+  const currentPageTitle = document.querySelector('title')?.innerText || 'Current Page';
+  
+  // If current page is "Favorite All", show "Resource Hub" first, then "Favorite All"
   if (currentPageTitle === 'My favorite') {
     const resourceHubEl = document.createElement('a');
-
     resourceHubEl.href = '/resource-hub';
     resourceHubEl.innerText = 'Resource hub';
     resourceHubEl.classList.add('breadcrumb-resource-link');
-
     breadcrumbHtmlParts.push(resourceHubEl.outerHTML);
   }
 
   const currentPageEl = document.createElement('span');
-
   currentPageEl.innerText = currentPageTitle;
   currentPageEl.style.fontWeight = 'bold';
   currentPageEl.style.color = 'black';
   currentPageEl.setAttribute('aria-current', 'page');
-
   breadcrumbHtmlParts.push(currentPageEl.outerHTML);
 
-  /**
-   * SEPARATOR
-   */
   const separatorHtml = `
     <span class="breadcrumb-separator">
       <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -209,6 +151,5 @@ export default async function decorate(block) {
     </span>`;
 
   breadcrumbNav.innerHTML = breadcrumbHtmlParts.join(separatorHtml);
-
   block.append(breadcrumbNav);
 }

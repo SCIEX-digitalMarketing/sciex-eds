@@ -31,7 +31,7 @@ export const searchBoxController = buildSearchBox(searchEngine, {
 
 export const headlessResultsList = buildResultList(searchEngine, {
   options: {
-    fieldsToInclude: ['ogimage', 'description', 'productpartnumber', 'lotnumber', 'kitpartnumber', 'duration', 'levelcategories', 'coursetypecategories', 'isnewcourse', 'rating'],
+    fieldsToInclude: ['ogimage', 'description', 'productpartnumber', 'lotnumber', 'kitpartnumber', 'duration', 'levelcategories', 'coursetypecategories', 'isnewcourse', 'rating', 'courseUrl', 'trainingcoursetype'],
   },
 });
 
@@ -106,6 +106,8 @@ function createFacetController() {
     'trainingtopiccategories',
     'trainingtypecategories',
     'trainingcoursetype',
+    'categories',
+    'subcategories',
     'assettypes',
     'instrumentfamily',
     'languagecountry',
@@ -147,24 +149,26 @@ function initDependentFacet(dependentFacet, parentFacets) {
     );
 
   const facetConditionsMap = {
-    'massspectrometerscategories': ['Products and services', 'Resource Library', 'Customer documents', 'Training', 'Resource library', 'Knowledge base articles' ,'SCIEX How', 'Technical Notes'],
-    'capillaryelectrophoresiscategories': ['Products and services', 'Resource Library', 'Customer documents', 'Training', 'Resource library', 'Knowledge base articles', 'SCIEX How', 'Technical Notes'],
-    'hplcandceproductscategories': ['Products and services', 'Resource Library', 'Customer documents', 'Training', 'Resource library', 'Knowledge base articles', 'SCIEX How', 'Technical Notes'],
-    'integratedsolutionscategories': ['Products and services', 'Resource Library', 'Customer documents', 'Training', 'Resource library', 'Knowledge base articles', 'SCIEX How', 'Technical Notes'],
-    'softwarecategories': ['Products and services', 'Resource Library', 'Customer documents', 'Training', 'Resource library', 'Knowledge base articles', 'SCIEX How', 'Technical Notes'],
-    'standardsandreagentscategories': ['Products and services', 'Resource Library', 'Customer documents', 'Training', 'Resource library' ,'Knowledge base articles', 'SCIEX How', 'Technical Notes'],
+    'massspectrometerscategories': ['Products and services', 'Resource Library', 'Customer documents', 'Training', 'Resource library', 'Knowledge base articles' ,'SCIEX How', 'Technical notes','User guides'],
+    'capillaryelectrophoresiscategories': ['Products and services', 'Resource Library', 'Customer documents', 'Training', 'Resource library', 'Knowledge base articles', 'SCIEX How', 'Technical notes','User guides'],
+    'hplcandceproductscategories': ['Products and services', 'Resource Library', 'Customer documents', 'Training', 'Resource library', 'Knowledge base articles', 'SCIEX How', 'Technical notes','User guides'],
+    'integratedsolutionscategories': ['Products and services', 'Resource Library', 'Customer documents', 'Training', 'Resource library', 'Knowledge base articles', 'SCIEX How', 'Technical notes','User guides'],
+    'softwarecategories': ['Products and services', 'Resource Library', 'Customer documents', 'Training', 'Resource library', 'Knowledge base articles', 'SCIEX How', 'Technical notes','User guides'],
+    'standardsandreagentscategories': ['Products and services', 'Resource Library', 'Customer documents', 'Training', 'Resource library' ,'Knowledge base articles', 'SCIEX How', 'Technical notes','User guides'],
+    'categories': [ 'Knowledge base articles'],
+    'subcategories': [ 'Knowledge base articles'],
     'levelcategories': ['Training'],
     'techniquescategories': ['Training'],
     'trainingtopiccategories': ['Training'],
     'trainingtypecategories': ['Training'],
     'trainingcoursetype': ['Training'],
-    'assettypes': ['Resource library', 'Customer documents'],
+    'assettypes': ['Resource library', 'Customer documents','User guides'],
     'instrumentfamily': ['Regulatory documents'],
     'languagecountry': ['Regulatory documents'],
-    'language': ['Customer documents', 'Training', 'Resource library', 'Knowledge base articles', 'SCIEX How', 'Technical Notes'],
-    'year': ['Customer documents', 'Regulatory documents'],
+    'language': ['Customer documents', 'Training', 'Resource library', 'Knowledge base articles', 'SCIEX How', 'Technical notes','User guides'],
+    'year': ['Customer documents', 'Regulatory documents','User guides'],
     'location': ['Training'],
-    'applications': ['Applications', 'Resource library', 'Knowledge base articles', 'SCIEX How', 'Technical Notes'],
+    'applications': ['Applications', 'Resource library', 'Knowledge base articles', 'SCIEX How', 'Technical notes'],
     'technicaldocuments': ['Regulatory documents'],
     'certificatetypecategories': ['Training'],
     'coursetypecategories': ['Training'],

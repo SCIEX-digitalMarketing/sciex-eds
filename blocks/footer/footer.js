@@ -355,7 +355,7 @@ function processFragment(block, fragment) {
 
   const activeLanguageIcon = '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" x-transition="" data-di-rand="1740542366829"><circle cx="10" cy="10" r="10" fill="#0068FA"></circle><path d="M5.33331 9.66667L8.77551 13L14.6666 6" stroke="white"></path></svg>';
 
-  if (listItems[0].textContent === 'United states') {
+  if (listItems[0].textContent === 'English') {
     selectedLanguage.append(addCountryFlag('us'), listItems[0].textContent);
   } else if (listItems[0].textContent === 'Japanese') {
     selectedLanguage.append(addCountryFlag('jp'), listItems[0].textContent);
@@ -365,7 +365,7 @@ function processFragment(block, fragment) {
     selectedLanguage.append(addCountryFlag('es'), listItems[0].textContent);
   }
 
-  if (selectedLanguage.textContent === 'United states') {
+  if (selectedLanguage.textContent === 'English') {
     selectedLanguage.prepend(usflag);
   } else if (selectedLanguage.textContent === 'Japanese') {
     selectedLanguage.prepend(jpflag);
@@ -464,7 +464,7 @@ function processFragment(block, fragment) {
     );
 
     this.insertAdjacentHTML('beforeend', activeLanguageIcon);
-    if (this.text === 'United states') {
+    if (this.text === 'English') {
       cloneSelectedlang.prepend(addCountryFlag('us'), usflag);
       selectedLanguage.prepend(addCountryFlag('us'), usflag);
 
@@ -519,7 +519,7 @@ function processFragment(block, fragment) {
       'tw-tracking-wide',
       'country-list',
     );
-    if (optionLinks[i].textContent === 'United states') {
+    if (optionLinks[i].textContent === 'English') {
       optionLinks[i].prepend(usflag);
     } else if (optionLinks[i].textContent === 'Japanese') {
       optionLinks[i].prepend(jpflag);
