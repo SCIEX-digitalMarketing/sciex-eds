@@ -317,7 +317,6 @@ export default async function decorate(block) {
   lifeSciencesDiv.id = 'coveo-life-sciences';
   const path = window.location.pathname;
   const resp = await fetch(`${path}.plain.html`);
-  let contentTypeHeading = '';
   if (resp.ok) {
     const html = await resp.text();
     const main = document.createElement('main');
@@ -328,7 +327,7 @@ export default async function decorate(block) {
       const iteration = index + 1;
       if (iteration === 1) {
         lifeSciencesDiv.appendChild(section.querySelector('div'));
-        block.append(lifeSciencesDiv);
+        // block.append(lifeSciencesDiv);
       } else if (iteration === 2) {
         if (section.querySelector('picture')) {
           coveoNoResultsDiv.appendChild(section.querySelector('picture'));
@@ -351,10 +350,6 @@ export default async function decorate(block) {
         noResultsText2.classList = 'noresults-text2';
         noResultsText.appendChild(noResultsText2);
         coveoNoResultsDiv.appendChild(noResultsText);
-      }else if(iteration === 7){
-        if (section.querySelector('div')) {
-           contentTypeHeading = section.querySelector('div').textContent.trim();          
-        }       
       }
     });
   }
@@ -369,9 +364,7 @@ export default async function decorate(block) {
     'tw-gap-1',
     'tw-mt-6',
   );
-  const contentTypeHeadingContainer = document.createElement('div');
-  contentTypeHeadingContainer.id = 'content-type-heading-container';
-  contentTypeHeadingContainer.textContent = '';
+ 
   // Append all sections to the search result section div
   searchResultSectionDiv.appendChild(searchContainerDiv);
   searchResultSectionDiv.appendChild(searchTermDiv);
@@ -390,7 +383,6 @@ export default async function decorate(block) {
   searchWrapperDiv.appendChild(searchResultSectionDiv);
 
   // Append search wrapper to main container
-  searchResultDiv.appendChild(contentTypeHeadingContainer);
   searchResultDiv.appendChild(searchWrapperDiv);
 
   // Append the main search result div to the body or any specific container
@@ -450,7 +442,7 @@ export default async function decorate(block) {
       renderSearchResults();
       renderQuerySummary();
       renderPagination();
-      callCreateFacet(contentTypeHeading);
+      callCreateFacet();
       renderFacetBreadcurm();
     });
   } catch (error) {

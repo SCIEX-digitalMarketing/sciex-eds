@@ -181,17 +181,22 @@ function renderFacet(facetElementId, facetController, headerText, contentTypeHea
   }
 
   if (!isSearch) {
+ const searchFacetHeadingWrapper =
+  document.getElementsByClassName('search-facet-heading-wrapper')[0];
+  let hasSelectedChild = false;
+   
     values.forEach(value => {
-      if(facetId === 'contenttype' && value.state === "selected"){
-        const searchFacetHeading = document.getElementById(`search-facet-heading-${value.value.toLowerCase()}`);
-        console.log('Found search facet heading element:',value.value.toLowerCase(), searchFacetHeading);
-        if (searchFacetHeading ) {
-            searchFacetHeading.style.setProperty('display', 'block');
-        }
-      }else if(facetId === 'contenttype' && value.state !== "selected"){
-        const searchFacetHeading = document.getElementById(`search-facet-heading-${value.value.toLowerCase()}`);
-        if (searchFacetHeading ) {
-          searchFacetHeading.style.setProperty('display', 'none', 'important');
+      if(facetId === 'contenttype'){
+        const searchFacetHeading = document.getElementById(
+          `search-facet-heading-${value.value.toLowerCase()}`
+        );
+        if (searchFacetHeading) {
+          if (value.state === "selected") {
+            hasSelectedChild = true;
+            searchFacetHeading.style.setProperty('display', 'flex');
+          } else {
+            searchFacetHeading.style.setProperty('display', 'none');
+          }
         }
       }
       if (facetId === 'applications' && value.value === 'Application') return;
@@ -218,6 +223,23 @@ function renderFacet(facetElementId, facetController, headerText, contentTypeHea
       facetItemsContainer.appendChild(facetItem);
     });
 
+    if (searchFacetHeadingWrapper) {
+      if (hasSelectedChild) {
+        searchFacetHeadingWrapper.style.setProperty(
+          'display',
+          'block',
+          'important'
+        );
+      }
+      // else {
+      //   console.log('Hiding search facet heading wrapper');
+      //   searchFacetHeadingWrapper.style.setProperty(
+      //     'display',
+      //     'none',
+      //     'important'
+      //   );
+      // }
+    }
     if (facetId === 'contenttype') {
       const isOrderingExecuted = localStorage.getItem('isOrderingExecuted') === 'true';
       if(!facetBreadcrumb.state.facetBreadcrumbs.length){
@@ -391,7 +413,7 @@ function orderFacetBasedOnSelection(selectedValue) {
     desiredOrder = [
       'contenttype-facet',
       'language-facet',
-      'location-facet',
+      'region-facet',
       'coursetypecategories-facet',
       'trainingtopiccategories-facet',
       'techniquescategories-facet',
@@ -524,7 +546,7 @@ export function callCreateFacet(contentTypeHeading) {
     'assettypes': strings.assetType,
     'languagecountry': strings.languageCountry,
     'year': strings.year,
-    'location': strings.trainingLocation,
+    'region': strings.trainingLocation,
     'applications': strings.applications,
     'technicaldocuments': strings.technicalDocuments,
     'instrumentfamily': strings.instrumentFamily,

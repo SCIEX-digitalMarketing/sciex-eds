@@ -1,3 +1,6 @@
+.search-facet-heading-wrapper{
+    display: none;
+}
 .search-facet-heading.block{
     display: flex;
     flex-direction: column;
