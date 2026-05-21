@@ -378,8 +378,8 @@ function orderFacetBasedOnSelection(selectedValue) {
     desiredOrder = [
       'contenttype-facet',
       'language-facet',
-      'location-facet',
       'coursetypecategories-facet',
+      'region-facet',
       'trainingtopiccategories-facet',
       'techniquescategories-facet',
       'trainingtypecategories-facet',
