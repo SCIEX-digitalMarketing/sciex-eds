@@ -1,5 +1,11 @@
+import { moveInstrumentation } from '../../scripts/scripts.js';
+
 export default function decorate(block) {
     const rows = [...block.children];
+    const mainContainer = document.createElement('div');
+    mainContainer.className = 'search-facet-heading-block-container';
+    
+    moveInstrumentation(block, mainContainer);
 
     rows.forEach((row) => {
         const columns = [...row.children];
@@ -13,10 +19,10 @@ export default function decorate(block) {
 
         // Main Wrapper
         const wrapper = document.createElement('div');
-        wrapper.className = `search-facet-heading search-facet-heading-${id?.toLowerCase()}`;
+        wrapper.className = `search-facet-heading-item search-facet-heading-${id?.toLowerCase()}`;
         wrapper.id = `search-facet-heading-${id?.toLowerCase()}`;
 
-        wrapper.style.display = 'none'; // Hide by default, will be shown when the corresponding facet is selected
+        moveInstrumentation(row, wrapper);
 
         // Image Wrapper
         const imageWrapper = document.createElement('div');
@@ -54,7 +60,9 @@ export default function decorate(block) {
 
         wrapper.append(contentWrapper,actionWrapper);
 
-        row.replaceWith(wrapper);
+        mainContainer.append(wrapper);
     });
 
+    block.innerHTML = '';
+    block.append(mainContainer);
 }

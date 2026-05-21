@@ -1,12 +1,12 @@
 .search-facet-heading-wrapper{
     display: none;
 }
-.search-facet-heading {
+.search-facet-heading-item {
     display: none;
     justify-content: space-between;
 }
 
-.search-facet-heading.block{
+.search-facet-heading-block-container{
     display: flex;
     flex-direction: column;
     gap: 30px;
