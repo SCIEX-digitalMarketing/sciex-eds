@@ -29,6 +29,8 @@ export default function decorate(block) {
         // Content Wrapper
         const contentWrapper = document.createElement('div');
         contentWrapper.className = 'search-facet-heading-content';
+         const actionWrapper = document.createElement('div');
+        actionWrapper.className = 'action-wrapper';
 
       
 
@@ -36,6 +38,8 @@ export default function decorate(block) {
         const desc = document.createElement('p');
         desc.className = 'search-facet-heading-description';
         desc.innerHTML = description || '';
+        contentWrapper.appendChild(imageWrapper);
+        contentWrapper.appendChild(desc);
 
         // Button
         if (buttonText && buttonLink) {
@@ -44,12 +48,11 @@ export default function decorate(block) {
             button.textContent = buttonText;
             button.className = 'search-facet-heading-button';
 
-            contentWrapper.append(desc, button);
-        } else {
-            contentWrapper.append(desc);
+            actionWrapper.appendChild(button);
         }
 
-        wrapper.append(imageWrapper, contentWrapper);
+
+        wrapper.append(contentWrapper,actionWrapper);
 
         row.replaceWith(wrapper);
     });

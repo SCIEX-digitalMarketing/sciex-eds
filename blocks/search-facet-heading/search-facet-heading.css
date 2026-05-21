@@ -1,23 +1,91 @@
 .search-facet-heading-wrapper{
     display: none;
 }
+.search-facet-heading {
+    display: none;
+    justify-content: space-between;
+}
+
 .search-facet-heading.block{
     display: flex;
     flex-direction: column;
-}
-.search-facet-heading{
-    display: none;
     gap: 30px;
+    background-color: #f5f5f5;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding:28px 64px;
 }
 
 .search-facet-heading-content{
     display: flex;
     gap: 30px;
+    width: 80%;
 }
+
 .search-facet-heading-image{
-    width: 50%;
-    height: 100%;
+    display: flex;
+    align-items: center;
 }
-.search-facet-heading-description{
-    width: 60%;
+
+.search-facet-heading-image img {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100px !important;
+    height: 100px !important;
+}
+
+.search-facet-heading-description {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.search-facet-heading-description h4 {
+    color: #000;
+    font-family: "Geogrotesque Sharp VF", sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 370;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+}
+
+.search-facet-heading-description p {
+    color: #000;
+    font-family: "Geogrotesque Sharp VF";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 330;
+    line-height: 24px;
+    letter-spacing: 0.08px;
+
+}
+
+.search-facet-heading-description a {
+    color: var(--Blue-700, #0068fa);
+    font-style: normal;
+    font-weight: 530;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+    text-decoration-line: underline;
+}
+
+.search-facet-heading-button {
+    padding: 10px 16px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    background: var(--Blue-700, #0068FA);
+    color: var(--White-0, #FFF) !important;
+    font-family: "Geogrotesque Sharp VF";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 530;
+    line-height: 24px;
+    letter-spacing: 0.08px;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none !important;
 }
