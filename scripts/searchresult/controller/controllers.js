@@ -110,7 +110,7 @@ function createFacetController() {
     'instrumentfamily',
     'languagecountry',
     'year',
-    'location',
+    'region',
     'applications',
     'technicaldocuments',
     'productcategories'
@@ -163,7 +163,7 @@ function initDependentFacet(dependentFacet, parentFacets) {
     'languagecountry': ['Regulatory documents'],
     'language': ['Customer documents', 'Training', 'Resource library', 'Knowledge base articles', 'SCIEX How', 'Technical Notes'],
     'year': ['Customer documents', 'Regulatory documents'],
-    'location': ['Training'],
+    'region': ['Training'],
     'applications': ['Applications', 'Resource library', 'Knowledge base articles', 'SCIEX How', 'Technical Notes'],
     'technicaldocuments': ['Regulatory documents'],
     'certificatetypecategories': ['Training'],
