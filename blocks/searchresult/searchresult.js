@@ -15,7 +15,7 @@ import { renderFacetBreadcurm, handleClearMobileFilters } from '../../scripts/se
 import { contentTypeFacetController } from '../../scripts/searchresult/controller/controllers.js';
 import { i18n } from '../../scripts/translation.js';
 import { setSearchSurveyCookie, qualtricsFeedback } from '../../scripts/scripts.js';
-import { updateSearchFacetHeadingBanners } from '../../scripts/searchresult/components/callBanners.js';
+import  updateSearchFacetHeadingBanners from '../../scripts/searchresult/components/callBanners.js';
 
 //Add banner based on content-type facet values
 function callBanners() {
