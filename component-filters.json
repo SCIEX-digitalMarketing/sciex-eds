@@ -72,7 +72,8 @@
       "sciex-columns",
       "knowledge-base-article",
       "sciex-border",
-      "course-catalog-detail"
+      "course-catalog-detail",
+      "search-facet-banner"
     ]
   },
   {
@@ -245,6 +246,12 @@
     "id": "table-7-columns",
     "components": [
       "table-col-7"
+    ]
+  },
+  {
+    "id": "search-facet-banner",
+    "components": [
+      "search-facet-banner-item"
     ]
   },
   {

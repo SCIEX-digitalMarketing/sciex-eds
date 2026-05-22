@@ -3913,6 +3913,44 @@
     ]
   },
   {
+    "id": "search-facet-banner-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "id",
+        "label": "Id",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "buttonText",
+        "label": "Button Text",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "buttonLink",
+        "label": "Button Link"
+      }
+    ]
+  },
+  {
     "id": "searchresult",
     "fields": [
       {

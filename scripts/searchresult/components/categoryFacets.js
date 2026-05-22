@@ -168,7 +168,6 @@ function renderFacet(facetElementId, facetController, headerText) {
   const facetItemsContainer = document.createElement('div');
   facetItemsContainer.className = 'facet-items-container';
   facetElement.appendChild(facetItemsContainer);
-
   const values = facetController.state.values;
   const searchValues = facetController.state.facetSearch?.values || [];
 
@@ -205,6 +204,7 @@ function renderFacet(facetElementId, facetController, headerText) {
       facetItemsContainer.appendChild(facetItem);
     });
 
+   
     if (facetId === 'contenttype') {
       const isOrderingExecuted = localStorage.getItem('isOrderingExecuted') === 'true';
       if(!facetBreadcrumb.state.facetBreadcrumbs.length){
