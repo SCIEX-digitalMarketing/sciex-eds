@@ -178,33 +178,8 @@ function renderFacet(facetElementId, facetController, headerText) {
     isSearch = true;
   }
 
-  const searchFacetHeadingWrapper =
-  document.getElementsByClassName('search-facet-heading-wrapper')[0];
-  let hasSelectedChild = false;
-   
-  values?.forEach(value => {
-      if(facetId === 'contenttype'){
-        const searchFacetHeading = document.getElementById(
-          `search-facet-heading-${value.value.toLowerCase()}`
-        );
-        if (searchFacetHeading) {
-          if (value.state === "selected") {
-            hasSelectedChild = true;
-            searchFacetHeading.style.setProperty('display', 'flex');
-             searchFacetHeadingWrapper.style.setProperty('display','block','important');
-          } else {
-            searchFacetHeading.style.setProperty('display', 'none');
-            if (!hasSelectedChild) {
-              searchFacetHeadingWrapper.style.setProperty('display','none','important');
-            }
-
-          }
-        }
-     }})
- 
-
-  if (!isSearch) {   
-    values.forEach(value => { 
+  if (!isSearch) {
+    values.forEach(value => {
       if (facetId === 'applications' && value.value === 'Application') return;
 
       let displayText = value.value
