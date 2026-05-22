@@ -178,12 +178,11 @@ function renderFacet(facetElementId, facetController, headerText) {
     isSearch = true;
   }
 
-  if (!isSearch) {
- const searchFacetHeadingWrapper =
+  const searchFacetHeadingWrapper =
   document.getElementsByClassName('search-facet-heading-wrapper')[0];
   let hasSelectedChild = false;
    
-    values.forEach(value => {
+  values?.forEach(value => {
       if(facetId === 'contenttype'){
         const searchFacetHeading = document.getElementById(
           `search-facet-heading-${value.value.toLowerCase()}`
@@ -192,11 +191,20 @@ function renderFacet(facetElementId, facetController, headerText) {
           if (value.state === "selected") {
             hasSelectedChild = true;
             searchFacetHeading.style.setProperty('display', 'flex');
+             searchFacetHeadingWrapper.style.setProperty('display','block','important');
           } else {
             searchFacetHeading.style.setProperty('display', 'none');
+            if (!hasSelectedChild) {
+              searchFacetHeadingWrapper.style.setProperty('display','none','important');
+            }
+
           }
         }
-      }
+     }})
+ 
+
+  if (!isSearch) {   
+    values.forEach(value => { 
       if (facetId === 'applications' && value.value === 'Application') return;
 
       let displayText = value.value
@@ -221,23 +229,7 @@ function renderFacet(facetElementId, facetController, headerText) {
       facetItemsContainer.appendChild(facetItem);
     });
 
-    if (searchFacetHeadingWrapper) {
-      if (hasSelectedChild) {
-        searchFacetHeadingWrapper.style.setProperty(
-          'display',
-          'block',
-          'important'
-        );
-      }
-      // else {
-      //   console.log('Hiding search facet heading wrapper');
-      //   searchFacetHeadingWrapper.style.setProperty(
-      //     'display',
-      //     'none',
-      //     'important'
-      //   );
-      // }
-    }
+   
     if (facetId === 'contenttype') {
       const isOrderingExecuted = localStorage.getItem('isOrderingExecuted') === 'true';
       if(!facetBreadcrumb.state.facetBreadcrumbs.length){
