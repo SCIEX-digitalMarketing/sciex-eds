@@ -41,10 +41,27 @@ export default function decorate(block) {
       
 
         // Description
-        const desc = document.createElement('p');
+        const desc = document.createElement('div');
         desc.className = 'search-facet-heading-description';
         desc.innerHTML = description || '';
         contentWrapper.appendChild(imageWrapper);
+        if (desc) {
+            const descriptionText = desc.querySelector('p:nth-of-type(1)');
+            descriptionText.id = 'description-text';
+            console.log('descriptionText', descriptionText);
+            const readMoreSpan = document.createElement('span');
+            readMoreSpan.id = 'banner-read-more';
+            readMoreSpan.textContent = 'Read More';
+            readMoreSpan.addEventListener('click', () => {
+                const isExpanded = descriptionText.style.webkitLineClamp !== '2';
+                descriptionText.style.webkitLineClamp = isExpanded ? '2' : 'unset';
+                readMoreSpan.textContent = isExpanded ? 'Read More' : 'Read Less';
+            });
+            if(readMoreSpan.textContent==='Read More'){
+                desc.insertBefore(readMoreSpan, desc.children[2]);
+            }
+        }
+
         contentWrapper.appendChild(desc);
 
         // Button
