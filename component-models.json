@@ -3913,7 +3913,7 @@
     ]
   },
   {
-    "id": "search-facet-heading-item",
+    "id": "search-facet-banner-item",
     "fields": [
       {
         "component": "text",

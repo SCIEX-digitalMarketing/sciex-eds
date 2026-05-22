@@ -15,13 +15,13 @@ import { renderFacetBreadcurm, handleClearMobileFilters } from '../../scripts/se
 import { contentTypeFacetController } from '../../scripts/searchresult/controller/controllers.js';
 import { i18n } from '../../scripts/translation.js';
 import { setSearchSurveyCookie, qualtricsFeedback } from '../../scripts/scripts.js';
-import  updateSearchFacetHeadingBanners from '../../scripts/searchresult/components/callBanners.js';
+import  updateSearchFacetBanners from '../../scripts/searchresult/components/facetBanners.js';
 
 //Add banner based on content-type facet values
 function callBanners() {
     const contentTypeValues = contentTypeFacetController.state.values;
     if (contentTypeValues && contentTypeValues.length > 0) {
-      updateSearchFacetHeadingBanners(contentTypeValues);
+      updateSearchFacetBanners(contentTypeValues);
     }  
 }
 

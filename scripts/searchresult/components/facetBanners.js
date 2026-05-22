@@ -1,8 +1,8 @@
 // This function updates the visibility of  heading banners based on content type facet selection
 //  in the search results page.
 
-export default function updateSearchFacetHeadingBanners(values) {
-  const searchFacetHeadingWrapper = document.getElementsByClassName('search-facet-heading-wrapper')[0];
+export default function updateSearchFacetBanners(values) {
+  const searchFacetHeadingWrapper = document.getElementsByClassName('search-facet-banner-wrapper')[0];
   let hasSelectedChild = false;
   if (!searchFacetHeadingWrapper) {
     return false; ;
@@ -10,7 +10,7 @@ export default function updateSearchFacetHeadingBanners(values) {
 console.log('values', values);
   values?.forEach(value => {
       const searchFacetHeading = document.getElementById(
-        `search-facet-heading-${value.value.toLowerCase()}`
+        `search-facet-banner-${value.value.toLowerCase()}`
       );
       if (searchFacetHeading) {
         if (value.state === "selected") {

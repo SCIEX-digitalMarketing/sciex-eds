@@ -1,8 +1,8 @@
-.search-facet-heading-wrapper {
+.search-facet-banner-wrapper {
     display: none;
 }
 
-.search-facet-heading-item {
+.search-facet-banner-item {
     display: none;
     justify-content: space-between;
 }
@@ -11,7 +11,7 @@
     display: none;
 }
 
-.search-facet-heading-block-container {
+.search-facet-banner-block-container {
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -28,31 +28,31 @@
     align-items: center;
 }
 
-.search-facet-heading-content {
+.search-facet-banner-content {
     display: flex;
     gap: 30px;
     width: 80%;
 }
 
-.search-facet-heading-image {
+.search-facet-banner-image {
     display: flex;
     align-items: center;
 }
 
-.search-facet-heading-image img {
+.search-facet-banner-image img {
     display: inline-flex;
     align-items: center;
     max-width: 100px !important;
     height: 100px !important;
 }
 
-.search-facet-heading-description {
+.search-facet-banner-description {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.search-facet-heading-description h4 {
+.search-facet-banner-description h4 {
     color: #000;
     font-family: "Geogrotesque Sharp VF", sans-serif;
     font-size: 20px;
@@ -62,7 +62,7 @@
     letter-spacing: 0.1px;
 }
 
-.search-facet-heading-description p {
+.search-facet-banner-description p {
     color: #000;
     font-family: "Geogrotesque Sharp VF";
     font-size: 16px;
@@ -73,7 +73,7 @@
 
 }
 
-.search-facet-heading-description a {
+.search-facet-banner-description a {
     color: var(--Blue-700, #0068fa);
     font-style: normal;
     font-weight: 530;
@@ -82,7 +82,7 @@
     text-decoration-line: underline;
 }
 
-.search-facet-heading-button {
+.search-facet-banner-button {
     padding: 10px 16px;
     justify-content: center;
     align-items: center;
@@ -113,30 +113,30 @@
         width: fit-content;
     }
 
-    .search-facet-heading-block-container {
+    .search-facet-banner-block-container {
         padding: 20px 24px;
     }
 
-    .search-facet-heading-content {
+    .search-facet-banner-content {
         width: 100%;
         gap: 10px;
     }
 
-    .search-facet-heading-image img {
+    .search-facet-banner-image img {
         max-width: 40px !important;
         height: 40px !important;
     }
 
-    .search-facet-heading-item {
+    .search-facet-banner-item {
         flex-direction: column;
         gap: 20px;
     }
 
-    .search-facet-heading-image {
+    .search-facet-banner-image {
         align-self: flex-start;
     }
 
-    .search-facet-heading-button {
+    .search-facet-banner-button {
         width: 100%;
         text-align: center;
     }

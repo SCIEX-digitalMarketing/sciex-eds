@@ -3,7 +3,7 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 export default function decorate(block) {
     const rows = [...block.children];
     const mainContainer = document.createElement('div');
-    mainContainer.className = 'search-facet-heading-block-container';
+    mainContainer.className = 'search-facet-banner-block-container';
     
     moveInstrumentation(block, mainContainer);
 
@@ -19,14 +19,14 @@ export default function decorate(block) {
 
         // Main Wrapper
         const wrapper = document.createElement('div');
-        wrapper.className = `search-facet-heading-item search-facet-heading-${id?.toLowerCase()}`;
-        wrapper.id = `search-facet-heading-${id?.toLowerCase()}`;
+        wrapper.className = `search-facet-banner-item search-facet-banner-${id?.toLowerCase()}`;
+        wrapper.id = `search-facet-banner-${id?.toLowerCase()}`;
 
         moveInstrumentation(row, wrapper);
 
         // Image Wrapper
         const imageWrapper = document.createElement('div');
-        imageWrapper.className = 'search-facet-heading-image';
+        imageWrapper.className = 'search-facet-banner-image';
 
         if (image) {
             imageWrapper.appendChild(image);
@@ -34,7 +34,7 @@ export default function decorate(block) {
 
         // Content Wrapper
         const contentWrapper = document.createElement('div');
-        contentWrapper.className = 'search-facet-heading-content';
+        contentWrapper.className = 'search-facet-banner-content';
          const actionWrapper = document.createElement('div');
         actionWrapper.className = 'action-wrapper';
 
@@ -42,7 +42,7 @@ export default function decorate(block) {
 
         // Description
         const desc = document.createElement('div');
-        desc.className = 'search-facet-heading-description';
+        desc.className = 'search-facet-banner-description';
         desc.innerHTML = description || '';
         contentWrapper.appendChild(imageWrapper);
         if (desc) {
@@ -69,7 +69,7 @@ export default function decorate(block) {
             const button = document.createElement('a');
             button.href = buttonLink;
             button.textContent = buttonText;
-            button.className = 'search-facet-heading-button';
+            button.className = 'search-facet-banner-button';
 
             actionWrapper.appendChild(button);
         }
