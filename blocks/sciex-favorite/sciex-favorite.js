@@ -6,7 +6,7 @@ const CATEGORY_MAP = [
     key: 'knowledge',
     title: 'Knowledge base articles',
     icon: 'knowledge',
-    match: (p) => p.includes('/support/knowledge-base-articles/'),
+    match: (p) => p.includes('/resource-hub/knowledge-base-articles/'),
   },
   {
     key: 'tech-notes',
