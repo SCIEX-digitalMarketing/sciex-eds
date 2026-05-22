@@ -413,8 +413,8 @@ function orderFacetBasedOnSelection(selectedValue) {
     desiredOrder = [
       'contenttype-facet',
       'language-facet',
-      'region-facet',
       'coursetypecategories-facet',
+      'region-facet',
       'trainingtopiccategories-facet',
       'techniquescategories-facet',
       'trainingtypecategories-facet',
@@ -531,7 +531,7 @@ export function callCreateFacet(contentTypeHeading) {
     'coursetypecategories': strings.courseType,
     'certificatetypecategories': strings.certificateType,
     'capillaryelectrophoresiscategories': strings.capillaryElectrophoresis,
-    'hplcandceproductscategories': strings.liquidChromoatography,
+    'hplcandceproductscategories': strings.liquidChromatography,
     'integratedsolutionscategories': strings.integratedSolutions,
     'levelcategories': strings.level,
     'massspectrometerscategories': strings.massSpectrometry,

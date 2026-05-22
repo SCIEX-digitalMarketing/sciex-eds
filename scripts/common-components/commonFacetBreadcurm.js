@@ -96,7 +96,7 @@ const renderCommonFacetBreadcurm = (facetBreadcrumbsController) => {
     coursetypecategories: strings.courseType,
     certificatetypecategories: strings.certificateType,
     capillaryelectrophoresiscategories: strings.capillaryElectrophoresis,
-    hplcandceproductscategories: strings.liquidChromoatography,
+    hplcandceproductscategories: strings.liquidChromatography,
     integratedsolutionscategories: strings.integratedSolutions,
     levelcategories: strings.courseLevel,
     massspectrometerscategories: strings.massSpectrometry,
@@ -113,7 +113,7 @@ const renderCommonFacetBreadcurm = (facetBreadcrumbsController) => {
     languagecountry: strings.languageCountry,
     language: strings.language,
     year: strings.year,
-    location: strings.trainingLocation,
+    region: strings.trainingLocation,
     applications: strings.applications,
     technicaldocuments: strings.technicalDocuments,
   };
