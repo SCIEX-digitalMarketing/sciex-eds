@@ -46,7 +46,7 @@
     height: 100px !important;
 }
 
-.search-facet-banner-description {
+.search-facet-banner-description > div,.search-facet-banner-description {
     display: flex;
     flex-direction: column;
     gap: 10px;
