@@ -192,9 +192,11 @@ const renderSearchResults = () => {
       </div>
           ` : ''}
             <h3>${result.title || 'No Title Available'}</h3>
-            ${result.raw.description
-          ? `<div class="description">${result.raw.description}</div> `
-          : `<div class="description">${result.Excerpt}</div>`
+            ${result.raw.coursetypecategories?.some(
+                cat => cat === 'Premium online' || cat === 'Premium eLearning'
+              )
+                        ? `<div class="description">${result.Excerpt}</div>`
+                        : `<div class="description">${result.raw.description}</div>`
         }
             ${result.raw.ogimage
           ? `<img src="${result.raw.ogimage}" alt="ogimage" width="200" height="200">`
