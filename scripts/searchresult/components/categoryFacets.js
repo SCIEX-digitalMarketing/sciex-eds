@@ -93,7 +93,7 @@ function createToggleButtons(facetItemsContainer, facetController) {
   }
 }
 
-function renderFacet(facetElementId, facetController, headerText, contentTypeHeading) {
+function renderFacet(facetElementId, facetController, headerText) {
   const facetId = facetController.state.facetId;
   const facetElement = document.getElementById(facetElementId);
   const shouldHaveInput = ['massspectrometerscategories', 'softwarecategories', 'language', 'instrumentfamily'].includes(facetId);
@@ -168,8 +168,6 @@ function renderFacet(facetElementId, facetController, headerText, contentTypeHea
   const facetItemsContainer = document.createElement('div');
   facetItemsContainer.className = 'facet-items-container';
   facetElement.appendChild(facetItemsContainer);
-  // const contentTypeHeadingContainer = document.getElementById('content-type-heading-container');
- 
   const values = facetController.state.values;
   const searchValues = facetController.state.facetSearch?.values || [];
 
@@ -491,7 +489,7 @@ function orderContentTypeFacets(facetId,facetItemsContainer){
   }
 }
 
-function createFacetRender(facetController, facetElementId, headerText, contentTypeHeading) {
+function createFacetRender(facetController, facetElementId, headerText) {
   let isValues = false;
   const { values } = facetController.state;
   if(values.length > 0) {
@@ -503,7 +501,7 @@ function createFacetRender(facetController, facetElementId, headerText, contentT
     ele.remove();
   }
   createFacetDiv(facetElementId);
-  renderFacet(id, facetController, headerText, contentTypeHeading); 
+  renderFacet(id, facetController, headerText); 
 }
 
 function createFacetDiv(id) {
@@ -516,14 +514,13 @@ function createFacetDiv(id) {
   } 
 }
 
-export function callCreateFacet(contentTypeHeading) {
-  console.log('Calling createFacetRender for content type facet with heading:', contentTypeHeading);
-  createFacetRender(contentTypeFacetController, "contenttype", strings.contentType,contentTypeHeading);
+export function callCreateFacet() {
+  createFacetRender(contentTypeFacetController, "contenttype", strings.contentType);
 
   let lang = document.documentElement.lang;
 
   if (lang === 'ja' || lang === 'zh-cn') {
-    createFacetRender(languageFacetController, "language", strings.language,contentTypeHeading);
+    createFacetRender(languageFacetController, "language", strings.language);
   }
   const facetController = allFacetController;
 
@@ -566,7 +563,7 @@ export function callCreateFacet(contentTypeHeading) {
       }
     }
     if (val.state.values.length) {
-      createFacetRender(val, item, facetsId[item], contentTypeHeading);
+      createFacetRender(val, item, facetsId[item]);
     }
   }
 }

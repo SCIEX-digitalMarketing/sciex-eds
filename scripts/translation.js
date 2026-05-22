@@ -45,7 +45,6 @@ export const i18n = {
     instrumentFamily: 'Instrument family',
     languageCountry: 'Language country',
     trainingLocation: 'Training location',
-    region: 'Training location',
     loading: 'Loading Results....',
     limitText: 'Search within max 200 characters',
     validationText: 'Input exceeds the limit. Please search within 200 characters',
