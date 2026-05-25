@@ -55,54 +55,44 @@ const getAllPathsExceptCurrent = async (pathname) => {
   let accumulatedPath = '';
 
   const fetchTitlePromises = pathSegments
-  .slice(0, -1)
-  .map(async (segment, index) => {
-    accumulatedPath = `${accumulatedPath}/${segment}`;
+    .slice(0, -1)
+    .map(async (segment, index) => {
+      accumulatedPath = `${accumulatedPath}/${segment}`;
 
-    const path = `${accumulatedPath}`;
+      const path = `${accumulatedPath}`;
 
-    // Original page URL for title fetching
-    const originalUrl = `${window.location.origin}${path}`;
+      // Original page URL for title fetching
+      const originalUrl = `${window.location.origin}${path}`;
 
-    // Default breadcrumb clickable URL
-    let breadcrumbUrl = originalUrl;
+      // Default breadcrumb clickable URL
+      let breadcrumbUrl = originalUrl;
 
-    // Current page title
-    const titleName = await getPageTitle(originalUrl);
+      // Current page title
+      const titleName = await getPageTitle(originalUrl);
 
-    // Rewrite only breadcrumb URL
-    if (
-      pathSegments[0] === 'resource-hub' &&
-      pathSegments.length === 5 &&
-      index === 3
-    ) {
-      // Build level 2 path
-      const level2Path = `/${pathSegments.slice(0, 3).join('/')}`;
+      // Rewrite only breadcrumb URL
+      if (
+        pathSegments[0] === 'resource-hub'
+      && pathSegments.length === 5
+      && index === 3
+      ) {
+        // Build level 3 path
+        const level3Path = `/${pathSegments.slice(0, 4).join('/')}`;
 
-      // Build level 3 path
-      const level3Path = `/${pathSegments.slice(0, 4).join('/')}`;
+        const level3Title = await getPageTitle(
+          `${window.location.origin}${level3Path}`,
+        );
 
-      // Fetch titles
-      const level2Title = await getPageTitle(
-        `${window.location.origin}${level2Path}`
-      );
+        breadcrumbUrl = `${window.location.origin}/search-results`
+        + `?contentType=Knowledge base articles&facetId=subcategories&value=${encodeURIComponent(level3Title)}`;
+      }
 
-      const level3Title = await getPageTitle(
-        `${window.location.origin}${level3Path}`
-      );
-
-      breadcrumbUrl =
-        `${window.location.origin}/search-results` +
-        `?contentType=Knowledge base articles&facetId=subcategories&value=${encodeURIComponent(level3Title)}`;
-
-    }
-
-    return {
-      path,
-      name: titleName,
-      url: breadcrumbUrl,
-    };
-  });
+      return {
+        path,
+        name: titleName,
+        url: breadcrumbUrl,
+      };
+    });
 
   const results = await Promise.all(fetchTitlePromises);
 
@@ -162,19 +152,19 @@ export default async function decorate(block) {
   const breadcrumbHtmlParts = [homeLink.outerHTML];
 
   const currentPathname = window.location.pathname;
-const showFullBreadcrumb = currentPathname.includes(
-  '/resource-hub/knowledge-base-articles'
-);
-const ancestorPaths = showFullBreadcrumb
-  ? await getAllPathsExceptCurrent(currentPathname)
-  : [];
+  const showFullBreadcrumb = currentPathname.includes(
+    '/resource-hub/knowledge-base-articles',
+  );
+  const ancestorPaths = showFullBreadcrumb
+    ? await getAllPathsExceptCurrent(currentPathname)
+    : [];
 
-ancestorPaths.forEach((ancestorItem) => {
-  breadcrumbHtmlParts.push(createLink(ancestorItem).outerHTML);
-});
+  ancestorPaths.forEach((ancestorItem) => {
+    breadcrumbHtmlParts.push(createLink(ancestorItem).outerHTML);
+  });
 
   const currentPageTitle = document.querySelector('title')?.innerText || 'Current Page';
-  
+
   // If current page is "Favorite All", show "Resource Hub" first, then "Favorite All"
   if (currentPageTitle === 'My favorite') {
     const resourceHubEl = document.createElement('a');
@@ -183,7 +173,7 @@ ancestorPaths.forEach((ancestorItem) => {
     resourceHubEl.classList.add('breadcrumb-resource-link');
     breadcrumbHtmlParts.push(resourceHubEl.outerHTML);
   }
-  
+
   const currentPageEl = document.createElement('span');
   currentPageEl.innerText = currentPageTitle;
   currentPageEl.style.fontWeight = 'bold';
