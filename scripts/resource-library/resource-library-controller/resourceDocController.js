@@ -59,8 +59,6 @@ import {
   // Context variable controller
   const context = buildContext(resourceLibrarySearchEngine)
   context.add('host', window.location.origin);
-  let lang = document.documentElement.lang
-  context.add('locale', lang || 'en-US');
   
   export const allFacetController = createFacetController();
   

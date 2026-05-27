@@ -77,7 +77,7 @@ export const updateSorting = (criterion) => {
 const context = buildContext(searchEngine)
 context.add('host', window.location.origin);
 let lang = document.documentElement.lang
-context.add('locale', lang || 'en');
+context.add('locale', lang || 'en-US');
 
 
 export const facetBreadcrumb = buildBreadcrumbManager(searchEngine)

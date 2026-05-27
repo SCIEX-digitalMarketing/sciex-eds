@@ -1,9 +1,4 @@
 /* eslint-disable */
-import { i18n } from '../../translation.js';
-
-const lang = document.documentElement.lang || 'en';
-const strings = i18n[lang] || i18n.en;
-
 const renderRegulatorySearchResultList = (customerDocResultsList, customerDocResultClick) => {
 
     const noResults = document.getElementById('coveo-no-results');
@@ -65,15 +60,15 @@ const renderRegulatorySearchResultList = (customerDocResultsList, customerDocRes
 
         const regulatoryInfo = document.createElement('div');
         regulatoryInfo.className = 'regulatory-info';
-        let partNumber = result.raw.productpartnumber ? `${strings.partNumber} : ${result.raw.productpartnumber } | `: '';
-        let lotNumber = result.raw.lotnumber ? `${strings.lotNumber} : ${result.raw.lotnumber } | `: '';
-        let componentLotNumber = result.raw.kitpartnumber ?`${strings.kitNumber} : ${result.raw.kitpartnumber } `: '';
+        let partNumber = result.raw.productpartnumber ? `Part Number : ${result.raw.productpartnumber } | `: '';
+        let lotNumber = result.raw.lotnumber ? `Lot Number : ${result.raw.lotnumber } | `: '';
+        let componentLotNumber = result.raw.kitpartnumber ?`Kit Number : ${result.raw.kitpartnumber } `: '';
 
         regulatoryInfo.innerHTML = `${partNumber}  ${lotNumber}  ${componentLotNumber}`;
   
         const resultMarkup = `
           <div class="item-details"> 
-            <h3>${result.title}</h3>
+            <h3>${result.title || 'No Title Available'}</h3>
             <div class="description"> ${descriptionHtml} </div>
             ${
     result.raw.ogimage
@@ -81,7 +76,7 @@ const renderRegulatorySearchResultList = (customerDocResultsList, customerDocRes
       : ''
   }
           </div>
-          <a class="view-details-btn" target="_blank" href="${result.printableUri}">${strings.view}</a>
+          <a class="view-details-btn" target="_blank" href="${result.printableUri}">View</a>
         `;
   
         resultItem.innerHTML = resultMarkup;

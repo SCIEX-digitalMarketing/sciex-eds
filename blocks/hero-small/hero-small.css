@@ -101,7 +101,7 @@
 
 .hero-small-wrapper .herosmallclass {
   width: 100%;
-  padding: 100px 40px;
+  padding: 32px 64px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -122,7 +122,7 @@
   position: relative;
   z-index: 2;
   text-align: left;
-  margin-left: 35px;
+  /* margin-left: 35px; */
 }
 
 .hero-small-wrapper .hero-content {
@@ -338,10 +338,13 @@ letter-spacing: 0.09px;
 .hero-small-wrapper button:hover {
    text-decoration: none;
 }
-
+@media (max-width: 1200px) {
+    .hero-small-wrapper .herosmallclass {
+      padding: 32px 24px;
+    }
+}
 @media (max-width: 768px) {
   .hero-small-wrapper .herosmallclass {
-    padding: 60px 20px;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;

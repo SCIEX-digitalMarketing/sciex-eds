@@ -101,7 +101,6 @@ export const renderCourceCatalogFacetBreadcurm = () => {
     techniquescategories: 'Techniques',
     trainingtopiccategories: 'Training Topic',
     trainingtypecategories: 'Training Type',
-    trainingcoursetype: 'Training course type',
     assettypes: 'Asset Type',
     instrumentfamily: 'Instrument family',
     languagecountry: 'Language-country',

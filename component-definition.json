@@ -266,52 +266,6 @@
           }
         },
         {
-          "title": "Categories",
-          "id": "categories",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "Categories",
-                  "model": "categories",
-                  "filter": "categories"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Category",
-          "id": "category",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "category",
-                  "model": "category"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "chat script",
-          "id": "chat-bot",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "chat-bot",
-                  "model": "chat-bot"
-                }
-              }
-            }
-          }
-        },
-        {
           "title": "Columns",
           "id": "columns",
           "plugins": {
@@ -465,21 +419,6 @@
           }
         },
         {
-          "title": "favorite All",
-          "id": "favorite-all",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "favorite-all",
-                  "model": "favorite-all"
-                }
-              }
-            }
-          }
-        },
-        {
           "title": "Featured Key Workflows",
           "id": "featured-key-workflows",
           "plugins": {
@@ -549,7 +488,6 @@
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
                   "name": "Header",
-                  "model": "header",
                   "filter": "header"
                 }
               }
@@ -754,22 +692,6 @@
           }
         },
         {
-          "title": "Resourcehub Search",
-          "id": "resourcehub-search",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "Resourcehub Search",
-                  "model": "resourcehub-search",
-                  "filter": "resourcehub-search"
-                }
-              }
-            }
-          }
-        },
-        {
           "title": "Resources Grid",
           "id": "resources-grid",
           "plugins": {
@@ -903,21 +825,6 @@
                 "template": {
                   "name": "Container Item",
                   "model": "container-item"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Sciex Favorite",
-          "id": "sciex-favorite",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "Sciex Favorite",
-                  "model": "sciex-favorite"
                 }
               }
             }
@@ -1377,6 +1284,21 @@
           }
         },
         {
+          "title": "Speaker",
+          "id": "speaker",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Speaker",
+                  "model": "speaker"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Split Video Text",
           "id": "split-video-text",
           "plugins": {
@@ -1570,37 +1492,6 @@
                 "template": {
                   "name": "Tech Note",
                   "model": "tech-note"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Text Container",
-          "id": "text-container",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "text-container",
-                  "model": "text-container",
-                  "filter": "text-container"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Column",
-          "id": "column-text",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "Column",
-                  "model": "column-text"
                 }
               }
             }

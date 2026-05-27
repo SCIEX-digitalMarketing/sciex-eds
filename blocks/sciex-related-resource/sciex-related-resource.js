@@ -30,7 +30,6 @@ export default async function decorate(block) {
         const linkElement = document.createElement('a');
         linkElement.href = linkUrl;
         linkElement.textContent = linkText;
-        linkElement.title = linkText.toLowerCase();
         linkElement.classList.add('link-Element');
         linkElement.target = linkTarget;
 

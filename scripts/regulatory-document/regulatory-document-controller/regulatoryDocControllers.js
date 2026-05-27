@@ -60,7 +60,7 @@ export const regulatoryDocFacetBreadcrumb = buildBreadcrumbManager(regulatoryDoc
 const context = buildContext(regulatoryDocSearchEngine)
 context.add('host', window.location.origin);
 let lang = document.documentElement.lang
-context.add('locale', lang || 'en');
+context.add('locale', lang || 'en-US');
 
 export const allFacetController = createFacetController();
 
