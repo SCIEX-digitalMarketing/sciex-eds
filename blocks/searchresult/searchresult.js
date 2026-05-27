@@ -14,6 +14,15 @@ import renderSorting from '../../scripts/searchresult/components/sorting.js';
 import { renderFacetBreadcurm, handleClearMobileFilters } from '../../scripts/searchresult/components/facetBreadcrumb.js';
 import { contentTypeFacetController } from '../../scripts/searchresult/controller/controllers.js';
 import { setSearchSurveyCookie, qualtricsFeedback } from '../../scripts/scripts.js';
+import  updateSearchFacetBanners from '../../scripts/searchresult/components/facetBanners.js';
+
+//Add banner based on content-type facet values
+function callBanners() {
+    const contentTypeValues = contentTypeFacetController.state.values;
+    if (contentTypeValues && contentTypeValues.length > 0) {
+      updateSearchFacetBanners(contentTypeValues);
+    }  
+}
 
 export default async function decorate(block) {
   // Create main container div
@@ -360,7 +369,7 @@ export default async function decorate(block) {
     'tw-gap-1',
     'tw-mt-6',
   );
-
+ 
   // Append all sections to the search result section div
   searchResultSectionDiv.appendChild(searchContainerDiv);
   searchResultSectionDiv.appendChild(searchTermDiv);
@@ -393,7 +402,6 @@ export default async function decorate(block) {
 
   const pageUrl = new URL(window.location.href);
   let query;
-
   try {
     if (pageUrl.search) {
       const params = new URLSearchParams(pageUrl.search);
@@ -426,6 +434,7 @@ export default async function decorate(block) {
       renderPagination();
       callCreateFacet();
       renderFacetBreadcurm();
+      callBanners()
     });
   } catch (error) {
     searchEngine.executeFirstSearch();

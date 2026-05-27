@@ -165,7 +165,6 @@ function renderFacet(facetElementId, facetController, headerText) {
   const facetItemsContainer = document.createElement('div');
   facetItemsContainer.className = 'facet-items-container';
   facetElement.appendChild(facetItemsContainer);
-
   const values = facetController.state.values;
   const searchValues = facetController.state.facetSearch?.values || [];
 
@@ -202,6 +201,7 @@ function renderFacet(facetElementId, facetController, headerText) {
       facetItemsContainer.appendChild(facetItem);
     });
 
+   
     if (facetId === 'contenttype') {
       const isOrderingExecuted = localStorage.getItem('isOrderingExecuted') === 'true';
       if(!facetBreadcrumb.state.facetBreadcrumbs.length){
@@ -377,8 +377,8 @@ function orderFacetBasedOnSelection(selectedValue) {
     desiredOrder = [
       'contenttype-facet',
       'language-facet',
-      'location-facet',
       'coursetypecategories-facet',
+      'region-facet',
       'trainingtopiccategories-facet',
       'techniquescategories-facet',
       'trainingtypecategories-facet',
@@ -492,7 +492,7 @@ export function callCreateFacet() {
     'coursetypecategories': strings.courseType,
     'certificatetypecategories': strings.certificateType,
     'capillaryelectrophoresiscategories': strings.capillaryElectrophoresis,
-    'hplcandceproductscategories': strings.liquidChromoatography,
+    'hplcandceproductscategories': strings.liquidChromatography,
     'integratedsolutionscategories': strings.integratedSolutions,
     'levelcategories': strings.level,
     'massspectrometerscategories': strings.massSpectrometry,
@@ -507,7 +507,7 @@ export function callCreateFacet() {
     'assettypes': strings.assetType,
     'languagecountry': strings.languageCountry,
     'year': strings.year,
-    'location': strings.trainingLocation,
+    'region': strings.trainingLocation,
     'applications': strings.applications,
     'technicaldocuments': strings.technicalDocuments,
     'instrumentfamily': strings.instrumentFamily,

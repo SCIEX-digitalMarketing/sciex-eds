@@ -11,27 +11,32 @@ const pageTitleCache = new Map();
  * @returns {Promise<string>} - The page title or empty string if not found.
  */
 const getPageTitle = async (url) => {
-  if (pageTitleCache.has(url)) return pageTitleCache.get(url);
-
-  try {
-    // Fetch the HTML content for the URL
-    const response = await fetch(url);
-    if (response.ok) {
-      const htmlContainer = document.createElement('div');
-      htmlContainer.innerHTML = await response.text();
-
-      // Read the <title> content; default to empty if missing
-      const pageTitle = htmlContainer.querySelector('title')?.innerText || '';
-
-      // Cache the title for subsequent requests
-      pageTitleCache.set(url, pageTitle);
-      return pageTitle;
-    }
-  } catch (error) {
-    console.warn(`Failed to fetch ${url}:`, error);
+  if (pageTitleCache.has(url)) {
+    return pageTitleCache.get(url);
   }
 
-  return '';
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      console.warn(`Failed to fetch ${url}`);
+      return '';
+    }
+
+    const html = await response.text();
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    const pageTitle = doc.title || '';
+
+    pageTitleCache.set(url, pageTitle);
+
+    return pageTitle;
+  } catch (error) {
+    console.warn(`Failed to fetch ${url}:`, error);
+    return '';
+  }
 };
 
 /**
@@ -49,17 +54,45 @@ const getAllPathsExceptCurrent = async (pathname) => {
 
   let accumulatedPath = '';
 
-  const fetchTitlePromises = pathSegments.slice(0, -1).map((segment) => {
-    accumulatedPath = `${accumulatedPath}/${segment}`;
-    const path = `${accumulatedPath}.html`;
-    const url = `${window.location.origin}${path}`;
+  const fetchTitlePromises = pathSegments
+    .slice(0, -1)
+    .map(async (segment, index) => {
+      accumulatedPath = `${accumulatedPath}/${segment}`;
 
-    return getPageTitle(url).then((titleName) => ({
-      path,
-      name: titleName,
-      url,
-    }));
-  });
+      const path = `${accumulatedPath}`;
+
+      // Original page URL for title fetching
+      const originalUrl = `${window.location.origin}${path}`;
+
+      // Default breadcrumb clickable URL
+      let breadcrumbUrl = originalUrl;
+
+      // Current page title
+      const titleName = await getPageTitle(originalUrl);
+
+      // Rewrite only breadcrumb URL
+      if (
+        pathSegments[0] === 'resource-hub'
+      && pathSegments.length === 5
+      && index === 3
+      ) {
+        // Build level 3 path
+        const level3Path = `/${pathSegments.slice(0, 4).join('/')}`;
+
+        const level3Title = await getPageTitle(
+          `${window.location.origin}${level3Path}`,
+        );
+
+        breadcrumbUrl = `${window.location.origin}/search-results`
+        + `?contentType=Knowledge base articles&facetId=subcategories&value=${encodeURIComponent(level3Title)}`;
+      }
+
+      return {
+        path,
+        name: titleName,
+        url: breadcrumbUrl,
+      };
+    });
 
   const results = await Promise.all(fetchTitlePromises);
 
@@ -119,7 +152,12 @@ export default async function decorate(block) {
   const breadcrumbHtmlParts = [homeLink.outerHTML];
 
   const currentPathname = window.location.pathname;
-  const ancestorPaths = await getAllPathsExceptCurrent(currentPathname);
+  const showFullBreadcrumb = currentPathname.includes(
+    '/resource-hub/knowledge-base-articles',
+  );
+  const ancestorPaths = showFullBreadcrumb
+    ? await getAllPathsExceptCurrent(currentPathname)
+    : [];
 
   ancestorPaths.forEach((ancestorItem) => {
     breadcrumbHtmlParts.push(createLink(ancestorItem).outerHTML);
