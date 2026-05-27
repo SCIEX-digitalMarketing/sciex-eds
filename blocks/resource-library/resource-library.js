@@ -89,7 +89,7 @@ export default async function decorate(block) {
     applications: 'Applications',
     massspectrometerscategories: 'Mass spectrometry',
     capillaryelectrophoresiscategories: 'Capillary electrophoresis',
-    hplcandceproductscategories: 'Liquid chromoatography',
+    hplcandceproductscategories: 'Liquid chromatography',
     integratedsolutionscategories: 'Integrated solutions',
     softwarecategories: 'Software',
     standardsandreagentscategories: 'Standards and Reagents',

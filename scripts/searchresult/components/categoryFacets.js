@@ -165,7 +165,6 @@ function renderFacet(facetElementId, facetController, headerText) {
   const facetItemsContainer = document.createElement('div');
   facetItemsContainer.className = 'facet-items-container';
   facetElement.appendChild(facetItemsContainer);
-
   const values = facetController.state.values;
   const searchValues = facetController.state.facetSearch?.values || [];
 
@@ -202,6 +201,7 @@ function renderFacet(facetElementId, facetController, headerText) {
       facetItemsContainer.appendChild(facetItem);
     });
 
+   
     if (facetId === 'contenttype') {
       const isOrderingExecuted = localStorage.getItem('isOrderingExecuted') === 'true';
       if(!facetBreadcrumb.state.facetBreadcrumbs.length){
@@ -338,6 +338,7 @@ function orderFacetBasedOnSelection(selectedValue) {
   if (selectedValue === 'Products and services') {
     desiredOrder = [
       'contenttype-facet',
+      'language-facet',
       'massspectrometerscategories-facet',
       'capillaryelectrophoresiscategories-facet',
       'hplcandceproductscategories-facet',
@@ -349,15 +350,18 @@ function orderFacetBasedOnSelection(selectedValue) {
   } else if (selectedValue === 'Regulatory documents') {
     desiredOrder = [
       'contenttype-facet',
+      'languagecountry-facet',
       'technicaldocuments-facet',
       'instrumentfamily-facet',
-      'languagecountry-facet',
       'year-facet'
     ];
     orderFacetChildren('facets', desiredOrder);
-  } else if (selectedValue === 'Resource library') {
+  } else if (selectedValue === 'Resource library' || selectedValue === 'Knowledge base articles' || selectedValue === 'SCIEX How' || selectedValue === 'Technical notes') {
     desiredOrder = [
       'contenttype-facet',
+      'language-facet',
+      'categories-facet',
+      'subcategories-facet',
       'assettypes-facet',
       'applications-facet',
       'massspectrometerscategories-facet',
@@ -365,21 +369,24 @@ function orderFacetBasedOnSelection(selectedValue) {
       'hplcandceproductscategories-facet',
       'integratedsolutionscategories-facet',
       'softwarecategories-facet',
-      'standardsandreagentscategories-facet',
-      'language-facet'
+      'standardsandreagentscategories-facet'
+      
     ];
     orderFacetChildren('facets', desiredOrder);
   } else if (selectedValue === 'Training') {
     desiredOrder = [
       'contenttype-facet',
-      'location-facet',
+      'language-facet',
       'coursetypecategories-facet',
+      'region-facet',
       'trainingtopiccategories-facet',
       'techniquescategories-facet',
       'trainingtypecategories-facet',
+      'trainingcoursetype-facet',
+      'categories-facet',
+      'subcategories-facet',
       'levelcategories-facet',
       'certificatetypecategories-facet',
-      'language-facet',
       'massspectrometerscategories-facet',
       'capillaryelectrophoresiscategories-facet',
       'hplcandceproductscategories-facet',
@@ -388,12 +395,12 @@ function orderFacetBasedOnSelection(selectedValue) {
       'standardsandreagentscategories-facet',
     ];
     orderFacetChildren('facets', desiredOrder);
-  } else if (selectedValue === 'Customer documents') {
+  } else if (selectedValue === 'Customer documents' || selectedValue === 'User guides') {
     desiredOrder = [
       'contenttype-facet',
+      'language-facet',
       'assettypes-facet',
       'year-facet',
-      'language-facet',
       'massspectrometerscategories-facet',
       'capillaryelectrophoresiscategories-facet',
       'hplcandceproductscategories-facet',
@@ -482,26 +489,29 @@ export function callCreateFacet() {
   }
   const facetController = allFacetController;
   const facetsId = {
-    'coursetypecategories':'Course type',
-    'certificatetypecategories':'Certificate type',
-    'capillaryelectrophoresiscategories':'Capillary electrophoresis',
-    'hplcandceproductscategories':'Liquid chromoatography',
-    'integratedsolutionscategories':'Integrated solutions',
-    'levelcategories':'Level',
-    'massspectrometerscategories':'Mass spectrometry',
-    'softwarecategories':'Software',
-    'standardsandreagentscategories':'Standards and reagent kits',
-    'techniquescategories':'Techniques',
-    'trainingtopiccategories':'Training topic',
-    'trainingtypecategories':'Training type',
-    'assettypes': 'Asset type',
-    'languagecountry': 'Language country',
-    'year': 'Year',
-    'location': 'Training location',
-    'applications': 'Applications',
-    'technicaldocuments': 'Technical documents',
-    'instrumentfamily': 'Instrument family',
-    'productcategories': 'Products'
+    'coursetypecategories': strings.courseType,
+    'certificatetypecategories': strings.certificateType,
+    'capillaryelectrophoresiscategories': strings.capillaryElectrophoresis,
+    'hplcandceproductscategories': strings.liquidChromatography,
+    'integratedsolutionscategories': strings.integratedSolutions,
+    'levelcategories': strings.level,
+    'massspectrometerscategories': strings.massSpectrometry,
+    'softwarecategories': strings.software,
+    'standardsandreagentscategories': strings.standardsAndReagentKits,
+    'techniquescategories': strings.techniques,
+    'trainingtopiccategories': strings.trainingTopic,
+    'trainingtypecategories': strings.trainingType,
+    'trainingcoursetype': strings.trainingCourseType,
+    'categories': strings.categories,
+    'subcategories': strings.subcategories,
+    'assettypes': strings.assetType,
+    'languagecountry': strings.languageCountry,
+    'year': strings.year,
+    'region': strings.trainingLocation,
+    'applications': strings.applications,
+    'technicaldocuments': strings.technicalDocuments,
+    'instrumentfamily': strings.instrumentFamily,
+    'productcategories': strings.products
   };
 
   if (lang !== 'ja' && lang !== 'zh-cn') {

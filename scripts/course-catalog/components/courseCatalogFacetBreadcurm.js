@@ -106,7 +106,7 @@ export const renderCourceCatalogFacetBreadcurm = () => {
     languagecountry: 'Language-country',
     language: 'Language',
     year: 'Year',
-    location: 'Training Location',
+    region: 'Training Location',
     applications: 'Applications',
     technicaldocuments: 'Technical Documents',
   };
