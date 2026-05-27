@@ -31,7 +31,7 @@ main > .section > div {
   color: var(--Grey-500, #707070) !important;
 
   /* Typography */
-  font-family: "Geogrotesque";
+  font-family: "Geogrotesque", sans-serif;
   font-size: 14px !important;
   font-style: normal !important;
   font-weight: 330 !important;
@@ -58,10 +58,16 @@ main > .section > div {
   color: black;
 }
 
+.breadcrumb-wrapper {
+  max-width: 90pc !important;
+  padding: 20px 64px !important;
+  margin: auto;
+}
+
 /* Wrapping behavior for smaller screens */
 @media (max-width: 767px) {
   .breadcrumb-wrapper {
-    padding: 16px 15px;
+    padding: 16px 15px !important;
   }
 
   .breadcrumb-wrapper nav {
@@ -75,26 +81,26 @@ main > .section > div {
 
 @media (min-width: 375px) {
   .breadcrumb-wrapper {
-    padding: 16px 15px;
-    max-width: 40pc !important;
+    padding: 16px 15px !important;
+    max-width: 40pc;
   }
 }
 
 @media (min-width: 640px) {
   .breadcrumb-wrapper {
-    max-width: 40pc !important;
+    max-width: 40pc;
   }
 }
 
 @media (min-width: 768px) {
   .breadcrumb-wrapper {
-    max-width: 8in !important;
+    max-width: 8in;
   }
 }
 
 @media (min-width: 1024px) {
   .breadcrumb-wrapper {
-    max-width: 63pc !important;
+    max-width: 63pc;
     padding-left: 55px !important;
     padding-right: 55px !important;
   }
@@ -102,7 +108,7 @@ main > .section > div {
 
 @media (min-width: 1280px) {
   .breadcrumb-wrapper {
-    max-width: 79pc !important;
+    max-width: 79pc;
     padding-left: 55px !important;
     padding-right: 55px !important;
   }
@@ -110,7 +116,7 @@ main > .section > div {
 
 @media (min-width: 1366px) {
   .breadcrumb-wrapper {
-    max-width: 84pc !important;
+    max-width: 84pc;
     padding-left: 55px !important;
     padding-right: 55px !important;
   }
@@ -118,12 +124,12 @@ main > .section > div {
 
 @media (min-width: 1440px) {
   .breadcrumb-wrapper {
-    max-width: 89pc !important;
+    max-width: 89pc;
   }
 }
 
 @media (min-width: 1536px) {
   .breadcrumb-wrapper {
-    max-width: 95pc !important;
+    max-width: 95pc;
   }
 }

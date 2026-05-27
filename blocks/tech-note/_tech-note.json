@@ -26,7 +26,8 @@
             "name": "image",
             "label": "Image",
             "multi": false
-          },{
+          },
+          {
           "component": "richtext",
            "valueType": "string",
            "name": "technoteCaption",

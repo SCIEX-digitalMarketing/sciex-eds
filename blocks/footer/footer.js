@@ -179,7 +179,6 @@ function handleBlockSection(child, block, iteration) {
   const cookieLink = child.querySelector('a[title="Cookies Settings"]');
   if (cookieLink) {
     cookieLink.classList.add('ot-sdk-show-settings');
-    cookieLink.id = 'ot-sdk-show-settings';
   }
 
   if (paragraphs.length >= 2) {
@@ -536,10 +535,19 @@ function processFragment(block, fragment) {
 }
 
 export default async function decorate(block) {
+  const { lang } = document.documentElement;
+  let path = '/footer';
+  if (lang === 'en') {
+    path = '/footer';
+  } else if (lang === 'ja') {
+    path = '/ja-jp/footer';
+  } else if (lang === 'zh-cn') {
+    path = '/zh-cn/footer';
+  }
   const footerMeta = getMetadata('footer');
   const footerPath = footerMeta
     ? new URL(footerMeta, window.location).pathname
-    : '/footer';
+    : path;
   const fragment = await loadFragment(footerPath);
   block.textContent = '';
   processFragment(block, fragment);

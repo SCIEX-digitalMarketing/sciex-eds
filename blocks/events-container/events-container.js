@@ -5,23 +5,35 @@ import decorateSciexText from '../sciex-text/sciex-text.js';
 import { } from '../../scripts/scripts.js';
 import decorateSpeaker from '../speaker-details/speaker-details.js';
 
+/**
+ * Decorates a two-column layout block that supports multiple content sections
+ * (e.g., session timeline, speakers, details, register form, sciex text).
+ * @param {HTMLElement} block - The container element to decorate.
+ */
 export default function decorate(block) {
-  const rows = [...block.children];
-  const leftCol = document.createElement('div');
-  const rightCol = document.createElement('div');
+  const rowElements = [...block.children];
 
-  leftCol.classList.add('column-left');
-  rightCol.classList.add('column-right');
+  const leftColumnEl = document.createElement('div');
+  const rightColumnEl = document.createElement('div');
+
+  leftColumnEl.classList.add('column-left');
+  rightColumnEl.classList.add('column-right');
+
   block.parentElement.classList.add('tabs-container-wrapper');
   block.classList.add('two-column-layout');
+
+  // Tracks whether the layout should render as a single, vertical column
   let isVerticalLayout = false;
-  rows.forEach((row, index) => {
-    if (index === 0) {
-      block.id = `${row.textContent.trim()}-content`;
+
+  rowElements.forEach((rowEl, rowIndex) => {
+    if (rowIndex === 0) {
+      block.id = `${rowEl.textContent.trim()}-content`;
       return;
     }
-    const type = row.querySelector('p')?.textContent?.toLowerCase()?.trim();
-    switch (type) {
+
+    const rowType = rowEl.querySelector('p')?.textContent?.toLowerCase()?.trim();
+
+    switch (rowType) {
       case 'vertical': {
         block.classList.add('vertical-layout');
         isVerticalLayout = true;
@@ -32,42 +44,42 @@ export default function decorate(block) {
         break;
       }
       case 'sessiontimeline': {
-        decorateSessionTimeline(row);
-        (isVerticalLayout ? leftCol : leftCol).appendChild(row);
+        decorateSessionTimeline(rowEl);
+        (isVerticalLayout ? leftColumnEl : leftColumnEl).appendChild(rowEl);
         break;
       }
       case 'speakers': {
         console.log('decorate speakers>>');
-        decorateSpeaker(row);
-        (isVerticalLayout ? leftCol : leftCol).appendChild(row);
+        decorateSpeaker(rowEl);
+        (isVerticalLayout ? leftColumnEl : leftColumnEl).appendChild(rowEl);
         break;
       }
       case 'details': {
-        decorateEventDetails(row);
-        (isVerticalLayout ? leftCol : rightCol).appendChild(row);
+        decorateEventDetails(rowEl);
+        (isVerticalLayout ? leftColumnEl : rightColumnEl).appendChild(rowEl);
         break;
       }
       case 'registerform': {
-        decorateRegisterForm(row);
-        (isVerticalLayout ? leftCol : rightCol).appendChild(row);
+        decorateRegisterForm(rowEl);
+        (isVerticalLayout ? leftColumnEl : rightColumnEl).appendChild(rowEl);
         break;
       }
       case 'sciextext': {
-        decorateSciexText(row);
-        leftCol.appendChild(row);
+        decorateSciexText(rowEl);
+        leftColumnEl.appendChild(rowEl);
         break;
       }
       default: {
-        leftCol.appendChild(row);
+        leftColumnEl.appendChild(rowEl);
         break;
       }
     }
   });
-
   block.innerHTML = '';
+
   if (isVerticalLayout) {
-    block.appendChild(leftCol);
+    block.appendChild(leftColumnEl);
   } else {
-    block.append(leftCol, rightCol);
+    block.append(leftColumnEl, rightColumnEl);
   }
 }

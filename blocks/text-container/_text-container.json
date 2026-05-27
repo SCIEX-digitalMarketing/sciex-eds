@@ -1,0 +1,252 @@
+{
+  "definitions": [
+    {
+      "title": "Text Container",
+      "id": "text-container",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "text-container",
+              "model": "text-container",
+              "filter": "text-container"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Column",
+      "id": "column-text",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Column",
+              "model": "column-text"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "text-container",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "textContainerId",
+          "label": "Text Container Id",
+          "value": ""
+        },
+        {
+          "component": "select",
+          "name": "grid",
+          "label": "Select how many columns in a row",
+          "value": "",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "1-columns",
+              "value": "1"
+            },
+            {
+              "name": "2-columns",
+              "value": "2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "column-text",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "heading",
+          "label": "Heading",
+          "value": ""
+        },
+        
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "subheading",
+          "label": "Sub Heading",
+          "value": ""
+        },
+        {
+          "component": "select",
+          "name": "headingsize",
+          "label": "Select heading size",
+          "value": "",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "XL",
+              "value": "text-xldisplay"
+            },
+            {
+              "name": "L",
+              "value": "text-ldisplay"
+            },
+            {
+              "name": "Alpha",
+              "value": "text-alfa"
+            },
+            {
+              "name": "Bravo",
+              "value": "text-bravo"
+            },
+            {
+              "name": "Charlie",
+              "value": "text-charlie"
+            },
+            {
+              "name": "Delta",
+              "value": "text-delta"
+            },
+            {
+              "name": "Echo",
+              "value": "text-echo"
+            }
+          ]
+        },
+        {
+          "component": "richtext",
+          "name": "text",
+          "value": "",
+          "label": "Text",
+          "valueType": "string"
+        },
+        {
+          "component": "select",
+          "name": "descriptionsize",
+          "label": "Select description size",
+          "value": "",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Base",
+              "value": "text-base"
+            },
+            {
+              "name": "Large",
+              "value": "text-lg"
+            },
+            {
+              "name": "Small",
+              "value": "text-sm"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "primarytext",
+          "label": "Primary Button Text"
+        },
+        {
+          "component": "text",
+          "name": "altText",
+          "label": "Primary Button AltText"
+        },
+        {
+          "component": "aem-content",
+          "name": "primaryUrl",
+          "label": "Primary Button URL"
+        },
+        {
+          "component": "radio-group",
+          "label": "Select below options to open a link",
+          "name": "OpentionToSelectPrimary",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Open In Same Tab",
+              "value": "_self"
+            },
+            {
+              "name": "Open In New Tab",
+              "value": "_blank"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "secondarytext",
+          "label": "Secondary Button Text"
+        },
+        {
+          "component": "text",
+          "name": "secondaryaltText",
+          "label": "Secondary Button Alt Text"
+        },
+        {
+          "component": "aem-content",
+          "name": "secondaryUrl",
+          "label": "Secondary Button URL"
+        },
+        {
+          "component": "radio-group",
+          "label": "Select below options to open a link",
+          "name": "OpentionToSelectSecondary",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Open In Same Tab",
+              "value": "_self"
+            },
+            {
+              "name": "Open In New Tab",
+              "value": "_blank"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "linkText",
+          "label": "Link Text"
+        },
+        {
+          "component": "text",
+          "name": "linkAltText",
+          "label": "Link Alt Text"
+        },
+        {
+          "component": "aem-content",
+          "name": "linkUrl",
+          "label": "Link URL"
+        },
+        {
+          "component": "radio-group",
+          "label": "Select below options to open link in new tab?",
+          "name": "selectbelowoption",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Open In Same Tab",
+              "value": "_self"
+            },
+            {
+              "name": "Open In New Tab",
+              "value": "_blank"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "text-container",
+      "components": [
+        "column-text"
+      ]
+    }
+  ]
+}

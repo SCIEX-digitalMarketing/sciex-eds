@@ -1,5 +1,7 @@
 import { } from '../../scripts/aem.js';
 
+/** * Decorates a block to render a titled event registration form inside an iframe.
+ * * * @param {HTMLElement} block - The container element to decorate. */
 export default function decorate(block) {
   block.id = `${block.children[0].textContent.trim()}-content`;
   block.parentElement.classList.add('tabs-container-wrapper');
@@ -19,6 +21,7 @@ export default function decorate(block) {
   iframe.id = 'events-register-form';
   iframe.src = block.children[3].textContent;// 'https://info.sciex.com/LP=4907';
 
+  // Optional height (fallback to '900px' if not provided)
   const height = block.children[5]?.textContent?.trim() || '900px';
 
   let alignment;
@@ -38,6 +41,7 @@ export default function decorate(block) {
   block.append(subHeadingDiv);
   block.append(iframeDiv);
 
+  // Append query parameters from the current page to the iframe src (preserve existing params)
   const loc = window.location.toString();
   const params = loc.split('?')[1];
   const iframeElement = document.getElementById('events-register-form');

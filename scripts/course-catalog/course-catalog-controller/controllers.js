@@ -59,8 +59,6 @@ export const courseCatalogFacetBreadcrumb = buildBreadcrumbManager(courseCatalog
 // Context variable controller
 const context = buildContext(courseCatalogSearchEngine)
 context.add('host', window.location.origin);
-let lang = document.documentElement.lang
-context.add('locale', lang || 'en-US');
 
 export const allFacetController = createFacetController();
 
@@ -71,6 +69,7 @@ function createFacetController() {
     'trainingtopiccategories',
     'techniquescategories',
     'trainingtypecategories',
+    'trainingcoursetype',
     'levelcategories',
     'certificatetypecategories',
     'massspectrometerscategories',

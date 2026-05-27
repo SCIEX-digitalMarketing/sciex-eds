@@ -8,7 +8,7 @@
 
 .featured-products h2 {
     color: var(--Neutrals-900, #141414);
-    font-family: "Geogrotesque Sharp VF";
+    font-family: "Geogrotesque Sharp VF", sans-serif;
     font-size: 36px;
     font-style: normal;
     font-weight: 330;
@@ -35,7 +35,7 @@
 /* Mobile Responsive Styles */
 @media (max-width: 768px) {
     .featured-products {
-        margin-top: 5px;
+        margin-top: 50px;
         gap: 0; 
         display: block; 
     }

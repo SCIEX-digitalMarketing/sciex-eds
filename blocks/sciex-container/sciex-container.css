@@ -1,6 +1,8 @@
 /* Container width control */
 .sciex-container-wrapper {
-    margin-bottom: 32px !important;
+    /* max-width: 86pc !important; */
+    /* margin: 0 auto; */
+    /* padding: 32px 32px !important; */
 }
 
 .sciex-container-wrapper .sciex-text-wrapper {
@@ -47,7 +49,6 @@
   @media (max-width: 768px) {
     .container-grid-2 {
         grid-template-columns: 1fr;
-        gap: 32px;
     }
   }
   
