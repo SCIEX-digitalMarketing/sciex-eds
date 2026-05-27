@@ -813,6 +813,97 @@
     ]
   },
   {
+    "id": "categories",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "categoriesId",
+        "label": "Categories Id",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "arrowIcon",
+        "label": "Arrow Icon",
+        "multi": false
+      },
+      {
+        "component": "select",
+        "name": "grid",
+        "label": "Select how many categories in a row",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": "4"
+          },
+          {
+            "name": "3-columns",
+            "value": "3"
+          },
+          {
+            "name": "2-columns",
+            "value": "2"
+          },
+          {
+            "name": "1-columns",
+            "value": "1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "category",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "icon",
+        "label": "icon",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description",
+        "value": ""
+      },
+      {
+        "component": "aem-content",
+        "name": "cardLinkUrl",
+        "label": "Card Link URL"
+      },
+      {
+        "component": "radio-group",
+        "label": "Option to Select Card Link Target",
+        "name": "optionToSelectTextLink",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Open In Same Tab",
+            "value": "_self"
+          },
+          {
+            "name": "Open In New Tab",
+            "value": "_blank"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "columns",
     "fields": [
       {
@@ -1450,6 +1541,77 @@
     ]
   },
   {
+    "id": "favorite-all",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "description",
+        "value": "",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "No results Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "text1",
+        "value": "",
+        "label": "No results text1",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "text2",
+        "value": "",
+        "label": "No results text2",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "coveoSearchEngineOrganizationId",
+        "value": "",
+        "label": "Coveo Search Engine OrganizationId",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "coveoSearchEngineAccessToken",
+        "value": "",
+        "label": "Coveo Search Engine Access Token",
+        "valueType": "string"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "icon",
+        "label": "Icon",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "buttonText",
+        "label": "Button Text"
+      },
+      {
+        "component": "aem-content",
+        "name": "buttonUrl",
+        "label": "Button URL"
+      }
+    ]
+  },
+  {
     "id": "featured-key-workflows",
     "fields": [
       {
@@ -1527,6 +1689,21 @@
         "component": "aem-content",
         "name": "reference",
         "label": "Reference"
+      }
+    ]
+  },
+  {
+    "id": "header",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "myProfile",
+        "label": "My Profile Page Path"
+      },
+      {
+        "component": "aem-content",
+        "name": "myFavourite",
+        "label": "My Favourite Page Path"
       }
     ]
   },
@@ -2501,6 +2678,23 @@
     ]
   },
   {
+    "id": "resourcehub-search",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "value": "",
+        "name": "id"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text"
+      }
+    ]
+  },
+  {
     "id": "resources-grid",
     "fields": [
       {
@@ -3056,6 +3250,54 @@
         "component": "aem-content",
         "name": "reference",
         "label": "Reference"
+      }
+    ]
+  },
+  {
+    "id": "sciex-favorite",
+    "fields": [
+      {
+        "component": "text",
+        "name": "sciexFavoriteId",
+        "value": "",
+        "label": "Sciex Favorite Id",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "sciexFavoriteTitle",
+        "value": "",
+        "label": "Sciex Favorite Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "logoutText",
+        "value": "",
+        "label": "Logout Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "loginUrl",
+        "label": "Login URL"
+      },
+      {
+        "component": "aem-content",
+        "name": "createAccountUrl",
+        "label": "Create Account URL"
+      },
+      {
+        "component": "text",
+        "name": "viewAllResourcesButtonText",
+        "value": "",
+        "label": "View All Resources Button Text",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "viewAllResources",
+        "label": "View All Resources Link"
       }
     ]
   },
