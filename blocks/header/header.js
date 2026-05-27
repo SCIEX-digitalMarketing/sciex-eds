@@ -656,11 +656,11 @@ function createMainHeader(section) {
                 </svg>`;
               anchorElement.innerHTML = `${icon} ${key}`;
               anchorElement.classList.add('myprofile-div');
-              anchorElement.href = 'https://devcs.sciex.com/bin/sciex/logout';
+              anchorElement.href = 'https://sciex.com/bin/sciex/logout';
             } else if (key === 'Already have an account?Sign In Now') {
               anchorElement.id = 'signInNowLink';
               if (anchorTag.text === 'Login') {
-                anchorElement.href = 'https://devcs.sciex.com/bin/sciex/login';
+                anchorElement.href = 'https://sciex.com/bin/sciex/login';
                 anchorElement.innerHTML = `${value}`;
               } else if (anchorTag.text === 'My account') {
                 (async function () {
