@@ -266,37 +266,6 @@
           }
         },
         {
-          "title": "Categories",
-          "id": "categories",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "Categories",
-                  "model": "categories",
-                  "filter": "categories"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Category",
-          "id": "category",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "category",
-                  "model": "category"
-                }
-              }
-            }
-          }
-        },
-        {
           "title": "Columns",
           "id": "columns",
           "plugins": {
@@ -444,21 +413,6 @@
                 "template": {
                   "name": "events",
                   "model": "events"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "favorite All",
-          "id": "favorite-all",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "favorite-all",
-                  "model": "favorite-all"
                 }
               }
             }
@@ -738,22 +692,6 @@
           }
         },
         {
-          "title": "Resourcehub Search",
-          "id": "resourcehub-search",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "Resourcehub Search",
-                  "model": "resourcehub-search",
-                  "filter": "resourcehub-search"
-                }
-              }
-            }
-          }
-        },
-        {
           "title": "Resources Grid",
           "id": "resources-grid",
           "plugins": {
@@ -887,21 +825,6 @@
                 "template": {
                   "name": "Container Item",
                   "model": "container-item"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Sciex Favorite",
-          "id": "sciex-favorite",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "Sciex Favorite",
-                  "model": "sciex-favorite"
                 }
               }
             }

@@ -58,14 +58,7 @@
       "atomic-media",
       "sciex-container",
       "sciex-table",
-      "chat-bot",
-      "sciex-favorite",
-      "cards",
-      "resourcehub-search",
-      "categories",
-      "featured-key-workflows",
       "cta-with-text",
-      "favorite-all",
       "contact-information",
       "sciex-headquarters",
       "image-varient",
@@ -95,12 +88,6 @@
     "components": [
       "image-video",
       "youtube-item"
-    ]
-  },
-  {
-    "id": "categories",
-    "components": [
-      "category"
     ]
   },
   {
