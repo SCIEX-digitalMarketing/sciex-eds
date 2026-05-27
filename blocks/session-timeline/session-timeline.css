@@ -41,30 +41,15 @@
     padding: 7px 0px;
 }
 
-  
   .time-row #clock,
   .time-row strong,
   .time-row .event-organizer {
     display: inline-block;
   }
-
-  .time-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
-  }
-
   .time-main {
     display: flex;
     gap: 8px;
   }
-  .session-timeline {
-    font-family: "Geogrotesque Sharp VF";
-    font-style: normal;
-    padding-top: 5px !important;
-  }
-  
   /* Mobile view (adjust max-width as needed) */
   @media (max-width: 768px) {
     .time-row {
@@ -98,3 +83,7 @@
     }
     
   }
+  
+.tabs-container-wrapper {
+  min-height: 200px; 
+}

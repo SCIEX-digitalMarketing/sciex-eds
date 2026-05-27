@@ -71,8 +71,7 @@ function hideIfEmpty(selector, buttonSelector) {
   const container = document.querySelector(selector);
   const buttons = document.querySelectorAll(buttonSelector);
 
-  const shouldShow = !!container; // true if container exists, false if not
-
+  const shouldShow = !!container;
   buttons.forEach((btn) => {
     btn.style.display = shouldShow ? '' : 'none';
   });
