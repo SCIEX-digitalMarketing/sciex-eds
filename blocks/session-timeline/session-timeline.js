@@ -57,6 +57,8 @@ export default function decorate(block) {
             if (sessionTitle) {
               sessionTitle.classList.add('session-title');
             }
+
+            console.log('li >', li.outerHTML);
           }
         });
 
@@ -66,8 +68,7 @@ export default function decorate(block) {
     }
   });
 
-  block.classList.add('session-timeline');
+  block.classList.add('session-timeline', 'tabs-container-wrapper');
   block.textContent = '';
-  block.parentElement.classList.add('tabs-container-wrapper');
   block.append(div);
 }

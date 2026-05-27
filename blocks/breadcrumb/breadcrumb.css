@@ -31,7 +31,7 @@ main > .section > div {
   color: var(--Grey-500, #707070) !important;
 
   /* Typography */
-  font-family: "Geogrotesque", sans-serif;
+  font-family: "Geogrotesque";
   font-size: 14px !important;
   font-style: normal !important;
   font-weight: 330 !important;
@@ -58,16 +58,10 @@ main > .section > div {
   color: black;
 }
 
-.breadcrumb-wrapper {
-  max-width: 90pc !important;
-  padding: 20px 64px !important;
-  margin: auto;
-}
-
 /* Wrapping behavior for smaller screens */
 @media (max-width: 767px) {
   .breadcrumb-wrapper {
-    padding: 16px 15px !important;
+    padding: 16px 15px;
   }
 
   .breadcrumb-wrapper nav {
@@ -81,26 +75,26 @@ main > .section > div {
 
 @media (min-width: 375px) {
   .breadcrumb-wrapper {
-    padding: 16px 15px !important;
-    max-width: 40pc;
+    padding: 16px 15px;
+    max-width: 40pc !important;
   }
 }
 
 @media (min-width: 640px) {
   .breadcrumb-wrapper {
-    max-width: 40pc;
+    max-width: 40pc !important;
   }
 }
 
 @media (min-width: 768px) {
   .breadcrumb-wrapper {
-    max-width: 8in;
+    max-width: 8in !important;
   }
 }
 
 @media (min-width: 1024px) {
   .breadcrumb-wrapper {
-    max-width: 63pc;
+    max-width: 63pc !important;
     padding-left: 55px !important;
     padding-right: 55px !important;
   }
@@ -108,7 +102,7 @@ main > .section > div {
 
 @media (min-width: 1280px) {
   .breadcrumb-wrapper {
-    max-width: 79pc;
+    max-width: 79pc !important;
     padding-left: 55px !important;
     padding-right: 55px !important;
   }
@@ -116,7 +110,7 @@ main > .section > div {
 
 @media (min-width: 1366px) {
   .breadcrumb-wrapper {
-    max-width: 84pc;
+    max-width: 84pc !important;
     padding-left: 55px !important;
     padding-right: 55px !important;
   }
@@ -124,12 +118,12 @@ main > .section > div {
 
 @media (min-width: 1440px) {
   .breadcrumb-wrapper {
-    max-width: 89pc;
+    max-width: 89pc !important;
   }
 }
 
 @media (min-width: 1536px) {
   .breadcrumb-wrapper {
-    max-width: 95pc;
+    max-width: 95pc !important;
   }
 }

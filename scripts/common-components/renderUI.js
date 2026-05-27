@@ -1,9 +1,4 @@
 import { handleMobileFilters } from './commonFacets.js';
-import { i18n } from '../translation.js';
-
-const lang = document.documentElement.lang || 'en';
-const strings = i18n[lang] || i18n.en;
-
 // Helper function for creating DOM elements
 function createElement(tag, options = {}) {
   const el = document.createElement(tag);
@@ -37,7 +32,7 @@ async function initializeSerachInterface(block, blockName) {
   const mobileFilterButton = createElement('div', { id: 'mobile-filters' });
   const mobileFilterButtonspan = createElement('span');
   const mobileFilterButtonIcon = createElement('span');
-  mobileFilterButtonspan.textContent = strings.filter;
+  mobileFilterButtonspan.textContent = 'Filter';
   mobileFilterButtonIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M5 2L9.87202e-08 2" stroke="#0068FA"/><path d="M11 10L16 10" stroke="#0068FA"/><path d="M16 2L10 2" stroke="#0068FA"/><path d="M0 10H6" stroke="#0068FA"/><circle cx="6" cy="2" r="1.5" stroke="#0068FA"/><circle cx="2" cy="2" r="1.5" transform="matrix(-1 0 0 1 12 8)" stroke="#0068FA"/></svg>';
   mobileFilterButton.append(mobileFilterButtonspan);
   mobileFilterButton.append(mobileFilterButtonIcon);
@@ -48,7 +43,7 @@ async function initializeSerachInterface(block, blockName) {
     id: 'mobile-filter-header',
     classList: ['tw-hidden', 'tw-flex', 'tw-py-20', 'tw-px-24', 'tw-justify-between', 'tw-border-b-2', 'tw-border-gray-500', 'tw-bg-white'],
   });
-  const mobileFilterHeaderText = createElement('span', { text: strings.filter });
+  const mobileFilterHeaderText = createElement('span', { text: 'Filter' });
   const mobileFilterHeaderIcon = createElement('span', {
     html: '<svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 13.5L3.0001 3.5001" stroke="#141414"/><path d="M13 3.5L3.0001 13.4999" stroke="#141414"/></svg>',
   });
@@ -61,7 +56,7 @@ async function initializeSerachInterface(block, blockName) {
     classList: ['tw-hidden', 'tw-flex', 'tw-py-20', 'tw-px-24', 'tw-justify-between', 'tw-border-b-2', 'tw-border-gray-500', 'tw-bg-white'],
   });
   const mobileFilterFooterClearButton = createElement('button', {
-    text: strings.clearAll,
+    text: 'Clear All',
     id: 'mobile-filter-footer-clear-all',
   });
   const mobileFilterFooterResultsButton = createElement('button', {
@@ -72,7 +67,7 @@ async function initializeSerachInterface(block, blockName) {
 
   // Search term
   const searchTermDiv = createElement('div', { classList: ['search-term-container'], id: 'searchTermContainer' });
-  const searchTermLabel = createElement('div', { classList: ['search-term-label'], text: strings.searchTerm });
+  const searchTermLabel = createElement('div', { classList: ['search-term-label'], text: 'Search term' });
   const searchTermValue = createElement('div', { classList: ['search-term-value'], id: 'searchTermValue' });
   searchTermDiv.append(searchTermLabel, searchTermValue);
 
@@ -80,16 +75,16 @@ async function initializeSerachInterface(block, blockName) {
   const searchInput = createElement('input', {
     type: 'text',
     id: 'coveo-query',
-    placeholder: strings.search,
+    placeholder: 'Search',
     maxLength: 200,
     classList: ['search-box', 'tw-w-full', 'tw-py-3', 'tw-px-4', 'tw-border', 'tw-border-gray-300', 'tw-rounded-md'],
   });
 
   // Search validation
   const searchTermValidation = createElement('div', { classList: ['search-term-validation'], id: 'searchTermValidation' });
-  const validationText = createElement('div', { classList: ['search-validation-text'], id: 'validationText', text: strings.limitText });
+  const validationText = createElement('div', { classList: ['search-validation-text'], id: 'validationText', text: 'Search within max 200 characters' });
   const validationCount = createElement('div', { classList: ['search-validation-count'], id: 'validationCount' });
-  const validationError = createElement('div', { classList: ['search-validation-error'], id: 'validationError', text: strings.validationText });
+  const validationError = createElement('div', { classList: ['search-validation-error'], id: 'validationError', text: 'Input exceeds the limit. Please search within 200 characters' });
 
   searchTermValidation.appendChild(validationText);
   searchTermValidation.appendChild(validationError);
@@ -148,7 +143,7 @@ async function initializeSerachInterface(block, blockName) {
   const coveoResultsLoading = createElement('div', {
     id: 'coveo-results-loading',
     className: 'result-loading-section tw-text-center tw-text-2xl',
-    text: strings.loading,
+    text: 'Loading Results...',
   });
 
   // Append all sections to the search result section div
