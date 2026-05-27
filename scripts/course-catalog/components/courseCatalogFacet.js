@@ -367,6 +367,7 @@ export function renderCourseCatalogFacet() {
     trainingtopiccategories: 'Training topic',
     techniquescategories: 'Training Techniques',
     trainingtypecategories: 'Training type',
+    'trainingcoursetype': 'Training course type',
     levelcategories: 'Training Level',
     certificatetypecategories: 'Certificate type',
     massspectrometerscategories: 'Mass spectrometry',
@@ -387,13 +388,14 @@ export function renderCourseCatalogFacet() {
         elementToRemove.remove();
       }
     }
-    if (val.state.values.length) {
+  if (val.state.values.length) {
       createFacetRender(val, item, facetsId[item]);
     }
   }
   const desiredOrder = [
     'language-facet',
     'trainingtypecategories-facet',
+    'trainingcoursetype-facet',
     'typecategories-facet',
     'region-facet',
     'trainingtopiccategories-facet',

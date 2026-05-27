@@ -1,4 +1,9 @@
 /* eslint-disable */
+import { i18n } from '../../scripts/translation.js';
+
+const lang = document.documentElement.lang || 'en';
+const strings = i18n[lang] || i18n.en;
+
 function facetAccordion(values, facetElement, facetItemsContainer, facetId) {
   if (values.length !== 0) {
     facetElement.appendChild(facetItemsContainer);
@@ -41,8 +46,8 @@ function createToggleButtons(facetItemsContainer, facetController) {
   buttonContainer.classList.add('facet-toggle-buttons'); // Optional class for styling
 
   const buttons = {
-    showMore: createButton('Show More', 'show-more-btn', () => toggleValues(true)),
-    showLess: createButton('Show Less', 'show-less-btn', () => toggleValues(false)),
+    showMore: createButton(strings.showMore, 'show-more-btn', () => toggleValues(true)),
+    showLess: createButton(strings.showLess, 'show-less-btn', () => toggleValues(false)),
   };
 
   function createButton(text, className, onClick) {
@@ -256,12 +261,12 @@ function clearFacetFilter(facetElement, facetController) {
 function orderContentTypeFacets(facetId, facetItemsContainer) {
   if (facetId == 'contenttype') {
     const desiredOrder = [
-      'Products and services',
-      'Applications',
-      'Regulatory documents',
-      'Customer documents',
-      'Resource library',
-      'Training',
+      strings.productsAndServices,
+      strings.applications,
+      strings.regulatoryDocs,
+      strings.customerDocs,
+      strings.resourceLibrary,
+      strings.training,
     ];
 
     const facetContainer = facetItemsContainer;

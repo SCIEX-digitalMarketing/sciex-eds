@@ -1,0 +1,138 @@
+{
+    "definitions": [
+      {
+        "title": "Categories",
+        "id": "categories",
+        "plugins": {
+          "xwalk": {
+            "page": {
+              "resourceType": "core/franklin/components/block/v1/block",
+              "template": {
+                "name": "Categories",
+                "model": "categories",
+                "filter": "categories"
+              }
+            }
+          }
+        }
+      },
+      {
+        "title": "Category",
+        "id": "category",
+        "plugins": {
+          "xwalk": {
+            "page": {
+              "resourceType": "core/franklin/components/block/v1/block/item",
+              "template": {
+                "name": "category",
+                "model": "category"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "models": [
+      {
+        "id": "categories",
+        "fields": [
+            {
+              "component": "text",
+              "valueType": "string",
+              "name": "categoriesId",
+              "label": "Categories Id",
+              "value": ""
+            },
+            {
+                "component": "reference",
+                "valueType": "string",
+                "name": "arrowIcon",
+                "label": "Arrow Icon",
+                "multi": false
+              },
+            {
+              "component": "select",
+              "name": "grid",
+              "label": "Select how many categories in a row",
+              "value": "",
+              "valueType": "string",
+              "options": [
+                
+                {
+                  "name": "Default",
+                  "value": "4"
+                },
+                {
+                  "name": "3-columns",
+                  "value": "3"
+                },
+                {
+                  "name": "2-columns",
+                  "value": "2"
+                },
+                {
+                  "name": "1-columns",
+                  "value": "1"
+                }
+              ]
+            }
+        ]
+      },
+      {
+        "id": "category",
+        "fields": [
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "icon",
+            "label": "icon",
+            "multi": false
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "heading",
+            "label": "Heading",
+            "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "description",
+          "label": "Description",
+          "value": ""
+        },
+        {
+          "component": "aem-content",
+          "name": "cardLinkUrl",
+          "label": "Card Link URL"
+        },
+        {
+          "component": "radio-group",
+          "label": "Option to Select Card Link Target",
+          "name": "optionToSelectTextLink",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Open In Same Tab",
+              "value": "_self"
+            },
+            {
+              "name": "Open In New Tab",
+              "value": "_blank"
+            }
+          ]
+        }
+        ]
+      }
+    ],
+    "filters": [
+      {
+        "id": "categories",
+        "components": [
+          "category"
+        ]
+      }
+    ]
+  }
+  

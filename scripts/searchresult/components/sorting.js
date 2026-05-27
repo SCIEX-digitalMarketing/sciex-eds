@@ -1,4 +1,8 @@
 import { sortController } from '../controller/controllers.js';
+import { i18n } from '../../translation.js';
+
+const lang = document.documentElement.lang || 'en';
+const strings = i18n[lang] || i18n.en;
 
 export const sortCondition = {
   sortBy: (criterion) => {
@@ -16,12 +20,12 @@ const renderSorting = () => {
   const sortElement = document.getElementById('sort');
   sortElement.innerHTML = '';
   const sortOptions = [
-    { label: 'Relevancy', criterion: { by: 'relevancy' } },
-    { label: 'Title', criterion: { by: 'field', field: 'title', order: 'ascending' } },
-    { label: 'Date', criterion: { by: 'date', order: 'ascending' } },
+    { label: strings.relevancy, criterion: { by: 'relevancy' } },
+    { label: strings.title, criterion: { by: 'field', field: 'title', order: 'ascending' } },
+    { label: strings.date, criterion: { by: 'date', order: 'ascending' } },
   ];
   const sortLabel = document.createElement('div');
-  sortLabel.innerHTML = 'Sort By:';
+  sortLabel.innerHTML = `${strings.sortBy}:`;
   sortLabel.className = 'sort-by-label';
   const selectElement = document.createElement('select');
   selectElement.id = 'sort-element';

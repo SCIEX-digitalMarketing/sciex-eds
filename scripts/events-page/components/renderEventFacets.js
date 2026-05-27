@@ -80,8 +80,7 @@ function createDropdown(label, items, onSelect) {
   items.forEach((item) => {
     const itemDiv = document.createElement('div');
     itemDiv.className = 'dropdown-item';
-    const formattedValue = item.value;
-    itemDiv.textContent = formattedValue;
+    itemDiv.textContent = item.value;
 
     if (item.state === 'selected') toggleText.textContent = item.value;
 
@@ -113,7 +112,7 @@ function createDropdown(label, items, onSelect) {
 function createClearAllButton(updateVisibilityCallback) {
   const button = document.createElement('button');
   button.className = 'clear-all-button';
-  button.innerHTML = `Clear all <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+  button.innerHTML = `Clear All <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
     <path d="M13 13.5L3.0001 3.5001" stroke="#3C8DFF"/>
     <path d="M13 3.5L3.0001 13.4999" stroke="#3C8DFF"/>
   </svg>`;
@@ -214,7 +213,7 @@ function createEventModal() {
 
   const clearBtn = document.createElement('button');
   clearBtn.id = 'clear-event-filters';
-  clearBtn.textContent = 'Clear all';
+  clearBtn.textContent = 'Clear All';
   clearBtn.addEventListener('click', () => Object.values(CONTROLLERS).forEach((ctrl) => ctrl.deselectAll()));
 
   const resultsBtn = document.createElement('button');
@@ -249,7 +248,7 @@ export default function renderEventFacets() {
     items: controller.state.values,
     onSelect: (val) => {
       const latest = controller.state.values.find(
-        v => v.value === val.value
+        (v) => v.value === val.value,
       );
       if (!latest) return;
 
@@ -260,7 +259,7 @@ export default function renderEventFacets() {
       }
 
       // Make the previous selected item idle
-      controller.state.values.forEach(v => {
+      controller.state.values.forEach((v) => {
         if (v.state === 'selected') {
           controller.toggleSelect(v);
         }
@@ -269,8 +268,7 @@ export default function renderEventFacets() {
       // make the newly clicked item to selected
       controller.toggleSelect(latest);
     },
-  })
-  );
+  }));
 
   const filterSection = createFilterSection(dropdownsConfig);
 

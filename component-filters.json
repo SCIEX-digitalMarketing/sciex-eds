@@ -58,7 +58,14 @@
       "atomic-media",
       "sciex-container",
       "sciex-table",
+      "chat-bot",
+      "sciex-favorite",
+      "cards",
+      "resourcehub-search",
+      "categories",
+      "featured-key-workflows",
       "cta-with-text",
+      "favorite-all",
       "contact-information",
       "sciex-headquarters",
       "image-varient",
@@ -91,6 +98,12 @@
     ]
   },
   {
+    "id": "categories",
+    "components": [
+      "category"
+    ]
+  },
+  {
     "id": "columns",
     "components": [
       "column"
@@ -102,7 +115,9 @@
       "text",
       "image",
       "button",
-      "title"
+      "title",
+      "accordion",
+      "cards"
     ]
   },
   {
@@ -238,7 +253,7 @@
   {
     "id": "speakers",
     "components": [
-      "speaker"
+      "speaker-details"
     ]
   },
   {
@@ -272,6 +287,12 @@
     "components": [
       "tab",
       "tab-button"
+    ]
+  },
+  {
+    "id": "text-container",
+    "components": [
+      "column-text"
     ]
   }
 ]
