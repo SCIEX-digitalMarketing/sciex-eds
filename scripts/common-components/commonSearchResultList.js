@@ -1,9 +1,4 @@
 /* eslint-disable */
-import { i18n } from '../../scripts/translation.js';
-
-const lang = document.documentElement.lang || 'en';
-const strings = i18n[lang] || i18n.en;
-
 const renderCommonSearchResultList = (customerDocResultsList, customerDocResultClick) => {
 
   const noResults = document.getElementById('coveo-no-results');
@@ -65,7 +60,7 @@ const renderCommonSearchResultList = (customerDocResultsList, customerDocResultC
 
       const resultMarkup = `
         <div class="item-details"> 
-          <h3>${result.title}</h3>
+          <h3>${result.title || 'No Title Available'}</h3>
           <div class="description"> ${descriptionHtml} </div>
           ${
   result.raw.ogimage
@@ -73,7 +68,7 @@ const renderCommonSearchResultList = (customerDocResultsList, customerDocResultC
     : ''
 }
         </div>
-        <a class="view-details-btn" target="_blank" href="${result.printableUri}">${strings.view}</a>
+        <a class="view-details-btn" target="_blank" href="${result.printableUri}">View</a>
       `;
 
       resultItem.innerHTML = resultMarkup;

@@ -1,71 +1,50 @@
 import { getCookie } from '../../scripts/scripts.js';
 
-/**
- * Decorates the block by fetching featured product data
- * and rendering it dynamically.
- *
- * @param {HTMLElement} blockElement - The component root element
- */
-export default async function decorate(blockElement) {
-  const pictureElement = blockElement.querySelector('picture');
-  const currentPath = window.location.pathname;
-  const normalizedPath = currentPath.replace(/\.html$/, '');
-  let fetchResponse;
+export default async function decorate(block) {
+  const picture = block.querySelector('picture');
+  const path = window.location.pathname;
+  const trimmedPath = path.replace(/\.html$/, '');
+  let response;
+  const alt = block.children[2] && block.children[2].textContent ? block.children[2].textContent.trim() : 'Promotional image';
 
-  const imageAltText = blockElement.children[2]?.textContent?.trim()
-    || 'Promotional image';
-
-  blockElement.textContent = '';
-
+  block.textContent = '';
   try {
-    // Determine request path based on AEM authoring mode
     if (getCookie('cq-authoring-mode') === 'TOUCH') {
-      const authorQueryPath = normalizedPath.replace(/^\/content\/sciex-eds/, '');
-      fetchResponse = await fetch(`${authorQueryPath}/jcr:content.sciex.json`);
+      const queryPath = trimmedPath.replace(/^\/content\/sciex-eds/, '');
+      response = await fetch(`${queryPath}/jcr:content.sciex.json`);
     } else {
-      fetchResponse = await fetch(
-        `/content/sciex-eds${normalizedPath}/jcr:content.sciex.json`,
-      );
+      response = await fetch(`/content/sciex-eds${trimmedPath}/jcr:content.sciex.json`);
     }
+    const data = await response.json();
 
-    const featuredProductsData = await fetchResponse.json();
+    block.classList.add('featured-products');
+    const dynamicElement = document.createElement('div');
+    const title = document.createElement('h2');
+    title.textContent = 'Featured products';
+    dynamicElement.appendChild(title);
 
-    blockElement.classList.add('featured-products');
+    const listContainer = document.createElement('ul');
 
-    const contentWrapper = document.createElement('div');
-
-    const sectionHeading = document.createElement('h2');
-    sectionHeading.textContent = 'Featured products';
-    contentWrapper.appendChild(sectionHeading);
-
-    const productList = document.createElement('ul');
-
-    // Build list items from JSON response
-    Object.entries(featuredProductsData).forEach(([productName, productPath]) => {
+    Object.entries(data).forEach(([key, value]) => {
       const listItem = document.createElement('li');
-      const productLink = document.createElement('a');
+      const anchor = document.createElement('a');
 
-      productLink.href = productPath?.trim()
-        ? `${productPath}.html`
-        : '#';
+      anchor.href = value && value.trim() !== '' ? `${value}.html` : '#';
+      anchor.textContent = key;
+      anchor.title = key.toLowerCase();
+      anchor.target = '_blank';
 
-      productLink.textContent = productName;
-      productLink.title = productName.toLowerCase();
-      productLink.target = '_blank';
-
-      listItem.appendChild(productLink);
-      productList.appendChild(listItem);
+      listItem.appendChild(anchor);
+      listContainer.appendChild(listItem);
     });
-
-    contentWrapper.appendChild(productList);
-    blockElement.appendChild(contentWrapper);
-
-    if (pictureElement) {
-      const imageElement = pictureElement.querySelector('img');
-      imageElement.alt = imageAltText;
-      blockElement.appendChild(pictureElement);
+    dynamicElement.appendChild(listContainer);
+    block.appendChild(dynamicElement);
+    if (picture) {
+      const img = picture.querySelector('img');
+      img.alt = alt;
+      block.appendChild(picture);
     }
-  } catch (fetchError) {
-    console.error('Error fetching featured products data:', fetchError);
+  } catch (error) {
+    console.error('Error fetching data:', error);
   }
 }

@@ -20,26 +20,22 @@
     margin: 10px 0;
 }
 
-.event-details .primary-button {
-    display: flex;
-    padding: 12px 20px;
+.events-details .primary-button {
+    padding: 8px 25px;
     align-items: center;
     gap: 16px;
     border-radius: 4px;
+    color: var(--background-color);
     background: var(--Blue-700, #0068FA);
-    width: 16px;
-    height: 16px;
-    padding: 2px 1px 2px 0px;
     justify-content: center;
-
 }
 
-.event-details .secondary-button {
+.events-details .secondary-button {
     display: flex;
     flex-direction: column;
     border-radius: 4px;
     border: 1px solid var(--Blue-700, #0068FA);
-    padding: 12px 20px;
+    padding: 8px 25px;
     align-items: center;
     gap: 16px;
 }

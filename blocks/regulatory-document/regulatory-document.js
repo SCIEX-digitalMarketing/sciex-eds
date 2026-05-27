@@ -17,10 +17,6 @@ import renderCommonQuerySummary from '../../scripts/common-components/commonQuer
 import renderCommonPagination from '../../scripts/common-components/commonPagination.js';
 import { renderCommonFacet } from '../../scripts/common-components/commonFacets.js';
 import renderCommonFacetBreadcurm from '../../scripts/common-components/commonFacetBreadcurm.js';
-import { i18n } from '../../scripts/translation.js';
-
-const lang = document.documentElement.lang || 'en';
-const strings = i18n[lang] || i18n.en;
 
 async function readBlockProperties(block) {
   // Create no results section
@@ -89,10 +85,10 @@ export default async function decorate(block) {
   document.body.appendChild(suggestionPopupDiv);
 
   const facetsId = {
-    technicaldocuments: strings.technicalDocuments,
-    instrumentfamily: strings.instrumentFamily,
-    languagecountry: strings.languageCountry,
-    year: strings.year,
+    technicaldocuments: 'Technical documents',
+    instrumentfamily: 'Instrument family',
+    languagecountry: 'Language country',
+    year: 'Year',
   };
 
   const desiredOrder = [

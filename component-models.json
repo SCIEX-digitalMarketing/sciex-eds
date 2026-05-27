@@ -904,18 +904,6 @@
     ]
   },
   {
-    "id": "chat-bot",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "id",
-        "label": "Id",
-        "value": "ZN_1o1ioypsMWWxBmB"
-      }
-    ]
-  },
-  {
     "id": "columns",
     "fields": [
       {
@@ -1701,21 +1689,6 @@
         "component": "aem-content",
         "name": "reference",
         "label": "Reference"
-      }
-    ]
-  },
-  {
-    "id": "header",
-    "fields": [
-      {
-        "component": "aem-content",
-        "name": "myProfile",
-        "label": "My Profile Page Path"
-      },
-      {
-        "component": "aem-content",
-        "name": "myFavourite",
-        "label": "My Favourite Page Path"
       }
     ]
   },
@@ -3893,20 +3866,6 @@
         "valueType": "string",
         "name": "text",
         "label": "Text"
-      },
-      {
-        "component": "number",
-        "name": "paddingTop",
-        "label": "Padding Top (px)",
-        "valueType": "number",
-        "value": 32
-      },
-      {
-        "component": "number",
-        "name": "paddingBottom",
-        "label": "Padding Bottom (px)",
-        "valueType": "number",
-        "value": 32
       }
     ]
   },
@@ -4076,7 +4035,7 @@
         "component": "text",
         "valueType": "string",
         "name": "id",
-        "label": "Id(speakers)"
+        "label": "Id"
       },
       {
         "component": "text",
@@ -4084,6 +4043,32 @@
         "name": "heading",
         "label": "Heading",
         "value": ""
+      }
+    ]
+  },
+  {
+    "id": "speaker",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Alt",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
       }
     ]
   },
@@ -4471,212 +4456,6 @@
           {
             "name": "Image-bottom",
             "value": "image-bottom"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "text-container",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "textContainerId",
-        "label": "Text Container Id",
-        "value": ""
-      },
-      {
-        "component": "select",
-        "name": "grid",
-        "label": "Select how many columns in a row",
-        "value": "",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "1-columns",
-            "value": "1"
-          },
-          {
-            "name": "2-columns",
-            "value": "2"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "column-text",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "heading",
-        "label": "Heading",
-        "value": ""
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "subheading",
-        "label": "Sub Heading",
-        "value": ""
-      },
-      {
-        "component": "select",
-        "name": "headingsize",
-        "label": "Select heading size",
-        "value": "",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "XL",
-            "value": "text-xldisplay"
-          },
-          {
-            "name": "L",
-            "value": "text-ldisplay"
-          },
-          {
-            "name": "Alpha",
-            "value": "text-alfa"
-          },
-          {
-            "name": "Bravo",
-            "value": "text-bravo"
-          },
-          {
-            "name": "Charlie",
-            "value": "text-charlie"
-          },
-          {
-            "name": "Delta",
-            "value": "text-delta"
-          },
-          {
-            "name": "Echo",
-            "value": "text-echo"
-          }
-        ]
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
-      },
-      {
-        "component": "select",
-        "name": "descriptionsize",
-        "label": "Select description size",
-        "value": "",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Base",
-            "value": "text-base"
-          },
-          {
-            "name": "Large",
-            "value": "text-lg"
-          },
-          {
-            "name": "Small",
-            "value": "text-sm"
-          }
-        ]
-      },
-      {
-        "component": "text",
-        "name": "primarytext",
-        "label": "Primary Button Text"
-      },
-      {
-        "component": "text",
-        "name": "altText",
-        "label": "Primary Button AltText"
-      },
-      {
-        "component": "aem-content",
-        "name": "primaryUrl",
-        "label": "Primary Button URL"
-      },
-      {
-        "component": "radio-group",
-        "label": "Select below options to open a link",
-        "name": "OpentionToSelectPrimary",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Open In Same Tab",
-            "value": "_self"
-          },
-          {
-            "name": "Open In New Tab",
-            "value": "_blank"
-          }
-        ]
-      },
-      {
-        "component": "text",
-        "name": "secondarytext",
-        "label": "Secondary Button Text"
-      },
-      {
-        "component": "text",
-        "name": "secondaryaltText",
-        "label": "Secondary Button Alt Text"
-      },
-      {
-        "component": "aem-content",
-        "name": "secondaryUrl",
-        "label": "Secondary Button URL"
-      },
-      {
-        "component": "radio-group",
-        "label": "Select below options to open a link",
-        "name": "OpentionToSelectSecondary",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Open In Same Tab",
-            "value": "_self"
-          },
-          {
-            "name": "Open In New Tab",
-            "value": "_blank"
-          }
-        ]
-      },
-      {
-        "component": "text",
-        "name": "linkText",
-        "label": "Link Text"
-      },
-      {
-        "component": "text",
-        "name": "linkAltText",
-        "label": "Link Alt Text"
-      },
-      {
-        "component": "aem-content",
-        "name": "linkUrl",
-        "label": "Link URL"
-      },
-      {
-        "component": "radio-group",
-        "label": "Select below options to open link in new tab?",
-        "name": "selectbelowoption",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Open In Same Tab",
-            "value": "_self"
-          },
-          {
-            "name": "Open In New Tab",
-            "value": "_blank"
           }
         ]
       }

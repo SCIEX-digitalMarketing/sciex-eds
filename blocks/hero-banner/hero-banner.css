@@ -116,7 +116,13 @@ font-size: 14px;
 }
 
 .heading-group > *:not(:last-child) {
-  margin-bottom: 4px;
+  color: #FFF;
+  font-family: Geogrotesque;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 50px; /* 125% */
+    margin-bottom: 4px;
 }
 
 .event-card.full-image-layout {

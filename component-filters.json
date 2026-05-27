@@ -115,9 +115,7 @@
       "text",
       "image",
       "button",
-      "title",
-      "accordion",
-      "cards"
+      "title"
     ]
   },
   {
@@ -253,7 +251,7 @@
   {
     "id": "speakers",
     "components": [
-      "speaker-details"
+      "speaker"
     ]
   },
   {
@@ -287,12 +285,6 @@
     "components": [
       "tab",
       "tab-button"
-    ]
-  },
-  {
-    "id": "text-container",
-    "components": [
-      "column-text"
     ]
   }
 ]
