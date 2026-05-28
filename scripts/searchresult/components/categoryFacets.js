@@ -221,7 +221,7 @@ function renderFacet(facetElementId, facetController, headerText) {
     }
     
     clearFacetFilter(facetElement, facetController);
-    //orderContentTypeFacets(facetId, facetItemsContainer);
+    orderContentTypeFacets(facetId, facetItemsContainer);
     facetAccordion(values, facetElement, facetItemsContainer);
     createToggleButtons(facetItemsContainer, facetController);
   }
@@ -416,13 +416,17 @@ function orderFacetBasedOnSelection(selectedValue) {
 function orderContentTypeFacets(facetId,facetItemsContainer){
   if (facetId == 'contenttype') {
     const desiredOrder = [
-        "Products and services",
         "Applications",
+        "eCommerce",
+        "Knowledge base articles",
+        "Products and services",
         "Regulatory documents",
+        "SCIEX How",
+        "Technical notes",
+        "Training",
+        "user guides",
         "Customer documents",
         "Resource library",
-        "Training",
-        "binarydata"
     ];
 
     const facetContainer = facetItemsContainer;
