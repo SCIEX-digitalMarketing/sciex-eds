@@ -8,7 +8,14 @@
     "/content/sciex-eds/zh-cn/support/tech-regulatory:/support/tech-regulatory",
     "/content/sciex-eds/ja-jp/support/tech-regulatory:/support/tech-regulatory",
     "/content/sciex-eds/zh-cn/support/customer-documents:/support/customer-documents",
-    "/content/sciex-eds/ja-jp/support/customer-documents:/support/customer-documents"
+    "/content/sciex-eds/ja-jp/support/customer-documents:/support/customer-documents",
+    "/content/sciex-eds/ja-jp/nav:/ja-jp/nav",
+    "/content/sciex-eds/zh-cn/nav:/zh-cn/nav",
+    "/content/sciex-eds/nav:/nav",
+    "/content/sciex-eds/ja-jp/footer:/ja-jp/footer",
+    "/content/sciex-eds/zh-cn/footer:/zh-cn/footer",
+    "/content/sciex-eds/footer:/footer",
+    "/content/sciex-eds/ja-jp/applications/environmental-testing/pfas-analysis-solutions:/applications/environmental-testing/pfas-analysis-solutions"
     
   ],
   "includes": [
