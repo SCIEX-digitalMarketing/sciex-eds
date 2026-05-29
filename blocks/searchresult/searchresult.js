@@ -411,10 +411,10 @@ export default async function decorate(block) {
       const params = new URLSearchParams(pageUrl.search);
       query = params.get('term');
       const contentType = params.get('contentType');
-      const facetId = params.get('facetId');
-      console.log('facetId>>', facetId);
-      const value = params.get('value');
-      console.log('value>>', value);
+      const facetIds = params.getAll('facetId');
+      console.log('facetId>>', facetIds);
+      const values = params.getAll('value');
+      console.log('value>>', values);
       const { updateQuery } = loadQueryActions(searchEngine);
       const { toggleSelectFacetValue } = loadFacetSetActions(searchEngine);
       searchEngine.dispatch(updateQuery({
@@ -425,12 +425,18 @@ export default async function decorate(block) {
           facetId: 'contenttype',
           selection: { value: contentType, state: 'selected' },
         }));
-        if (facetId) {
-          searchEngine.dispatch(toggleSelectFacetValue({
-            facetId,
-            selection: { value, state: 'selected' },
-          }));
-        }
+        facetIds.forEach((facetId, index) => {
+          const value = values[index];
+
+          if (facetId && value) {
+            searchEngine.dispatch(
+              toggleSelectFacetValue({
+                facetId,
+                selection: { value, state: 'selected' },
+              }),
+            );
+          }
+        });
       }/* else{
          searchEngine.dispatch(toggleSelectFacetValue({
           facetId: 'contenttype',

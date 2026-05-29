@@ -156,6 +156,10 @@ export default function decorate(block) {
             const path = favoriteIcon.querySelector('path');
             path.setAttribute('fill', '#1C7AFF');
             path.setAttribute('stroke', '#1C7AFF');
+            favoriteIcon.setAttribute('title', 'Remove from favorites');
+          }
+          else{
+            favoriteIcon.setAttribute('title', 'Save to favorites');
           }
         }
       } catch (error) {
@@ -172,10 +176,12 @@ export default function decorate(block) {
       path.setAttribute('fill', 'none');
       path.setAttribute('stroke', '#000');
       path.setAttribute('transition', 'stroke 0.3s ease, fill 0.3s ease');
+      favoriteIcon.setAttribute('title', 'Save to favorites');
       callFavoriteAPI('remove', fullUrl);
     } else {
       path.setAttribute('fill', '#1C7AFF');
       path.setAttribute('stroke', '#1C7AFF');
+      favoriteIcon.setAttribute('title', 'Remove from favorites');
       callFavoriteAPI('add', fullUrl);
     }
   });

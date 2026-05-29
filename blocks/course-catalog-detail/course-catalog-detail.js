@@ -610,6 +610,9 @@ const rowsHTML = details
           );
           if (isFavorited) {
             favoriteIcon.classList.add('favorited');
+            favoriteIcon.setAttribute('title', 'Remove from favorites');
+          } else {
+            favoriteIcon.setAttribute('title', 'Save to favorites');
           }
         }
       } catch (error) {
@@ -630,16 +633,20 @@ const rowsHTML = details
         if (isFavorited) {
           // Remove from favorites
           favoriteIcon.classList.remove('favorited');
+          favoriteIcon.setAttribute('title', 'Save to favorites');
           const res = await removeFavoriteSearchEngine(fullUrl);
           if (res?.message !== "The operation went successfully") {
             favoriteIcon.classList.add('favorited');
+            favoriteIcon.setAttribute('title', 'Remove from favorites');
           }
         } else {
           // Add to favorites
           favoriteIcon.classList.add('favorited');
+          favoriteIcon.setAttribute('title', 'Remove from favorites');
           const res = await addToFavorite(fullUrl);
           if (res?.message !== "The operation went successfully") {
             favoriteIcon.classList.remove('favorited');
+            favoriteIcon.setAttribute('title', 'Save to favorites');
           }
         }
       } catch (error) {
@@ -647,8 +654,10 @@ const rowsHTML = details
         // Revert UI if operation fails
         if (isFavorited) {
           favoriteIcon.classList.add('favorited');
+          favoriteIcon.setAttribute('title', 'Remove from favorites');
         } else {
           favoriteIcon.classList.remove('favorited');
+          favoriteIcon.setAttribute('title', 'Save to favorites');
         }
       }
     });
