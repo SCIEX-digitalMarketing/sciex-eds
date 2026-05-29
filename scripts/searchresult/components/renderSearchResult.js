@@ -283,6 +283,10 @@ const renderSearchResults = () => {
 
         if (isFavorite) {
           favIcon.classList.add('favorited');
+          favIcon.setAttribute('title', 'Remove from favorites');
+        }
+        else {
+          favIcon.setAttribute('title', 'Save to favorites');
         }
 
         favIcon.addEventListener('click', async (e) => {

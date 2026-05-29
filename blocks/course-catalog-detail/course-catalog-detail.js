@@ -610,6 +610,9 @@ const rowsHTML = details
           );
           if (isFavorited) {
             favoriteIcon.classList.add('favorited');
+            favoriteIcon.setAttribute('title', 'Remove from favorites');
+          } else {
+            favoriteIcon.setAttribute('title', 'Save to favorites');
           }
         }
       } catch (error) {

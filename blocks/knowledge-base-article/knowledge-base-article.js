@@ -156,6 +156,10 @@ export default function decorate(block) {
             const path = favoriteIcon.querySelector('path');
             path.setAttribute('fill', '#1C7AFF');
             path.setAttribute('stroke', '#1C7AFF');
+            favoriteIcon.setAttribute('title', 'Remove from favorites');
+          }
+          else{
+            favoriteIcon.setAttribute('title', 'Save to favorites');
           }
         }
       } catch (error) {
