@@ -806,6 +806,23 @@ async function sectionBackgroundColor(element) {
   }
 }
 
+
+/**
+ * Loads the WalkMe script.
+ */
+function loadWalkMe() {
+  (function () {
+    const walkme = document.createElement('script');
+    walkme.type = 'text/javascript';
+    walkme.async = true;
+    // Production
+    walkme.src = 'https://cdn.walkme.com/users/1e111ec60eee4eb8859b4147fa4ea483/walkme_1e111ec60eee4eb8859b4147fa4ea483_https.js';
+    const s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(walkme, s);
+    window._walkmeConfig = { smartLoad: true };
+  }());
+}
+
 init();
 
 export {
@@ -822,6 +839,7 @@ export {
   loadBlock,
   loadCSS,
   loadFooter,
+  loadWalkMe,
   loadHeader,
   loadScript,
   loadSection,
