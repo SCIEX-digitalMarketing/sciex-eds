@@ -2,7 +2,9 @@ import { } from '../../scripts/aem.js';
 
 export default function decorate(block) {
   const children = Array.from(block.children);
-
+  if (children.length < 5) {
+    return;
+  }
   // Map fields directly based on model
   const idEl = children[0];
   const alignmentEl = children[1];
