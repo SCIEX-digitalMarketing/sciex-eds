@@ -1365,7 +1365,8 @@ main .section.highlight {
   .container-grid-2,
   .course-catalog-detail-wrapper,
   .categories-wrapper,
-  .featured-key-workflows-wrapper
+  .featured-key-workflows-wrapper,
+  .sciex-favorite-wrapper
   {
     max-width: 90pc !important;
     /* padding: 0 55px !important; */
