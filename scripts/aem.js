@@ -810,26 +810,15 @@ async function sectionBackgroundColor(element) {
  * Loads the WalkMe script.
  */
 function loadWalkMe() {
-  try {
-    const walkme = document.createElement('script');
-    walkme.type = 'text/javascript';
-    walkme.async = true;
-    // Production
-    walkme.src = 'https://cdn.walkme.com/users/1e111ec60eee4eb8859b4147fa4ea483/walkme_1e111ec60eee4eb8859b4147fa4ea483_https.js';
-    walkme.onerror = () => {
-      // eslint-disable-next-line no-console
-      console.log('Failed to load WalkMe script');
-    };
-    const scripts = document.getElementsByTagName('script');
-    if (scripts.length > 0) {
-      scripts[0].parentNode.insertBefore(walkme, scripts[0]);
-    }
-    // eslint-disable-next-line no-underscore-dangle
-    window._walkmeConfig = { smartLoad: true };
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.log('Error loading WalkMe:', error);
-  }
+  const walkme = document.createElement('script');
+  walkme.type = 'text/javascript';
+  walkme.async = true;
+  // Production
+  walkme.src = 'https://cdn.walkme.com/users/1e111ec60eee4eb8859b4147fa4ea483/walkme_1e111ec60eee4eb8859b4147fa4ea483_https.js';
+  const s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(walkme, s);
+  // eslint-disable-next-line no-underscore-dangle
+  window._walkmeConfig = { smartLoad: true };
 }
 
 init();
