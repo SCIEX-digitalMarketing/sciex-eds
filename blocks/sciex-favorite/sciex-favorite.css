@@ -141,10 +141,10 @@
     background-color: #ecfeff;
   }
   .favorites-grid {
-    margin-left: 60px;
+    /* margin-left: 60px; */
     margin-top: 24px;
     display: grid;
-    width: 1322px;
+    width: 100%;
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
   }
