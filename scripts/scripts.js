@@ -9,7 +9,6 @@ import {
   waitForFirstImage,
   loadSection,
   loadSections,
-  loadWalkMe,
   sectionBackgroundColor,
   loadCSS,
   toClassName,
@@ -210,7 +209,7 @@ async function loadLazy(doc) {
 function loadDelayed() {
   // eslint-disable-next-line import/no-cycle
   window.setTimeout(() => import('./delayed.js'), 3000);
-  loadWalkMe();
+  // loadWalkMe();
   // load anything that can be postponed to the latest here
 }
 
