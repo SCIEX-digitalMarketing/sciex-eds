@@ -810,12 +810,13 @@ async function sectionBackgroundColor(element) {
  * Loads the WalkMe script.
  */
 function loadWalkMe() {
-  window.addEventListener('load', () => {  // ✅ Wait for full page load
+  window.addEventListener('load', () => { // ✅ Wait for full page load
     const walkme = document.createElement('script');
     walkme.type = 'text/javascript';
     walkme.async = true;
     walkme.src = 'https://cdn.walkme.com/users/1e111ec60eee4eb8859b4147fa4ea483/walkme_1e111ec60eee4eb8859b4147fa4ea483_https.js';
-    document.body.appendChild(walkme);  // ✅ Append to body, not before first script
+    document.body.appendChild(walkme); // ✅ Append to body, not before first script
+    // eslint-disable-next-line no-underscore-dangle
     window._walkmeConfig = { smartLoad: true };
   });
 }

@@ -24,7 +24,7 @@ export default function decorate(block) {
   const wrapper = block.closest('.sciex-text-wrapper') || block;
   block.parentElement?.classList.add('tabs-container-wrapper');
   block.textContent = '';
-  
+
   // Handle content
   if (contentEl) {
     contentEl.classList.add(alignment || 'text-left');

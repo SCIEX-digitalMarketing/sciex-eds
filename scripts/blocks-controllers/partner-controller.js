@@ -1,6 +1,6 @@
 export default async function getPartnersData() {
   try {
-    const endpoint = `/bin/sciex/partners`;
+    const endpoint = '/bin/sciex/partners';
     console.log('Fetching partners data from:', endpoint);
     const response = await fetch(endpoint);
 
@@ -13,4 +13,4 @@ export default async function getPartnersData() {
     console.error('Fetch error:', error);
     return null;
   }
-};
+}

@@ -157,8 +157,7 @@ export default function decorate(block) {
             path.setAttribute('fill', '#1C7AFF');
             path.setAttribute('stroke', '#1C7AFF');
             favoriteIcon.setAttribute('title', 'Remove from favorites');
-          }
-          else{
+          } else {
             favoriteIcon.setAttribute('title', 'Save to favorites');
           }
         }
