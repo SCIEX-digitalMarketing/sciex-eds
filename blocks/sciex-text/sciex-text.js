@@ -18,15 +18,12 @@ export default function decorate(block) {
   block.id = `${blockId}-content`;
   block.classList.add('sciex-text');
 
-  // Wrapper handling
-  const wrapper = block.closest('.sciex-text-wrapper') || block;
   block.parentElement?.classList.add('tabs-container-wrapper');
   block.textContent = '';
-  
+
   // Handle content
   if (contentEl) {
     contentEl.classList.add(alignment || 'text-left');
     block.append(contentEl);
   }
-
 }
