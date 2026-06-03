@@ -167,7 +167,7 @@ function toggleAssetType(asset) {
 export function showResourceHubButton(block) {
   const resourceHubButton = document.createElement('a');
   resourceHubButton.className = 'resource-hub-button';
-  resourceHubButton.textContent = 'Back to resource hub';
+  resourceHubButton.textContent = 'Back to Resource hub';
   resourceHubButton.style.cursor = 'pointer';
   resourceHubButton.href = '/resource-hub';
   resourceHubButton.target = '_blank';

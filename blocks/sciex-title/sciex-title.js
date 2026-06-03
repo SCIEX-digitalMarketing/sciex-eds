@@ -19,7 +19,6 @@ async function initializeFavorite(favIcon) {
     favIcon.addEventListener('click', async (e) => {
       e.preventDefault();
       e.stopPropagation();
-      favIcon.classList.add('is-loading');
       try {
         const isFavorited = favIcon.classList.contains('favorited');
         if (isFavorited) {
@@ -27,7 +26,7 @@ async function initializeFavorite(favIcon) {
           favIcon.classList.remove('favorited');
           favIcon.setAttribute('title', 'Save to favorites');
           const res = await removeFavoriteSearchEngine(pageUrl);
-          if (!res) {
+          if (res?.message !== 'The operation went successfully') {
             // Restore on failure
             favIcon.classList.add('favorited');
             favIcon.setAttribute('title', 'Remove from favorites');
@@ -37,14 +36,14 @@ async function initializeFavorite(favIcon) {
           favIcon.classList.add('favorited');
           favIcon.setAttribute('title', 'Remove from favorites');
           const res = await addToFavorite(pageUrl);
-          if (!res) {
+          if (res?.message !== 'The operation went successfully') {
             // Restore on failure
             favIcon.classList.remove('favorited');
             favIcon.setAttribute('title', 'Save to favorites');
           }
         }
-      } finally {
-        favIcon.classList.remove('is-loading');
+      } catch (error) {
+        console.error('Error toggling favorite:', error);
       }
     });
   } catch (error) {
@@ -77,19 +76,13 @@ export default async function decorate(block) {
   // Create favorite button and icon only for tech-notes pages
   if (isTechNotesPage) {
     const titleContentWrapper = document.createElement('div');
-    titleContentWrapper.classList.add('title-content-wrapper', 'tw-flex', 'tw-items-center', 'tw-gap-3');
+    titleContentWrapper.classList.add('title-content-wrapper');
     const favIcon = document.createElement('span');
-    favIcon.classList.add('favorite-icon');
-    favIcon.setAttribute('role', 'button');
-    favIcon.setAttribute('tabindex', '0');
+    favIcon.classList.add('favorite-icon');    
     favIcon.innerHTML = `    
-
        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 30 30" fill="none">
-
           <path d="M22.75 4.5V24.7344L15.3652 16.8584L15 16.4688L14.6348 16.8584L7.25 24.7344V4.5H22.75Z" />
-
        </svg>
-
     `;
     titleContentWrapper.appendChild(headingDiv);
     titleContentWrapper.appendChild(favIcon);
