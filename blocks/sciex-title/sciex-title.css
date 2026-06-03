@@ -1,32 +1,194 @@
 .sciex-title-wrapper{
+
     min-height: 120px;
+
     /* max-width: 87pc !important; */
+
 }
+
 .sciex-hero-title {
+
     padding-top: 10px;
+
 }
+
+
 
 .hero-heading {
+
     align-self: stretch;
+
     color: var(--Grey-900, #141414);
+
     font-size: 60px;
+
     font-style: normal;
+
     font-weight: 300;
+
     line-height: 75px;
+
     min-height: 75px;
+
 }
 
-@media (max-width: 768px) {
-    .sciex-title-wrapper{
-        min-height: 60px;
-    }
-    .sciex-hero-title {
-        padding-top: 0px;
-    }
-    .hero-heading {
-        font-size: 34px;
-        font-weight: 300;
-        line-height: 42px;
-        min-height: 42px; /* Adjust height for mobile */
-    }
+
+
+/* Title content wrapper with favorite icon */
+
+.title-content-wrapper {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
 }
+
+
+
+/* Favorite icon styles */
+
+.favorite-icon {
+
+    cursor: pointer;
+
+    color: #707070;
+
+    transition: all 0.3s ease;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 24px;
+
+    height: 24px;
+
+    flex-shrink: 0;
+
+}
+
+
+
+.favorite-icon svg {
+
+    display:inline-flex;
+
+    align-items: start;
+
+  stroke: #000;
+
+  fill: none;
+
+  transition: stroke 0.3s ease, fill 0.3s ease;
+
+}
+
+
+
+.favorite-icon.favorited svg {
+
+  stroke: #1C7AFF;
+
+  fill: #1C7AFF;
+
+}
+
+.favorite-icon:hover {
+
+    color: #0068FA;
+
+    transform: scale(1.1);
+
+}
+
+
+
+.favorite-icon.favorited {
+
+    color: #E63946;
+
+    fill: #E63946;
+
+}
+
+
+
+.favorite-icon.favorited:hover {
+
+    color: #C1121F;
+
+    fill: #C1121F;
+
+}
+
+
+
+.favorite-icon.is-loading {
+
+    opacity: 0.6;
+
+    pointer-events: none;
+
+    animation: spin 1s linear infinite;
+
+}
+
+
+
+@keyframes spin {
+
+    to {
+
+        transform: rotate(360deg);
+
+    }
+
+}
+
+
+
+/* Ensure SVG inside is responsive */
+
+.favorite-icon svg {
+
+    width: 100%;
+
+    height: 100%;
+
+}
+
+
+
+@media (max-width: 768px) {
+
+    .sciex-title-wrapper{
+
+        min-height: 60px;
+
+    }
+
+    .sciex-hero-title {
+
+        padding-top: 0px;
+
+    }
+
+    .hero-heading {
+
+        font-size: 34px;
+
+        font-weight: 300;
+
+        line-height: 42px;
+
+        min-height: 42px; /* Adjust height for mobile */
+
+    }
+
+}
+
