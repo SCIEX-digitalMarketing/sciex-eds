@@ -25,6 +25,7 @@ async function initializeFavorite(favIcon) {
   try {
     // Get current page URL
     const pageUrl = window.location.href;
+    pageUrl='https://devcs.sciex.com/tech-notes/biopharma/mrna-lnp-nucleic-acid-assessment-from-distinct-formulations-by-m';
     // Get list of favorited pages
     const favoritesList = await getfavoriteAllData();
     const isFavorited = !!favoritesList?.some(fav =>
