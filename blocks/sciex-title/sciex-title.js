@@ -1,6 +1,26 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { getfavoriteAllData, removeFavoriteSearchEngine, addToFavorite} from '../../scripts/favorite-all/favorite-allDocEngine.js';
 
+const USER_API = '/bin/sciex/currentuserdetails';
+
+/**
+ * Fetches current user login status
+ * Returns isLoggedIn boolean - false if API fails
+ */
+async function checkLoginStatus() {
+  try {
+    const userResp = await fetch(USER_API);
+    if (!userResp.ok) {
+      throw new Error(`User API failed: ${userResp.status}`);
+    }
+    const user = await userResp.json();
+    return user?.loggedIn === true;
+  } catch (e) {
+    console.warn('User login check failed:', e);
+    return false;
+  }
+}
+
 async function initializeFavorite(favIcon) {
   try {
     // Get current page URL
@@ -69,12 +89,16 @@ export default async function decorate(block) {
   } else {
     headingDiv.append(pageTitle);
   }
-  // Check if it's a /tech-notes page
 
+  // Check user login status
+  const isLoggedIn = await checkLoginStatus();
+
+  // Check if it's a /tech-notes page
   const pathName = window.location.pathname;
   const isTechNotesPage = pathName.includes('/tech-notes');
-  // Create favorite button and icon only for tech-notes pages
-  if (isTechNotesPage) {
+
+  // Create favorite button and icon only for tech-notes pages AND logged-in users
+  if (isTechNotesPage && isLoggedIn) {
     const titleContentWrapper = document.createElement('div');
     titleContentWrapper.classList.add('title-content-wrapper');
     const favIcon = document.createElement('span');
