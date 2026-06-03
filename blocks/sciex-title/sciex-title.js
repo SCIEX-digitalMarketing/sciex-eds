@@ -28,13 +28,13 @@ async function initializeFavorite(favIcon) {
    const pageUrl='https://devcs.sciex.com/tech-notes/biopharma/mrna-lnp-nucleic-acid-assessment-from-distinct-formulations-by-m';
     // Get list of favorited pages
     const favoritesList = await getfavoriteAllData();
-    const isFavorited = !!favoritesList?.some(fav =>
+    const isfavoritedUrl  = !!favoritesList?.some(fav =>
             fav?.pageData?.some(
               page => page?.path === pageUrl
             )
           );
     // Check if current page is in favorites
-    if (isFavorited) {
+    if (isfavoritedUrl) {
       favIcon.classList.add('favorited');
       favIcon.setAttribute('title', 'Remove from favorites');
     } else {
