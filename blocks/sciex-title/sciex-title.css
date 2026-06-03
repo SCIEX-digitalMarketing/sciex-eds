@@ -1,19 +1,10 @@
 .sciex-title-wrapper{
-
     min-height: 120px;
-
     /* max-width: 87pc !important; */
-
 }
-
 .sciex-hero-title {
-
     padding-top: 10px;
-
 }
-
-
-
 .hero-heading {
 
     align-self: stretch;
@@ -40,9 +31,9 @@
 
     display: flex;
 
-    align-items: center;
+    align-items: flex-start;
 
-    gap: 12px;
+    gap: 20px;
 
 }
 
@@ -74,7 +65,7 @@
 
 
 
-.favorite-icon svg {
+.favorite-icon {
 
     display:inline-flex;
 
@@ -85,7 +76,7 @@
   fill: none;
 
   transition: stroke 0.3s ease, fill 0.3s ease;
-
+    padding-top: 20px;
 }
 
 
@@ -152,15 +143,6 @@
 
 
 
-/* Ensure SVG inside is responsive */
-
-.favorite-icon svg {
-
-    width: 100%;
-
-    height: 100%;
-
-}
 
 
 
