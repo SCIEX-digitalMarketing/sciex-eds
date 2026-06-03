@@ -179,13 +179,17 @@ function renderFacet(facetElementId, facetController, headerText) {
   }
 
   if (!isSearch) {
-    values.forEach(value => {
-      if (facetId === 'applications' && value.value === 'Application') return;
+    // Sort values alphabetically by displayText
+    const sortedValues = values
+      .filter(value => !(facetId === 'applications' && value.value === 'Application'))
+      .map(value => ({
+        ...value,
+        displayText: value.value === 'binarydata' ? "eCommerce" : value.value
+      }))
+      .sort((a, b) => a.displayText.localeCompare(b.displayText));
 
-      let displayText = value.value
-      if(value.value === 'binarydata'){
-        displayText = "eCommerce"
-      }
+    sortedValues.forEach(value => {
+      const displayText = value.displayText;
       const facetItem = document.createElement('div');
       facetItem.className = 'facet-item tw-flex tw-items-center tw-gap-2 tw-py-1';
       facetItem.innerHTML = `        

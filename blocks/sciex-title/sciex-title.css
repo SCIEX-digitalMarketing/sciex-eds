@@ -16,12 +16,32 @@
     min-height: 75px;
 }
 
+.title-content-wrapper {
+    display: flex;
+    gap: 20px;
+}
+
+.favorite-icon {
+    display:inline-flex;
+    align-items: start;
+    stroke: #000;
+    fill: none; 
+    padding-top: 20px;
+}
+.favorite-icon.favorited svg {
+  stroke: #1C7AFF;
+  fill: #1C7AFF;
+}
+
 @media (max-width: 768px) {
     .sciex-title-wrapper{
         min-height: 60px;
     }
     .sciex-hero-title {
         padding-top: 0px;
+    }
+    .title-content-wrapper {
+        flex-direction: column-reverse;
     }
     .hero-heading {
         font-size: 34px;
