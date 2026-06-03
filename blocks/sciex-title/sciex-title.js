@@ -27,9 +27,13 @@ async function initializeFavorite(favIcon) {
     const pageUrl = window.location.href;
     // Get list of favorited pages
     const favoritesList = await getfavoriteAllData();
-    const favoritedUrls = favoritesList?.data?.map(fav => fav.url) || [];
+    const isFavorited = !!favoritesList?.some(fav =>
+            fav?.pageData?.some(
+              page => page?.path === pageUrl
+            )
+          );
     // Check if current page is in favorites
-    if (favoritedUrls.includes(pageUrl)) {
+    if (isFavorited) {
       favIcon.classList.add('favorited');
       favIcon.setAttribute('title', 'Remove from favorites');
     } else {
