@@ -46,7 +46,7 @@ function createAction(event) {
 
 function createEventCard(event) {
   const eventType = event.raw.eventtype[0];
-  const description = event.Excerpt ? event.Excerpt : event.title;
+  const description = event.Excerpt ? event.title : event.Excerpt;
   const month = event.raw.eventmonth;
 
   const newDate = new Date(event.raw.eventdate);
