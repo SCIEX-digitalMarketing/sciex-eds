@@ -192,12 +192,7 @@ const renderSearchResults = () => {
       </div>
           ` : ''}
             <h3>${result.title || 'No Title Available'}</h3>
-            ${result.raw.coursetypecategories?.some(
-                cat => cat === 'Premium online' || cat === 'Premium eLearning'
-              )
-                        ? `<div class="description">${result.Excerpt}</div>`
-                        : `<div class="description">${result.raw.description}</div>`
-        }
+            <div class="description">${result.raw.description}</div>
             ${result.raw.ogimage
           ? `<img src="${result.raw.ogimage}" alt="ogimage" width="200" height="200">`
           : ''
@@ -283,6 +278,10 @@ const renderSearchResults = () => {
 
         if (isFavorite) {
           favIcon.classList.add('favorited');
+          favIcon.setAttribute('title', 'Remove from favorites');
+        }
+        else {
+          favIcon.setAttribute('title', 'Save to favorites');
         }
 
         favIcon.addEventListener('click', async (e) => {
@@ -301,19 +300,23 @@ const renderSearchResults = () => {
           try {
             if (isFavorited) {
               favIcon.classList.remove('favorited');
+              favIcon.setAttribute('title', 'Save to favorites');
               const res = await removeToFavorite(pageUrl);
 
               if (!res.success) {
                 favIcon.classList.add('favorited');
+                favIcon.setAttribute('title', 'Remove from favorites');
               } else {
                 favoriteResultsList = await getFavoriteResultsList();
               }
             } else {
               favIcon.classList.add('favorited');
+              favIcon.setAttribute('title', 'Remove from favorites');
               const res = await addToFavorite(pageUrl);
 
               if (!res.success) {
                 favIcon.classList.remove('favorited');
+                favIcon.setAttribute('title', 'Save to favorites');
               } else {
                 favoriteResultsList = await getFavoriteResultsList();
               }

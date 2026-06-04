@@ -386,6 +386,14 @@ letter-spacing: 0.08px;
 align-self: stretch;
  
 }
+.kba-video{
+    width: 562px;
+    height: 316px;
+    background: #f4f4f4;
+    padding: 3px;
+    margin: 30px 0;
+    min-height: 60px;
+}
 /* Responsive */
 @media (max-width: 768px) {
   .kba-header {

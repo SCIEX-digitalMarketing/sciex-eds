@@ -315,10 +315,11 @@
 .favorite-icon {
 
     cursor: pointer;
+    display:inline-flex;
 
-    width: 30px;
+    /* width: 30px;
 
-    height: 30px;
+    height: 30px; */
 
 }
 
@@ -448,10 +449,10 @@
     }
 
     .favorite-icon {
-
+/* 
         width: 24px;
 
-        height: 24px;
+        height: 24px; */
 
     }
 
