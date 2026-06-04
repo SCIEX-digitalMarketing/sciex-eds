@@ -283,6 +283,10 @@ const renderSearchResults = () => {
 
         if (isFavorite) {
           favIcon.classList.add('favorited');
+          favIcon.setAttribute('title', 'Remove from favorites');
+        }
+        else {
+          favIcon.setAttribute('title', 'Save to favorites');
         }
 
         favIcon.addEventListener('click', async (e) => {
@@ -301,19 +305,23 @@ const renderSearchResults = () => {
           try {
             if (isFavorited) {
               favIcon.classList.remove('favorited');
+              favIcon.setAttribute('title', 'Save to favorites');
               const res = await removeToFavorite(pageUrl);
 
               if (!res.success) {
                 favIcon.classList.add('favorited');
+                favIcon.setAttribute('title', 'Remove from favorites');
               } else {
                 favoriteResultsList = await getFavoriteResultsList();
               }
             } else {
               favIcon.classList.add('favorited');
+              favIcon.setAttribute('title', 'Remove from favorites');
               const res = await addToFavorite(pageUrl);
 
               if (!res.success) {
                 favIcon.classList.remove('favorited');
+                favIcon.setAttribute('title', 'Save to favorites');
               } else {
                 favoriteResultsList = await getFavoriteResultsList();
               }

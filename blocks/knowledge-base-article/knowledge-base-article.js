@@ -42,10 +42,12 @@ const callFavoriteAPI = async (operation, url) => {
   }
 };
 export default function decorate(block) {
+console.log('Decorating knowledge base article with block:', block.outerHTML);
   const children = Array.from(block.children);
+  console.log('Block children:', children.length);
   const versionId = children[0];
   const articleId = children[1]?.textContent?.trim() || '';
-  const body = children[6];
+  const body =children[6];
   const title = children[4];
   const tagNames = children[13];
   let voteAvg = children[14] || 0;
@@ -97,6 +99,7 @@ export default function decorate(block) {
   let savedArticleRating = 0;
   // const currentUserHasVoted = children[15]?.textContent === 'true';
   let currentUserScore = children[16]?.textContent || 0;
+  const videoSrc = children[17]?.textContent?.trim() || '';
 
   const blockId = versionId?.textContent?.trim() || 'knowledge-base-article';
 
@@ -372,6 +375,24 @@ export default function decorate(block) {
   const bodyContent = document.createElement('div');
   bodyContent.className = 'kba-body-content';
 
+  // Video before body
+if (videoSrc) {
+  const videoWrapper = document.createElement('div');
+  videoWrapper.className = 'kba-video';
+
+  videoWrapper.innerHTML = `
+    <iframe
+      src="${videoSrc}"
+      title="Knowledge Base Video"
+      width="100%"
+      height="450"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
+  `;
+
+  bodyContent.appendChild(videoWrapper);
+}
   const bodyDiv = document.createElement('div');
   bodyDiv.className = 'kba-body';
   bodyDiv.innerHTML = bodyWrapper.innerHTML;

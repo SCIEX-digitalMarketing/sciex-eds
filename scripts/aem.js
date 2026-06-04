@@ -839,6 +839,7 @@ export {
   loadCSS,
   loadFooter,
   loadWalkMe,
+  loadWalkMe,
   loadHeader,
   loadScript,
   loadSection,

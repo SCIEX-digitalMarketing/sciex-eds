@@ -2534,6 +2534,12 @@
         "name": "currentUserScore",
         "label": "Current User Score",
         "valueType": "number"
+      },
+      {
+        "component": "text",
+        "name": "videoSrc",
+        "label": "Video Source URL",
+        "valueType": "string"
       }
     ]
   },

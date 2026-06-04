@@ -221,7 +221,7 @@ renderFavoritePagination(filteredResults.length,renderUi,data,renderfavoriteSear
         </div>
 
         <div class="action-section">
-          <span class="favorite-icon" aria-label="Favorite">
+          <span class="favorite-icon" aria-label="Favorite" title="Remove from favorites">
             <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 30 30" stroke="#1C7AFF" fill="#1C7AFF" >
               <path d="M22.75 4.5V24.7344L15.3652 16.8584L15 16.4688L14.6348 16.8584L7.25 24.7344V4.5H22.75Z" />
             </svg>
