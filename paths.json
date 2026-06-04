@@ -15,8 +15,8 @@
     "/content/sciex-eds/ja-jp/footer:/ja-jp/footer",
     "/content/sciex-eds/zh-cn/footer:/zh-cn/footer",
     "/content/sciex-eds/footer:/footer",
-    "/content/sciex-eds/ja-jp/applications/environmental-testing/pfas-analysis-solutions:/applications/environmental-testing/pfas-analysis-solutions"
-    
+    "/content/sciex-eds/ja-jp/applications/environmental-testing:/applications/environmental-testing",    
+    "/content/sciex-eds/ja-jp/applications/environmental-testing/**:/applications/environmental-testing/**"
   ],
   "includes": [
     "/content/sciex-eds/"
