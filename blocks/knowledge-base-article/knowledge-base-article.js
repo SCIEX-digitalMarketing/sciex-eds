@@ -42,9 +42,7 @@ const callFavoriteAPI = async (operation, url) => {
   }
 };
 export default function decorate(block) {
-console.log('Decorating knowledge base article with block:', block.outerHTML);
   const children = Array.from(block.children);
-  console.log('Block children:', children.length);
   const versionId = children[0];
   const articleId = children[1]?.textContent?.trim() || '';
   const body =children[6];
@@ -154,7 +152,6 @@ console.log('Decorating knowledge base article with block:', block.outerHTML);
             // Relative path
             return path === window.location.pathname;
           }));
-          console.log('Is article favorited by user?', isFavorited);
           if (isFavorited) {
             const path = favoriteIcon.querySelector('path');
             path.setAttribute('fill', '#1C7AFF');
@@ -384,8 +381,8 @@ if (videoSrc) {
     <iframe
       src="${videoSrc}"
       title="Knowledge Base Video"
-      width="100%"
-      height="450"
+      width="556"
+      height="311"
       frameborder="0"
       allowfullscreen>
     </iframe>
