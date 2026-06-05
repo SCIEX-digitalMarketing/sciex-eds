@@ -703,7 +703,7 @@ function decorateBlocks(main) {
 } */
 
 async function loadHeader(header) {
-  const { lang } = document.documentElement;
+  const lang = document.documentElement.lang?.toLowerCase() || '';
   let path = `/${lang}/nav`;
   if (lang === 'en') {
     path = '/header';
