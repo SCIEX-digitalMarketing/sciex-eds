@@ -443,7 +443,7 @@ export default async function decorate(block) {
           selection: { value: 'Applications', state: 'idle' },
         }));
       } */
-      contentTypeFacetController.showMoreValues();
+      // contentTypeFacetController.showMoreValues();
       const enableSiteInterceptScript = getMetadata('enablesiteinterceptscript');
       if (enableSiteInterceptScript && enableSiteInterceptScript === 'true') {
         setSearchSurveyCookie();
