@@ -58,7 +58,7 @@ function createEventCard(event) {
   const info = createInfo(eventType, description);
   const action = createAction(event);
 
-  const eventCard = createElement('div', 'event-card');
+  const eventCard = createElement('div', 'event-cards');
 
   if (window.matchMedia('(max-width: 768px)').matches) {
     const iconDate = createElement('div', 'icon-date');
