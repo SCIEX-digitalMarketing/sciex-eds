@@ -1753,7 +1753,7 @@ function processHtml(block, main) {
  */
 export default async function decorate(block) {
   // load nav as fragment
-  const { lang } = document.documentElement;
+  const lang = document.documentElement.lang?.toLowerCase() || '';
   let path = '/nav.plain.html';
   if (lang === 'en') {
     path = '/nav.plain.html';
