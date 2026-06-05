@@ -58,7 +58,7 @@ function createEventCard(event) {
   const info = createInfo(eventType, description);
   const action = createAction(event);
 
-  const eventCard = createElement('div', 'event-card');
+  const eventCard = createElement('div', 'event-cards');
 
   if (window.matchMedia('(max-width: 768px)').matches) {
     const iconDate = createElement('div', 'icon-date');
@@ -93,11 +93,13 @@ function createMonthHeading(monthKey = '') {
     .replace(/\bundefined\b/gi, '')
     .replace(/\bNaN\b/gi, '')
     .trim();
-
+  if (!safeMonthKey) {
+    return null;
+  }
   return createElement(
     'div',
     'month-heading',
-    safeMonthKey,
+    safeMonthKey
   );
 }
 

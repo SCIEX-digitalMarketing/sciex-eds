@@ -213,7 +213,7 @@ select {
   margin-top: 50px;
 }
 
-.event-card.last-in-group {
+.event-cards.last-in-group {
   border-bottom: none;
 }
 
@@ -221,7 +221,7 @@ select {
   margin-top: 20px;
 }
 
-.event-card {
+.event-cards {
   display: flex;
   align-items: center;
   gap: 71px;
@@ -376,7 +376,7 @@ select {
 }
 
 @media (max-width: 768px) {
-  .event-card {
+  .event-cards {
     display: flex;
     padding: 5px 0px 15px 0px;
     align-items: flex-start;
