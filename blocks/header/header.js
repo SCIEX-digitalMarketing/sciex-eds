@@ -42,12 +42,20 @@ async function getUserDetails() {
     }
     const userDetails = await response.json();
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      user: {
-        auth0Id: userDetails.auth0Id,
-        company: 'SCIEX',
-      },
-    });
+
+    const existingUser = window.dataLayer.find(item => item.user);
+
+    if (existingUser) {
+      existingUser.user.auth0Id = userDetails.auth0Id;
+      existingUser.user.company = "SCIEX";
+    } else {
+      window.dataLayer.push({
+        user: {
+          auth0Id: userDetails.auth0Id,
+          company: "SCIEX",
+        },
+      });
+    }
     return userDetails;
   } catch (error) {
     return null;
