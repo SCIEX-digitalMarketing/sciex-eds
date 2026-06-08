@@ -40,7 +40,15 @@ async function getUserDetails() {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    return await response.json();
+    const userDetails = await response.json();
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      user: {
+        auth0Id: userDetails.auth0Id,
+        company: 'SCIEX',
+      },
+    });
+    return userDetails;
   } catch (error) {
     return null;
   }
@@ -679,7 +687,7 @@ function createMainHeader(section) {
           }
           dropdownContent.appendChild(anchorElement);
         });
-        dropbtn.addEventListener('click', () => {
+        liTag.addEventListener('click', () => {
           if (dropdownContent.style.display === 'block') {
             dropdownContent.style.display = 'none';
           } else {
