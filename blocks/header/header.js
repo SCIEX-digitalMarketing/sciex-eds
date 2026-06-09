@@ -42,6 +42,7 @@ async function getUserDetails() {
     }
     const userDetails = await response.json();
     window.dataLayer = window.dataLayer || [];
+    localStorage.setItem('auth0Id', userDetails.auth0Id);
 
     const existingUser = window.dataLayer.find(item => item.user);
 
