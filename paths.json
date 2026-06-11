@@ -14,18 +14,7 @@
     "/content/sciex-eds/nav:/nav",
     "/content/sciex-eds/ja-jp/footer:/ja-jp/footer",
     "/content/sciex-eds/zh-cn/footer:/zh-cn/footer",
-    "/content/sciex-eds/footer:/footer",
-    "/content/sciex-eds/ja-jp/applications/environmental-testing:/applications/environmental-testing",    
-    "/content/sciex-eds/ja-jp/applications/environmental-testing/**:/applications/environmental-testing/**",
-    "/content/sciex-eds/ja-jp/applications/environmental-testing/pfas-analysis-solutions/overview-image:/applications/environmental-testing/pfas-analysis-solutions/overview-image",
-    "/content/sciex-eds/ja-jp/applications/environmental-testing/pfas-analysis-solutions:/applications/environmental-testing/pfas-analysis-solutions",
-    "/content/sciex-eds/ja-jp/applications/environmental-testing/pfas-analysis-solutions/tfa-and-ultra-short-chain:/applications/environmental-testing/pfas-analysis-solutions/tfa-and-ultra-short-chain",
-    "/content/sciex-eds/ja-jp/applications/environmental-testing/pfas-analysis-solutions/drinking-water:/applications/environmental-testing/pfas-analysis-solutions/drinking-water",
-    "/content/sciex-eds/ja-jp/applications/environmental-testing/pfas-analysis-solutions/non-drinking-water-environmental-matrices:/applications/environmental-testing/pfas-analysis-solutions/non-drinking-water-environmental-matrices",
-    "/content/sciex-eds/ja-jp/applications/environmental-testing/pfas-analysis-solutions/food:/applications/environmental-testing/pfas-analysis-solutions/food",
-    "/content/sciex-eds/ja-jp/applications/environmental-testing/pfas-analysis-solutions/consumer-products:/applications/environmental-testing/pfas-analysis-solutions/consumer-products",
-    "/content/sciex-eds/ja-jp/applications/environmental-testing/pfas-analysis-solutions/hrms-pfas-screening-and-unknown-identificatio:/applications/environmental-testing/pfas-analysis-solutions/hrms-pfas-screening-and-unknown-identificatio",
-    "/content/sciex-eds/ja-jp/applications/environmental-testing/pfas-analysis-solutions/overview:/applications/environmental-testing/pfas-analysis-solutions/overview"
+    "/content/sciex-eds/footer:/footer"
   ],
   "includes": [
     "/content/sciex-eds/"

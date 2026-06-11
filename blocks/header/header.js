@@ -40,7 +40,24 @@ async function getUserDetails() {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    return await response.json();
+    const userDetails = await response.json();
+    window.dataLayer = window.dataLayer || [];
+    localStorage.setItem('auth0Id', userDetails.auth0Id);
+
+    const existingUser = window.dataLayer.find(item => item.user);
+
+    if (existingUser) {
+      existingUser.user.auth0Id = userDetails.auth0Id;
+      existingUser.user.company = "SCIEX";
+    } else {
+      window.dataLayer.push({
+        user: {
+          auth0Id: userDetails.auth0Id,
+          company: "SCIEX",
+        },
+      });
+    }
+    return userDetails;
   } catch (error) {
     return null;
   }
@@ -679,7 +696,7 @@ function createMainHeader(section) {
           }
           dropdownContent.appendChild(anchorElement);
         });
-        dropbtn.addEventListener('click', () => {
+        liTag.addEventListener('click', () => {
           if (dropdownContent.style.display === 'block') {
             dropdownContent.style.display = 'none';
           } else {
