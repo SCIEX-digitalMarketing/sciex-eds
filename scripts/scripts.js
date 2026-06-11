@@ -158,9 +158,9 @@ async function decorateTemplates(main) {
 async function loadEager(doc) {
   const domain = window.location.hostname;
   let lang = 'en';
-  if (domain === 'devcs.sciex.com.cn') {
+  if (domain === 'sciex.com.cn') {
     lang = 'zh-cn';
-  } else if (domain === 'devcs.sciex.jp') {
+  } else if (domain === 'sciex.jp') {
     lang = 'ja';
   }
   document.documentElement.lang = lang;
