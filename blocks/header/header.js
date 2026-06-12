@@ -1610,6 +1610,8 @@ function createMegaMenuThirdLevel(child) {
               spanTag.append(chevronRight);
               anchTag.text = '';
               anchTag.append(spanTag);
+              console.log('section', section.outerHTML);
+              console.log('index', index);
               const pTag = section.nextElementSibling;
               if (!pTag.querySelector('picture')) {
                 pTag.className = 'tw-mt-2 tw-text-grey-500 tw-text-sm tw-mb-0';
