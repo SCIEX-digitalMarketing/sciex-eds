@@ -57,7 +57,7 @@ async function getUserDetails() {
         },
       });
     }
-    localStorage.setItem('userDetails', JSON.stringify(userDetails));
+    await localStorage.setItem('userDetails', JSON.stringify(userDetails));
     return userDetails;
   } catch (error) {
     return null;
