@@ -187,7 +187,7 @@ export default async function decorate(block) {
   const menuItems = {
     [placeholders.all || 'All']: 'All',
     [placeholders.knowledgeBaseArticles || 'Knowledge base articles']: 'Knowledge base articles',
-    [placeholders.selfPacedLearning || 'Self paced learning']: 'Training',
+    [placeholders.selfpacedLearning || 'Self paced learning']: 'Training',
     [placeholders.instructorLedTraining || 'Instructor led training']: 'Training',
     [placeholders.technicalNotes || 'Technical notes']: 'Technical notes',
     [placeholders.regulatoryDocuments || 'Regulatory documents']: 'Regulatory documents',
