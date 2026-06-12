@@ -10,7 +10,6 @@ import initializefavoriteSearchInterface from '../../scripts/common-components/f
 import { renderLoggedOut } from '../../scripts/favorite-all/favorite-all-controller/sortiingUtils.js';
 import { resetPagination } from '../../scripts/common-components/favoritePagination.js';
 
-const USER_API = '/bin/sciex/currentuserdetails';
 
 const LOGIN_URL = '/bin/sciex/login';
 const CREATE_ACCOUNT_URL = '/support/create-account';
@@ -21,13 +20,7 @@ const LOGOUT_TEXT =
 
 async function checkLoginStatus() {
   try {
-    const userResp = await fetch(USER_API, { credentials: 'include' });
-
-    if (!userResp.ok) {
-      throw new Error(`User API failed: ${userResp.status}`);
-    }
-
-    const user = await userResp.json();
+    const user = JSON.parse(localStorage.getItem('userDetails'));
     return user?.loggedIn === true;
   } catch (e) {
     console.warn('Favorites block: treating user as logged out', e);

@@ -43,7 +43,6 @@ export default async function decorate(block) {
   const createAccountUrl =
     block.children[4]?.textContent?.trim() || '/create-account';
 
-  const USER_API = '/bin/sciex/currentuserdetails';
   const FAVORITES_API = '/bin/sciex/favorite-all-content';
 
   const viewAllUrlText = block.children[5]?.textContent?.trim() || "View all resources";
@@ -85,7 +84,7 @@ export default async function decorate(block) {
   });
   
 
-  if (!USER_API || !FAVORITES_API) {
+  if (!FAVORITES_API) {
     console.error('Favorites block: Missing API endpoints');
     return;
   }
@@ -94,13 +93,7 @@ export default async function decorate(block) {
     let isLoggedIn = false;
 
     try {
-      const userResp = await fetch(USER_API, { credentials: 'include' });
-
-      if (!userResp.ok) {
-        throw new Error(`User API failed: ${userResp.status}`);
-      }
-
-      const user = await userResp.json();
+      const user = JSON.parse(localStorage.getItem('userDetails'));
       isLoggedIn = user?.loggedIn === true;
     } catch (e) {
       console.warn('Favorites block: treating user as logged out', e);
