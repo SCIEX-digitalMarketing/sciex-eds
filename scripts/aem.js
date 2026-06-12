@@ -557,6 +557,35 @@ function decorateSections(main) {
   });
 }
 
+const getLocale = () => {
+  const override = new URLSearchParams(window.location.search).get('lang');
+  if (override) return override;
+
+  const { hostname, pathname, hash } = window.location;
+
+  const pathToCheck = hash || pathname;
+
+  const localeMatch = pathToCheck.match(/\/(en-us|ja-jp|zh-cn)(\/|$)/);
+  if (localeMatch) {
+    return localeMatch[1];
+  }
+  
+  if (hostname.endsWith('.sciex.com.cn') || hostname.includes('.cn')) {
+    return 'zh-cn';
+  }
+  if (hostname.endsWith('.sciex.jp') || hostname.includes('.co.jp')) {
+    return 'ja-jp';
+  }
+
+  return 'en-us';
+};
+
+const LOCALE_COLUMN_MAP = {
+  'en-us': 'EN',
+  'ja-jp': 'JP',
+  'zh-cn': 'CN'
+};
+
 /**
  * Gets placeholders object.
  * @param {string} [prefix] Location of placeholders
@@ -565,32 +594,40 @@ function decorateSections(main) {
 // eslint-disable-next-line import/prefer-default-export
 async function fetchPlaceholders(prefix = 'default') {
   window.placeholders = window.placeholders || {};
+
   if (!window.placeholders[prefix]) {
     window.placeholders[prefix] = new Promise((resolve) => {
       fetch(`${prefix === 'default' ? '' : prefix}/placeholders.json`)
         .then((resp) => {
-          if (resp.ok) {
-            return resp.json();
-          }
+          if (resp.ok) return resp.json();
           return {};
         })
         .then((json) => {
           const placeholders = {};
+          const locale = getLocale();
+          const langColumn = LOCALE_COLUMN_MAP[locale] || 'EN';
+
+          console.log('Hostname:', window.location.hostname);
+          console.log('Locale:', locale);
+          console.log('Column:', langColumn);
+
           json.data
             .filter((placeholder) => placeholder.Key)
             .forEach((placeholder) => {
-              placeholders[toCamelCase(placeholder.Key)] = placeholder.Text;
+              const key = toCamelCase(placeholder.Key);
+              placeholders[key] = placeholder[langColumn] || placeholder['EN'] || '';
             });
+
           window.placeholders[prefix] = placeholders;
           resolve(window.placeholders[prefix]);
         })
         .catch(() => {
-          // error loading placeholders
           window.placeholders[prefix] = {};
           resolve(window.placeholders[prefix]);
         });
     });
   }
+
   return window.placeholders[`${prefix}`];
 }
 

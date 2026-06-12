@@ -32,7 +32,7 @@ function createInfo(eventType, description) {
 
 function createAction(event) {
   return createElement('div', 'event-action', `
-    <a href="${event.ClickUri}" class="register-link">
+    <a href="${event.ClickUri}" class="register-link" target="_blank" rel="noopener noreferrer">
       Register Now 
       <span>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" viewBox="0 0 16 14" fill="none">

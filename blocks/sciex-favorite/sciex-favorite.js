@@ -1,42 +1,45 @@
 /* eslint-disable */
-import { decorateIcons } from '../../scripts/aem.js';
-
-const CATEGORY_MAP = [
-  {
-    key: 'knowledge',
-    title: 'Knowledge base articles',
-    icon: 'knowledge',
-    match: (p) => p.includes('/resource-hub/knowledge-base-articles/'),
-  },
-  {
-    key: 'tech-notes',
-    title: 'Technical notes',
-    icon: 'tech-notes',
-    match: (p) => p.includes('/tech-notes/'),
-  },
-  {
-    key: 'regulatory',
-    title: 'Regulatory documents',
-    icon: 'regulatory',
-    match: (p) => p.includes('/regulatory-docs/'),
-  },
-  {
-    key: 'user-guides',
-    title: 'User guides',
-    icon: 'user-guides',
-    match: (p) => p.includes('/customer-docs/'),
-  },
-];
+import { decorateIcons, fetchPlaceholders } from '../../scripts/aem.js';
 
 /**
  * Main initialization function for the Favorites accordion component.
  */
 export default async function decorate(block) {
+  const placeholders = await fetchPlaceholders();
+
+  const CATEGORY_MAP = [
+    {
+      key: 'knowledge',
+      title: placeholders.knowledgeBaseArticles || 'Knowledge base articles',
+      icon: 'knowledge',
+      match: (p) => p.includes('/resource-hub/knowledge-base-articles/'),
+    },
+    {
+      key: 'tech-notes',
+      title: placeholders.technicalNotes || 'Technical notes',
+      icon: 'tech-notes',
+      match: (p) => p.includes('/tech-notes/'),
+    },
+    {
+      key: 'regulatory',
+      title: placeholders.regulatoryDocuments || 'Regulatory documents',
+      icon: 'regulatory',
+      match: (p) => p.includes('/regulatory-docs/'),
+    },
+    {
+      key: 'user-guides',
+      title: placeholders.userGuides || 'User guides',
+      icon: 'user-guides',
+      match: (p) => p.includes('/customer-docs/'),
+    },
+  ];
+
   const id = block.children[0]?.textContent?.trim() || 'my-favorites';
-  const title = block.children[1]?.textContent?.trim() || 'My favorite resources';
+  const title = block.children[1]?.textContent?.trim() || placeholders.myFavoriteResources || 'My favorite resources';
 
   const logoutText =
     block.children[2]?.textContent?.trim() ||
+    placeholders.favoritesLoggedOutMessage ||
     'Save your go-to articles and access them anytime. Sign in to keep your favorites in one place.';
 
   const loginUrl = block.children[3]?.textContent?.trim() || '/login';
@@ -46,7 +49,7 @@ export default async function decorate(block) {
   const USER_API = '/bin/sciex/currentuserdetails';
   const FAVORITES_API = '/bin/sciex/favorite-all-content';
 
-  const viewAllUrlText = block.children[5]?.textContent?.trim() || "View all resources";
+  const viewAllUrlText = block.children[5]?.textContent?.trim() || placeholders.viewAllResources || "View all resources";
 
   const viewAllUrl = block.children[6]?.textContent?.trim() || '#';
 
@@ -83,7 +86,7 @@ export default async function decorate(block) {
     header.classList.toggle('open', !expanded);
     content.classList.toggle('open', !expanded);
   });
-  
+
 
   if (!USER_API || !FAVORITES_API) {
     console.error('Favorites block: Missing API endpoints');
@@ -108,7 +111,7 @@ export default async function decorate(block) {
     }
 
     if (!isLoggedIn) {
-      renderLoggedOut(content, logoutText, loginUrl, createAccountUrl);
+      renderLoggedOut(content, logoutText, loginUrl, createAccountUrl, placeholders);
       return;
     }
 
@@ -119,7 +122,7 @@ export default async function decorate(block) {
       return;
     }
 
-    renderFavorites(content, favorites, viewAllUrl, viewAllUrlText);
+    renderFavorites(content, favorites, viewAllUrl, viewAllUrlText, CATEGORY_MAP, placeholders);
   } catch (e) {
     console.error('Favorites block error', e);
   }
@@ -129,13 +132,16 @@ export default async function decorate(block) {
  * Renders the logged-out state UI.
  * Displays message, Login CTA, and Create Account CTA.
  * */
-function renderLoggedOut(container, text, loginUrl, createUrl) {
+function renderLoggedOut(container, text, loginUrl, createUrl, placeholders = {}) {
+  const loginLabel = placeholders.login || 'Login';
+  const createAccountLabel = placeholders.createAnAccount || 'Create an account';
+
   container.innerHTML = `
     <div class="favorites-logged-out">
       <p>${text}</p>
       <div class="cta-row">
-        <a class="btn secondary" href="${loginUrl}">Login</a>
-        <a class="btn primary" href="${createUrl}">Create an account</a>
+        <a class="btn secondary" href="${loginUrl}">${loginLabel}</a>
+        <a class="btn primary" href="${createUrl}">${createAccountLabel}</a>
       </div>
     </div>
   `;
@@ -150,7 +156,7 @@ function renderLoggedOut(container, text, loginUrl, createUrl) {
  * - Appends a "View All Resources" button when configured.
  * - Runs decorateIcons() to load icon assets.
  **/
-function renderFavorites(container, items, viewAllUrl, viewAllUrlText) {
+function renderFavorites(container, items, viewAllUrl, viewAllUrlText, CATEGORY_MAP, placeholders = {}) {
   const allowedTypes = getAllowedTypesFromURL();
   const buckets = {};
 
@@ -213,10 +219,10 @@ function renderFavorites(container, items, viewAllUrl, viewAllUrlText) {
       title = categoryConfig.title;
       icon = categoryConfig.icon;
     } else if (typeKey === 'self-paced') {
-      title = 'Self-paced learning';
+      title = placeholders.selfPacedLearning || 'Self-paced learning';
       icon = 'self-paced';
     } else if (typeKey === 'instructor') {
-      title = 'Instructor led training';
+      title = placeholders.instructorLedTraining || 'Instructor led training';
       icon = 'instructor';
     } else {
       title = humanizeType(typeKey);
@@ -263,7 +269,8 @@ function renderFavorites(container, items, viewAllUrl, viewAllUrlText) {
       emptyIcon.setAttribute('aria-hidden', 'true');
 
       const emptyText = document.createElement('p');
-      emptyText.textContent = `No ${title.toLowerCase()} saved`;
+      const noSavedTemplate = placeholders.noItemsSaved || 'No {category} saved';
+      emptyText.textContent = noSavedTemplate.replace('{category}', title.toLowerCase());
 
       empty.append(emptyIcon, emptyText);
       section.appendChild(empty);
@@ -324,4 +331,3 @@ function humanizeType(type) {
     .replace(/[-_]/g, ' ')
     .replace(/\b\w/g, (c) => c.toUpperCase());
 }
-  
