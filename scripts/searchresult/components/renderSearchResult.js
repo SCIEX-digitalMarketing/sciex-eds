@@ -9,7 +9,6 @@ const lang = document.documentElement.lang || 'en';
 const strings = i18n[lang] || i18n.en;
 let favoriteResultsList = [];
 
-const USER_API = '/bin/sciex/currentuserdetails';
 const favIconAllowedTags = [
   "knowledge-base-articles",
   "tech-notes",
@@ -22,13 +21,7 @@ const favIconAllowedTags = [
 ];
 async function checkLoginStatus() {
   try {
-    const userResp = await fetch(USER_API, { credentials: 'include' });
-
-    if (!userResp.ok) {
-      throw new Error(`User API failed: ${userResp.status}`);
-    }
-
-    const user = await userResp.json();
+    const user = JSON.parse(localStorage.getItem('userDetails'));
     return user?.loggedIn === true;
   } catch (e) {
     console.warn('Treating user as logged out', e);
