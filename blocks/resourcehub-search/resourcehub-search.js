@@ -15,7 +15,12 @@ function saveQueryToLocalHistory(query) {
   }
 }
 
-const showSuggestions = (selectedContentType, queryString, showHistoryOnly = false, placeholders = {}) => {
+const showSuggestions = (
+  selectedContentType,
+  queryString,
+  showHistoryOnly = false,
+  placeholders = {},
+) => {
   const suggestionPopup = document.getElementById('resourcehub-search-suggestion');
   const searchBox = document.getElementById('resourcehub-search-box');
   const suggestions = standaloneSearchBoxController.state.suggestions || [];
@@ -173,7 +178,7 @@ export default async function decorate(block) {
   const downArrow = `<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
     <path d="M14.7344 5L8.73437 11L2.73438 5" stroke="#141414"/>
     </svg>`;
-    dropbtn.innerHTML = `${placeholders.all || 'All'} ${downArrow}`;
+  dropbtn.innerHTML = `${placeholders.all || 'All'} ${downArrow}`;
 
   const dropdownContent = document.createElement('div');
   dropdownContent.className = 'dropdown-content';

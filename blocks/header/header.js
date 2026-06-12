@@ -44,16 +44,16 @@ async function getUserDetails() {
     window.dataLayer = window.dataLayer || [];
     localStorage.setItem('auth0Id', userDetails.auth0Id);
 
-    const existingUser = window.dataLayer.find(item => item.user);
+    const existingUser = window.dataLayer.find((item) => item.user);
 
     if (existingUser) {
       existingUser.user.auth0Id = userDetails.auth0Id;
-      existingUser.user.company = "SCIEX";
+      existingUser.user.company = 'SCIEX';
     } else {
       window.dataLayer.push({
         user: {
           auth0Id: userDetails.auth0Id,
-          company: "SCIEX",
+          company: 'SCIEX',
         },
       });
     }

@@ -569,7 +569,7 @@ const getLocale = () => {
   if (localeMatch) {
     return localeMatch[1];
   }
-  
+
   if (hostname.endsWith('.sciex.com.cn') || hostname.includes('.cn')) {
     return 'zh-cn';
   }
@@ -583,7 +583,7 @@ const getLocale = () => {
 const LOCALE_COLUMN_MAP = {
   'en-us': 'EN',
   'ja-jp': 'JP',
-  'zh-cn': 'CN'
+  'zh-cn': 'CN',
 };
 
 /**
@@ -615,7 +615,7 @@ async function fetchPlaceholders(prefix = 'default') {
             .filter((placeholder) => placeholder.Key)
             .forEach((placeholder) => {
               const key = toCamelCase(placeholder.Key);
-              placeholders[key] = placeholder[langColumn] || placeholder['EN'] || '';
+              placeholders[key] = placeholder[langColumn] || placeholder.EN || '';
             });
 
           window.placeholders[prefix] = placeholders;
