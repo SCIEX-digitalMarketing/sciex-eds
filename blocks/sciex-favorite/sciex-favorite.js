@@ -219,7 +219,7 @@ function renderFavorites(container, items, viewAllUrl, viewAllUrlText, CATEGORY_
       title = categoryConfig.title;
       icon = categoryConfig.icon;
     } else if (typeKey === 'self-paced') {
-      title = placeholders.selfPacedLearning || 'Self-paced learning';
+      title = placeholders.selfpacedLearning || 'Self-paced learning';
       icon = 'self-paced';
     } else if (typeKey === 'instructor') {
       title = placeholders.instructorLedTraining || 'Instructor led training';
