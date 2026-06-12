@@ -57,6 +57,7 @@ async function getUserDetails() {
         },
       });
     }
+    localStorage.setItem('userDetails', JSON.stringify(userDetails));
     return userDetails;
   } catch (error) {
     return null;
@@ -1834,7 +1835,7 @@ export default async function decorate(block) {
   // logout listener added above
 
   // Conditionally shwoing the login/logout links
-  const userData = await getUserDetails();
+  const userData = JSON.parse(localStorage.getItem('userDetails'));
   if (userData && userData.loggedIn) {
     const eloquaData = {
       status: userData.loggedIn,
