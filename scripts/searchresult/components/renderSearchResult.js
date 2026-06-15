@@ -11,14 +11,14 @@ let favoriteResultsList = [];
 
 const USER_API = '/bin/sciex/currentuserdetails';
 const favIconAllowedTags = [
-  "knowledge-base-articles",
-  "tech-notes",
-  "regulatory-docs",
-  "training",
-  "training.sciex.com",
-  "customer-docs",
-  "eula",
-  "sciexhow"
+  'knowledge-base-articles',
+  'tech-notes',
+  'regulatory-docs',
+  'training',
+  'training.sciex.com',
+  'customer-docs',
+  'eula',
+  'sciexhow',
 ];
 async function checkLoginStatus() {
   try {
@@ -83,7 +83,6 @@ const callFavoriteAPI = async (params) => {
   }
 };
 
-
 export const addToFavorite = (url) => callFavoriteAPI({
   operation: 'add',
   url,
@@ -136,14 +135,12 @@ const renderSearchResults = () => {
     }
     sortedResults.forEach((result) => {
       const isFavorite = isUserLoggedIn
-        ? !!favoriteResultsList?.some(fav =>
-          fav?.pageData?.some(
-            page => page?.path === result.printableUri || page?.path === result?.raw?.courseurl
-          )
-        )
+        ? !!favoriteResultsList?.some((fav) => fav?.pageData?.some(
+          (page) => page?.path === result.printableUri || page?.path === result?.raw?.courseurl,
+        ))
         : false;
-      const urlSplit = result.printableUri.split("/");
-      const isItemAllowed = urlSplit.some(segment => favIconAllowedTags.includes(segment));
+      const urlSplit = result.printableUri.split('/');
+      const isItemAllowed = urlSplit.some((segment) => favIconAllowedTags.includes(segment));
 
       const regulatoryInfo = document.createElement('div');
       regulatoryInfo.className = 'regulatory-info';
@@ -187,16 +184,16 @@ const renderSearchResults = () => {
                   <div class="item-details">
           ${result.raw.isnewcourse || result.raw.coursetypecategories ? `
             <div class="tag-container">
-        ${result.raw.coursetypecategories?.some(cat => cat === 'Premium online' || cat === 'Premium eLearning') ? '<span class="tag premium">Premium</span>' : ''}
+        ${result.raw.coursetypecategories?.some((cat) => cat === 'Premium online' || cat === 'Premium eLearning') ? '<span class="tag premium">Premium</span>' : ''}
         ${result.raw.isnewcourse ? '<span class="tag new">New</span>' : ''}
       </div>
           ` : ''}
             <h3>${result.title || 'No Title Available'}</h3>
             <div class="description">${result.raw.description}</div>
             ${result.raw.ogimage
-          ? `<img src="${result.raw.ogimage}" alt="ogimage" width="200" height="200">`
-          : ''
-        }
+    ? `<img src="${result.raw.ogimage}" alt="ogimage" width="200" height="200">`
+    : ''
+}
         </div>
         <div class="action-section">
   ${isUserLoggedIn && isItemAllowed ? `
@@ -218,10 +215,10 @@ const renderSearchResults = () => {
 
       // Paste the share icon above line 157
       // <img src="/icons/share.svg" alt="Share" class="share-icon" />
-       const descriptionElement = resultItem.querySelector('.description');
+      const descriptionElement = resultItem.querySelector('.description');
       const itemDetails = resultItem.querySelector('.item-details');
 
-       if (descriptionElement) {
+      if (descriptionElement) {
         descriptionElement.style.maxHeight = '3em';
         descriptionElement.style.overflow = 'hidden';
         descriptionElement.style.textOverflow = 'ellipsis';
@@ -256,7 +253,6 @@ const renderSearchResults = () => {
 
         checkOverflow();
         showMoreBtn.addEventListener('click', () => {
-          
           const isExpanded = descriptionElement.style.maxHeight === 'none';
           descriptionElement.style.maxHeight = isExpanded ? '3em' : 'none';
           descriptionElement.style.webkitLineClamp = isExpanded ? '3' : 'none';
@@ -275,12 +271,10 @@ const renderSearchResults = () => {
 
       const favIcon = resultItem.querySelector('.favorite-icon');
       if (isUserLoggedIn && favIcon) {
-
         if (isFavorite) {
           favIcon.classList.add('favorited');
           favIcon.setAttribute('title', 'Remove from favorites');
-        }
-        else {
+        } else {
           favIcon.setAttribute('title', 'Save to favorites');
         }
 
@@ -292,8 +286,8 @@ const renderSearchResults = () => {
           favIcon.classList.add('is-loading');
 
           let pageUrl = result.printableUri;
-          if(pageUrl.startsWith('https://training.sciex.com')) {
-            pageUrl = result?.raw?.courseurl ;
+          if (pageUrl.startsWith('https://training.sciex.com')) {
+            pageUrl = result?.raw?.courseurl;
           }
           const isFavorited = favIcon.classList.contains('favorited');
 

@@ -143,15 +143,15 @@ export default function decorate(block) {
       headingText = row.textContent.trim();
       return;
     }
-    if (index === 2 ) {
+    if (index === 2) {
       headingFontStyle = row.textContent.trim();
       return;
     }
-    if (index === 3 ) {    
+    if (index === 3) {
       headingFontColor = row.textContent.trim();
-      if (headingFontColor === '') { 
-        headingFontColor = 'text-black' 
-      };
+      if (headingFontColor === '') {
+        headingFontColor = 'text-black';
+      }
       return;
     }
     if (index === 4) {
@@ -283,14 +283,13 @@ export default function decorate(block) {
         } else {
           const content = div.textContent.trim();
           if (content !== '') {
-            div.className = 'cards-card-body';             
+            div.className = 'cards-card-body';
             if (divIndex === 2) {
               div.className = 'imageLabel';
             }
           }
         }
       });
-
 
       const imageContainer = li.querySelector('.cards-card-image');
       const imageLabelDiv = li.querySelector('.imageLabel');
@@ -339,11 +338,9 @@ export default function decorate(block) {
 
           // add arrow icon
           anchor.appendChild(span({ class: 'icon icon-arrow' }));
-
         } else {
           // normal link behavior
           anchor.appendChild(span({ class: 'icon icon-right-arrow' }));
-
         }
       }
 
