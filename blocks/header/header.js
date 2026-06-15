@@ -681,12 +681,10 @@ function createMainHeader(section) {
                 anchorElement.href = 'https://sciex.com/bin/sciex/login';
                 anchorElement.innerHTML = `${value}`;
               } else if (anchorTag.text === 'My account') {
-                (async function () {
-                  const userData = await getUserDetails();
-                  if (userData && userData.loggedIn) {
-                    anchorElement.innerHTML = `<span class="username-span">${userData.familyName} ${userData.givenName}</span>`;
-                  }
-                }());
+                const userData = JSON.parse(localStorage.getItem('userDetails'));
+                if (userData && userData.loggedIn) {
+                  anchorElement.innerHTML = `<span class="username-span">${userData.familyName} ${userData.givenName}</span>`;
+                }
               }
               // anchorElement.classList.add('myprofile-div');
             }
@@ -1772,6 +1770,9 @@ function processHtml(block, main) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
+  // Fetch user details first
+  await getUserDetails(); 
+
   // load nav as fragment
   const lang = document.documentElement.lang?.toLowerCase() || '';
   let path = '/nav.plain.html';
