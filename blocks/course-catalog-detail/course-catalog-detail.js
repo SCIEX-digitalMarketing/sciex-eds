@@ -7,7 +7,6 @@ import {
   addToFavorite,
 } from '../../scripts/favorite-all/favorite-allDocEngine.js';
 
-
 /**
  * Fetches current user login status, email, and country code from API
  * Returns [isLoggedIn, userEmail, countryCode] - all null/false if API fails

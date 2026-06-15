@@ -1,7 +1,6 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { getfavoriteAllData, removeFavoriteSearchEngine, addToFavorite } from '../../scripts/favorite-all/favorite-allDocEngine.js';
 
-
 /**
  * Fetches current user login status
  * Returns isLoggedIn boolean - false if API fails
