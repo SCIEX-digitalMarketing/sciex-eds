@@ -47,13 +47,11 @@ const renderFavoriteQuerySummary = (data = []) => {
       selectedAssetTypes.add(asset.assetType);
     }
 
-    asset.tags?.forEach((group) =>
-      group.value?.forEach((tag) => {
-        if (tag.state === 'selected') {
-          tag.value?.forEach((id) => selectedTagIds.add(id));
-        }
-      })
-    );
+    asset.tags?.forEach((group) => group.value?.forEach((tag) => {
+      if (tag.state === 'selected') {
+        tag.value?.forEach((id) => selectedTagIds.add(id));
+      }
+    }));
 
     asset.pageData?.forEach((item) => {
       allResults.push({ ...item, assetType: asset.assetType });
@@ -67,14 +65,12 @@ const renderFavoriteQuerySummary = (data = []) => {
   const hasAssetFilter = selectedAssetTypes.size > 0;
   const hasTagFilter = selectedTagIds.size > 0;
 
-  const filteredResults =
-    hasAssetFilter || hasTagFilter
-      ? allResults.filter(
-          (item) =>
-            (!hasAssetFilter || selectedAssetTypes.has(item.assetType)) &&
-            (!hasTagFilter || selectedTagIds.has(item.id))
-        )
-      : allResults;
+  const filteredResults = hasAssetFilter || hasTagFilter
+    ? allResults.filter(
+      (item) => (!hasAssetFilter || selectedAssetTypes.has(item.assetType))
+            && (!hasTagFilter || selectedTagIds.has(item.id)),
+    )
+    : allResults;
 
   const totalResultCount = filteredResults.length;
   const displayResultCount = Math.min(totalResultCount, MAX_RESULTS);

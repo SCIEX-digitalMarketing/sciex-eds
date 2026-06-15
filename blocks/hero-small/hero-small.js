@@ -5,14 +5,12 @@ function extractBlockData(block) {
   const cells = [...block.querySelectorAll(':scope > div')];
   const clonedCells = cells.map((cell) => cell.cloneNode(true));
 
-  const mediaDivChildren =
-    clonedCells[15]?.querySelectorAll(':scope > div') || [];
+  const mediaDivChildren = clonedCells[15]?.querySelectorAll(':scope > div') || [];
 
-  const isContactHero =
-    mediaDivChildren[1]
-      ?.querySelector('p')
-      ?.textContent
-      ?.trim() === 'true';
+  const isContactHero = mediaDivChildren[1]
+    ?.querySelector('p')
+    ?.textContent
+    ?.trim() === 'true';
 
   const data = {
     heading: clonedCells[1]?.innerText.trim(),
@@ -56,8 +54,7 @@ function preserveOriginalAuthoring(block) {
 
 function buildHeroContent(data) {
   const taglineWrap = document.createElement('div');
-  const applyClass = (baseClass) =>
-    data.isContactHero ? `contact-${baseClass}` : baseClass;
+  const applyClass = (baseClass) => (data.isContactHero ? `contact-${baseClass}` : baseClass);
 
   const content = document.createElement('div');
   content.className = applyClass('hero-content');
@@ -66,10 +63,9 @@ function buildHeroContent(data) {
   if (data.tagline) {
     const baseClass = applyClass('hero-tagline-wrap');
 
-    taglineWrap.className =
-      data.captionPosition === 'bottom'
-        ? `${baseClass}-bottom`
-        : baseClass;
+    taglineWrap.className = data.captionPosition === 'bottom'
+      ? `${baseClass}-bottom`
+      : baseClass;
     if (data.badgePicture) {
       const badgeWrap = document.createElement('div');
       badgeWrap.className = applyClass('hero-badge');
@@ -84,7 +80,7 @@ function buildHeroContent(data) {
     if (data.captionPosition !== 'bottom') {
       content.append(taglineWrap);
     }
-}
+  }
 
   // Heading
   if (data.heading) {
@@ -180,7 +176,7 @@ function applyLayoutAndBackground(data, heroContainer, heroWrapper, heroContent)
       if (data.isContactHero) {
         const img = document.createElement('img');
         img.src = imgSrc;
-        img.alt ='Contact hero image';
+        img.alt = 'Contact hero image';
         img.classList.add('contact-hero-img');
         heroContainer.appendChild(img);
       } else {
