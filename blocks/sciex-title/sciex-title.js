@@ -1,19 +1,13 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { getfavoriteAllData, removeFavoriteSearchEngine, addToFavorite } from '../../scripts/favorite-all/favorite-allDocEngine.js';
 
-const USER_API = '/bin/sciex/currentuserdetails';
-
 /**
  * Fetches current user login status
  * Returns isLoggedIn boolean - false if API fails
  */
 async function checkLoginStatus() {
   try {
-    const userResp = await fetch(USER_API);
-    if (!userResp.ok) {
-      throw new Error(`User API failed: ${userResp.status}`);
-    }
-    const user = await userResp.json();
+    const user = JSON.parse(localStorage.getItem('userDetails'));
     return user?.loggedIn === true;
   } catch (e) {
     console.warn('User login check failed:', e);

@@ -7,21 +7,13 @@ import {
   addToFavorite,
 } from '../../scripts/favorite-all/favorite-allDocEngine.js';
 
-const USER_API = '/bin/sciex/currentuserdetails';
-
 /**
  * Fetches current user login status, email, and country code from API
  * Returns [isLoggedIn, userEmail, countryCode] - all null/false if API fails
  */
 async function checkLoginStatus() {
   try {
-    const userResp = await fetch(USER_API);
-
-    if (!userResp.ok) {
-      throw new Error(`User API failed: ${userResp.status}`);
-    }
-
-    const user = await userResp.json();
+    const user = JSON.parse(localStorage.getItem('userDetails'));
     return [user?.loggedIn === true, user?.email, user?.countryCode, user?.premiumContentEligible];
   } catch (e) {
     console.warn('Course catalog detail: treating user as logged out', e);
