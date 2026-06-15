@@ -20,8 +20,6 @@ const LOGOUT_TEXT =
 
 async function checkLoginStatus() {
   try {
-
-
     const user = JSON.parse(localStorage.getItem('userDetails'));
     return user?.loggedIn === true;
   } catch (e) {
