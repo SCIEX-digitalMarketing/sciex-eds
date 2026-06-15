@@ -212,7 +212,7 @@ select {
   border-top: 1px solid var(--Grey-100, #ECECEC);
 }
 
-.event-cards.last-in-group {
+.event-card.last-in-group {
   border-bottom: none;
 }
 
@@ -220,7 +220,7 @@ select {
   margin-top: 20px;
 }
 
-.event-cards {
+.event-card {
   display: flex;
   align-items: center;
   gap: 71px;
@@ -375,7 +375,7 @@ select {
 }
 
 @media (max-width: 768px) {
-  .event-cards {
+  .event-card {
     display: flex;
     padding: 5px 0px 15px 0px;
     align-items: flex-start;

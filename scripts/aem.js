@@ -557,35 +557,6 @@ function decorateSections(main) {
   });
 }
 
-const getLocale = () => {
-  const override = new URLSearchParams(window.location.search).get('lang');
-  if (override) return override;
-
-  const { hostname, pathname, hash } = window.location;
-
-  const pathToCheck = hash || pathname;
-
-  const localeMatch = pathToCheck.match(/\/(en-us|ja-jp|zh-cn)(\/|$)/);
-  if (localeMatch) {
-    return localeMatch[1];
-  }
-
-  if (hostname.endsWith('.sciex.com.cn') || hostname.includes('.cn')) {
-    return 'zh-cn';
-  }
-  if (hostname.endsWith('.sciex.jp') || hostname.includes('.co.jp')) {
-    return 'ja-jp';
-  }
-
-  return 'en-us';
-};
-
-const LOCALE_COLUMN_MAP = {
-  'en-us': 'EN',
-  'ja-jp': 'JP',
-  'zh-cn': 'CN',
-};
-
 /**
  * Gets placeholders object.
  * @param {string} [prefix] Location of placeholders
@@ -594,40 +565,32 @@ const LOCALE_COLUMN_MAP = {
 // eslint-disable-next-line import/prefer-default-export
 async function fetchPlaceholders(prefix = 'default') {
   window.placeholders = window.placeholders || {};
-
   if (!window.placeholders[prefix]) {
     window.placeholders[prefix] = new Promise((resolve) => {
       fetch(`${prefix === 'default' ? '' : prefix}/placeholders.json`)
         .then((resp) => {
-          if (resp.ok) return resp.json();
+          if (resp.ok) {
+            return resp.json();
+          }
           return {};
         })
         .then((json) => {
           const placeholders = {};
-          const locale = getLocale();
-          const langColumn = LOCALE_COLUMN_MAP[locale] || 'EN';
-
-          console.log('Hostname:', window.location.hostname);
-          console.log('Locale:', locale);
-          console.log('Column:', langColumn);
-
           json.data
             .filter((placeholder) => placeholder.Key)
             .forEach((placeholder) => {
-              const key = toCamelCase(placeholder.Key);
-              placeholders[key] = placeholder[langColumn] || placeholder.EN || '';
+              placeholders[toCamelCase(placeholder.Key)] = placeholder.Text;
             });
-
           window.placeholders[prefix] = placeholders;
           resolve(window.placeholders[prefix]);
         })
         .catch(() => {
+          // error loading placeholders
           window.placeholders[prefix] = {};
           resolve(window.placeholders[prefix]);
         });
     });
   }
-
   return window.placeholders[`${prefix}`];
 }
 
@@ -847,15 +810,15 @@ async function sectionBackgroundColor(element) {
  * Loads the WalkMe script.
  */
 function loadWalkMe() {
-  window.addEventListener('load', () => { // ✅ Wait for full page load
-    const walkme = document.createElement('script');
-    walkme.type = 'text/javascript';
-    walkme.async = true;
-    walkme.src = 'https://cdn.walkme.com/users/1e111ec60eee4eb8859b4147fa4ea483/walkme_1e111ec60eee4eb8859b4147fa4ea483_https.js';
-    document.body.appendChild(walkme); // ✅ Append to body, not before first script
-    // eslint-disable-next-line no-underscore-dangle
-    window._walkmeConfig = { smartLoad: true };
-  });
+  const walkme = document.createElement('script');
+  walkme.type = 'text/javascript';
+  walkme.async = true;
+  // Production
+  walkme.src = 'https://cdn.walkme.com/users/1e111ec60eee4eb8859b4147fa4ea483/walkme_1e111ec60eee4eb8859b4147fa4ea483_https.js';
+  const s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(walkme, s);
+  // eslint-disable-next-line no-underscore-dangle
+  window._walkmeConfig = { smartLoad: true };
 }
 
 init();

@@ -71,7 +71,7 @@ export default function decorate(block) {
         sectionDiv.className = 'resources-grid-text-hide';
       }
     }
-    if (index === 6) {
+    if(index===6){
       pfasStyle = row.textContent.trim();
     }
     if (index === 7) {
@@ -112,7 +112,7 @@ export default function decorate(block) {
           }
           li.classList.add(`resource-grid-li-background-${colour.toLowerCase()}`);
         } else if (colIndex === 1) {
-          if (pfasStyle === 'false') {
+          if(pfasStyle==='false'){
             pTag = column.textContent;
             const tageName = document.createElement('p');
             tageName.textContent = column.textContent;
@@ -121,8 +121,7 @@ export default function decorate(block) {
             if (filters.findIndex((f) => f.value === column.textContent) === -1) {
               const tagName = column.textContent;
               filters.push({ id: column.textContent.trim().toLowerCase().replace(/\s+/g, '-'), label: tagName, value: tagName });
-            }
-          }
+          }}
         } else if (colIndex === 2) {
           const spanEL = document.createElement('span');
           spanEL.className = 'resource-grid-label';
@@ -185,10 +184,10 @@ export default function decorate(block) {
           const title = document.createElement('p');
           title.className = 'resource-grid-li-title';
           title.textContent = column.textContent;
-          if (pfasStyle === 'true') {
-            title.classList.add('pfas-style');
+          if(pfasStyle==='true'){   
+            title.classList.add('pfas-style');        
             topDiv.appendChild(title);
-          } else {
+          }else{
             middleDiv.appendChild(title);
           }
           topDiv.appendChild(spanEL);
@@ -214,8 +213,9 @@ export default function decorate(block) {
           console.log(`Setting href for link${aTag}`);
           aTag.setAttribute('href', column.textContent);
           aTag.setAttribute('target', '_blank');
-        } else if (colIndex === 6) {
-          if (pfasStyle === 'true') {
+        }
+        else if (colIndex === 6) {
+          if(pfasStyle === 'true'){
             const labelSpan = li.querySelector('.resource-grid-label');
             if (labelSpan) labelSpan.textContent = column.textContent;
           }
@@ -232,12 +232,13 @@ export default function decorate(block) {
     const container = document.querySelector('.resources-grid-container');
     if (container) container.classList.add('pfas-style');
 
-    const headingEl = sectionDiv.querySelector('#headingDiv');
+    const headingEl  = sectionDiv.querySelector('#headingDiv');
     if (headingEl) headingEl.classList.add('pfas-style');
     const filterWrapperEl = sectionDiv.querySelector('.resource-grid-filter-label');
     if (filterWrapperEl) filterWrapperEl.classList.add('pfas-style');
     const labels = sectionDiv.querySelectorAll('.resource-grid-filter-input-white');
-    labels.forEach((label) => label.classList.add('pfas-style'));
+    labels.forEach(label => label.classList.add('pfas-style'));
+    
   }
   if (filterValue === 'show') {
     const filterLabel = document.createElement('span');

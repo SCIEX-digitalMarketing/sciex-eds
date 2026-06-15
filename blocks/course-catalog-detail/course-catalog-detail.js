@@ -7,7 +7,6 @@ import {
   addToFavorite,
 } from '../../scripts/favorite-all/favorite-allDocEngine.js';
 
-const USER_API = '/bin/sciex/currentuserdetails';
 
 /**
  * Fetches current user login status, email, and country code from API
@@ -15,17 +14,12 @@ const USER_API = '/bin/sciex/currentuserdetails';
  */
 async function checkLoginStatus() {
   try {
-    const userResp = await fetch(USER_API);
 
-    if (!userResp.ok) {
-      throw new Error(`User API failed: ${userResp.status}`);
-    }
-
-    const user = await userResp.json();
+    const user = JSON.parse(localStorage.getItem('userDetails'));
     return [user?.loggedIn === true, user?.email, user?.countryCode, user?.premiumContentEligible];
   } catch (e) {
     console.warn('Course catalog detail: treating user as logged out', e);
-    return [false, null, null, null];
+    return [false, null, null,null];
   }
 }
 
@@ -47,29 +41,29 @@ export default async function decorate(block) {
   const trainingType = children[12]?.textContent?.trim();
   const categoriesTags = children[13]?.textContent?.trim();
 
-  const hasInstructorLedVirtual = categoriesTags
-    ?.split(',')
-    .includes('sciex:coursecatalog/course-type/instructor-led-virtual');
+const hasInstructorLedVirtual = categoriesTags
+  ?.split(',')
+  .includes('sciex:coursecatalog/course-type/instructor-led-virtual');
   // Fetch user authentication info and allowed countries for ecommerce
-  const [isLoggedIn, userEmail, countryCode, premiumContentEligible] = await checkLoginStatus();
-  const allowedCountryCode = ['us', 'uk', 'gb', 'de', 'ca', 'cz', 'nl', 'fr', 'at', 'be', 'it', 'pt', 'es'];
+  const [isLoggedIn, userEmail, countryCode,premiumContentEligible] = await checkLoginStatus();
+  const allowedCountryCode = ["us","uk", "gb", "de", "ca", "cz", "nl", "fr", "at", "be", "it", "pt", "es"];
 
   // Check if course is available in user's region
   const isInRegion = countryCode && allowedCountryCode.includes(countryCode.toLowerCase());
 
   const tagsLanguage = categoriesTags
-    ? categoriesTags
+  ? categoriesTags
       .split(',')
-      .map((tag) => tag.trim())
-      .filter((tag) => tag.startsWith('sciex:language/'))
-      .map((tag) => {
+      .map(tag => tag.trim())
+      .filter(tag => tag.startsWith('sciex:language/'))
+      .map(tag => {
         const value = tag.replace('sciex:language/', '');
         return value
           .split('-')
-          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
           .join(' ');
       })
-    : [];
+  : [];
 
   // Country-specific store URLs for Buy Now button
   const storePathMap = {
@@ -85,7 +79,7 @@ export default async function decorate(block) {
     it: 'https://shop.sciex.com/eu/en/products/sku/',
     pt: 'https://shop.sciex.com/eu/en/products/sku/',
     es: 'https://shop.sciex.com/eu/en/products/sku/',
-  };
+  }
 
   // Initialize cost and catalog data
   let costDisplay = '';
@@ -104,10 +98,10 @@ export default async function decorate(block) {
       costDisplay = 'Not available in your region';
       costClassName = 'cost-unavailable';
     } else if (
-      catalogData
-      && catalogData.cost
-      && catalogData.cost.PriceBookEntry
-      && catalogData.cost.PriceBookEntry.UnitPrice != null
+      catalogData &&
+      catalogData.cost &&
+      catalogData.cost.PriceBookEntry &&
+      catalogData.cost.PriceBookEntry.UnitPrice != null
     ) {
       // Case: Price exists
       const unitPrice = catalogData.cost.PriceBookEntry.UnitPrice.toFixed(2);
@@ -118,7 +112,7 @@ export default async function decorate(block) {
       costDisplay = 'Free';
       costClassName = 'cost-free';
     } else {
-      // show "Get a quote"
+      //show "Get a quote"      
       costDisplay = 'Get a quote';
       costClassName = 'cost-quote';
     }
@@ -256,7 +250,7 @@ export default async function decorate(block) {
         li.classList.add('Overviews-desc');
       }
 
-      const ul = li.closest('ul');
+      const ul = li.closest('ul'); 
 
       if (ul) {
         ul.classList.add('top-ul-wrap-course');
@@ -265,88 +259,91 @@ export default async function decorate(block) {
   });
   const validEnrollmentCourseType = [
     'at sciex',
-    'virtual',
+    'virtual'
   ];
-  const isValidEnrollmentCourseType = validEnrollmentCourseType.includes(courseType?.toLowerCase())
-   || hasInstructorLedVirtual;
-  if (isValidEnrollmentCourseType) {
-    const enrollmentContainer = document.createElement('div');
-    enrollmentContainer.classList.add('enrollment-container');
+  const isValidEnrollmentCourseType =
+  validEnrollmentCourseType.includes(courseType?.toLowerCase()) ||
+   hasInstructorLedVirtual;
+  if (isValidEnrollmentCourseType ) {
+  const enrollmentContainer = document.createElement('div');
+  enrollmentContainer.classList.add('enrollment-container');
 
-    const enrollmentHeading = document.createElement('h3');
-    enrollmentHeading.className = 'enrollment-title';
-    enrollmentHeading.textContent = 'Enrollment';
-    enrollmentContainer.appendChild(enrollmentHeading);
-    const tableContainer = document.createElement('div');
-    tableContainer.className = 'enrollment-table-container';
+  const enrollmentHeading = document.createElement('h3');
+  enrollmentHeading.className = 'enrollment-title';
+  enrollmentHeading.textContent = 'Enrollment';
+  enrollmentContainer.appendChild(enrollmentHeading);
+  const tableContainer = document.createElement('div');
+  tableContainer.className = 'enrollment-table-container';
 
-    const enrollmentTable = document.createElement('table');
-    enrollmentTable.classList.add('enrollment-table');
-    const enrollmentThead = document.createElement('thead');
-    enrollmentThead.innerHTML = `
+  const enrollmentTable = document.createElement('table');
+  enrollmentTable.classList.add('enrollment-table');
+  const enrollmentThead = document.createElement('thead');
+  enrollmentThead.innerHTML = `
     <tr>  
       <th>Session available</th>
       <th>Number of open spaces</th>
       <th></th>
     </tr>
-    `;
+    `
 
-    const enrollmentBody = document.createElement('tbody');
-    const showEnrollment = catalogData?.cost?.PriceBookEntry?.ProductCode
-  && catalogData?.cost?.PriceBookEntry?.ProductCode !== ''
-  && catalogData?.enrolment
-  && catalogData?.enrolment.length > 0;
-    // Display enrollment sessions if user is logged in and sessions exist
-    if (showEnrollment) {
-      enrollmentTable.appendChild(enrollmentThead);
-      catalogData.enrolment.forEach((enrollment) => {
-        const tr = document.createElement('tr');
+  const enrollmentBody = document.createElement('tbody');
+    const showEnrollment =
+  catalogData?.cost?.PriceBookEntry?.ProductCode &&
+  catalogData?.cost?.PriceBookEntry?.ProductCode !== '' &&
+  catalogData?.enrolment &&
+  catalogData?.enrolment.length > 0;
+  // Display enrollment sessions if user is logged in and sessions exist
+  if (showEnrollment) {
+    enrollmentTable.appendChild(enrollmentThead);
+    catalogData.enrolment.forEach((enrollment) => {
+      const tr = document.createElement('tr');
 
-        const tdName = document.createElement('td');
-        tdName.textContent = enrollment.LMSSession?.Name;
+      const tdName = document.createElement('td');
+      tdName.textContent = enrollment.LMSSession?.Name;
 
-        const tdSeats = document.createElement('td');
-        tdSeats.textContent = `${enrollment.seatsRemaining} Seats remaining` || 0;
+      const tdSeats = document.createElement('td');
+      tdSeats.textContent = `${enrollment.seatsRemaining} Seats remaining` || 0;
 
-        // Build "Enrollment's buynow" link using ProductCode and country-specific store URL
-        let enrollmentUrl = '#';
-        if (catalogData?.cost?.PriceBookEntry?.ProductCode) {
-          const countryCodeLower = countryCode.toLowerCase();
-          const baseUrl = storePathMap[countryCodeLower];
-          const productCode = catalogData.cost.PriceBookEntry.ProductCode;
-
-          if (baseUrl) {
-            enrollmentUrl = `${baseUrl}${productCode}-sciex.html`;
-          } else {
+      // Build "Enrollment's buynow" link using ProductCode and country-specific store URL
+      let enrollmentUrl='#';
+      if (catalogData?.cost?.PriceBookEntry?.ProductCode) {
+        const countryCodeLower = countryCode.toLowerCase();
+        const baseUrl = storePathMap[countryCodeLower];
+        const productCode = catalogData.cost.PriceBookEntry.ProductCode;
+        
+        if (baseUrl) {
+          enrollmentUrl = `${baseUrl}${productCode}-sciex.html`;
+        } else {
           // Fallback to US store
-            enrollmentUrl = `${storePathMap.us}${productCode}-sciex.html`;
-          }
+          enrollmentUrl = `${storePathMap.us}${productCode}-sciex.html`;
         }
+      } 
 
-        const buyButton = document.createElement('td');
-        buyButton.innerHTML = `
+      const buyButton = document.createElement('td');
+      buyButton.innerHTML = `
             <a href="${enrollmentUrl}" target="_blank" class="btn primary enroll-buy-now">
               Buy now
             </a>
           `;
-        tr.append(tdName, tdSeats, buyButton);
-        enrollmentBody.appendChild(tr);
-      });
-      enrollmentTable.appendChild(enrollmentBody);
-      tableContainer.appendChild(enrollmentTable);
-      enrollmentContainer.appendChild(tableContainer);
-    } else {
+      tr.append(tdName, tdSeats, buyButton);
+      enrollmentBody.appendChild(tr);
+    });
+    enrollmentTable.appendChild(enrollmentBody);
+    tableContainer.appendChild(enrollmentTable);
+    enrollmentContainer.appendChild(tableContainer);
+  } else {
     // Show message if no enrollment sessions available (not logged in or no sessions)
-      const enrollBanner = document.createElement('div');
-      enrollBanner.className = 'enroll-banner';
-      enrollBanner.innerHTML = `
+    const enrollBanner = document.createElement('div');
+    enrollBanner.className = 'enroll-banner';
+    enrollBanner.innerHTML = `
     <div class="enroll-banner-content">
       <p>Currently there are no active sessions to display.</p>
        <p> Please <a href="/about-us/contact-us" class="enroll-contact-link">contact us</a> if you are interested in taking this course.</p>
        </div>
     `;
-      enrollmentContainer.appendChild(enrollBanner);
-    }
+    enrollmentContainer.appendChild(enrollBanner);
+
+  }
     descriptionContainer.appendChild(enrollmentContainer);
   }
 
@@ -382,7 +379,8 @@ export default async function decorate(block) {
   let exploreUrl = '/search-results?contentType=Training&facetId=trainingcoursetype';
   if (trainingType === 'instructor-led-training') {
     exploreUrl = '/search-results?contentType=Training&facetId=trainingcoursetype&value=Instructor%20led%20training';
-  } else if (trainingType === 'self-paced-learning') {
+  }
+  else if (trainingType === 'self-paced-learning') {
     exploreUrl = '/search-results?contentType=Training&facetId=trainingcoursetype&value=Self%20paced%20learning';
   }
   exploreBtn.href = exploreUrl;
@@ -397,6 +395,7 @@ export default async function decorate(block) {
 
   const supportNetworkContainer = document.createElement('div');
   supportNetworkContainer.className = 'support-network-container';
+
 
   supportNetworkContainer.innerHTML = `
   <div class="support-content">
@@ -434,6 +433,8 @@ export default async function decorate(block) {
   supportActionRow.append(resourceHubBtn, contactSupportBtn);
   decorateIcons(supportActionRow);
 
+
+
   descriptionContainer.appendChild(relatedContainer);
   descriptionContainer.appendChild(exploreBtn);
 
@@ -448,25 +449,26 @@ export default async function decorate(block) {
     { key: 'Region', value: region },
     { key: 'Language', value: tagsLanguage },
     { key: 'Type', value: courseType },
-    { key: 'Course Level', value: courseLevel },
+    { key: 'Course Level', value: courseLevel }
   ];
 
   // Filter out empty values and generate HTML for each detail row
-  const rowsHTML = details
-    .filter(
-      (item) => item.value
-      && (Array.isArray(item.value) ? item.value.length > 0 : true),
-    )
-    .map((item) => {
-      let formattedValue = item.value;
+const rowsHTML = details
+  .filter(
+    (item) =>
+      item.value &&
+      (Array.isArray(item.value) ? item.value.length > 0 : true),
+  )
+  .map((item) => {
+    let formattedValue = item.value;
 
-      if (Array.isArray(item.value)) {
-        formattedValue = item.value.join(', ');
-      } else if (typeof item.value === 'string') {
-        formattedValue = item.value.split(',').join(', ');
-      }
+    if (Array.isArray(item.value)) {
+      formattedValue = item.value.join(', ');
+    } else if (typeof item.value === 'string') {
+      formattedValue = item.value.split(',').join(', ');
+    }
 
-      return `
+    return `
       <div class="course-detail-row">
         <span class="course-detail-key">${item.key}:</span>
         <span class="course-detail-value">
@@ -474,8 +476,8 @@ export default async function decorate(block) {
         </span>
       </div>
     `;
-    })
-    .join('');
+  })
+  .join('');
 
   courseDetailsContainer.innerHTML = `
   <h3 class="course-details-title">Course details</h3>
@@ -489,10 +491,12 @@ export default async function decorate(block) {
   if (costValueSpan) {
     if (costDisplay === 'Login for price') {
       costValueSpan.innerHTML = `<a href="https://devcs.sciex.com/bin/sciex/login" class="cost-login-link">${costDisplay}</a>`;
-    } else if (costDisplay === 'Get a quote') {
+    }
+    else if (costDisplay === 'Get a quote') {
       const quoteUrl = `https://sciex.com/form-pages/product-request?requesttype=quote&solution=training&product=${encodeURIComponent(courseTitle)}&UTM_Content=${encodeURIComponent(courseTitle)}`;
       costValueSpan.innerHTML = `<a href="${quoteUrl}" target="_blank" class="cost-quote-link">${costDisplay}</a>`;
-    } else {
+    }
+    else {
       costValueSpan.textContent = costDisplay;
     }
     if (costClassName) {
@@ -502,34 +506,37 @@ export default async function decorate(block) {
 
   const actionRow = courseDetailsContainer.querySelector('.course-action-row');
 
-  // Determine primary button: "Buy Now" if ecommerce-enabled,
+  // Determine primary button: "Buy Now" if ecommerce-enabled, 
   // allowed country, and price available; otherwise "Get a Quote"
-  const showBuyNow = catalogData?.cost?.PriceBookEntry?.ProductCode && catalogData?.cost?.PriceBookEntry?.ProductCode !== '' && isInEcommerce === 'true' && isInRegion === true && !costDisplay.includes('Get a quote');
+  const showBuyNow = catalogData?.cost?.PriceBookEntry?.ProductCode && catalogData?.cost?.PriceBookEntry?.ProductCode !== '' && isInEcommerce === "true" && isInRegion === true && !costDisplay.includes("Get a quote") ;
   let buttonText = '';
   if (courseType.toLowerCase() === 'premium' || courseType.toLowerCase() === 'free online') {
-    if (premiumContentEligible === 'true' || courseType.toLowerCase() === 'free online') {
+    if (premiumContentEligible==='true' || courseType.toLowerCase() === 'free online') {
       buttonText = 'View course';
-    } else {
-      buttonText = 'Learn more';
     }
-  } else {
+    else {
+      buttonText = 'Learn more'
+    }
+  }else{
     buttonText = showBuyNow ? 'Buy now' : 'Get a quote';
   }
 
-  // Build button href: use country-specific store URL with ProductCode for Buy Now,
+
+  // Build button href: use country-specific store URL with ProductCode for Buy Now, 
   // or construct quote form URL for Get a Quote
   let buttonHref;
-  if (courseType.toLowerCase() === 'premium' || courseType.toLowerCase() === 'free online') {
+  if(courseType.toLowerCase() === 'premium' || courseType.toLowerCase() === 'free online'){
     if (premiumContentEligible === 'true' || courseType.toLowerCase() === 'free online') {
-      buttonHref = courseUrl;
-    } else {
-      buttonHref = 'https://sciex.com/support/software-support/premium-access-content';
+      buttonHref = courseUrl
+    }
+    else {
+      buttonHref = 'https://sciex.com/support/software-support/premium-access-content'
     }
   } else if (showBuyNow) {
     const countryCodeLower = countryCode.toLowerCase();
     const baseUrl = storePathMap[countryCodeLower];
     const productCode = catalogData.cost.PriceBookEntry.ProductCode;
-
+    
     if (baseUrl) {
       buttonHref = `${baseUrl}${productCode}-sciex.html`;
     } else {
@@ -537,9 +544,9 @@ export default async function decorate(block) {
       buttonHref = `${storePathMap.us}${productCode}-sciex.html`;
     }
   } else {
-    const baseUrl = 'https://sciex.com/form-pages/product-request';
-    const requestType = 'quote';
-    const solution = 'training';
+    const baseUrl = "https://sciex.com/form-pages/product-request";
+    const requestType = "quote";
+    const solution = "training";
     const title = courseTitle;
     buttonHref = `${baseUrl}?requesttype=${requestType}&solution=${solution}&product=${encodeURIComponent(title)}&UTM_Content=${encodeURIComponent(title)}`;
   }
@@ -575,7 +582,7 @@ export default async function decorate(block) {
   mainLayout.append(courseHeaderContainer, layout, supportNetworkContainer);
   block.textContent = '';
   block.append(mainLayout);
-  const fullUrl = window.location.href;
+  const fullUrl =  window.location.href;
   // Set up favorite/bookmark functionality
   const favoriteIcon = courseHeaderContainer.querySelector('.favorite-icon');
 
@@ -590,9 +597,11 @@ export default async function decorate(block) {
       try {
         const favoriteData = await getfavoriteAllData();
         if (favoriteData) {
-          const isFavorited = !!favoriteData?.some((fav) => fav?.pageData?.some(
-            (page) => page?.path === fullUrl,
-          ));
+          const isFavorited = !!favoriteData?.some(fav =>
+            fav?.pageData?.some(
+              page => page?.path === fullUrl
+            )
+          );
           if (isFavorited) {
             favoriteIcon.classList.add('favorited');
             favoriteIcon.setAttribute('title', 'Remove from favorites');
@@ -620,7 +629,7 @@ export default async function decorate(block) {
           favoriteIcon.classList.remove('favorited');
           favoriteIcon.setAttribute('title', 'Save to favorites');
           const res = await removeFavoriteSearchEngine(fullUrl);
-          if (res?.message !== 'The operation went successfully') {
+          if (res?.message !== "The operation went successfully") {
             favoriteIcon.classList.add('favorited');
             favoriteIcon.setAttribute('title', 'Remove from favorites');
           }
@@ -629,7 +638,7 @@ export default async function decorate(block) {
           favoriteIcon.classList.add('favorited');
           favoriteIcon.setAttribute('title', 'Remove from favorites');
           const res = await addToFavorite(fullUrl);
-          if (res?.message !== 'The operation went successfully') {
+          if (res?.message !== "The operation went successfully") {
             favoriteIcon.classList.remove('favorited');
             favoriteIcon.setAttribute('title', 'Save to favorites');
           }

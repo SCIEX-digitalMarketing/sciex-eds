@@ -44,16 +44,16 @@ async function getUserDetails() {
     window.dataLayer = window.dataLayer || [];
     localStorage.setItem('auth0Id', userDetails.auth0Id);
 
-    const existingUser = window.dataLayer.find((item) => item.user);
+    const existingUser = window.dataLayer.find(item => item.user);
 
     if (existingUser) {
       existingUser.user.auth0Id = userDetails.auth0Id;
-      existingUser.user.company = 'SCIEX';
+      existingUser.user.company = "SCIEX";
     } else {
       window.dataLayer.push({
         user: {
           auth0Id: userDetails.auth0Id,
-          company: 'SCIEX',
+          company: "SCIEX",
         },
       });
     }
@@ -216,15 +216,15 @@ function createGlobalSearch() {
 
   const menuItems = {
     All: 'All',
-    Applications: 'Applications',
-    eCommerce: 'eCommerce',
-    'Knowledge base articles': 'Knowledge base articles',
-    'Products and services': 'Products and services',
-    'Regulatory documents': 'Regulatory documents',
-    'SCIEX How': 'SCIEX How',
-    'Technical notes': 'Technical notes',
-    Training: 'Training',
-    'User guides': 'User guides',
+    "Applications":"Applications",
+    "eCommerce":"eCommerce",
+    "Knowledge base articles":"Knowledge base articles",
+    "Products and services":"Products and services",
+    "Regulatory documents":"Regulatory documents",
+    "SCIEX How":"SCIEX How",
+    "Technical notes":"Technical notes",
+    "Training":"Training",
+    "User guides":"User guides",
   };
 
   let selectedContentType = 'All';
@@ -565,7 +565,7 @@ function createMainHeader(section) {
       myprofile = myprofile.replace(/^\/content\/sciex-eds/, '');
     } else if (index === 1) {
       myFavoriteResources = anchorTag.text;
-      myFavoriteResources = myFavoriteResources.replace(/^\/content\/sciex-eds/, '');
+       myFavoriteResources = myFavoriteResources.replace(/^\/content\/sciex-eds/, '');
     } else if (index === 2) {
       anchorTag.text = '';
       anchorTag.className = '';
@@ -1624,7 +1624,7 @@ function createMegaMenuThirdLevel(child) {
             createViewallTag(list, viewAllTag);
           }
         }
-      }
+      } 
     });
   } else if (sections.length > 0 && isSubItems) {
     secondPartdiv.className = 'tw-w-9/12 submenu-content tw-px-32 tw-pr-40 tw-self-start';

@@ -1,5 +1,5 @@
 import { getMetadata } from '../../scripts/aem.js';
-import { getfavoriteAllData, removeFavoriteSearchEngine, addToFavorite } from '../../scripts/favorite-all/favorite-allDocEngine.js';
+import { getfavoriteAllData, removeFavoriteSearchEngine, addToFavorite} from '../../scripts/favorite-all/favorite-allDocEngine.js';
 
 
 /**
@@ -22,9 +22,11 @@ async function initializeFavorite(favIcon) {
     const pageUrl = window.location.href;
     // Get list of favorited pages
     const favoritesList = await getfavoriteAllData();
-    const isfavoritedUrl = !!favoritesList?.some((fav) => fav?.pageData?.some(
-      (page) => page?.path === pageUrl,
-    ));
+    const isfavoritedUrl  = !!favoritesList?.some(fav =>
+            fav?.pageData?.some(
+              page => page?.path === pageUrl
+            )
+          );
     // Check if current page is in favorites
     if (isfavoritedUrl) {
       favIcon.classList.add('favorited');
@@ -99,7 +101,7 @@ export default async function decorate(block) {
     const titleContentWrapper = document.createElement('div');
     titleContentWrapper.classList.add('title-content-wrapper');
     const favIcon = document.createElement('span');
-    favIcon.classList.add('favorite-icon');
+    favIcon.classList.add('favorite-icon');    
     favIcon.innerHTML = `    
        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 30 30" fill="none">
           <path d="M22.75 4.5V24.7344L15.3652 16.8584L15 16.4688L14.6348 16.8584L7.25 24.7344V4.5H22.75Z" />

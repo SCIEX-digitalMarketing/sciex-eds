@@ -1,4 +1,6 @@
-import { fetchPlaceholders } from '../../scripts/aem.js';
+import { } from '../../scripts/scripts.js';
+import { } from '../../scripts/aem.js';
+
 import { standaloneSearchBoxController } from '../../scripts/header-search/headerSearchController.js';
 
 const HISTORY_KEY = 'searchHistory';
@@ -15,12 +17,7 @@ function saveQueryToLocalHistory(query) {
   }
 }
 
-const showSuggestions = (
-  selectedContentType,
-  queryString,
-  showHistoryOnly = false,
-  placeholders = {},
-) => {
+const showSuggestions = (selectedContentType, queryString, showHistoryOnly = false) => {
   const suggestionPopup = document.getElementById('resourcehub-search-suggestion');
   const searchBox = document.getElementById('resourcehub-search-box');
   const suggestions = standaloneSearchBoxController.state.suggestions || [];
@@ -37,37 +34,33 @@ const showSuggestions = (
     let html = '';
 
     if (shouldShowHistory) {
-      html += `<div style="padding: 8px; font-weight: 330; font-size: 14px; color: #8A8A8A;">
-                ${placeholders.searchHistory || 'Search History'}
-               </div>`;
+      html += '<div style="padding: 8px; font-weight: 330; font-size: 14px; color: #8A8A8A;">Search History</div>';
       html += history
         .map((query) => `
           <div class="resourcehub-search-history-item" style="padding: 8px; cursor: pointer;" data-query="${query}">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <g clip-path="url(#clip0_746_95421)">
-                <path d="M8 16C12.4107 16 16 12.4107 16 8C16 3.58934 12.4107 0 8 0C3.5893 0 0 3.58934 0 8C0 12.4107 3.58934 16 8 16ZM8 1.06665C11.824 1.06665 14.9334 4.17597 14.9334 8C14.9334 11.824 11.824 14.9334 8 14.9334C4.17597 14.9334 1.06665 11.824 1.06665 8C1.06665 4.17597 4.17602 1.06665 8 1.06665Z" fill="#707070"/>
-                <path d="M10.3335 10.5494C10.4321 10.6294 10.5494 10.6667 10.6668 10.6667C10.8241 10.6667 10.9788 10.5974 11.0828 10.4667C11.2668 10.2374 11.2294 9.90138 11.0001 9.71737L8.53345 7.74403V3.73337C8.53345 3.44003 8.29346 3.20004 8.00012 3.20004C7.70678 3.20004 7.4668 3.44003 7.4668 3.73337V8.00005C7.4668 8.16273 7.54148 8.31472 7.66679 8.41603L10.3335 10.5494Z" fill="#707070"/>
-              </g>
-              <defs>
-                <clipPath id="clip0_746_95421">
-                  <rect width="16" height="16" fill="white"/>
-                </clipPath>
-              </defs>
-            </svg> ${query}
+            <g clip-path="url(#clip0_746_95421)">
+              <path d="M8 16C12.4107 16 16 12.4107 16 8C16 3.58934 12.4107 0 8 0C3.5893 0 0 3.58934 0 8C0 12.4107 3.58934 16 8 16ZM8 1.06665C11.824 1.06665 14.9334 4.17597 14.9334 8C14.9334 11.824 11.824 14.9334 8 14.9334C4.17597 14.9334 1.06665 11.824 1.06665 8C1.06665 4.17597 4.17602 1.06665 8 1.06665Z" fill="#707070"/>
+              <path d="M10.3335 10.5494C10.4321 10.6294 10.5494 10.6667 10.6668 10.6667C10.8241 10.6667 10.9788 10.5974 11.0828 10.4667C11.2668 10.2374 11.2294 9.90138 11.0001 9.71737L8.53345 7.74403V3.73337C8.53345 3.44003 8.29346 3.20004 8.00012 3.20004C7.70678 3.20004 7.4668 3.44003 7.4668 3.73337V8.00005C7.4668 8.16273 7.54148 8.31472 7.66679 8.41603L10.3335 10.5494Z" fill="#707070"/>
+            </g>
+            <defs>
+              <clipPath id="clip0_746_95421">
+                <rect width="16" height="16" fill="white"/>
+              </clipPath>
+            </defs>
+          </svg> ${query}
           </div>`)
         .join('');
     }
 
     if (shouldShowSuggestions) {
-      html += `<div style="padding: 8px; font-weight: 330; font-size: 14px; color: #8A8A8A;">
-                ${placeholders.trendingSearch || 'Trending Search'}
-               </div>`;
+      html += '<div style="padding: 8px; font-weight: 330; font-size: 14px; color: #8A8A8A;">Trending Search</div>';
       html += suggestions
         .map((suggestion) => `
           <div class="resourcehub-search-suggestion-item" style="padding: 8px; cursor: pointer;" data-raw-value="${suggestion.rawValue}">
             <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0065 7.33324C12.0065 9.7264 10.0664 11.6665 7.67318 11.6665C5.27993 11.6665 3.33984 9.7264 3.33984 7.33324C3.33984 4.94007 5.27993 3 7.67318 3C10.0664 3 12.0065 4.94007 12.0065 7.33324ZM11.0743 11.4414C10.1512 12.2066 8.96589 12.6665 7.67318 12.6665C4.72766 12.6665 2.33984 10.2787 2.33984 7.33324C2.33984 4.38777 4.72766 2 7.67318 2C10.6187 2 13.0065 4.38777 13.0065 7.33324C13.0065 8.62593 12.5466 9.81119 11.7815 10.7343L14.0267 12.9796L14.3803 13.3331L13.6732 14.0402L13.3196 13.6867L11.0743 11.4414Z" fill="#707070"/>
-            </svg> ${suggestion.highlightedValue}
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0065 7.33324C12.0065 9.7264 10.0664 11.6665 7.67318 11.6665C5.27993 11.6665 3.33984 9.7264 3.33984 7.33324C3.33984 4.94007 5.27993 3 7.67318 3C10.0664 3 12.0065 4.94007 12.0065 7.33324ZM11.0743 11.4414C10.1512 12.2066 8.96589 12.6665 7.67318 12.6665C4.72766 12.6665 2.33984 10.2787 2.33984 7.33324C2.33984 4.38777 4.72766 2 7.67318 2C10.6187 2 13.0065 4.38777 13.0065 7.33324C13.0065 8.62593 12.5466 9.81119 11.7815 10.7343L14.0267 12.9796L14.3803 13.3331L13.6732 14.0402L13.3196 13.6867L11.0743 11.4414Z" fill="#707070"/>
+          </svg> ${suggestion.highlightedValue}
           </div>`)
         .join('');
     }
@@ -75,6 +68,7 @@ const showSuggestions = (
     suggestionPopup.innerHTML = html;
     suggestionPopup.style.display = 'block';
 
+    // Event bindings
     if (shouldShowSuggestions) {
       suggestions.forEach((suggestion, index) => {
         const item = suggestionPopup.querySelectorAll('.resourcehub-search-suggestion-item')[index];
@@ -105,9 +99,9 @@ const showSuggestions = (
     suggestionPopup.style.display = 'none';
   }
 };
-
 /**
- * @param {Element} dropdown
+ *
+ * @param {Element} block
  */
 function registerDropdown(dropdown) {
   if (!dropdown) return;
@@ -122,6 +116,7 @@ function registerDropdown(dropdown) {
       c.style.display = 'none';
     });
 
+    // Toggle current one
     content.style.display = isOpen ? 'none' : 'block';
     btn.setAttribute('aria-expanded', String(!isOpen));
   });
@@ -131,27 +126,26 @@ function registerDropdown(dropdown) {
     btn.setAttribute('aria-expanded', 'false');
   });
 }
-
 export default async function decorate(block) {
-  // ✅ Fetch placeholders (fixed: was calling undefined fetchLocalizedPlaceholders)
-  const placeholders = await fetchPlaceholders();
-
   block.className = 'resourcehub-search-block';
   block.id = block.firstElementChild.textContent.trim().toLowerCase().replace(/\s+/g, '-');
 
+  // Hide dropdown if URL contains ?type=
   const urlParams = new URLSearchParams(window.location.search);
   const typeParam = urlParams.get('type');
 
   const resourceHubText = document.createElement('div');
   resourceHubText.className = 'resourcesearch-text ';
   resourceHubText.textContent = block.children[1].textContent;
+  // resourceHubText.className = 'resourcehub-search-text';
 
   const searchContainer = document.createElement('div');
   searchContainer.className = 'resourcesearch-container ';
-
+  // hide by default on mobile; will be toggled by the search button
+  // searchContainer.classList.add('tw-hidden-mobile');
   const searchBox = document.createElement('input');
   searchBox.type = 'text';
-  searchBox.placeholder = placeholders.search || 'Search';
+  searchBox.placeholder = 'Search';
   searchBox.className = 'resourcehub-search-box';
   searchBox.id = 'resourcehub-search-box';
   searchBox.maxLength = 200;
@@ -159,9 +153,8 @@ export default async function decorate(block) {
   const tooltip = document.createElement('div');
   tooltip.id = 'char-limit-tooltip';
   tooltip.className = 'char-limit-tooltip';
-  tooltip.textContent = placeholders.charLimitMessage || 'Input exceeds the limit. Please search within 200 characters';
+  tooltip.textContent = 'Input exceeds the limit. Please search within 200 characters';
   tooltip.style.display = 'none';
-
   const suggestionPopupDiv = document.createElement('div');
   suggestionPopupDiv.id = 'resourcehub-search-suggestion';
   suggestionPopupDiv.style.display = 'none';
@@ -172,31 +165,37 @@ export default async function decorate(block) {
   if (typeParam) {
     dropdown.style.display = 'none';
   }
-
   const dropbtn = document.createElement('button');
   dropbtn.className = 'dropbtn';
   const downArrow = `<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
     <path d="M14.7344 5L8.73437 11L2.73438 5" stroke="#141414"/>
     </svg>`;
-  dropbtn.innerHTML = `${placeholders.all || 'All'} ${downArrow}`;
+  dropbtn.innerHTML = `All ${downArrow}`;
 
   const dropdownContent = document.createElement('div');
   dropdownContent.className = 'dropdown-content';
   dropdownContent.style.display = 'none';
 
   const menuItems = {
-    [placeholders.all || 'All']: 'All',
-    [placeholders.knowledgeBaseArticles || 'Knowledge base articles']: 'Knowledge base articles',
-    [placeholders.selfpacedLearning || 'Self paced learning']: 'Training',
-    [placeholders.instructorLedTraining || 'Instructor led training']: 'Training',
-    [placeholders.technicalNotes || 'Technical notes']: 'Technical notes',
-    [placeholders.regulatoryDocuments || 'Regulatory documents']: 'Regulatory documents',
-    [placeholders.userGuides || 'User guides']: 'User guides',
-  };
+    All: 'All',
+    'Knowledge base articles': 'Knowledge base articles',
+    'Self paced learning': 'Training',
+    'Instructor led training': 'Training',
+    'Technical notes': 'Technical notes',
+    'Regulatory documents': 'Regulatory documents',
+    'User guides': 'User guides',
 
+  };
   let selectedContentType = 'All';
   let selectedfacet = '';
   let queryString = '';
+
+  /* searchBox.addEventListener('blur', () => {
+    const suggestionPopup = document.getElementById('resourcehub-search-suggestion');
+    setTimeout(() => {
+      if (suggestionPopup) suggestionPopup.style.display = 'none';
+    }, 150);
+  }); */
 
   Object.keys(menuItems).forEach((key) => {
     const value = menuItems[key];
@@ -209,8 +208,10 @@ export default async function decorate(block) {
       dropdownContent.style.display = 'none';
       selectedContentType = value;
       selectedfacet = key;
-      if (key === (placeholders.selfPacedLearning || 'Self paced learning')
-        || key === (placeholders.instructorLedTraining || 'Instructor led training')) {
+      if (
+        key === 'self paced learning'
+        || key === 'Instructor led training'
+      ) {
         queryString = `&facetId=trainingcoursetype&value=${selectedfacet}`;
       } else {
         queryString = '';
@@ -225,20 +226,19 @@ export default async function decorate(block) {
   searchContainer.appendChild(tooltip);
   searchContainer.appendChild(dropdown);
 
+  // Register dropdown behaviour (click to toggle, click outside to close)
   registerDropdown(dropdown);
 
   standaloneSearchBoxController.subscribe(() => {
     const suggestions = standaloneSearchBoxController.state.suggestions || [];
     if (suggestions.length > 0 && searchBox.value) {
-      showSuggestions(selectedContentType, queryString, true, placeholders);
+      showSuggestions(selectedContentType, queryString, true);
     }
   });
 
   searchBox.addEventListener('focus', () => {
     standaloneSearchBoxController.showSuggestions();
-    showSuggestions(selectedContentType, queryString, false, placeholders);
   });
-
   searchBox.addEventListener('input', () => {
     standaloneSearchBoxController.showSuggestions();
   });
@@ -257,6 +257,7 @@ export default async function decorate(block) {
       standaloneSearchBoxController.submit();
     } else {
       standaloneSearchBoxController.updateRedirectUrl(`/search-results?contentType=${selectedContentType}${queryString}`);
+
       standaloneSearchBoxController.submit();
     }
     event.stopPropagation();
@@ -311,7 +312,8 @@ export default async function decorate(block) {
   searchBox.addEventListener('blur', () => {
     tooltip.style.display = 'none';
   });
-
+  // document.body.appendChild(suggestionPopupDiv);
+  // block.appendChild(tooltip);
   block.textContent = '';
   block.appendChild(resourceHubText);
   block.appendChild(suggestionPopupDiv);

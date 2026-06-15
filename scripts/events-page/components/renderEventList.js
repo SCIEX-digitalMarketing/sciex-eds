@@ -32,7 +32,7 @@ function createInfo(eventType, description) {
 
 function createAction(event) {
   return createElement('div', 'event-action', `
-    <a href="${event.ClickUri}" class="register-link" target="_blank" rel="noopener noreferrer">
+    <a href="${event.ClickUri}" class="register-link">
       Register Now 
       <span>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" viewBox="0 0 16 14" fill="none">
@@ -58,7 +58,7 @@ function createEventCard(event) {
   const info = createInfo(eventType, description);
   const action = createAction(event);
 
-  const eventCard = createElement('div', 'event-cards');
+  const eventCard = createElement('div', 'event-card');
 
   if (window.matchMedia('(max-width: 768px)').matches) {
     const iconDate = createElement('div', 'icon-date');
@@ -93,10 +93,6 @@ function createMonthHeading(monthKey = '') {
     .replace(/\bundefined\b/gi, '')
     .replace(/\bNaN\b/gi, '')
     .trim();
-
-  if (!safeMonthKey) {
-    return null;
-  }
 
   return createElement(
     'div',

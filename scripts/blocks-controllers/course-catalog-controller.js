@@ -1,5 +1,5 @@
 // api to get the enrollment and cost info of the course
-export default async function getCourseCatalogData(email, courseId) {
+export default async function getCourseCatalogData(email,courseId) {
   try {
     const endpoint = `/bin/sciex-eds/enrollement?email=${email}&course=${courseId}`;
     console.log('Fetching partners data from:', endpoint);
@@ -14,4 +14,4 @@ export default async function getCourseCatalogData(email, courseId) {
     console.error('Fetch error:', error);
     return null;
   }
-}
+};

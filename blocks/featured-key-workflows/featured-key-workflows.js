@@ -38,8 +38,8 @@ export default function decorate(block) {
     h3.textContent = title.textContent;
     card.appendChild(h3);
 
-    // check link to open link in New Tab
-    const openInNewTab = columns[3]?.textContent?.trim().toLowerCase() === 'true';
+     //check link to open link in New Tab
+    const openInNewTab =columns[3]?.textContent?.trim().toLowerCase() === 'true';
 
     // Links
     const linksWrapper = document.createElement('div');
@@ -69,3 +69,4 @@ export default function decorate(block) {
   block.innerHTML = '';
   block.append(workflowContainer);
 }
+
