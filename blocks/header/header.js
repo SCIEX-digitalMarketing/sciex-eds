@@ -57,6 +57,7 @@ async function getUserDetails() {
         },
       });
     }
+    localStorage.setItem('userDetails', JSON.stringify(userDetails));
     return userDetails;
   } catch (error) {
     return null;
@@ -680,12 +681,10 @@ function createMainHeader(section) {
                 anchorElement.href = 'https://sciex.com/bin/sciex/login';
                 anchorElement.innerHTML = `${value}`;
               } else if (anchorTag.text === 'My account') {
-                (async function () {
-                  const userData = await getUserDetails();
-                  if (userData && userData.loggedIn) {
-                    anchorElement.innerHTML = `<span class="username-span">${userData.familyName} ${userData.givenName}</span>`;
-                  }
-                }());
+                const userData = JSON.parse(localStorage.getItem('userDetails'));
+                if (userData && userData.loggedIn) {
+                  anchorElement.innerHTML = `<span class="username-span">${userData.familyName} ${userData.givenName}</span>`;
+                }
               }
               // anchorElement.classList.add('myprofile-div');
             }
@@ -1463,7 +1462,7 @@ function createMegaMenuThirdLevel(child) {
         createSubMenuItems(section, containerDiv, firstpartdiv);
       } else {
         const list = section.querySelectorAll('a');
-        const picture = section.previousElementSibling.querySelector('picture');
+        const picture = section.previousElementSibling ? section.previousElementSibling.querySelector('picture') : null;
         const listDiv = div({ class: 'lg:tw-w-full xl:tw-w-1/2 tw-pr-48 ' });
         if (canMobileActions() === true) {
           if (index > 1) {
@@ -1501,7 +1500,7 @@ function createMegaMenuThirdLevel(child) {
               thirdPartdiv.append(document.createElement('br'));
             }
           }
-          if (section.previousElementSibling.querySelector('picture')) {
+          if (section.previousElementSibling && section.previousElementSibling.querySelector('picture')) {
             const anchTag = section.querySelector('a');
             if (anchTag) {
               const spanTag = span(
@@ -1522,7 +1521,7 @@ function createMegaMenuThirdLevel(child) {
               anchTag.text = '';
               anchTag.append(spanTag);
               const pTag = section.nextElementSibling;
-              if (!pTag.querySelector('picture')) {
+              if (pTag && !pTag.querySelector('picture')) {
                 pTag.className = 'tw-mt-2 tw-text-grey-500 tw-text-sm tw-mb-0';
                 anchTag.append(pTag);
               }
@@ -1555,7 +1554,7 @@ function createMegaMenuThirdLevel(child) {
         parentDiv.id = `submenu-${sectionTitle}`;
       } else {
         const list = section.querySelectorAll('a');
-        const picture = section.previousElementSibling.querySelector('picture');
+        const picture = section.previousElementSibling ? section.previousElementSibling.querySelector('picture') : null;
         const listDiv = div({ class: 'tw-w-1/2 xl:tw-w-1/3 tw-pr-48 ' });
         if (canMobileActions() === true) {
           if (index > 1) {
@@ -1593,7 +1592,7 @@ function createMegaMenuThirdLevel(child) {
               thirdPartdiv.append(document.createElement('br'));
             }
           }
-          if (section.previousElementSibling.querySelector('picture')) {
+          if (section.previousElementSibling && section.previousElementSibling.querySelector('picture')) {
             const anchTag = section.querySelector('a');
             if (anchTag) {
               const spanTag = span(
@@ -1613,7 +1612,7 @@ function createMegaMenuThirdLevel(child) {
               console.log('section', section.outerHTML);
               console.log('index', index);
               const pTag = section.nextElementSibling;
-              if (!pTag.querySelector('picture')) {
+              if (pTag && !pTag.querySelector('picture')) {
                 pTag.className = 'tw-mt-2 tw-text-grey-500 tw-text-sm tw-mb-0';
                 anchTag.append(pTag);
               }
@@ -1635,7 +1634,7 @@ function createMegaMenuThirdLevel(child) {
         createSubMenuItems(section, containerDiv, firstpartdiv);
       } else {
         const list = section.querySelectorAll('a');
-        const picture = section.previousElementSibling.querySelector('picture');
+        const picture = section.previousElementSibling ? section.previousElementSibling.querySelector('picture') : null;
         const listDiv = div({ class: 'tw-w-1/2 xl:tw-w-1/3 tw-pr-48 ' });
         if (canMobileActions() === true) {
           if (index > 1) {
@@ -1771,6 +1770,9 @@ function processHtml(block, main) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
+  // Fetch user details first
+  await getUserDetails(); 
+
   // load nav as fragment
   const lang = document.documentElement.lang?.toLowerCase() || '';
   let path = '/nav.plain.html';
@@ -1834,7 +1836,7 @@ export default async function decorate(block) {
   // logout listener added above
 
   // Conditionally shwoing the login/logout links
-  const userData = await getUserDetails();
+  const userData = JSON.parse(localStorage.getItem('userDetails'));
   if (userData && userData.loggedIn) {
     const eloquaData = {
       status: userData.loggedIn,
