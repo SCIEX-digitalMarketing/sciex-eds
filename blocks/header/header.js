@@ -1462,7 +1462,7 @@ function createMegaMenuThirdLevel(child) {
         createSubMenuItems(section, containerDiv, firstpartdiv);
       } else {
         const list = section.querySelectorAll('a');
-        const picture = section.previousElementSibling.querySelector('picture');
+        const picture = section.previousElementSibling ? section.previousElementSibling.querySelector('picture') : null;
         const listDiv = div({ class: 'lg:tw-w-full xl:tw-w-1/2 tw-pr-48 ' });
         if (canMobileActions() === true) {
           if (index > 1) {
@@ -1500,7 +1500,7 @@ function createMegaMenuThirdLevel(child) {
               thirdPartdiv.append(document.createElement('br'));
             }
           }
-          if (section.previousElementSibling.querySelector('picture')) {
+          if (section.previousElementSibling && section.previousElementSibling.querySelector('picture')) {
             const anchTag = section.querySelector('a');
             if (anchTag) {
               const spanTag = span(
@@ -1521,7 +1521,7 @@ function createMegaMenuThirdLevel(child) {
               anchTag.text = '';
               anchTag.append(spanTag);
               const pTag = section.nextElementSibling;
-              if (!pTag.querySelector('picture')) {
+              if (pTag && !pTag.querySelector('picture')) {
                 pTag.className = 'tw-mt-2 tw-text-grey-500 tw-text-sm tw-mb-0';
                 anchTag.append(pTag);
               }
@@ -1554,7 +1554,7 @@ function createMegaMenuThirdLevel(child) {
         parentDiv.id = `submenu-${sectionTitle}`;
       } else {
         const list = section.querySelectorAll('a');
-        const picture = section.previousElementSibling.querySelector('picture');
+        const picture = section.previousElementSibling ? section.previousElementSibling.querySelector('picture') : null;
         const listDiv = div({ class: 'tw-w-1/2 xl:tw-w-1/3 tw-pr-48 ' });
         if (canMobileActions() === true) {
           if (index > 1) {
@@ -1592,7 +1592,7 @@ function createMegaMenuThirdLevel(child) {
               thirdPartdiv.append(document.createElement('br'));
             }
           }
-          if (section.previousElementSibling.querySelector('picture')) {
+          if (section.previousElementSibling && section.previousElementSibling.querySelector('picture')) {
             const anchTag = section.querySelector('a');
             if (anchTag) {
               const spanTag = span(
@@ -1612,7 +1612,7 @@ function createMegaMenuThirdLevel(child) {
               console.log('section', section.outerHTML);
               console.log('index', index);
               const pTag = section.nextElementSibling;
-              if (!pTag.querySelector('picture')) {
+              if (pTag && !pTag.querySelector('picture')) {
                 pTag.className = 'tw-mt-2 tw-text-grey-500 tw-text-sm tw-mb-0';
                 anchTag.append(pTag);
               }
@@ -1634,7 +1634,7 @@ function createMegaMenuThirdLevel(child) {
         createSubMenuItems(section, containerDiv, firstpartdiv);
       } else {
         const list = section.querySelectorAll('a');
-        const picture = section.previousElementSibling.querySelector('picture');
+        const picture = section.previousElementSibling ? section.previousElementSibling.querySelector('picture') : null;
         const listDiv = div({ class: 'tw-w-1/2 xl:tw-w-1/3 tw-pr-48 ' });
         if (canMobileActions() === true) {
           if (index > 1) {
