@@ -1835,6 +1835,10 @@ export default async function decorate(block) {
 
   // Conditionally shwoing the login/logout links
   const userData = JSON.parse(localStorage.getItem('userDetails'));
+  const locale = window.location.pathname.match(/\/(en-us|ja-jp|zh-cn)(\/|$)/)?.[1] || 'en-us';
+  const loginId = locale === 'en-us'
+    ? placeholders?.login?.toLowerCase()
+    : placeholders?.login;
   if (userData && userData.loggedIn) {
     const eloquaData = {
       status: userData.loggedIn,
@@ -1846,7 +1850,7 @@ export default async function decorate(block) {
     // document.getElementById('view-profile').style.display = '';
     // document.getElementById('logout').style.display = '';
     // document.getElementById('register').style.display = 'none';
-    document.getElementById(placeholders?.login).style.display = 'none';
+    document.getElementById(loginId).style.display = 'none';
     document.getElementById('my-account').style.display = '';
     const signInNowEl = document.getElementById('signInNowLink');
     if (signInNowEl) {
@@ -1863,7 +1867,7 @@ export default async function decorate(block) {
     // document.getElementById('view-profile').style.display = 'none';
     // document.getElementById('logout').style.display = 'none';
     // document.getElementById('register').style.display = '';
-    document.getElementById(placeholders?.login).style.display = '';
+    document.getElementById(loginId).style.display = '';
     document.getElementById('my-account').style.display = 'none';
     // document.getElementById('logout').style.display = 'none';
   }
