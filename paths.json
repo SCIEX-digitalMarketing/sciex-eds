@@ -15,8 +15,8 @@
     "/content/sciex-eds/ja-jp/footer:/ja-jp/footer",
     "/content/sciex-eds/zh-cn/footer:/zh-cn/footer",
     "/content/sciex-eds/footer:/footer",
-    "content/sciex-eds/ja-jp/placeholders:/placeholders",
-    "content/sciex-eds/zh-cn/placeholders:/placeholders"
+    "content/sciex-eds/ja-jp/placeholders:/placeholders.json",
+    "content/sciex-eds/zh-cn/placeholders:/placeholders.json"
   ],
   "includes": [
     "/content/sciex-eds/"
