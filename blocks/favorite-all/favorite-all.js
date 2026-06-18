@@ -88,6 +88,14 @@ async function readBlockProperties(block) {
         div.classList.add('noresults-text2');
         noResultsDiv.appendChild(div);
         break;
+               
+      case 8:
+        block.dataset.resourceHubText = div.textContent.trim();
+        break;
+
+      case 9:
+        block.dataset.resourceHubUrl = div.textContent.trim();
+        break;
 
       default:
         break;
@@ -158,13 +166,15 @@ function toggleAssetType(asset) {
 }
 
 export function showResourceHubButton(block) {
+  const resourceHubText = block.dataset.resourceHubText || 'Back to Resource hub';
+  const resourceHubUrl = block.dataset.resourceHubUrl || '/resource-hub';
   const resourceHubButton = document.createElement('a');
   resourceHubButton.className = 'resource-hub-button';
   resourceHubButton.style.cursor = 'pointer';
-  resourceHubButton.href = '/resource-hub';
+  resourceHubButton.href = resourceHubUrl;
   resourceHubButton.target = '_blank';
   resourceHubButton.innerHTML = `
-    <span>Back to Resource hub</span>
+    <span>${resourceHubText}</span>
     <img src="/icons/right-arrow.svg" alt="arrow" />
   `;
 
