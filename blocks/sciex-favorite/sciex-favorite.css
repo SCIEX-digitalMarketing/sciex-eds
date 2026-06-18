@@ -3,6 +3,7 @@
     background: var(--Grey-50, #F5F5F5);
     /* max-width: 1440px !important; */
     padding: 0px 20px !important;
+    margin-top: 32px;
   }
   
   /* Header spacing inside grey bar */

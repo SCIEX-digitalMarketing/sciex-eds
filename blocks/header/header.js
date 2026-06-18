@@ -608,7 +608,7 @@ function createMainHeader(section, placeholders = {}) {
 
         const menuItems = {
           Button: 'Button',
-          'Already have an account?Sign In Now': 'Already have an account?<span class = "sign-in-now-link" >Sign In Now</span>',
+          'Already have an account?Sign In Now': `${placeholders?.alreadyHaveAnAccount || 'Already have an account?'}<span class = "sign-in-now-link" >${placeholders?.signInNow || 'Sign In Now'}</span>`,
           'My profile': 'My profile',
           'My favorite resources': 'My favorite resources',
           Logout: 'Logout',
@@ -625,9 +625,9 @@ function createMainHeader(section, placeholders = {}) {
         Object.keys(menuItems).forEach((key) => {
           const value = menuItems[key];
           let anchorElement = document.createElement('a');
-          if (key === 'Button' && anchorTag.text === placeholders?.login) {
+          if (key === 'Button' && (anchorTag.text === placeholders?.login || anchorTag.text === 'Login')) {
             anchorElement = document.createElement('div');
-            anchorElement.innerHTML = '<a href="/support/create-account"><button class=" create-account-btn">Create an account</button></a>';
+            anchorElement.innerHTML = `<a href="/support/create-account"><button class=" create-account-btn">${placeholders?.createAnAccount || 'Create an account'}</button></a>`;
           } else {
             anchorElement = document.createElement('a');
             anchorElement.href = '#';
@@ -649,14 +649,14 @@ function createMainHeader(section, placeholders = {}) {
                   </clipPath>
                 </defs>
               </svg>`;
-              anchorElement.innerHTML = `${icon} ${key}`;
+              anchorElement.innerHTML = `${icon} ${placeholders?.myProfile || 'My profile'}`;
               anchorElement.href = myprofile;
               anchorElement.classList.add('myprofile-div');
             } else if (key === 'My favorite resources') {
               const icon = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 30 30" fill="none" stroke = "black" stroke-width="1.5" >
           <path d="M22.75 4.5V24.7344L15.3652 16.8584L15 16.4688L14.6348 16.8584L7.25 24.7344V4.5H22.75Z" />
             </svg>`;
-              anchorElement.innerHTML = `${icon} ${key}`;
+              anchorElement.innerHTML = `${icon} ${placeholders?.myFavoriteResources || 'My favorite resources'}`;
               anchorElement.href = myFavoriteResources;
               anchorElement.classList.add('myprofile-div');
             } else if (key === 'Logout' && anchorTag.text === 'My account') {
@@ -672,12 +672,12 @@ function createMainHeader(section, placeholders = {}) {
                     </clipPath>
                   </defs>
                 </svg>`;
-              anchorElement.innerHTML = `${icon} ${key}`;
+              anchorElement.innerHTML = `${icon} ${placeholders?.logout || 'Logout'}`;
               anchorElement.classList.add('myprofile-div');
               anchorElement.href = 'https://devcs.sciex.com/bin/sciex/logout';
             } else if (key === 'Already have an account?Sign In Now') {
               anchorElement.id = 'signInNowLink';
-              if (anchorTag.text === placeholders?.login) {
+              if (anchorTag.text === placeholders?.login || anchorTag.text === 'Login') {
                 anchorElement.href = 'https://devcs.sciex.com/bin/sciex/login';
                 anchorElement.innerHTML = `${value}`;
               } else if (anchorTag.text === 'My account') {
@@ -1837,8 +1837,8 @@ export default async function decorate(block) {
   const userData = JSON.parse(localStorage.getItem('userDetails'));
   const locale = window.location.pathname.match(/\/(en-us|ja-jp|zh-cn)(\/|$)/)?.[1] || 'en-us';
   const loginId = locale === 'en-us'
-    ? placeholders?.login?.toLowerCase()
-    : placeholders?.login;
+    ? (placeholders?.login ?? 'login').toLowerCase()
+    : (placeholders?.login ?? 'login');
   if (userData && userData.loggedIn) {
     const eloquaData = {
       status: userData.loggedIn,
