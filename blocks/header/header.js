@@ -1769,7 +1769,7 @@ function processHtml(block, main, placeholders = {}) {
  */
 export default async function decorate(block) {
   // Fetch user details first (only once)
-  await getUserDetails(); 
+  await getUserDetails();
   const placeholders = await fetchPlaceholders();
   // load nav as fragment
   const { lang } = document.documentElement;
