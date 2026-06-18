@@ -181,7 +181,7 @@ function renderFacet(facetElementId, facetController, headerText) {
   if (!isSearch) {
     // Sort values alphabetically by displayText
     const sortedValues = values
-      .filter(value => !(facetId === 'applications' && value.value === 'Application'))
+      .filter(value => !(facetId === 'applications' && value.value === 'Application') &&  !(facetId === 'assettypes' && value.value === 'Customer document')) 
       .map(value => ({
         ...value,
         displayText: value.value === 'binarydata' ? "eCommerce" : value.value
