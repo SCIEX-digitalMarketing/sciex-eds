@@ -60,6 +60,7 @@ async function getUserDetails() {
     localStorage.setItem('userDetails', JSON.stringify(userDetails));
     return userDetails;
   } catch (error) {
+    localStorage.removeItem('userDetails');
     return null;
   }
 }
@@ -178,7 +179,7 @@ function registerDropdown(dropdown) {
   content.addEventListener('click', (e) => e.stopPropagation());
 }
 
-function createGlobalSearch() {
+function createGlobalSearch(placeholders = {}) {
   const suggestionPopup = document.getElementById('global-suggestion-popup');
   const searchContainer = document.createElement('div');
   searchContainer.className = 'standalone-search-container';
@@ -189,7 +190,7 @@ function createGlobalSearch() {
 
   const searchBox = document.createElement('input');
   searchBox.type = 'text';
-  searchBox.placeholder = 'Search';
+  searchBox.placeholder = placeholders?.search || 'Search';
   searchBox.className = 'standalone-search-box';
   searchBox.id = 'standalone-search-box';
   searchBox.maxLength = 200;
@@ -208,24 +209,24 @@ function createGlobalSearch() {
   const downArrow = `<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
   <path d="M14.7344 5L8.73437 11L2.73438 5" stroke="#141414"/>
   </svg>`;
-  dropbtn.innerHTML = `All ${downArrow}`;
+  dropbtn.innerHTML = `${placeholders?.all || 'All'} ${downArrow}`;
 
   const dropdownContent = document.createElement('div');
   dropdownContent.className = 'dropdown-content search-type-dropdown-content';
   dropdownContent.style.display = 'none';
 
   const menuItems = {
-    All: 'All',
-    Applications: 'Applications',
-    eCommerce: 'eCommerce',
-    'Knowledge base articles': 'Knowledge base articles',
-    'Products and services': 'Products and services',
-    'Regulatory documents': 'Regulatory documents',
-    'SCIEX How': 'SCIEX How',
-    'Technical notes': 'Technical notes',
-    Training: 'Training',
-    'User guides': 'User guides',
-  };
+  All: placeholders?.all || 'All',
+  Applications: placeholders?.applications || 'Applications',
+  eCommerce: placeholders?.eCommerce || 'eCommerce',
+  'Knowledge base articles':placeholders?.knowledgeBaseArticles || 'Knowledge base articles',
+  'Products and services': placeholders?.productsAndServices || 'Products and services',
+  'Regulatory documents': placeholders?.regulatoryDocuments || 'Regulatory documents',
+  'SCIEX How': placeholders?.sciexHow || 'SCIEX How',
+  'Technical notes': placeholders?.technicalNotes || 'Technical notes',
+   Training: placeholders?.training || 'Training',
+  'User guides': placeholders?.userGuides || 'User guides',
+};
 
   let selectedContentType = 'All';
 
@@ -256,7 +257,7 @@ function createGlobalSearch() {
       event.preventDefault();
       dropbtn.innerHTML = value + downArrow;
       dropdownContent.style.display = 'none';
-      selectedContentType = value;
+      selectedContentType = key;
     });
     dropdownContent.appendChild(anchorElement);
   });
@@ -578,7 +579,7 @@ function createMainHeader(section, placeholders = {}) {
       containerDiv.appendChild(mobileSearch);
       containerDiv.appendChild(mobileMenuToggle);
 
-      const searchContainer = createGlobalSearch();
+      const searchContainer = createGlobalSearch(placeholders);
       containerDiv.appendChild(searchContainer);
     } else if (headerDiv.children.length !== index + 1) {
       const liTag = li({
@@ -682,8 +683,8 @@ function createMainHeader(section, placeholders = {}) {
                 anchorElement.innerHTML = `${value}`;
               } else if (anchorTag.text === 'My account') {
                 const userData = JSON.parse(localStorage.getItem('userDetails'));
-                if (userData && userData.loggedIn) {
-                  anchorElement.innerHTML = `<span class="username-span">${userData.familyName} ${userData.givenName}</span>`;
+                if (userData && userData?.loggedIn) {
+                  anchorElement.innerHTML = `<span class="username-span">${userData?.familyName} ${userData?.givenName}</span>`;
                 }
               }
               // anchorElement.classList.add('myprofile-div');
@@ -1839,13 +1840,13 @@ export default async function decorate(block) {
   const loginId = locale === 'en-us'
     ? (placeholders?.login ?? 'login').toLowerCase()
     : (placeholders?.login ?? 'login');
-  if (userData && userData.loggedIn) {
+  if (userData && userData?.loggedIn) {
     const eloquaData = {
-      status: userData.loggedIn,
-      email: userData.email,
-      key: userData.userKey,
+      status: userData?.loggedIn,
+      email: userData?.email,
+      key: userData?.userKey,
     };
-    sessionStorage.setItem('loggedin-status', userData.loggedIn);
+    sessionStorage.setItem('loggedin-status', userData?.loggedIn);
     sessionStorage.setItem('eloquaData', JSON.stringify(eloquaData));
     // document.getElementById('view-profile').style.display = '';
     // document.getElementById('logout').style.display = '';
@@ -1854,8 +1855,8 @@ export default async function decorate(block) {
     document.getElementById('my-account').style.display = '';
     const signInNowEl = document.getElementById('signInNowLink');
     if (signInNowEl) {
-      const family = userData.familyName || '';
-      const given = userData.givenName || '';
+      const family = userData?.familyName || '';
+      const given = userData?.givenName || '';
       const displayName = `${family} ${given}`.trim();
       const nameSpan = document.createElement('span');
       nameSpan.className = 'username-span';
