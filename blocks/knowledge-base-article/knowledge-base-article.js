@@ -38,7 +38,7 @@ export default function decorate(block) {
   const children = Array.from(block.children);
   const versionId = children[0];
   const articleId = children[1]?.textContent?.trim() || '';
-  const body =children[6];
+  const body = children[6];
   const title = children[4];
   const tagNames = children[13];
   let voteAvg = children[14] || 0;
@@ -366,11 +366,11 @@ export default function decorate(block) {
   bodyContent.className = 'kba-body-content';
 
   // Video before body
-if (videoSrc) {
-  const videoWrapper = document.createElement('div');
-  videoWrapper.className = 'kba-video';
+  if (videoSrc) {
+    const videoWrapper = document.createElement('div');
+    videoWrapper.className = 'kba-video';
 
-  videoWrapper.innerHTML = `
+    videoWrapper.innerHTML = `
     <iframe
       src="${videoSrc}"
       title="Knowledge Base Video"
@@ -381,8 +381,8 @@ if (videoSrc) {
     </iframe>
   `;
 
-  bodyContent.appendChild(videoWrapper);
-}
+    bodyContent.appendChild(videoWrapper);
+  }
   const bodyDiv = document.createElement('div');
   bodyDiv.className = 'kba-body';
   bodyDiv.innerHTML = bodyWrapper.innerHTML;

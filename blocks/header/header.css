@@ -262,7 +262,7 @@ box-shadow: -2px 3px 18.4px 0 rgba(19, 19, 19, 0.15);
     left: 0; /* Aligns tooltip under the input */
     top: 100%; /* Places it directly below the input */
 }
-#request-a-quote{
+#request-a-quote,#请求报价,#お問い合わせ{
     display: flex;
 padding: 0px 12px;
 align-items: center;
@@ -277,7 +277,7 @@ font-weight: 530;
 line-height: 24px; /* 150% */
 letter-spacing: 0.08px;
 }
-#request-a-quote:hover{
+#request-a-quote:hover,#请求报价:hover,#お問い合わせ:hover {
     background-color:  #005bdb var(--tw-gradient-to-position);
 }
 .container {
@@ -378,7 +378,7 @@ text-underline-position: from-font;
 
  
 @media (min-width:1190px) {
-    #shop {
+    #shop,#ログイン,#登录 {
         margin-left: 1.5pc !important;
         margin-right: 3pc !important;
     }
@@ -391,7 +391,7 @@ text-underline-position: from-font;
     padding:0px 12px;
 }
 @media (min-width:1190px) {
-    #request-a-quote {
+    #request-a-quote,#请求报价,#お問い合わせ {
         padding: 20px 32px;
     }
     .header-link{
@@ -682,7 +682,7 @@ text-underline-position: from-font;
     .submenu-content div.tw-pr-48 {
         padding-right: 1pc !important;
     }
-       #shop {
+       #shop,#ログイン,#登录 {
     margin-left: 10px;
     margin-right: 20px;
 }

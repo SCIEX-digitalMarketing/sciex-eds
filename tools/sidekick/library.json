@@ -1,0 +1,124 @@
+{
+  "groups": [
+    {
+      "title": "SCIEX Content Blocks",
+      "blocks": [
+        {
+          "name": "hero-banner",
+          "title": "Hero Banner"
+        },
+        {
+          "name": "hero-small",
+          "title": "Hero Small"
+        },
+        {
+          "name": "cards",
+          "title": "Cards"
+        },
+        {
+          "name": "accordion",
+          "title": "Accordion"
+        },
+        {
+          "name": "icon-card",
+          "title": "Icon Card"
+        },
+        {
+          "name": "cta-with-text",
+          "title": "CTA With Text"
+        },
+        {
+          "name": "split-video-text",
+          "title": "Split Video Text"
+        },
+        {
+          "name": "sciex-table",
+          "title": "SCIEX Table"
+        },
+        {
+          "name": "sciex-tabs",
+          "title": "SCIEX Tabs"
+        },
+        {
+          "name": "switch-tabs",
+          "title": "Switch Tabs"
+        }
+      ]
+    },
+    {
+      "title": "SCIEX Resource Hub",
+      "blocks": [
+        {
+          "name": "resource-library",
+          "title": "Resource Library"
+        },
+        {
+          "name": "resourcehub-search",
+          "title": "Resource Hub Search"
+        },
+        {
+          "name": "resources-grid",
+          "title": "Resources Grid"
+        },
+        {
+          "name": "featured-key-workflows",
+          "title": "Featured Key Workflows"
+        },
+        {
+          "name": "categories",
+          "title": "Categories"
+        }
+      ]
+    },
+    {
+      "title": "SCIEX Learning",
+      "blocks": [
+        {
+          "name": "knowledge-base-article",
+          "title": "Knowledge Base Article"
+        },
+        {
+          "name": "coursecatalog",
+          "title": "Course Catalog"
+        },
+        {
+          "name": "course-catalog-detail",
+          "title": "Course Catalog Detail"
+        },
+        {
+          "name": "tech-note",
+          "title": "Tech Note"
+        }
+      ]
+    },
+    {
+      "title": "SCIEX Events",
+      "blocks": [
+        {
+          "name": "events",
+          "title": "Events"
+        },
+        {
+          "name": "events-container",
+          "title": "Events Container"
+        },
+        {
+          "name": "events-details",
+          "title": "Events Details"
+        },
+        {
+          "name": "events-register-form",
+          "title": "Events Register Form"
+        },
+        {
+          "name": "session-timeline",
+          "title": "Session Timeline"
+        },
+        {
+          "name": "speakers",
+          "title": "Speakers"
+        }
+      ]
+    }
+  ]
+}

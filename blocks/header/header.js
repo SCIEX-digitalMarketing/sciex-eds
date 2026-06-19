@@ -1,7 +1,7 @@
 import {
   div, span, ul, li, a, p,
 } from '../../scripts/dom-builder.js';
-import { decorateIcons } from '../../scripts/aem.js';
+import { decorateIcons, fetchPlaceholders } from '../../scripts/aem.js';
 import { standaloneSearchBoxController } from '../../scripts/header-search/headerSearchController.js';
 // import { login } from '../../scripts/auth.js';
 
@@ -44,22 +44,23 @@ async function getUserDetails() {
     window.dataLayer = window.dataLayer || [];
     localStorage.setItem('auth0Id', userDetails.auth0Id);
 
-    const existingUser = window.dataLayer.find(item => item.user);
+    const existingUser = window.dataLayer.find((item) => item.user);
 
     if (existingUser) {
       existingUser.user.auth0Id = userDetails.auth0Id;
-      existingUser.user.company = "SCIEX";
+      existingUser.user.company = 'SCIEX';
     } else {
       window.dataLayer.push({
         user: {
           auth0Id: userDetails.auth0Id,
-          company: "SCIEX",
+          company: 'SCIEX',
         },
       });
     }
     localStorage.setItem('userDetails', JSON.stringify(userDetails));
     return userDetails;
   } catch (error) {
+    localStorage.removeItem('userDetails');
     return null;
   }
 }
@@ -178,7 +179,7 @@ function registerDropdown(dropdown) {
   content.addEventListener('click', (e) => e.stopPropagation());
 }
 
-function createGlobalSearch() {
+function createGlobalSearch(placeholders = {}) {
   const suggestionPopup = document.getElementById('global-suggestion-popup');
   const searchContainer = document.createElement('div');
   searchContainer.className = 'standalone-search-container';
@@ -189,7 +190,7 @@ function createGlobalSearch() {
 
   const searchBox = document.createElement('input');
   searchBox.type = 'text';
-  searchBox.placeholder = 'Search';
+  searchBox.placeholder = placeholders?.search || 'Search';
   searchBox.className = 'standalone-search-box';
   searchBox.id = 'standalone-search-box';
   searchBox.maxLength = 200;
@@ -208,24 +209,24 @@ function createGlobalSearch() {
   const downArrow = `<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
   <path d="M14.7344 5L8.73437 11L2.73438 5" stroke="#141414"/>
   </svg>`;
-  dropbtn.innerHTML = `All ${downArrow}`;
+  dropbtn.innerHTML = `${placeholders?.all || 'All'} ${downArrow}`;
 
   const dropdownContent = document.createElement('div');
   dropdownContent.className = 'dropdown-content search-type-dropdown-content';
   dropdownContent.style.display = 'none';
 
   const menuItems = {
-    All: 'All',
-    "Applications":"Applications",
-    "eCommerce":"eCommerce",
-    "Knowledge base articles":"Knowledge base articles",
-    "Products and services":"Products and services",
-    "Regulatory documents":"Regulatory documents",
-    "SCIEX How":"SCIEX How",
-    "Technical notes":"Technical notes",
-    "Training":"Training",
-    "User guides":"User guides",
-  };
+  All: placeholders?.all || 'All',
+  Applications: placeholders?.applications || 'Applications',
+  eCommerce: placeholders?.eCommerce || 'eCommerce',
+  'Knowledge base articles':placeholders?.knowledgeBaseArticles || 'Knowledge base articles',
+  'Products and services': placeholders?.productsAndServices || 'Products and services',
+  'Regulatory documents': placeholders?.regulatoryDocuments || 'Regulatory documents',
+  'SCIEX How': placeholders?.sciexHow || 'SCIEX How',
+  'Technical notes': placeholders?.technicalNotes || 'Technical notes',
+   Training: placeholders?.training || 'Training',
+  'User guides': placeholders?.userGuides || 'User guides',
+};
 
   let selectedContentType = 'All';
 
@@ -256,7 +257,7 @@ function createGlobalSearch() {
       event.preventDefault();
       dropbtn.innerHTML = value + downArrow;
       dropdownContent.style.display = 'none';
-      selectedContentType = value;
+      selectedContentType = key;
     });
     dropdownContent.appendChild(anchorElement);
   });
@@ -338,7 +339,7 @@ function createGlobalSearch() {
 
   return searchContainer;
 }
-function createMainHeader(section) {
+function createMainHeader(section, placeholders = {}) {
   const menuDiv = div({
     class:
       'tw-flex tw-w-full tw-bg-grey-900 tw-text-grey-300 tw-z-[100] tw-relative header-topbar',
@@ -565,7 +566,7 @@ function createMainHeader(section) {
       myprofile = myprofile.replace(/^\/content\/sciex-eds/, '');
     } else if (index === 1) {
       myFavoriteResources = anchorTag.text;
-       myFavoriteResources = myFavoriteResources.replace(/^\/content\/sciex-eds/, '');
+      myFavoriteResources = myFavoriteResources.replace(/^\/content\/sciex-eds/, '');
     } else if (index === 2) {
       anchorTag.text = '';
       anchorTag.className = '';
@@ -578,14 +579,14 @@ function createMainHeader(section) {
       containerDiv.appendChild(mobileSearch);
       containerDiv.appendChild(mobileMenuToggle);
 
-      const searchContainer = createGlobalSearch();
+      const searchContainer = createGlobalSearch(placeholders);
       containerDiv.appendChild(searchContainer);
     } else if (headerDiv.children.length !== index + 1) {
       const liTag = li({
         class:
           'tw-flex tw-items-center tw-transition-colors', // tw-ml-16
       });
-      if (anchorTag.text === 'Login' || anchorTag.text === 'My account') {
+      if (anchorTag.text === placeholders?.login || anchorTag.text === 'My account') {
         // anchorTag.addEventListener('click', handleSignInClick);
         // anchorTag.href = 'https://devcs.sciex.com/bin/sciex/login';
       // }else if (anchorTag.text === 'My account'){
@@ -608,7 +609,7 @@ function createMainHeader(section) {
 
         const menuItems = {
           Button: 'Button',
-          'Already have an account?Sign In Now': 'Already have an account?<span class = "sign-in-now-link" >Sign In Now</span>',
+          'Already have an account?Sign In Now': `${placeholders?.alreadyHaveAnAccount || 'Already have an account?'}<span class = "sign-in-now-link" >${placeholders?.signInNow || 'Sign In Now'}</span>`,
           'My profile': 'My profile',
           'My favorite resources': 'My favorite resources',
           Logout: 'Logout',
@@ -625,9 +626,9 @@ function createMainHeader(section) {
         Object.keys(menuItems).forEach((key) => {
           const value = menuItems[key];
           let anchorElement = document.createElement('a');
-          if (key === 'Button' && anchorTag.text === 'Login') {
+          if (key === 'Button' && (anchorTag.text === placeholders?.login || anchorTag.text === 'Login')) {
             anchorElement = document.createElement('div');
-            anchorElement.innerHTML = '<a href="/support/create-account"><button class=" create-account-btn">Create an account</button></a>';
+            anchorElement.innerHTML = `<a href="/support/create-account"><button class=" create-account-btn">${placeholders?.createAnAccount || 'Create an account'}</button></a>`;
           } else {
             anchorElement = document.createElement('a');
             anchorElement.href = '#';
@@ -649,14 +650,14 @@ function createMainHeader(section) {
                   </clipPath>
                 </defs>
               </svg>`;
-              anchorElement.innerHTML = `${icon} ${key}`;
+              anchorElement.innerHTML = `${icon} ${placeholders?.myProfile || 'My profile'}`;
               anchorElement.href = myprofile;
               anchorElement.classList.add('myprofile-div');
             } else if (key === 'My favorite resources') {
               const icon = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 30 30" fill="none" stroke = "black" stroke-width="1.5" >
           <path d="M22.75 4.5V24.7344L15.3652 16.8584L15 16.4688L14.6348 16.8584L7.25 24.7344V4.5H22.75Z" />
             </svg>`;
-              anchorElement.innerHTML = `${icon} ${key}`;
+              anchorElement.innerHTML = `${icon} ${placeholders?.myFavoriteResources || 'My favorite resources'}`;
               anchorElement.href = myFavoriteResources;
               anchorElement.classList.add('myprofile-div');
             } else if (key === 'Logout' && anchorTag.text === 'My account') {
@@ -672,18 +673,18 @@ function createMainHeader(section) {
                     </clipPath>
                   </defs>
                 </svg>`;
-              anchorElement.innerHTML = `${icon} ${key}`;
+              anchorElement.innerHTML = `${icon} ${placeholders?.logout || 'Logout'}`;
               anchorElement.classList.add('myprofile-div');
               anchorElement.href = 'https://sciex.com/bin/sciex/logout';
             } else if (key === 'Already have an account?Sign In Now') {
               anchorElement.id = 'signInNowLink';
-              if (anchorTag.text === 'Login') {
+              if (anchorTag.text === placeholders?.login || anchorTag.text === 'Login') {
                 anchorElement.href = 'https://sciex.com/bin/sciex/login';
                 anchorElement.innerHTML = `${value}`;
               } else if (anchorTag.text === 'My account') {
                 const userData = JSON.parse(localStorage.getItem('userDetails'));
-                if (userData && userData.loggedIn) {
-                  anchorElement.innerHTML = `<span class="username-span">${userData.familyName} ${userData.givenName}</span>`;
+                if (userData && userData?.loggedIn) {
+                  anchorElement.innerHTML = `<span class="username-span">${userData?.familyName} ${userData?.givenName}</span>`;
                 }
               }
               // anchorElement.classList.add('myprofile-div');
@@ -1624,7 +1625,7 @@ function createMegaMenuThirdLevel(child) {
             createViewallTag(list, viewAllTag);
           }
         }
-      } 
+      }
     });
   } else if (sections.length > 0 && isSubItems) {
     secondPartdiv.className = 'tw-w-9/12 submenu-content tw-px-32 tw-pr-40 tw-self-start';
@@ -1733,7 +1734,7 @@ function createOverlay(nav) {
 /**
  * Processes and appends the sections to the header block
  */
-function processHtml(block, main) {
+function processHtml(block, main, placeholders = {}) {
   const parentDiv = div({ class: 'tw' });
   const nav = document.createElement('nav');
   nav.id = 'mega-menu';
@@ -1742,7 +1743,7 @@ function processHtml(block, main) {
   Array.from(sections).forEach((section, index, array) => {
     const iteration = index + 1;
     if (iteration === 1) {
-      nav.append(createMainHeader(section));
+      nav.append(createMainHeader(section, placeholders));
     } else if (iteration === 2) {
       nav.append(createMegaMenuTopNav(section));
       if (nav) {
@@ -1770,9 +1771,9 @@ function processHtml(block, main) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  // Fetch user details first
-  await getUserDetails(); 
-
+  // Fetch user details first (only once)
+  await getUserDetails();
+  const placeholders = await fetchPlaceholders();
   // load nav as fragment
   const lang = document.documentElement.lang?.toLowerCase() || '';
   let path = '/nav.plain.html';
@@ -1803,7 +1804,7 @@ export default async function decorate(block) {
     const html = await resp.text();
     const main = document.createElement('main');
     main.innerHTML = html;
-    processHtml(block, main);
+    processHtml(block, main, placeholders);
   }
   decorateIcons(block);
 
@@ -1837,23 +1838,27 @@ export default async function decorate(block) {
 
   // Conditionally shwoing the login/logout links
   const userData = JSON.parse(localStorage.getItem('userDetails'));
-  if (userData && userData.loggedIn) {
+  const locale = window.location.pathname.match(/\/(en-us|ja-jp|zh-cn)(\/|$)/)?.[1] || 'en-us';
+  const loginId = locale === 'en-us'
+    ? (placeholders?.login ?? 'login').toLowerCase()
+    : (placeholders?.login ?? 'login');
+  if (userData && userData?.loggedIn) {
     const eloquaData = {
-      status: userData.loggedIn,
-      email: userData.email,
-      key: userData.userKey,
+      status: userData?.loggedIn,
+      email: userData?.email,
+      key: userData?.userKey,
     };
-    sessionStorage.setItem('loggedin-status', userData.loggedIn);
+    sessionStorage.setItem('loggedin-status', userData?.loggedIn);
     sessionStorage.setItem('eloquaData', JSON.stringify(eloquaData));
     // document.getElementById('view-profile').style.display = '';
     // document.getElementById('logout').style.display = '';
     // document.getElementById('register').style.display = 'none';
-    document.getElementById('login').style.display = 'none';
+    document.getElementById(loginId).style.display = 'none';
     document.getElementById('my-account').style.display = '';
     const signInNowEl = document.getElementById('signInNowLink');
     if (signInNowEl) {
-      const family = userData.familyName || '';
-      const given = userData.givenName || '';
+      const family = userData?.familyName || '';
+      const given = userData?.givenName || '';
       const displayName = `${family} ${given}`.trim();
       const nameSpan = document.createElement('span');
       nameSpan.className = 'username-span';
@@ -1865,7 +1870,7 @@ export default async function decorate(block) {
     // document.getElementById('view-profile').style.display = 'none';
     // document.getElementById('logout').style.display = 'none';
     // document.getElementById('register').style.display = '';
-    document.getElementById('login').style.display = '';
+    document.getElementById(loginId).style.display = '';
     document.getElementById('my-account').style.display = 'none';
     // document.getElementById('logout').style.display = 'none';
   }

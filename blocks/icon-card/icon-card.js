@@ -77,15 +77,7 @@ export default function decorate(block) {
         iconWrap.append(brandLabel);
       }
 
-      const picture = cells[0].querySelector('picture');
-      const img = cells[0].querySelector('img');
-
-      if (picture) {
-        iconWrap.append(picture.cloneNode(true));
-      } else if (img) {
-        iconWrap.append(img.cloneNode(true));
-      }
-
+      iconWrap.innerHTML += iconHTML;
       card.append(iconWrap);
     }
 

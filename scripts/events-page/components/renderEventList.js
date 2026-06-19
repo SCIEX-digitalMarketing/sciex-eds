@@ -93,9 +93,11 @@ function createMonthHeading(monthKey = '') {
     .replace(/\bundefined\b/gi, '')
     .replace(/\bNaN\b/gi, '')
     .trim();
+
   if (!safeMonthKey) {
     return null;
   }
+
   return createElement(
     'div',
     'month-heading',
