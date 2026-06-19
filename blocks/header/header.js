@@ -216,17 +216,17 @@ function createGlobalSearch(placeholders = {}) {
   dropdownContent.style.display = 'none';
 
   const menuItems = {
-  All: placeholders?.all || 'All',
-  Applications: placeholders?.applications || 'Applications',
-  eCommerce: placeholders?.eCommerce || 'eCommerce',
-  'Knowledge base articles':placeholders?.knowledgeBaseArticles || 'Knowledge base articles',
-  'Products and services': placeholders?.productsAndServices || 'Products and services',
-  'Regulatory documents': placeholders?.regulatoryDocuments || 'Regulatory documents',
-  'SCIEX How': placeholders?.sciexHow || 'SCIEX How',
-  'Technical notes': placeholders?.technicalNotes || 'Technical notes',
-   Training: placeholders?.training || 'Training',
-  'User guides': placeholders?.userGuides || 'User guides',
-};
+    All: placeholders?.all || 'All',
+    Applications: placeholders?.applications || 'Applications',
+    eCommerce: placeholders?.eCommerce || 'eCommerce',
+    'Knowledge base articles': placeholders?.knowledgeBaseArticles || 'Knowledge base articles',
+    'Products and services': placeholders?.productsAndServices || 'Products and services',
+    'Regulatory documents': placeholders?.regulatoryDocuments || 'Regulatory documents',
+    'SCIEX How': placeholders?.sciexHow || 'SCIEX How',
+    'Technical notes': placeholders?.technicalNotes || 'Technical notes',
+    Training: placeholders?.training || 'Training',
+    'User guides': placeholders?.userGuides || 'User guides',
+  };
 
   let selectedContentType = 'All';
 

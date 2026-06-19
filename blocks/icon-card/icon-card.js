@@ -51,7 +51,7 @@ export default function decorate(block) {
     const cells = [...row.children];
     if (!cells.length) return;
 
-    // const iconHTML = cells[0]?.innerHTML?.trim() || '';
+    const iconHTML = cells[0]?.innerHTML?.trim() || '';
     const headingHTML = cells[1]?.innerHTML?.trim() || '';
     const descriptionHTML = cells[2]?.innerHTML?.trim() || '';
     const linkLabel = cells[3]?.textContent?.trim() || '';

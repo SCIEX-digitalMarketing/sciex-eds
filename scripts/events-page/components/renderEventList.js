@@ -101,7 +101,7 @@ function createMonthHeading(monthKey = '') {
   return createElement(
     'div',
     'month-heading',
-    safeMonthKey
+    safeMonthKey,
   );
 }
 
@@ -109,7 +109,6 @@ function renderGroupedEvents(groupedEvents, container) {
   Object.entries(groupedEvents)
     .sort(([a], [b]) => new Date(`1 ${a}`) - new Date(`1 ${b}`)) // ✅ Upcoming events first
     .forEach(([monthKey, events]) => {
-      
       const heading = createMonthHeading(monthKey);
       if (heading) {
         container.appendChild(heading);

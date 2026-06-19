@@ -858,7 +858,6 @@ function loadWalkMe() {
   });
 }
 
-
 init();
 
 export {

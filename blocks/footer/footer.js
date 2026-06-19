@@ -538,7 +538,7 @@ function processFragment(block, fragment) {
 export default async function decorate(block) {
   const lang = document.documentElement.lang?.toLowerCase() || '';
   let path = '/footer';
-   if (lang === 'en') {
+  if (lang === 'en') {
     path = '/footer';
   } else if (lang === 'ja') {
     path = '/ja-jp/footer';
