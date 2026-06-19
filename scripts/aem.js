@@ -821,7 +821,6 @@ function loadWalkMe() {
   window._walkmeConfig = { smartLoad: true };
 }
 
-
 init();
 
 export {
