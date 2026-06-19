@@ -39,12 +39,11 @@ const renderFavoritePagination = (
   ======================== */
   if (currentPage > 1) {
     const prevButton = document.createElement('button');
-      prevButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none"><path d="M16.5 20L8.5 12L16.5 4" stroke="#141414"/></svg>';
-
+    prevButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none"><path d="M16.5 20L8.5 12L16.5 4" stroke="#141414"/></svg>';
 
     prevButton.onclick = () => {
       currentPage -= 1;
-      renderfavoriteSearchResultList(data,renderUi)
+      renderfavoriteSearchResultList(data, renderUi);
     };
 
     paginationElement.appendChild(prevButton);
@@ -75,7 +74,6 @@ const renderFavoritePagination = (
   if (currentPage < totalPages) {
     const nextButton = document.createElement('button');
     nextButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none"><path d="M8.5 20L16.5 12L8.5 4" stroke="#141414"/></svg>';
-
 
     nextButton.onclick = () => {
       currentPage += 1;

@@ -52,8 +52,8 @@ function applyQueryParamPreselections(queryParams) {
       );
 
       if (match) {
-        applied = true;   // set flag BEFORE unsubscribe and toggleSelect
-        unsubscribe();    // unsubscribe BEFORE toggleSelect to prevent re-fire loop
+        applied = true; // set flag BEFORE unsubscribe and toggleSelect
+        unsubscribe(); // unsubscribe BEFORE toggleSelect to prevent re-fire loop
         controller.toggleSelect(match);
       }
     });
@@ -65,7 +65,7 @@ export default async function decorate(block) {
   if (Object.values(queryParams).some(Boolean)) {
     applyQueryParamPreselections(queryParams);
   }
- 
+
   const eventsDiv = document.createElement('div');
   eventsDiv.id = 'events';
 
@@ -134,12 +134,12 @@ export default async function decorate(block) {
     if (queryParams.event === 'on-demand') {
       tabOnDemand.classList.add('active');
       tabUpcoming.classList.remove('active');
-    
+
       tabController('@eventtype==On-demand', 'OnDemand');
     } else {
       tabUpcoming.classList.add('active');
       tabOnDemand.classList.remove('active');
-    
+
       tabController('NOT@eventType==On-demand', 'Upcoming');
     }
 
@@ -147,9 +147,9 @@ export default async function decorate(block) {
 
     eventSearchEngine.subscribe(() => {
       const newUpcoming = renderEvents();
-    
+
       eventsDiv.replaceChild(newUpcoming, upcomingSection);
-    
+
       upcomingSection = newUpcoming;
     });
   } catch (error) {
