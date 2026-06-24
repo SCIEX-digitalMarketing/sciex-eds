@@ -586,7 +586,7 @@ function createMainHeader(section, placeholders = {}) {
         class:
           'tw-flex tw-items-center tw-transition-colors', // tw-ml-16
       });
-      if (anchorTag.text === placeholders?.login || anchorTag.text === 'My account') {
+      if (anchorTag.text === (placeholders?.login ?? 'Login') || anchorTag.text === 'My account') {
         // anchorTag.addEventListener('click', handleSignInClick);
         // anchorTag.href = 'https://devcs.sciex.com/bin/sciex/login';
       // }else if (anchorTag.text === 'My account'){
