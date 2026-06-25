@@ -573,7 +573,7 @@ const getLocale = () => {
   if (hostname.endsWith('.sciex.com.cn') || hostname.includes('.cn')) {
     return 'zh-cn';
   }
-  if (hostname.endsWith('.sciex.jp') || hostname.includes('.co.jp')) {
+  if (hostname === 'sciex.jp' || hostname.endsWith('.sciex.jp') || hostname.includes('.co.jp')) {
     return 'ja-jp';
   }
 
