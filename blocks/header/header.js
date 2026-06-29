@@ -675,11 +675,11 @@ function createMainHeader(section, placeholders = {}) {
                 </svg>`;
               anchorElement.innerHTML = `${icon} ${placeholders?.logout || 'Logout'}`;
               anchorElement.classList.add('myprofile-div');
-              anchorElement.href = 'https://devcs.sciex.com/bin/sciex/logout';
+              anchorElement.href = '/bin/sciex/logout';
             } else if (key === 'Already have an account?Sign In Now') {
               anchorElement.id = 'signInNowLink';
               if (anchorTag.text === placeholders?.login || anchorTag.text === 'Login') {
-                anchorElement.href = 'https://devcs.sciex.com/bin/sciex/login';
+                anchorElement.href = '/bin/sciex/login';
                 anchorElement.innerHTML = `${value}`;
               } else if (anchorTag.text === 'My account') {
                 const userData = JSON.parse(localStorage.getItem('userDetails'));
