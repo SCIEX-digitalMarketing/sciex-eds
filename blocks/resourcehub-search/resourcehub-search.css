@@ -1,12 +1,12 @@
 .resourcehub-search-block{
     display: flex;
-    padding: 50px 64px 32px 64px;
+    /* padding: 50px 64px 32px 64px; */
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 30px;
     align-self: stretch;
-    border-top: 1px solid var(--Grey-100, #ECECEC);
+    /* border-top: 1px solid var(--Grey-100, #ECECEC); */
 }
 .resourcesearch-container {
  display: flex;
@@ -193,7 +193,7 @@ align-self: stretch;
     align-items: center;
     gap: 30px;
     align-self: stretch;
-    border-top: 1px solid var(--Grey-100, #ECECEC);
+    /* border-top: 1px solid var(--Grey-100, #ECECEC); */
     color: var(--Grey-900, #141414);
 
     /* Desktop/text-charlie */
@@ -249,5 +249,10 @@ align-self: stretch;
 
     #resourcehub-search-suggestion {
         width: 100%;
+    }
+    .resourcesearch-text{
+        font-size: 32px;
+        line-height: 40px;
+        padding: 20px 0;
     }
 }

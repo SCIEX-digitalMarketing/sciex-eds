@@ -1,9 +1,24 @@
 /* Wrapper for the accordion header area */
 .sciex-favorite-wrapper {
-    background: var(--Grey-50, #F5F5F5);
     /* max-width: 1440px !important; */
     padding: 0px 20px !important;
     margin-top: 32px;
+  }
+  
+  .sciex-favorite.block{
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    border-bottom: 1px solid var(--Grey-100, #ECECEC);
+    padding-bottom: 32px;
+  }
+  .favorites-accordion{
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    background: var(--Grey-50, #F5F5F5);
   }
   
   /* Header spacing inside grey bar */
