@@ -62,8 +62,10 @@ async function readBlockProperties(block) {
 
     switch (index) {
       case 0:
-        div.className = 'favorite-banner-title';
-        bannerWrapper.appendChild(div);
+        const title = document.createElement('h1');
+        title.className = 'favorite-banner-title';
+        title.textContent = div.textContent;
+        bannerWrapper.appendChild(title);
         block.appendChild(bannerWrapper);
         break;
 
