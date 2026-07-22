@@ -113,10 +113,11 @@ font-size: 14px;
 
 .heading-group {
   margin-bottom: 8px;
+  color: black;
 }
 
 .heading-group > *:not(:last-child) {
-  color: #FFF;
+  /* color: #FFF; */
   font-family: Geogrotesque;
   font-size: 40px;
   font-style: normal;

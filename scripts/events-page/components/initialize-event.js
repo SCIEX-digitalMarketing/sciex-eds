@@ -25,7 +25,7 @@ export default function renderEvents() {
   eventHeader.className = 'event-header';
   eventHeader.id = 'eventHeader';
 
-  const title = document.createElement('div');
+  const title = document.createElement('h1');
   title.className = 'event-title';
   title.textContent = getActiveTabName();
   title.id = 'eventTitle';
