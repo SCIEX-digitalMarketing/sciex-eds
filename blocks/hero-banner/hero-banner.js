@@ -68,7 +68,7 @@ export default function decorate(block) {
  
   /* Extract authored content from the block */
   const bannerImg = block.querySelector('picture > img');
-  const heading = block.querySelector('h5');
+  const heading = block.querySelector('h1, h2, h3, h4, h5, h6');
   const description = heading?.nextElementSibling;
   const containerID = block.children[0]?.textContent?.trim();
   const timeText = block.children[5]?.textContent?.trim();

@@ -84,7 +84,7 @@ function buildHeroContent(data) {
 
   // Heading
   if (data.heading) {
-    const heading = document.createElement('h2');
+    const heading = document.createElement('h1');
     heading.className = applyClass('hero-heading-hero');
     heading.textContent = data.heading;
     content.append(heading);

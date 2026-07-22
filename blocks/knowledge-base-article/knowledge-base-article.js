@@ -113,7 +113,7 @@ export default function decorate(block) {
   const titleRow = document.createElement('div');
   titleRow.className = 'title-row';
 
-  const heading = document.createElement('h2');
+  const heading = document.createElement('h1');
   heading.textContent = title?.textContent || '';
 
   // icons wrapper

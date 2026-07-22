@@ -76,7 +76,7 @@ export default async function decorate(block) {
   blockDiv.classList.add('.sciex-hero-title');
   const titleId = block.children[0].textContent.trim();
   const heading = block.children[1].textContent;
-  const headingDiv = document.createElement('div');
+  const headingDiv = document.createElement('h1');
   if (titleId && titleId.trim() !== '') {
     block.id = `${titleId}-content`;
   }
