@@ -53,7 +53,7 @@
             "component": "richtext",
             "name": "text",
             "value": "",
-            "label": "Text(Heading H5 and Description in paragraph)",
+            "label": "Text(Heading and Description in paragraph)",
             "valueType": "string"
           },{
             "component": "select",
