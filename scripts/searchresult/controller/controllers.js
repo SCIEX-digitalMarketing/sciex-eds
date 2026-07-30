@@ -115,7 +115,8 @@ function createFacetController() {
     'region',
     'applications',
     'technicaldocuments',
-    'productcategories'
+    'productcategories',
+    'diagnosticsinstrumentscategories'    
   ];
 
   if (lang !== 'ja' && lang !== 'zh-cn') {
@@ -172,7 +173,8 @@ function initDependentFacet(dependentFacet, parentFacets) {
     'technicaldocuments': ['Regulatory documents'],
     'certificatetypecategories': ['Training'],
     'coursetypecategories': ['Training'],
-    'productcategories': ['binarydata', 'eCommerce']
+    'productcategories': ['binarydata', 'eCommerce'],
+    'diagnosticsinstrumentscategories': ['Training']
   };
 
   const facetId = dependentFacet.state.facetId;
