@@ -117,6 +117,7 @@ export const renderFacetBreadcurm = () => {
     applications: strings.applications,
     technicaldocuments: strings.technicalDocuments,
     productcategories: 'Product',
+    diagnosticsinstrumentscategories: strings?.diagnosticsInstruments
   };
 
   facetBreadcrumb.state.facetBreadcrumbs.forEach((value) => {

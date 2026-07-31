@@ -55,7 +55,8 @@ export const i18n = {
     partNumber: 'Part Number',
     lotNumber: 'Lot Number',
     kitNumber: 'Kit Number',
-    products: 'Products'
+    products: 'Products',
+    diagnosticsInstruments: 'DX instruments',
   },
   "zh-cn": {
     contentType: '内容类别',
@@ -109,7 +110,8 @@ export const i18n = {
     partNumber: '零件编号',
     lotNumber: '批号',
     kitNumber: '套件编号',
-    products: '产品'
+    products: '产品',
+    diagnosticsInstruments: 'DX instruments'
   },
   "ja": {
     contentType: 'コンテンツタイプ',
@@ -163,6 +165,7 @@ export const i18n = {
     partNumber: '部品番号',
     lotNumber: 'ロット番号',
     kitNumber: 'キット番号',
-    products: '製品'
+    products: '製品',
+    diagnosticsInstruments: 'DX instruments'
   },
 };
