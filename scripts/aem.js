@@ -152,49 +152,80 @@ function setup() {
   }
 }
 
-function decorateHreflangFromMetadata() {
-  const currentLang = document.documentElement.lang || 'en';
-  const currentUrl = window.location.href;
+async function getHreflang() {
+  try {
+    const response = await fetch("/hreflang.json");
 
-  let domain = new URL(currentUrl).origin;
-  const url = new URL(currentUrl);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch hreflang.json: ${response.status}`);
+    }
 
-  let modifyLang = '';
-  // if(url.includes('.com')) {
-  if (currentLang === 'en') {
-    modifyLang = 'en_US';
-  } else if (currentLang === 'ja') {
-    domain = url.origin.replace('.com', '.jp');
-    modifyLang = 'ja_JP';
-  } else if (currentLang === 'zh-cn') {
-    domain = url.origin.replace('.com', '.com.cn');
-    modifyLang = 'zh_CN';
+    const { data } = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching hreflang.json:", error);
+    return null;
   }
-  // }
-  // 🔹 Define supported languages
-  const supportedLangs = ['en_US', 'ja_JP', 'zh_CN'];
+}
 
-  supportedLangs.forEach((lang) => {
-    let href = currentUrl;
-    href = `${domain}${url.pathname}`;
-    if (document.head.querySelector(`link[hreflang="${lang}"]`)) return;
-    const link = document.createElement('link');
-    link.rel = 'alternate';
-    link.href = href;
-    link.hreflang = lang;
+async function decorateHreflangFromMetadata() {
+  const hreflangData = await getHreflang();
+  const currentUrl = new URL(window.location.href);
+  const currentPath = currentUrl?.pathname.split("?")[0];
+  const currentPage = hreflangData?.find(
+    (item) => item.path === currentPath
+  );
+   // Canonical URL
+  let canonical = document.head.querySelector('link[rel="canonical"]');
+
+  if (!canonical) {
+    canonical = document.createElement("link");
+    canonical.rel = "canonical";
+    document.head.appendChild(canonical);
+  }
+
+  canonical.href = `${currentUrl.origin}${currentUrl.pathname}`;
+  
+  if (!currentPage) {
+    return;
+  }
+
+  const baseDomain = currentUrl.origin
+    .replace('.com.cn', '.com')
+    .replace('.jp', '.com');
+
+  const supportedLangs = [
+    { key: "EN", hreflang: "en-US", domain: baseDomain },
+    { key: "JP", hreflang: "ja-JP", domain: baseDomain.replace(".com", ".jp") },
+    { key: "CN", hreflang: "zh-CN", domain: baseDomain.replace(".com", ".com.cn") },
+  ];
+
+  supportedLangs?.forEach(({ key, hreflang, domain }) => {
+    if (currentPage[key]?.toLowerCase() !== "true") {
+      return;
+    }
+
+    if (document.head.querySelector(`link[hreflang="${hreflang}"]`)) {
+      return;
+    }
+
+    const link = document.createElement("link");
+    link.rel = "alternate";
+    link.hreflang = hreflang;
+    link.href = `${domain}${currentUrl?.pathname}${currentUrl?.search}`;
+
     document.head.appendChild(link);
   });
 
-  // 🔹 x-default (usually default language)
-  const defaultLang = 'en-us';
-  const defaultHref = currentUrl.replace(`/${modifyLang}/`, `/${defaultLang}/`);
+  // x-default  points to the current URL
+  if (!document.head.querySelector('link[hreflang="x-default"]')) {
+    const xDefault = document.createElement('link');
+    xDefault.rel = 'alternate';
+    xDefault.hreflang = 'x-default';
+    xDefault.href = `${currentUrl?.href}`;
 
-  const xDefault = document.createElement('link');
-  xDefault.rel = 'alternate';
-  xDefault.hreflang = 'x-default';
-  xDefault.href = defaultHref;
-
-  document.head.appendChild(xDefault);
+    document.head.appendChild(xDefault);
+  }
 }
 /**
  * Auto initializiation.
