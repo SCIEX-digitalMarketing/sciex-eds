@@ -217,7 +217,7 @@ export default async function decorate(block) {
       selectedContentType = value;
       selectedfacet = key;
       if (
-        key === 'self paced learning'
+        key === 'Self paced learning'
         || key === 'Instructor led training'
       ) {
         queryString = `&facetId=trainingcoursetype&value=${selectedfacet}`;
