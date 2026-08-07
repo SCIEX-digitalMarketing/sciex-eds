@@ -177,7 +177,7 @@ export default async function decorate(block) {
   dropdownContent.style.display = 'none';
 
   const menuItems = {
-    All: 'All',
+    All: 'resourcehubAll',
     'Knowledge base articles': 'Knowledge base articles',
     'Self paced learning': 'Training',
     'Instructor led training': 'Training',
@@ -186,9 +186,17 @@ export default async function decorate(block) {
     'User guides': 'User guides',
 
   };
-  let selectedContentType = 'All';
+  let selectedContentType = 'resourcehubAll';
+  if (typeParam) {
+    selectedContentType = typeParam;
+  }
   let selectedfacet = '';
   let queryString = '';
+  
+  if (typeParam === 'Self paced learning' || typeParam === 'Instructor led training') {
+    selectedContentType = 'Training';
+    queryString = `&facetId=trainingcoursetype&value=${typeParam}`;
+  }
 
   /* searchBox.addEventListener('blur', () => {
     const suggestionPopup = document.getElementById('resourcehub-search-suggestion');

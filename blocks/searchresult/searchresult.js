@@ -406,6 +406,21 @@ export default async function decorate(block) {
 
   const pageUrl = new URL(window.location.href);
   let query;
+
+  const resourceHubAllFacet = [    
+       'Knowledge base articles',       
+       'Technical notes',
+       'Regulatory documents',
+       'User guides',
+       'Training'
+  ]
+  const trainingFacet = [ 
+    {
+      facetId: 'trainingcoursetype',
+      values: ['Self paced learning', 'Instructor led training'],
+    }
+  ];
+   
   try {
     if (pageUrl.search) {
       const params = new URLSearchParams(pageUrl.search);
@@ -420,7 +435,24 @@ export default async function decorate(block) {
       searchEngine.dispatch(updateQuery({
         q: query,
       }));
-      if (contentType !== 'All') {
+      if (contentType === 'resourcehubAll') {
+        resourceHubAllFacet?.forEach((facet) => {
+          searchEngine.dispatch(toggleSelectFacetValue({
+            facetId: 'contenttype',
+            selection: { value: facet, state: 'selected' },
+          }));
+          if (facet === 'Training') {
+            trainingFacet[0]?.values.forEach((value) => {
+              searchEngine.dispatch(toggleSelectFacetValue({
+                facetId: trainingFacet[0]?.facetId,
+                selection: { value, state: 'selected' },
+              }));
+            }
+            )
+          }
+        })
+      }
+      if (contentType !== 'All' && contentType !== 'resourcehubAll') {
         searchEngine.dispatch(toggleSelectFacetValue({
           facetId: 'contenttype',
           selection: { value: contentType, state: 'selected' },
