@@ -85,6 +85,7 @@ export default function decorate(block) {
   let fullWidthButtonLink;
   let fullWidthButtonTarget;
   let fullWidthButtonIcon;
+  let fontColour;
  
   if (isFullImage) {
     overlayImage = block.children[7]?.querySelector('picture');
@@ -92,6 +93,7 @@ export default function decorate(block) {
     fullWidthButtonLink = block.children[9]?.textContent?.trim();
     fullWidthButtonIcon = block.children[10]?.querySelector('picture');
     fullWidthButtonTarget = block.children[11]?.textContent?.trim();
+    fontColour = block.children[12]?.textContent?.trim();
   }
  
   /* Clear original block content before rebuilding layout */
@@ -122,7 +124,9 @@ export default function decorate(block) {
   if (heading) {
     const headingGroup = document.createElement('div');
     headingGroup.classList.add('heading-group');
- 
+    if (fontColour) {
+      headingGroup.style.setProperty('color', fontColour, 'important');
+    }
     headingGroup.append(heading);
     if (description) headingGroup.append(description);
  

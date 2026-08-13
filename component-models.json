@@ -1876,6 +1876,30 @@
             "value": "_blank"
           }
         ]
+      },
+      {
+        "component": "select",
+        "name": "fontColour",
+        "label": "Font Colour",
+        "valueType": "string",
+        "condition": {
+          "===": [
+            {
+              "var": "itsFullImage"
+            },
+            true
+          ]
+        },
+        "options": [
+          {
+            "name": "Black",
+            "value": "#000"
+          },
+          {
+            "name": "White",
+            "value": "#FFFFFF"
+          }
+        ]
       }
     ]
   },
