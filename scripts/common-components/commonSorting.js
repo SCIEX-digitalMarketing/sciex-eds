@@ -1,9 +1,8 @@
 // renderCourseCatalogSorting.js
 import { renderSortingDropdown } from '../favorite-all/favorite-all-controller/sortiingUtils.js';
-import { i18n } from '../translation.js';
+import { fetchPlaceholders } from '../../scripts/aem.js';
 
-const lang = document.documentElement.lang || 'en';
-const strings = i18n[lang] || i18n.en;
+const strings = await fetchPlaceholders();
 
 const sortOptions = [
   { label: strings.relevancy, criterion: { by: 'relevancy' } },

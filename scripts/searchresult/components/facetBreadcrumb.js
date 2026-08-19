@@ -1,8 +1,7 @@
 import { facetBreadcrumb } from '../controller/controllers.js';
-import { i18n } from '../../translation.js';
+import { fetchPlaceholders } from '../../aem.js';
 
-const lang = document.documentElement.lang || 'en';
-const strings = i18n[lang] || i18n.en;
+const strings = await fetchPlaceholders();
 
 function canMobileActions() {
   const screenWidth = window.innerWidth;

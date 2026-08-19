@@ -2,12 +2,11 @@
 import {
   removeFavoriteSearchEngine
 } from '../favorite-all/favorite-allDocEngine.js';
-import { i18n } from '../translation.js';
+import { fetchPlaceholders } from '../../scripts/aem.js';
 import renderFavoritePagination, {
   getCurrentPage
 } from './favoritePagination.js';
-const lang = document.documentElement.lang || 'en';
-const strings = i18n[lang] || i18n.en;
+const strings = await fetchPlaceholders();
 
 const MAX_RESULTS = 10;
 
