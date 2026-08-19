@@ -169,7 +169,7 @@ function initDependentFacet(dependentFacet, parentFacets) {
     'language': ['Customer documents', 'Training', 'Resource library', 'Knowledge base articles', 'SCIEX How', 'Technical notes','User guides'],
     'year': ['Customer documents', 'Regulatory documents','User guides'],
     'region': ['Training'],
-    'applications': ['Applications', 'Resource library', 'Knowledge base articles', 'SCIEX How', 'Technical notes'],
+    'applications': ['Applications', 'Resource library', 'SCIEX How', 'Technical notes'],
     'technicaldocuments': ['Regulatory documents'],
     'certificatetypecategories': ['Training'],
     'coursetypecategories': ['Training'],

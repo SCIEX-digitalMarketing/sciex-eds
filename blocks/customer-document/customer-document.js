@@ -17,7 +17,7 @@ import renderCommonQuerySummary from '../../scripts/common-components/commonQuer
 import renderCommonPagination from '../../scripts/common-components/commonPagination.js';
 import { renderCommonFacet } from '../../scripts/common-components/commonFacets.js';
 import renderCommonFacetBreadcurm from '../../scripts/common-components/commonFacetBreadcurm.js';
-import { i18n } from '../../scripts/translation.js';
+import {fetchPlaceholders } from '../../scripts/aem.js';
 
 async function readBlockProperties(block) {
   // Create no results section
@@ -80,8 +80,7 @@ async function readBlockProperties(block) {
 }
 
 export default async function decorate(block) {
-  const lang = document.documentElement.lang || 'en';
-  const strings = i18n[lang] || i18n.en;
+  const strings = await fetchPlaceholders();
   // Create suggestion popup div
   const suggestionPopupDiv = document.createElement('div');
   suggestionPopupDiv.id = 'suggestion-popup';

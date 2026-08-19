@@ -1,8 +1,7 @@
 import { handleMobileFilters } from './commonFacets.js';
-import { i18n } from '../translation.js';
+import { fetchPlaceholders } from '../../scripts/aem.js';
 
-const lang = document.documentElement.lang || 'en';
-const strings = i18n[lang] || i18n.en;
+const strings = await fetchPlaceholders();
 
 // Helper function for creating DOM elements
 function createElement(tag, options = {}) {
