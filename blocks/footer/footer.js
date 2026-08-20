@@ -344,6 +344,10 @@ function processFragment(block, fragment) {
     class:
       'icon icon-kr tw-text-mobBase md:tw-text-base tw-font-bold tw-tracking-wide stretch-text tw-pr-6',
   });
+  const cnflag = span({
+    class:
+      'icon icon-cn tw-text-mobBase md:tw-text-base tw-font-bold tw-tracking-wide stretch-text tw-pr-6',
+  });
 
   const countrySelect = firstSectionContent.querySelector(
     '.default-content-wrapper',
@@ -364,6 +368,8 @@ function processFragment(block, fragment) {
     selectedLanguage.append(addCountryFlag('kr'), listItems[0].textContent);
   } else if (listItems[0].textContent === 'Spanish') {
     selectedLanguage.append(addCountryFlag('es'), listItems[0].textContent);
+  }  else if (listItems[0].textContent === 'Chinese') {
+    selectedLanguage.append(addCountryFlag('cn'), listItems[0].textContent);
   }
 
   if (selectedLanguage.textContent === 'English') {
@@ -374,6 +380,8 @@ function processFragment(block, fragment) {
     selectedLanguage.prepend(krflag);
   } else if (selectedLanguage.textContent === 'Spanish') {
     selectedLanguage.prepend(esflag);
+  }  else if (selectedLanguage.textContent === 'Chinese') {
+    selectedLanguage.prepend(cnflag);
   }
 
   // Modal code for language selection
@@ -509,6 +517,17 @@ function processFragment(block, fragment) {
         selectedLanguageMobile.append(chevronUp);
       }
     }
+    else if (this.text === 'Chinese') {
+      cloneSelectedlang.prepend(addCountryFlag('cn'), cnflag);
+      selectedLanguage.prepend(addCountryFlag('cn'), cnflag);
+      selectedLanguage.appendChild(chevronDown);
+      selectedLanguage.appendChild(chevronUp);
+      this.prepend(cnflag);
+      if (selectedLanguageMobile && canMobileActions()) {
+        selectedLanguageMobile.append(chevronDown);
+        selectedLanguageMobile.append(chevronUp);
+      }
+    }
   };
 
   for (let i = 0; i < optionLinks.length; i += 1) {
@@ -528,6 +547,8 @@ function processFragment(block, fragment) {
       optionLinks[i].prepend(krflag);
     } else if (optionLinks[i].textContent === 'Spanish') {
       optionLinks[i].prepend(esflag);
+    } else if (optionLinks[i].textContent === 'Chinese') {
+      optionLinks[i].prepend(cnflag);
     }
   }
 
