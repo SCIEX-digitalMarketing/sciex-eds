@@ -4,7 +4,7 @@ main > .breadcrumb-container {
 }
 
 main > .section > div {
-  padding: 15px 32px;
+  padding: 15px 47px;
 }
 
 @media (min-width: 900px) {
@@ -61,7 +61,7 @@ main > .section > div {
 /* Wrapping behavior for smaller screens */
 @media (max-width: 767px) {
   .breadcrumb-wrapper {
-    padding: 16px 15px;
+    padding: 16px 15px !important;
   }
 
   .breadcrumb-wrapper nav {
@@ -75,7 +75,7 @@ main > .section > div {
 
 @media (min-width: 375px) {
   .breadcrumb-wrapper {
-    padding: 16px 15px;
+    padding: 16px 15px !important;
     max-width: 40pc !important;
   }
 }
@@ -95,24 +95,26 @@ main > .section > div {
 @media (min-width: 1024px) {
   .breadcrumb-wrapper {
     max-width: 63pc !important;
-    padding-left: 55px !important;
-    padding-right: 55px !important;
+    padding-left: 47px !important;
+    padding-right: 47px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 }
 
 @media (min-width: 1280px) {
   .breadcrumb-wrapper {
     max-width: 79pc !important;
-    padding-left: 55px !important;
-    padding-right: 55px !important;
+    padding-left: 47px !important;
+    padding-right: 47px !important;
   }
 }
 
 @media (min-width: 1366px) {
   .breadcrumb-wrapper {
     max-width: 84pc !important;
-    padding-left: 55px !important;
-    padding-right: 55px !important;
+    padding-left: 47px !important;
+    padding-right: 47px !important;
   }
 }
 
