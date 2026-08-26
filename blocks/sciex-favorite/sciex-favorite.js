@@ -62,7 +62,7 @@ export default async function decorate(block) {
   header.className = 'accordion-header';
   header.innerHTML = `
   <h2>${title}</h2>
-  <button class="accordion-toggle" aria-expanded="false">
+  <button class="accordion-toggle" aria-expanded="false" aria-label="ExpandIcon">
     <span class="icon icon-resource-hub-down" aria-hidden="true"></span>
   </button>
 `;
