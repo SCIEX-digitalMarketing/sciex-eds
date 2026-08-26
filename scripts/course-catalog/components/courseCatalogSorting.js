@@ -33,6 +33,7 @@ const renderCourseCatalogSorting = () => {
   const selectElement = document.createElement('select');
   selectElement.id = 'sort-element';
   selectElement.className = 'tw-py-2 tw-px-3 tw-border tw-border-gray-300 tw-bg-white tw-text-sm';
+  selectElement.setAttribute('aria-label', 'SortResults');
   sortOptions.forEach((option) => {
     const optionElement = document.createElement('option');
     optionElement.value = JSON.stringify(option.criterion);

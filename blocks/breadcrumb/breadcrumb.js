@@ -125,6 +125,7 @@ const createLink = (breadcrumbItem) => {
   }
 
   linkEl.classList.add('breadcrumb-link');
+  linkEl.setAttribute('aria-label', 'breadcrumb-home-icon');
   return linkEl;
 };
 

@@ -65,8 +65,9 @@ export default function decorate(block) {
     // Toggle button (controls expand/collapse)
     const toggleButton = document.createElement('button');
     toggleButton.className = 'accordion-toggle';
-    toggleButton.setAttribute('aria-expanded', 'false'); // initial collapsed state
-
+    toggleButton.setAttribute('aria-label', `Expand ${itemTitle}`);
+    toggleButton.setAttribute('aria-expanded', 'false');
+    
     // Title inside the button
     const titleSpan = document.createElement('span');
     titleSpan.className = 'accordion-title';
