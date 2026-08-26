@@ -1,7 +1,7 @@
 /* Wrapper for the accordion header area */
 .sciex-favorite-wrapper {
     /* max-width: 1440px !important; */
-    padding: 0px 20px !important;
+    padding: 0px 0px !important;
     margin-top: 32px;
   }
   
@@ -23,7 +23,7 @@
   
   /* Header spacing inside grey bar */
   .sciex-favorite-wrapper .accordion-header {
-    padding: 20px 40px;
+    padding: 20px 47px;
   }
 
   .favorites-category a:any-link {
