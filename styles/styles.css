@@ -280,19 +280,6 @@ main > .section:first-of-type {
   margin-top: 0;
 }
 
-.tabs-container-wrapper,
-.sciex-text-wrapper {
-  padding: 16px 15px !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-}
-
-@media (min-width: 768px) {
-  .tabs-container-wrapper,
-  .sciex-text-wrapper {
-    padding: 15px 47px !important;
-  }
-}
 
 @media (width >= 900px) {
   main > .section > div {
@@ -1399,8 +1386,6 @@ main .section.highlight {
   .featured-products-wrapper
   .sciex-columns-wrapper {
     /* padding: 0 20px !important; */
-     margin-left: 0 !important;
-    margin-right: 0 !important;
   }
 }
 /* XL Display */
