@@ -11,16 +11,20 @@ export default async function decorate(block) {
   wrapper.classList.add('button-block', `align-${alignment}`);
 
   rows.slice(1).forEach((row) => {
-    const paragraphs = Array.from(row.querySelectorAll('p'));
-    const picture = row.querySelector('picture');
+  const divs = Array.from(row.querySelectorAll(':scope > div'));
+  const cells = divs.map((div) => {
+    const p = div.querySelector('p');
+    const picture = div.querySelector('picture');
 
-    const cells = paragraphs.map((p) => p.textContent.trim());
+    return picture || (p ? p.textContent.trim() : '');
+  });
 
     const [
       type = 'primary',
       text = '',
       link = '#',
       showSvgRaw = 'false',
+      picture,
       target = '_self',
     ] = cells;
 
