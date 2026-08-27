@@ -20,7 +20,7 @@ export default async function decorate(block) {
       type = 'primary',
       text = '',
       link = '#',
-      showSvgRaw = 'false',,
+      showSvgRaw = 'false',
       target = '_self',
     ] = cells;
 
