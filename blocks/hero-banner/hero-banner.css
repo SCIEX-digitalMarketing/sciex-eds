@@ -5,7 +5,7 @@
 
 .event-card {
   display: flex;
-  height: 258px;
+  height: 318px;
   flex-direction: row;
   align-items: stretch;
   flex-shrink: 0;
@@ -128,7 +128,7 @@ font-size: 14px;
 
 .event-card.full-image-layout {
   position: relative;
-  height: 258px;
+  height: 318px;
   margin-bottom: 20px;
 }
 
@@ -143,7 +143,7 @@ font-size: 14px;
   left: 64px;
   width: auto;
   max-width: 685px;
-  padding: 0;
+  padding: 30px 0;
   background: none;
   color: #fff;
   z-index: 2;
@@ -240,7 +240,7 @@ display: block;
 
  /* Increase banner height only for mobile */
  .event-card.full-image-layout {
-  height: 564px;
+  height: 444px;
 }
 
 .event-card.full-image-layout .event-image {
@@ -268,9 +268,9 @@ display: block;
 /* Keep text visible below overlay */
 .event-card.full-image-layout .event-content {
   left: 24px;
-  bottom: 24px;
+  /* bottom: 24px; */
   max-width: 85%;
-  z-index: 3;
+  z-index: 2;
 }
   .datetime-wrapper {
     display: none;
@@ -298,7 +298,7 @@ display: block;
 
   .event-card.full-image-layout .event-content {
     left: 24px;
-    bottom: 24px;
+    /* bottom: 24px; */
     max-width: 85%;
   }
 }
