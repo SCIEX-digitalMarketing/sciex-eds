@@ -28,42 +28,7 @@ function canMobileActions() {
   }
   return true;
 }
-async function getUserDetails() {
-  try {
-    const response = await fetch('/bin/sciex/currentuserdetails', {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        Accept: 'application/json',
-      },
-    });
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    const userDetails = await response.json();
-    window.dataLayer = window.dataLayer || [];
-    localStorage.setItem('auth0Id', userDetails.auth0Id);
 
-    const existingUser = window.dataLayer.find(item => item.user);
-
-    if (existingUser) {
-      existingUser.user.auth0Id = userDetails.auth0Id;
-      existingUser.user.company = "SCIEX";
-    } else {
-      window.dataLayer.push({
-        user: {
-          auth0Id: userDetails.auth0Id,
-          company: "SCIEX",
-        },
-      });
-    }
-    localStorage.setItem('userDetails', JSON.stringify(userDetails));
-    return userDetails;
-  } catch (error) {
-    localStorage.removeItem('userDetails');
-    return null;
-  }
-}
 const HISTORY_KEY = 'searchHistory';
 function getSearchHistory() {
   return JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
@@ -1773,8 +1738,6 @@ function processHtml(block, main, placeholders = {}) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  // Fetch user details first
-  await getUserDetails();
   const placeholders = await fetchPlaceholders();
   // load nav as fragment
   const lang = document.documentElement.lang?.toLowerCase() || '';

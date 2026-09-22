@@ -14,6 +14,7 @@ import {
   loadCSS,
   toClassName,
   getMetadata,
+  getUserDetails
 } from './aem.js';
 
 export function getCookie(name) {
@@ -218,6 +219,7 @@ function loadDelayed() {
  * Loads the page and initializes scripts.
  */
 async function loadPage() {
+  await getUserDetails();
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();
