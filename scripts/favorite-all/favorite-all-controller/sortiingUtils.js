@@ -17,12 +17,14 @@ export const createSortHandler = (sortController) => ({
  * Displays message, Login CTA, and Create Account CTA.
  * */
 export function renderLoggedOut(container, text, loginUrl, createUrl) {
+  const loginLabel = strings?.login || 'Login';
+  const createAccountLabel = strings?.createAnAccount || 'Create an account';
   container.innerHTML = `
     <div class="favorites-logged-out">
       <p>${text}</p>
       <div class="cta-row">
-        <a class="btn secondary" href="${loginUrl}">Login</a>
-        <a class="btn primary" href="${createUrl}">Create an account</a>
+        <a class="btn secondary" href="${loginUrl}">${loginLabel}</a>
+        <a class="btn primary" href="${createUrl}">${createAccountLabel}</a>
       </div>
     </div>
   `;
