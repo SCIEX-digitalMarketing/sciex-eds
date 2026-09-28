@@ -125,8 +125,8 @@ export default async function decorate(block) {
  * Displays message, Login CTA, and Create Account CTA.
  * */
 function renderLoggedOut(container, text, loginUrl, createUrl ) {
-  const loginLabel = placeholders?.login || 'Login23';
-  const createAccountLabel = placeholders?.createAnAccount || 'Create an account23';
+  const loginLabel = placeholders?.login || 'Login';
+  const createAccountLabel = placeholders?.createAnAccount || 'Create an account';
 
   container.innerHTML = `
     <div class="favorites-logged-out">
