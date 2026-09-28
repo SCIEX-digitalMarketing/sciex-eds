@@ -1,5 +1,7 @@
 /* eslint-disable */
-import { decorateIcons } from '../../scripts/aem.js';
+import { decorateIcons, fetchPlaceholders } from '../../scripts/aem.js';
+
+const placeholders = await fetchPlaceholders();
 
 const CATEGORY_MAP = [
   {
@@ -122,13 +124,16 @@ export default async function decorate(block) {
  * Renders the logged-out state UI.
  * Displays message, Login CTA, and Create Account CTA.
  * */
-function renderLoggedOut(container, text, loginUrl, createUrl) {
+function renderLoggedOut(container, text, loginUrl, createUrl ) {
+  const loginLabel = placeholders?.login || 'Login23';
+  const createAccountLabel = placeholders?.createAnAccount || 'Create an account23';
+
   container.innerHTML = `
     <div class="favorites-logged-out">
       <p>${text}</p>
       <div class="cta-row">
-        <a class="btn secondary" href="${loginUrl}">Login</a>
-        <a class="btn primary" href="${createUrl}">Create an account</a>
+        <a class="btn secondary" href="${loginUrl}">${loginLabel}</a>
+        <a class="btn primary" href="${createUrl}">${createAccountLabel}</a>
       </div>
     </div>
   `;
