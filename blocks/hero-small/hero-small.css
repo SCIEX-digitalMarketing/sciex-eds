@@ -149,7 +149,8 @@
 }
 
 .hero-tagline-wrap-bottom .hero-tagline{
-  color: rgba(255, 255, 255, 0.50);}
+  /* color: rgba(255, 255, 255, 0.50); */
+}
 
 .hero-tagline{
 font-family: Geogrotesque;
@@ -178,7 +179,7 @@ letter-spacing: 0.09px;
   margin-right: 20px;
   font-size: 15px;
   line-height: 1.5;
-  color: rgba(255, 255, 255);
+  /* color: rgba(255, 255, 255); */
   font-weight: 400;
   max-width: 41.667%;
 }
@@ -484,4 +485,12 @@ letter-spacing: 0.09px;
 
 .hero-small-wrapper .herosmallclass:has(.hero-content-wrapper) {
   padding: 0px 40px !important;
+}
+
+.hero-small-wrapper .hero-text-dark {
+  color: var(--Grey-900, #141414);
+}
+
+.hero-small-wrapper .hero-text-light {
+  color: #fff;
 }

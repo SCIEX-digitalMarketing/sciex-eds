@@ -5,7 +5,13 @@ function extractBlockData(block) {
   const cells = [...block.querySelectorAll(':scope > div')];
   const clonedCells = cells.map((cell) => cell.cloneNode(true));
 
-  const mediaDivChildren = clonedCells[15]?.querySelectorAll(':scope > div') || [];
+  const heroTextColor = clonedCells.find((cell) => (
+    ['dark', 'light'].includes(cell.querySelector('p')?.textContent?.trim().toLowerCase())
+  ))?.querySelector('p')?.textContent?.trim().toLowerCase();
+  const mediaCell = clonedCells.find((cell) => (
+    cell.querySelectorAll(':scope > div').length > 1
+  ));
+  const mediaDivChildren = mediaCell?.querySelectorAll(':scope > div') || [];
 
   const isContactHero = mediaDivChildren[1]
     ?.querySelector('p')
@@ -18,8 +24,9 @@ function extractBlockData(block) {
     tagline: clonedCells[12]?.innerText.trim(),
     badgePicture: clonedCells[13]?.querySelector('picture'),
     captionPosition: clonedCells[14]?.querySelector('p')?.textContent?.trim() || 'top',
-    mainPicture: clonedCells[15]?.querySelector('picture'),
-    videoAnchor: clonedCells[15]?.querySelector('.button-container a'),
+    heroTextColor: heroTextColor === 'dark' ? 'dark' : 'light',
+    mainPicture: mediaCell?.querySelector('picture'),
+    videoAnchor: mediaCell?.querySelector('.button-container a'),
     mediaDivChildren,
     buttonDataList: [],
     isContactHero,
@@ -57,7 +64,7 @@ function buildHeroContent(data) {
   const applyClass = (baseClass) => (data.isContactHero ? `contact-${baseClass}` : baseClass);
 
   const content = document.createElement('div');
-  content.className = applyClass('hero-content');
+  content.className = `${applyClass('hero-content')} hero-text-${data.heroTextColor}`;
 
   // Tagline + Badge
   if (data.tagline) {
