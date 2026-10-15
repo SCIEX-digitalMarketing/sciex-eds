@@ -2040,6 +2040,23 @@
           }
         ],
         "description": "Choose where the caption appears."
+      },
+      {
+        "component": "select",
+        "name": "heroTextColor",
+        "label": "Hero Text Color",
+        "valueType": "string",
+        "value": "light",
+        "options": [
+          {
+            "name": "Dark",
+            "value": "dark"
+          },
+          {
+            "name": "Light",
+            "value": "light"
+          }
+        ]
       }
     ]
   },
